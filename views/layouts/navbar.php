@@ -47,7 +47,7 @@
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="components/avatars.html">
+                      <a href="/product_list">
                         <span class="sub-item">Product List</span>
                       </a>
                     </li>
