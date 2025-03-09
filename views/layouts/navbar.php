@@ -57,7 +57,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="components/gridsystem.html">
+                      <a href="/product_detail">
                         <span class="sub-item">Product Detail</span>
                       </a>
                     </li>
