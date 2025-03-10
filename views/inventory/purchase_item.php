@@ -1,15 +1,10 @@
-<style>
-    img {
-        border-radius: 50%;
-    }
-</style>
 <div class="card">
     <div class="card-header">
         <div class="card-title">Responsive Table</div>
     </div>
     <div class="card-body">
         <div class="card-sub">
-            <h1>Orders Restock </h1>
+            <h1 class="text-start">Orders Restock </h1>
 
         </div>
         <div class="table-responsive ">

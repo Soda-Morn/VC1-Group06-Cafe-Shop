@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
         <div class="card-sub">
-            <h1>Product Detail </h1>
+            <h1 class="text-start">Product Detail </h1>
 
         </div>
         <div class="table-responsive ">
