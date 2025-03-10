@@ -135,7 +135,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="tables/datatables.html">
+                      <a href="/purchaseitem">
                         <span class="sub-item">Purchase Item</span>
                       </a>
                     </li>
