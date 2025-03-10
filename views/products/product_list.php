@@ -24,8 +24,6 @@
                 <div class="card">
                     <div class="card-body">
                     <div class="card-body d-flex justify-content-end gap-4">
-                    <a href="" class="mr-3"><i class="far fa-edit fa-2x"></i></a>
-                    <a href="" class="text-danger"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </div>
 
                                         <div class="card-img-actions">
@@ -67,8 +65,6 @@
            <div class="card">
                     <div class="card-body">
                     <div class="card-body d-flex justify-content-end gap-4">
-                    <a href="" class="mr-3"><i class="far fa-edit fa-2x"></i></a>
-                    <a href="" class="text-danger"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </div>
 
                     <div class="card-img-actions">
@@ -112,8 +108,6 @@
            <div class="card">
                     <div class="card-body">
                     <div class="card-body d-flex justify-content-end gap-4">
-                    <a href="" class="mr-3"><i class="far fa-edit fa-2x"></i></a>
-                    <a href="" class="text-danger"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </div>
 
                     <div class="card-img-actions">
@@ -157,8 +151,6 @@
            <div class="card">
                     <div class="card-body">
                     <div class="card-body d-flex justify-content-end gap-4">
-                    <a href="" class="mr-3"><i class="far fa-edit fa-2x"></i></a>
-                    <a href="" class="text-danger"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </div>
 
                     <div class="card-img-actions">
@@ -202,8 +194,6 @@
            <div class="card">
                     <div class="card-body">
                     <div class="card-body d-flex justify-content-end gap-4">
-                    <a href="" class="mr-3"><i class="far fa-edit fa-2x"></i></a>
-                    <a href="" class="text-danger"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </div>
 
 
@@ -249,8 +239,6 @@
            <div class="card">
                     <div class="card-body">
                     <div class="card-body d-flex justify-content-end gap-4">
-                    <a href="" class="mr-3"><i class="far fa-edit fa-2x"></i></a>
-                    <a href="" class="text-danger"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </div>
 
                     <div class="card-img-actions">
