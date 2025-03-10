@@ -1,5 +1,5 @@
 <?php require_once 'views/layouts/header.php'; ?>
-<section class="h-100 gradient-form" >
+<section class="h-100 gradient-form" style="background-color: #f4f7fc;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-8 col-lg-10">
