@@ -6,6 +6,7 @@ require_once "Controllers/DashboardController.php";
 require_once "Controllers/ProductListController.php";
 require_once "Controllers/ProductDetailController.php";
 require_once "Controllers/PurchaseitemController.php";
+require_once "Controllers/RegistrationController.php";
 
 
 $route = new Router();
@@ -13,6 +14,12 @@ $route = new Router();
 $route->get("/", [DashboardController::class, 'index']);
 
 // productList
-$route->get("/purchaseitem", [PurchaseitemController::class, 'index']);
+$route->get("/product_list", [ProductListController::class, 'index']);
+$route->get("/product_detail", [ProductDetailController::class, 'index']);
+$route->get("/purchase_item", [PurchaseitemController::class, 'index']);
+
+
+//reguster
+$route->get("/Registration", [RegistrationController::class, 'Registration']);
 
 $route->route();
