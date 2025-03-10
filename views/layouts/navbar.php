@@ -127,7 +127,7 @@
                 </a>
               </li>
               <li>
-                <a href="tables/datatables.html">
+                <a href="/purchase_item_add">
                   <span class="sub-item">Purchase Item Add</span>
                 </a>
               </li>
