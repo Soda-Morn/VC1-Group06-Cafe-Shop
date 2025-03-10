@@ -1,7 +1,7 @@
 <?php
 
-class LoginController extends BaseController {
+class LoginController{
     public function login() {
-        $this->view('login/login');
+        require "views/login/login.php";
     }
 }

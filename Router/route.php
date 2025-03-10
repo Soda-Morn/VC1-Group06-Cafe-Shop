@@ -8,12 +8,11 @@ require_once "Controllers/DashboardController.php";
 
 
 $route = new Router();
-$route->post("/login", [LoginController::class, 'login']);
 //Dashboard Routs
 $route->get("/", [DashboardController::class, 'index']);
 
 // login routs
-
+$route->post("/login", [LoginController::class, 'login']);
 
 
 
