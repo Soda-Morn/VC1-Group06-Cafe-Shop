@@ -1,5 +1,5 @@
 <?php require_once 'views/layouts/header.php'; ?>
-<div class="container mt-5">
+<div class="container-1">
     <h2>User Registration</h2>
 
     <div class="row">

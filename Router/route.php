@@ -18,7 +18,7 @@ $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
 $route->get("/purchase_item", [PurchaseitemController::class, 'index']);
 
-
+$route->route();
 //reguster
 $route->get("/Registration", [RegistrationController::class, 'Registration']);
 
