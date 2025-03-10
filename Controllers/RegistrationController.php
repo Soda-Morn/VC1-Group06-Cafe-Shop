@@ -1,7 +1,7 @@
 <?php
 
 class RegistrationController  extends BaseController {
-    public function Registration () {
+    public function Registration() {
         require "views/Registration/Registration.php";
 
     }
