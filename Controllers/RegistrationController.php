@@ -2,7 +2,7 @@
 
 class RegistrationController  extends BaseController {
     public function Registration () {
-        $this->view('Registration/Registration');
+        require "views/Registration/Registration.php";
 
     }
 }
