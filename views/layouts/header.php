@@ -37,5 +37,6 @@
     <link rel="stylesheet" href="views/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="views/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="views/assets/css/kaiadmin.min.css" />
+    <link rel="stylesheet" href="views/assets/css/productlist.css">
   </head>
   <body>
