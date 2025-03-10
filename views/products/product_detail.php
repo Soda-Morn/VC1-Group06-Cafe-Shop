@@ -1,8 +1,3 @@
-<style>
-img {
-  border-radius: 50%;
-}
-</style>
 <div class="card">
     <div class="card-header">
         <div class="card-title">Responsive Table</div>
@@ -29,7 +24,7 @@ img {
 
                     <tr>
                         <th scope="row">1</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -40,7 +35,7 @@ img {
                     </tr>
                     <tr>
                         <th scope="row">2</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -51,7 +46,7 @@ img {
                     </tr>
                     <tr>
                         <th scope="row">3</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -62,7 +57,7 @@ img {
                     </tr>
                     <tr>
                         <th scope="row">4</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -73,7 +68,7 @@ img {
                     </tr>
                     <tr>
                         <th scope="row">5</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -84,7 +79,7 @@ img {
                     </tr>
                     <tr>
                         <th scope="row">6</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -95,7 +90,7 @@ img {
                     </tr>
                     <tr>
                         <th scope="row">7</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt=""style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
                         <td>Coffe</td>
 
 
@@ -104,22 +99,6 @@ img {
                         <td><i class="fa-regular fa-pen-to-square m-3"></i><i class="fa-regular fa-trash-can" style="color: #ec1818;"></i></td>
 
                     </tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </tbody>
             </table>
         </div>
