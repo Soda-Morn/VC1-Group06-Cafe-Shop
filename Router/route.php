@@ -14,24 +14,5 @@ $route->get("/", [DashboardController::class, 'index']);
 // productList
 $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
-require_once "Controllers/RegistrationController.php";
-require_once "Controllers/DashboardController.php";
-
-
-
-
-$route = new Router();
-
-
-$route->get("/Registration", [RegistrationController::class, 'Registration']);
-
-$route->route();
-
-
-$route = new Router();
-//Dashboard Routs
-$route->get("/", [DashboardController::class, 'index']);
-
-
 
 $route->route();
