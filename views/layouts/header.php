@@ -37,5 +37,7 @@
     <link rel="stylesheet" href="views/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="views/assets/css/plugins.min.css" />
     <link rel="stylesheet" href="views/assets/css/kaiadmin.min.css" />
+    <link rel="stylesheet" href="views/assets/css/login.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   </head>
   <body>

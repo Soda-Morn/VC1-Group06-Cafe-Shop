@@ -1,46 +1,62 @@
 <?php require_once 'views/layouts/header.php'; ?>
-<section class="h-100 gradient-form" style="background-color: #eee;">
-    <!-- Your existing HTML content -->
+<section class="h-100 gradient-form" >
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
-                <div class="card rounded-3 text-black">
+            <div class="col-xl-8 col-lg-10">
+                <div class="card rounded-3 shadow-lg text-black">
                     <div class="row g-0">
-                        <div class="col-lg-6" width="300">
+                        <!-- Left Column (Login Form) -->
+                        <div class="col-lg-6">
                             <div class="card-body p-md-5 mx-md-4">
-                                <div class="text-center">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                                        style="width: 185px;" alt="logo">
-                                    <h4 class="mt-1 mb-5 pb-1">Welcome, Admin. Empowering the system with your decisions.</h4>
+                                <div class="text-center mb-4">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" 
+                                         style="width: 130px;" alt="logo">
+                                    <h4 class="mt-2 mb-3">Welcome Back, Admin</h4>
+                                    <p class="text-muted">Sign in to your account</p>
                                 </div>
                                 <form>
-                                    <p>Please login to your account</p>
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form2Example11">Email address</label>
-                                        <input type="email" id="form2Example11" class="form-control"
-                                            placeholder="Phone number or email address" />
+                                    <!-- Email Input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example11">Email Address</label>
+                                        <input type="email" id="form2Example11" class="form-control" placeholder="Email address or phone number" required 
+                                               style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"/>
                                     </div>
-                                    <div data-mdb-input-init class="form-outline mb-4">
+                                    <!-- Password Input -->
+                                    <div class="form-outline mb-4 position-relative">
                                         <label class="form-label" for="form2Example22">Password</label>
-                                        <input type="password" id="form2Example22" class="form-control"
-                                            placeholder="Password" />
+                                        <input type="password" id="form2Example22" class="form-control" placeholder="Password" required 
+                                               style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"/>
+                                        <!-- Eye Icon for toggling password visibility -->
+                                        <i class="eye-icon position-absolute" id="togglePassword" style="right: 15px; top: 35%; cursor: pointer;">
+                                            <i class="bi bi-eye" style="font-size: 20px; color: #6c757d;"></i>
+                                        </i>
                                     </div>
-                                    <div class="text-center pt-1 mb-5 pb-1">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Log
-                                            in</button>
-                                        <a class="text-muted" href="#!">Forgot password?</a>
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <div>
+                                            <input type="checkbox" id="rememberMe" /> 
+                                            <label for="rememberMe" class="text-muted">Remember Me</label>
+                                        </div>
+                                        <a href="#" class="text-muted">Forgot Password?</a>
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-center pb-4">
-                                        <p class="mb-0 me-2">Don't have an account?</p>
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger">Create new</button>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary btn-block w-100 py-3" 
+                                                style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); transition: background-color 0.3s ease;">
+                                            Log In
+                                        </button>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <p class="mb-0 text-muted">Don't have an account? 
+                                            <a href="#" class="text-primary">Create New</a>
+                                        </p>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-lg-3 d-flex align-items-end gradient-custom-2" style="height: 100%;">
-                            <div>
-                                <img src="views/assets/img/login/image_login.jpg" alt="Login Image" width="500">
-                            </div>
+                        <!-- Right Column (Image) -->
+                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2" 
+                             style="height: 100%; background-color: #2d3e56;">
+                            <img src="views/assets/img/login/image_login.jpg" alt="Login Image" class="img-fluid"
+                                 style="max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);">
                         </div>
                     </div>
                 </div>
@@ -48,3 +64,4 @@
         </div>
     </div>
 </section>
+

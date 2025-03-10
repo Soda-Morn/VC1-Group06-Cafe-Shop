@@ -1,22 +1,59 @@
-.gradient-custom-2 {
-    /* fallback for old browsers */
-    background: #fccb90;
-    
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    }
-    
-    @media (min-width: 768px) {
-    .gradient-form {
-    height: 100vh !important;
-    }
-    }
-    @media (min-width: 769px) {
+
+
     .gradient-custom-2 {
-    border-top-right-radius: .3rem;
-    border-bottom-right-radius: .3rem;
+        background: linear-gradient(45deg, #ff6e5a, #f9a827);
+        color: white;
     }
+    .card-body {
+        background-color: #ffffff;
+        box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
     }
+    .form-control {
+        border-radius: 8px;
+        padding: 15px;
+        border: 1px solid #dcdfe3;
+        transition: all 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #2d3e56;
+        box-shadow: 0 0 0 0.2rem rgba(45, 62, 86, 0.25);
+    }
+    .form-outline {
+        margin-bottom: 20px;
+    }
+    .btn-primary {
+        background-color: #2d3e56;
+        border-color: #2d3e56;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+        background-color: #1d2b3d;
+        border-color: #1d2b3d;
+    }
+    .btn-outline-danger {
+        border-color: #e74a3b;
+        color: #e74a3b;
+    }
+    .btn-outline-danger:hover {
+        background-color: #e74a3b;
+        color: white;
+    }
+    .text-muted {
+        font-size: 14px;
+    }
+    .text-primary {
+        color: #4e73df;
+        text-decoration: none;
+    }
+    .text-primary:hover {
+        text-decoration: underline;
+    }
+    .img-fluid {
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+
