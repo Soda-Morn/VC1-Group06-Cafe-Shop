@@ -10,6 +10,7 @@ require_once "Controllers/PurchaseItemAddController.php";
 require_once "Controllers/RegistrationController.php";
 
 
+
 $route = new Router();
 //Dashboard Routs
 $route->get("/", [DashboardController::class, 'index']);
@@ -19,6 +20,8 @@ $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
 $route->get("/purchase_item", [PurchaseitemController::class, 'index']);
 $route->get("/purchase_item_add", [PurchaseItemAddController::class, 'index']);
+
+
 
 $route->route();
 //reguster
