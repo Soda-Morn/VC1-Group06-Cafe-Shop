@@ -96,7 +96,7 @@
           <div class="collapse" id="forms">
             <ul class="nav nav-collapse">
               <li>
-                <a href="forms/forms.html">
+                <a href="/order_list">
                   <span class="sub-item">Order List</span>
                 </a>
               </li>
