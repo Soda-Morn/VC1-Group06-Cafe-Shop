@@ -4,6 +4,7 @@ require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
 require_once "Controllers/LoginController.php";
 require_once "Controllers/DashboardController.php";
+require_once "Controllers/StocklistController.php";
 require_once "Controllers/ProductListController.php";
 require_once "Controllers/ProductDetailController.php";
 require_once "Controllers/PurchaseitemController.php";
@@ -14,6 +15,8 @@ require_once "Controllers/RegistrationController.php";
 $route = new Router();
 //Dashboard Routs
 $route->get("/", [DashboardController::class, 'index']);
+//Stocklist Routs
+$route->get("/stocklist", [StocklistController::class, 'stocklist']);
 
 $route->route();
 // productList
