@@ -19,17 +19,7 @@
                                     <th class = "bg-warning">STATUS</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                          <tr>
-                            <th>ID</th>
-                            <th>Images</th>
-                            <th>PRODUCTS</th>
-                            <th>CATEGORY</th>
-                            <th>DATE ADDED</th>
-                            <th>STOCK</th>
-                            <th>STARTUS</th>
-                          </tr>
-                        </tfoot>
+                           
                             <tbody>
                                 <tr>
                                     <td>#1</td>
