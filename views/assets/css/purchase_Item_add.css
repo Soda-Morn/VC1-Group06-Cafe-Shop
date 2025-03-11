@@ -1,31 +1,35 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
 }
 .container {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-top: 40px;
 }
+
 /* Header Styling */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: black;
-    padding: 15px;
+    background: white;
+    padding: 15px 20px;
     margin-bottom: 20px;
-    margin-top: 60px;
+    margin-top: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
 }
 .header h2 {
     margin: 0;
+    font-size: 22px;
+    font-weight: bold;
 }
 .header-controls {
     display: flex;
     gap: 10px;
 }
 .add-new-btn, .order-btn {
-    background:rgb(0, 143, 14);
+    background: rgb(0, 143, 14);
     color: white;
     border: none;
     padding: 8px 12px;
@@ -34,22 +38,25 @@ body {
     transition: background 0.3s;
 }
 .add-new-btn:hover, .order-btn:hover {
-    background:rgb(2, 143, 0);
+    background: rgb(2, 143, 0);
 }
 .sort-dropdown {
     padding: 6px;
     border-radius: 5px;
     border: 1px solid #ddd;
 }
-/* Card Styling */
+
+/* Product Cards Styling */
 .card {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
+    margin-left: 10px;
     transition: transform 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
 }
 .edit-delete-icons {
     position: absolute;
@@ -58,37 +65,37 @@ body {
     display: flex;
     gap: 10px;
 }
-.edit-delete-icons .edit-btn {
+.edit-delete-icons i {
     cursor: pointer;
-    color: green; /* Green for edit */
-    font-size: 20px; /* Adjust size */
-    padding: 3px; /* Reduce padding */
+    font-size: 18px;
+    transition: 0.3s;
+    padding: 5px;
     border-radius: 50%;
-    transition: background 0.3s;
 }
-
-.edit-delete-icons .delete-btn {
-    cursor: pointer;
-    color: red; /* Red for delete */
-    font-size: 20px; /* Adjust size */
-    padding: 3px; /* Reduce padding */
-    border-radius: 50%;
-    transition: background 0.3s;
+.edit-btn {
+    color: green;
 }
-
+.delete-btn {
+    color: red;
+}
 .edit-delete-icons i:hover {
     background: rgba(0, 0, 0, 0.1);
 }
 .card-img {
     width: 100%;
-    height: 90%; /* Adjusted to fill the card */
-    object-fit: cover; 
-    margin-top: 20px;/* Ensures full picture display */
+    height: 100%; /* Ensure uniform image size */
+    object-fit: cover;
+}
+.card-body h6 {
+    font-size: 16px;
+    margin: 10px 0;
 }
 .bg-cart {
-    background:rgb(77, 213, 36);
+    background: rgb(77, 213, 36);
     color: white;
     border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
 }
 .bg-cart:hover {
     background: #ff8c00;

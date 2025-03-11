@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div class="container mt-4">
+<div class="container">
     <!-- Header Section -->
     <div class="header">
         <h2>Purchase Item Add</h2>
@@ -27,141 +27,129 @@
 
     <!-- Product Cards -->
     <div class="row" id="product-list">
-        <!-- Product Card 1 -->
-        <div class="col-md-4 mb-4" data-price="250.99">
+        <!-- Row 1 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="250.99">
             <div class="card">
                 <div class="edit-delete-icons">
                     <i class="fas fa-edit edit-btn"></i>
                     <i class="fas fa-trash delete-btn"></i>
                 </div>
-                <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img">
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
                 <div class="card-body text-center">
-                    <h6 class="font-weight-bold">Capucino Coffee</h6>
+                    <h6 class="font-weight-bold">Cappuccino Coffee</h6>
                     <h4>$250.99</h4>
                     <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
                 </div>
             </div>
         </div>
 
-        <!-- Product Card 2 -->
-        <div class="col-md-4 mb-4" data-price="199.99">
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="150.50">
             <div class="card">
                 <div class="edit-delete-icons">
                     <i class="fas fa-edit edit-btn"></i>
                     <i class="fas fa-trash delete-btn"></i>
                 </div>
-                <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img">
-                <div class="card-body text-center">
-                    <h6 class="font-weight-bold">Espresso Coffee</h6>
-                    <h4>$199.99</h4>
-                    <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 3 -->
-        <div class="col-md-4 mb-4" data-price="180.50">
-            <div class="card">
-                <div class="edit-delete-icons">
-                    <i class="fas fa-edit edit-btn"></i>
-                    <i class="fas fa-trash delete-btn"></i>
-                </div>
-                <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img">
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
                 <div class="card-body text-center">
                     <h6 class="font-weight-bold">Latte Coffee</h6>
-                    <h4>$180.50</h4>
-                    <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
-                </div>
-            </div>
-        </div>
-        <!-- Product Card 1 -->
-        <div class="col-md-4 mb-4" data-price="250.99">
-            <div class="card">
-                <div class="edit-delete-icons">
-                    <i class="fas fa-edit edit-btn"></i>
-                    <i class="fas fa-trash delete-btn"></i>
-                </div>
-                <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img">
-                <div class="card-body text-center">
-                    <h6 class="font-weight-bold">Capucino Coffee</h6>
-                    <h4>$250.99</h4>
+                    <h4>$150.50</h4>
                     <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
                 </div>
             </div>
         </div>
 
-        <!-- Product Card 2 -->
-        <div class="col-md-4 mb-4" data-price="199.99">
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="200.75">
             <div class="card">
                 <div class="edit-delete-icons">
                     <i class="fas fa-edit edit-btn"></i>
                     <i class="fas fa-trash delete-btn"></i>
                 </div>
-                <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img">
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
                 <div class="card-body text-center">
-                    <h6 class="font-weight-bold">Espresso Coffee</h6>
-                    <h4>$199.99</h4>
+                    <h6 class="font-weight-bold">Espresso</h6>
+                    <h4>$200.75</h4>
                     <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
                 </div>
             </div>
         </div>
 
-        <!-- Product Card 3 -->
-        <div class="col-md-4 mb-4" data-price="180.50">
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="175.30">
             <div class="card">
                 <div class="edit-delete-icons">
                     <i class="fas fa-edit edit-btn"></i>
                     <i class="fas fa-trash delete-btn"></i>
                 </div>
-                <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png" class="card-img">
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
                 <div class="card-body text-center">
-                    <h6 class="font-weight-bold">Latte Coffee</h6>
-                    <h4>$180.50</h4>
+                    <h6 class="font-weight-bold">Mocha</h6>
+                    <h4>$175.30</h4>
+                    <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="220.90">
+            <div class="card">
+                <div class="edit-delete-icons">
+                    <i class="fas fa-edit edit-btn"></i>
+                    <i class="fas fa-trash delete-btn"></i>
+                </div>
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
+                <div class="card-body text-center">
+                    <h6 class="font-weight-bold">Americano</h6>
+                    <h4>$220.90</h4>
+                    <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="195.00">
+            <div class="card">
+                <div class="edit-delete-icons">
+                    <i class="fas fa-edit edit-btn"></i>
+                    <i class="fas fa-trash delete-btn"></i>
+                </div>
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
+                <div class="card-body text-center">
+                    <h6 class="font-weight-bold">Flat White</h6>
+                    <h4>$195.00</h4>
+                    <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="230.20">
+            <div class="card">
+                <div class="edit-delete-icons">
+                    <i class="fas fa-edit edit-btn"></i>
+                    <i class="fas fa-trash delete-btn"></i>
+                </div>
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
+                <div class="card-body text-center">
+                    <h6 class="font-weight-bold">Macchiato</h6>
+                    <h4>$230.20</h4>
+                    <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-price="210.10">
+            <div class="card">
+                <div class="edit-delete-icons">
+                    <i class="fas fa-edit edit-btn"></i>
+                    <i class="fas fa-trash delete-btn"></i>
+                </div>
+                <img src="https://i.pinimg.com/736x/df/54/85/df5485fbc52cd5f90e3aac6a20ed7342.jpg" class="card-img">
+                <div class="card-body text-center">
+                    <h6 class="font-weight-bold">Iced Coffee</h6>
+                    <h4>$210.10</h4>
                     <button class="btn bg-cart"><i class="fa fa-cart-plus"></i> Add to Cart</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    // Add New Button Alert
-    document.querySelector('.add-new-btn').addEventListener('click', () => {
-        alert('Add New feature coming soon!');
-    });
-
-    // Edit Button Alert
-    document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            alert('Edit feature coming soon!');
-        });
-    });
-
-    // Delete Button Functionality
-    document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', (event) => {
-            if (confirm('Are you sure you want to delete this item?')) {
-                event.target.closest('.col-md-4').remove();
-            }
-        });
-    });
-
-    // Sorting Functionality
-    document.querySelector('.sort-dropdown').addEventListener('change', function () {
-        let productList = document.getElementById('product-list');
-        let products = Array.from(productList.children);
-        let sortType = this.value;
-
-        products.sort((a, b) => {
-            let priceA = parseFloat(a.getAttribute('data-price'));
-            let priceB = parseFloat(b.getAttribute('data-price'));
-            return sortType === "price-low" ? priceA - priceB : priceB - priceA;
-        });
-
-        productList.innerHTML = "";
-        products.forEach(product => productList.appendChild(product));
-    });
-</script>
 
 </body>
 </html>
