@@ -129,6 +129,62 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Product Card 9 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <div class="image-container">
+                        <img src="views/assets/images/image copy 5.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h5 class="card-title">Macchiato</h5>
+                        <h4 class="text-success">$210.00</h4>
+                        <button class="btn btn-success w-100"><i class="fa fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 10 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <div class="image-container">
+                        <img src="views/assets/images/image copy 3.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h5 class="card-title">Flat White</h5>
+                        <h4 class="text-success">$190.25</h4>
+                        <button class="btn btn-success w-100"><i class="fa fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 11 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <div class="image-container">
+                        <img src="views/assets/images/image copy 2.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h5 class="card-title">Affogato</h5>
+                        <h4 class="text-success">$215.99</h4>
+                        <button class="btn btn-success w-100"><i class="fa fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 12 -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <div class="image-container">
+                        <img src="views/assets/images/image copy 4.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h5 class="card-title">Irish Coffee</h5>
+                        <h4 class="text-success">$265.75</h4>
+                        <button class="btn btn-success w-100"><i class="fa fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- End of Product Grid -->
     </div>
