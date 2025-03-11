@@ -1,106 +1,133 @@
 <div class="card">
     <div class="card-header">
-        <div class="card-title">Responsive Table</div>
+        <h4 class="card-title">Responsive Table</h4>
     </div>
     <div class="card-body">
-        <div class="card-sub">
-            <h1 class="text-start">Order list </h1>
-        </div>
-        <div class="table-responsive ">
-            <table class="table table-striped table-striped  table-striped-bg-black">
-                <thead>
+        <h5 class="text-start">Order List</h5>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>ITEM</th>
-                        <th>COSTOMER NAME</th>
-                        <th>PRYMENT INFO</th>
-                        <th>PRICE</th>
-                        <th>STATUS</th>
+                        <th>Item</th>
+                        <th>Original Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-success rounded-pill">Completed</button></td>
+                        <td>1</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>5</td>
+                        <td>$50</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">2</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-warning  rounded-pill">Progress</button></td>
+                        <td>2</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>4</td>
+                        <td>$40</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">3</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-success rounded-pill">Completed</button></td>
+                        <td>3</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>3</td>
+                        <td>$30</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">4</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill ">Progress</button></td>
+                        <td>4</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>2</td>
+                        <td>$20</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">5</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-success rounded-pill ">Completed</button></td>
+                        <td>5</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>6</td>
+                        <td>$60</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">6</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill ">Progress</button></td>
+                        <td>6</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>1</td>
+                        <td>$10</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">7</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-success rounded-pill">Completed</button></td>
+                        <td>7</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>7</td>
+                        <td>$70</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">8</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill ">Progress</button></td>
+                        <td>8</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>8</td>
+                        <td>$80</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">9</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-success rounded-pill">Completed</button></td>
+                        <td>9</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>9</td>
+                        <td>$90</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
                     <tr>
-                        <th scope="row">10</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
-                        <td>Mari Jupi</td>
-                        <td>Debit card</td>
-                        <td>10$</td>
-                        <td><button type="button" class="btn btn-warning rounded-pill ">Progress</button></td>
+                        <td>10</td>
+                        <td>
+                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
+                            Cappuccino
+                        </td>
+                        <td>$10</td>
+                        <td>10</td>
+                        <td>$100</td>
+                        <td><span class="badge bg-success">Completed</span></td>
                     </tr>
-                   
-                 </tbody>
+                </tbody>
             </table>
         </div>
     </div>
