@@ -40,7 +40,6 @@
                         <td>4</td>
                         <td>5.0$</td>
                         <td><button type="button" class="btn btn-success ">Completed</button></td>
-
                     </tr>
                     <tr>
                         <th scope="row">3</th>
@@ -50,7 +49,6 @@
                         <td>4</td>
                         <td>5.0$</td>
                         <td><button type="button" class="btn btn-success ">Completed</button></td>
-
                     </tr>
                     <tr>
                         <th scope="row">4</th>
