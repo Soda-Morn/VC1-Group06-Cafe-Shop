@@ -84,7 +84,8 @@
                         <td><button type="button" class="btn btn-warning rounded-pill ">Progress</button></td>
                     </tr>
                     <tr>
-                        <th scope="row">9</th>                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
+                        <th scope="row">9</th>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" class="rounded-circle custom-size" alt="Circular Image" style="width:55px">Coppcino</td>
                         <td>Mari Jupi</td>
                         <td>Debit card</td>
                         <td>10$</td>
