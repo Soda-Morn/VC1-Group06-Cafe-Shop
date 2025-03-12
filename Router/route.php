@@ -16,8 +16,8 @@ $route->get("/", [DashboardController::class, 'index']);
 $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
 
-
-//reguster
-$route->get("/Registration", [RegistrationController::class, 'Registration']);
+//
+$route->get("/Registration", [RegistrationController::class, 'showForm']);
+$route->post("/Registration", [RegistrationController::class, 'register']);
 
 $route->route();
