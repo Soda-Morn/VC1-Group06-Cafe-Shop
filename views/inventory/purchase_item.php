@@ -79,23 +79,6 @@
                         <td><button type="button" class="btn btn-success ">Completed</button></td>
 
                     </tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </tbody>
             </table>
         </div>

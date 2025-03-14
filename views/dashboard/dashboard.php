@@ -8,12 +8,12 @@
               <div class="col-icon">
                 <div
                   class="icon-big text-center icon-primary bubble-shadow-small">
-                  <i class="fas fa-users"></i>
+                  <i class="fa-solid fa-money-bill"></i>
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Visitors</p>
+                  <p class="card-category">Revenue</p>
                   <h4 class="card-title">1,294</h4>
                 </div>
               </div>
@@ -28,32 +28,12 @@
               <div class="col-icon">
                 <div
                   class="icon-big text-center icon-info bubble-shadow-small">
-                  <i class="fas fa-user-check"></i>
+                  <i class="fa-solid fa-money-bill-trend-up"></i>
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Subscribers</p>
-                  <h4 class="card-title">1303</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="card card-stats card-round">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-success bubble-shadow-small">
-                  <i class="fas fa-luggage-cart"></i>
-                </div>
-              </div>
-              <div class="col col-stats ms-3 ms-sm-0">
-                <div class="numbers">
-                  <p class="card-category">Sales</p>
+                  <p class="card-category">Expenses</p>
                   <h4 class="card-title">$ 1,345</h4>
                 </div>
               </div>
@@ -67,14 +47,34 @@
             <div class="row align-items-center">
               <div class="col-icon">
                 <div
-                  class="icon-big text-center icon-secondary bubble-shadow-small">
-                  <i class="far fa-check-circle"></i>
+                  class="icon-big text-center icon-success bubble-shadow-small">
+                  <i class="fa-solid fa-file-invoice-dollar"></i>
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Order</p>
-                  <h4 class="card-title">576</h4>
+                  <p class="card-category">Sales</p>
+                  <h4 class="card-title">345</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-icon">
+                <div
+                  class="icon-big text-center icon-secondary bubble-shadow-small">
+                  <i class="fa-solid fa-sack-dollar"></i>
+                </div>
+              </div>
+              <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers">
+                  <p class="card-category">Profit</p>
+                  <h4 class="card-title">$ 1,345</h4>
                 </div>
               </div>
             </div>
@@ -82,8 +82,21 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row ">
+      <div class="col-md-8 ">
+      <div class="container text-centertext-start m-2 ">
+          <div class="row justify-content me-5 ">
+              <div class="col-md-2 mt-2 ">
+                  <button class="btn btn-outline-warning fw-bold active border-0 border-bottom border-3 rounded-2" onclick="showPage(event, 'week')">Week</button>
+              </div>
+              <div class="col-md-2 mt-2">
+                  <button class="btn btn-outline-warning fw-bold border-2 border-bottom border-3 rounded-2" onclick="showPage(event, 'month')">Month</button>
+              </div>
+              <div class="col-md-2 mt-2">
+                  <button class="btn btn-outline-warning fw-bold border-0 border-bottom border-3 rounded-2" onclick="showPage(event, 'year')">Year</button>
+              </div>
+          </div>
+      </div>
         <div class="card card-round">
           <div class="card-header">
             <div class="card-head-row">
