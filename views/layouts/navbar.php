@@ -106,6 +106,11 @@
                 </a>
               </li>
               <li>
+                <a href="/order_menu">
+                  <span class="sub-item">Order Menu</span>
+                </a>
+              </li>
+              <li>
                 <a href="forms/forms.html">
                   <span class="sub-item">Order History</span>
                 </a>
