@@ -1,3 +1,5 @@
+<script src="views/assets/js/research.js"></script>
+
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
@@ -197,7 +199,9 @@
     </div>
     <!-- Navbar Header -->
     <nav
+    
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+      <script src="../assets/js/research.js"></script>
       <div class="container-fluid">
         <nav
           class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
@@ -212,8 +216,8 @@
               placeholder="Search ..."
               class="form-control" />
           </div>
-        </nav>
 
+        </nav>
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
             class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
@@ -224,15 +228,15 @@
               role="button"
               aria-expanded="false"
               aria-haspopup="true">
-              <i class="fa fa-search"></i>
+              <button><i class="fa fa-search"></i></button>
             </a>
             <ul class="dropdown-menu dropdown-search animated fadeIn">
               <form class="navbar-left navbar-form nav-search">
                 <div class="input-group">
                   <input
-                    type="text"
+                    type="text" id="search"
                     placeholder="Search ..."
-                    class="form-control" />
+                    class="search-card" />
                 </div>
               </form>
             </ul>
