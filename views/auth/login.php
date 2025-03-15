@@ -7,7 +7,7 @@ if (isset($_SESSION['admin_ID'])) {
 require_once __DIR__ . "/../layouts/header.php";
 ?>
 
-<link rel="stylesheet" href="views/assets/css/login.css">
+<link rel="stylesheet" href="../views/assets/css/login.css">
 <div class="container-1">
     <h2>Admin Login</h2>
     <form id="loginForm">
@@ -35,5 +35,5 @@ require_once __DIR__ . "/../layouts/header.php";
         Don't have an account? <a href="/register">Register here</a>
     </div>
 </div>
-<link rel="stylesheet" href="views/assets/js/login.js">
+<script src="views/assets/js/login.js"></script>
 

@@ -12,7 +12,7 @@
         overflow-x: hidden;
     }
     .container-1 {
-        width: 90%;
+        width: 95%;
         max-width: 900px;
         margin: 20px auto;
         background: #FFFFFF;
@@ -22,7 +22,7 @@
         display: flex; 
         flex-direction: row;
         height: auto; /* Changed from fixed height for better responsiveness */
-        min-height: 650px; /* Min height instead of fixed height */
+        min-height: 700px; /* Min height instead of fixed height */
     }
     h2 {
         font-family: 'Playfair Display', serif;

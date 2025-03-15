@@ -40,5 +40,5 @@ require_once __DIR__ . "/../layouts/header.php";
     </div>
     <div class="imang"></div>
 </div>
-<link rel="stylesheet" href="views/assets/js/register.js">
+<script src="views/assets/js/register.js"></script>
 
