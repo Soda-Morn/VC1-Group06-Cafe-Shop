@@ -3,81 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management</title>
+    <title>Welcome to Cafe Bliss</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
+        /* Import modern fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
         body {
-            background: linear-gradient(to bottom, #FFFFFF, #F3F3F3);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background: #F3E5AB; /* Fallback background */
+            font-family: 'Poppins', sans-serif;
+        }
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.8);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        .navbar {
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #FFF !important;
+            transition: color 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: #FF8C00 !important;
+        }
+        .navbar .btn {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+        .navbar .btn-outline-light {
+            border-color: #FFF;
+            color: #FFF;
+        }
+        .navbar .btn-outline-light:hover {
+            background: #FF8C00;
+            border-color: #FF8C00;
+            color: #FFF;
+        }
+        .navbar .btn-dark {
+            background: #FF8C00;
+            border: none;
+            color: #FFF;
+        }
+        .navbar .btn-dark:hover {
+            background: #E07B00;
+        }
+        .hero-text {
+            padding: 50px 0;
+            text-align: left;
         }
         .hero-text h1 {
-            font-size: 34px;
-            font-weight: bold;
-            line-height: 1.4;
-            color: #333;
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #FFF;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero-text p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #EDEDED;
+            margin: 0 0 30px 0;
+            max-width: 500px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .highlight {
-            color: #FF1493;
+            color: #FF8C00;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
         .start-btn {
-            background: linear-gradient(to right, #FF1493, #2C8CFB);
-            color: white;
-            border-radius: 25px;
-            padding: 12px 25px;
-            transition: 0.3s;
-            font-size: 18px;
-        }
-        .start-btn:hover {
-            transform: scale(1.05);
+            background: linear-gradient(to right, #FF8C00, #D2691E);
+            color: #FFF;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .menu {
-            background: #2C8CFB;
-            color: white;
-            border-radius: 15px;
-            max-width: 1000px;
-            margin-top: 100px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #E07B00, #B35712);
         }
-        .menu div {
-            padding: 15px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 18px;
+        .col-md-6 {
+            position: relative;
+            z-index: 1;
         }
-        .menu div:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-            border-radius: 10px;
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            .hero-text p {
+                font-size: 14px;
+                max-width: 100%;
+            }
+            .start-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video autoplay muted loop class="video-bg">
+        <source src="views/assets/images/welcome.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+
     <div class="container mb-3">
         <nav class="navbar navbar-expand-lg py-3">
-            <a class="navbar-brand fw-bold text-primary" href="#">PNN</a>
+            <a class="navbar-brand fw-bold" href="#">Velea Coffee</a>
             <div class="ms-auto">
-                <a href="register" class="btn btn-outline-primary me-2">Register</a>
-                <a href="/login" class="btn btn-primary">Login</a>
+                <a href="/register" class="btn btn-outline-light me-2">Register</a>
+                <a href="/login" class="btn btn-dark">Login</a>
             </div>
         </nav>
 
         <div class="row align-items-center text-start py-5">
-            <div class="col-md-6">
-                <h1><strong>Free</strong> <span class="highlight">Inventory</span> management software <br> for small businesses</h1>
-                <a href="/login" class="btn start-btn mt-3">Start</a>
+            <div class="col-md-6 hero-text">
+                <h1>Welcome to <span class="highlight">Velea Coffee</span> <br> Your Perfect Coffee Experience</h1>
+                <p>
+                    Step into Velea Coffee for rich aromas and exceptional flavors. We source the finest global beans, craft every cup with care, and offer a warm ambiance with delectable pastries. Explore our system to manage orders, reserve seating, or join our dedicated team!
+                </p>
             </div>
-            <div class="col-md-6 text-center">
-                <img src="views/assets/images/inventory-illustration.png" alt="Inventory Management Illustration" class="img-fluid" style="max-width: 400px;">
-            </div>
-        </div>
-
-        <div class="menu d-flex justify-content-between px-4 py-3 mx-auto">
-            <div class="text-center"><i class="fas fa-list"></i> Category</div>
-            <div class="text-center"><i class="fas fa-arrow-down"></i> Item In</div>
-            <div class="text-center"><i class="fas fa-arrow-up"></i> Item Out</div>
-            <div class="text-center"><i class="fas fa-user"></i> Manager</div>
-            <div class="text-center"><i class="fas fa-box"></i> Stock</div>
         </div>
     </div>
 
