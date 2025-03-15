@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #F5E8C7, #D9B38C); /* Warm coffee gradient */
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+    }
+    .container-1 {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        background: #FFFFFF;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex; 
+        flex-direction: row;
+        height: auto; /* Changed from fixed height for better responsiveness */
+        min-height: 650px; /* Min height instead of fixed height */
+    }
+    h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        color: #4A2C1A;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards 0.1s;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .form-container {
+        flex: 1;
+        padding: 40px;
+        background: #FAF3E0;
+        border-radius: 10px 0 0 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .form-group {
+        margin-bottom: 25px;
+        position: relative; /* Added for positioning the eye icon */
+    }
+    .form-label {
+        font-weight: 500;
+        color: #4A2C1A;
+        margin-bottom: 8px;
+        display: block;
+    }
+    .form-control {
+        border: 2px solid #D9B38C;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box; /* Ensure padding doesn't increase width */
+    }
+    /* Add padding to the right side of password field for the eye icon */
+    #password {
+        padding-right: 40px;
+    }
+    .form-control:focus {
+        border-color: #FF8C00;
+        box-shadow: 0 0 8px rgba(255, 140, 0, 0.3);
+        outline: none;
+    }
+    /* Password toggle eye icon styles - Fixed positioning */
+    .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Ensure perfect centering */
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #A0522D;
+        font-size: 18px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        transition: all 0.3s ease;
+        z-index: 2; /* Ensure it's above the input */
+    }
+    .password-toggle:hover {
+        color: #FF8C00;
+    }
+    .btn-primary {
+        width: 100%;
+        background: linear-gradient(to right, #FF8C00, #D2691E);
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #FFF;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 140, 0, 0.3);
+        background: linear-gradient(to right, #E07B00, #B35712);
+    }
+    .imang {
+        flex: 1;
+        background: url('/views/assets/images/register.png') no-repeat center;
+        background-size: cover;
+        position: relative;
+    }
+    .imang::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); /* Overlay for contrast */
+    }
+    #message .alert {
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 15px;
+        text-align: center;
+    }
+    #message .alert-success {
+        background: #D4EDDA;
+        color: #155724;
+        border: 1px solid #C3E6CB;
+    }
+    #message .alert-danger {
+        background: #F8D7DA;
+        color: #721C24;
+        border: 1px solid #F5C6CB;
+    }
+    .login-link {
+        text-align: center;
+        margin-top: 15px;
+        color: #4A2C1A;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+    .login-link:hover {
+        color: #FF8C00;
+        text-decoration: underline;
+    }
+    /* Password input wrapper */
+    .password-wrapper {
+        position: relative;
+        width: 100%;
+    }
+    @media (max-width: 768px) {
+        .container-1 {
+            flex-direction: column;
+            height: auto;
+            min-height: auto;
+        }
+        .form-container {
+            flex: none;
+            order: 2; /* Move form below image on mobile */
+            border-radius: 0 0 20px 20px;
+            padding: 20px;
+        }
+        .imang {
+            flex: none;
+            order: 1; /* Move image above form on mobile */
+            height: 200px; /* Shorter image on mobile */
+            border-radius: 20px 20px 0 0;
+        }
+        h2 {
+            font-size: 24px;
+        }
+    }

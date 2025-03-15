@@ -41,14 +41,17 @@
         .navbar {
             position: relative;
             z-index: 1;
-            backdrop-filter: blur(5px);
-            padding: 15px 0;
+            padding: 15px;
         }
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-size: 28px;
             color: #FFF !important;
             transition: color 0.3s ease;
+            /* Center the brand */
+            display: block;
+            text-align: center;
+            margin: 0 auto;
         }
         .navbar-brand:hover {
             color: #FF8C00 !important;
@@ -126,16 +129,22 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px  #FF8C00;
         }
         .start-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 15px  #FF8C00;
             background: linear-gradient(to right, #E07B00, #B35712);
         }
         .col-md-6 {
             position: relative;
             z-index: 1;
+        }
+        /* Button container below text */
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
         }
         /* Responsive Adjustments */
         @media (max-width: 768px) {
@@ -150,6 +159,14 @@
                 padding: 10px 20px;
                 font-size: 14px;
             }
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            .button-container .btn {
+                width: fit-content;
+            }
         }
     </style>
 </head>
@@ -163,19 +180,20 @@
 
     <div class="container mb-3">
         <nav class="navbar navbar-expand-lg py-3">
-            <a class="navbar-brand fw-bold" href="#">Velea Coffee</a>
-            <div class="ms-auto">
-                <a href="/register" class="btn btn-outline-light me-2">Register</a>
-                <a href="/login" class="btn btn-dark">Login</a>
-            </div>
+            <!-- Centered brand name at the top -->
+            <a class="navbar-brand fw-bolder mx-2" href="#">Velea Coffee</a>
         </nav>
-
         <div class="row align-items-center text-start py-5">
             <div class="col-md-6 hero-text">
                 <h1>Welcome to <span class="highlight">Velea Coffee</span> <br> Your Perfect Coffee Experience</h1>
                 <p>
-                    Step into Velea Coffee for rich aromas and exceptional flavors. We source the finest global beans, craft every cup with care, and offer a warm ambiance with delectable pastries. Explore our system to manage orders, reserve seating, or join our dedicated team!
+                    Step into Velea Coffee for rich aromas and exceptional flavors. We source the finest global beans, craft every cup with care, and offer a warm ambiance with delicious pastries. Explore our system to manage orders, reserve seating, or join our dedicated team!
                 </p>
+                <!-- Buttons moved below the text -->
+                <div class="button-container">
+                    <a href="/register" class="btn btn-outline-light">Register</a>
+                    <a href="/login" class="btn btn-dark">Login</a>
+                </div>
             </div>
         </div>
     </div>
