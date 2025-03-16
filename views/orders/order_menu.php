@@ -1,63 +1,81 @@
+<style>
+    .add-new-btn {
+        background: #28a745;
+        color: white;
+        font-size: 1rem; /* Slightly smaller font size */
+        font-weight: bold;
+        text-align: center;
+        padding: 8px 12px; /* Smaller padding */
+        border-radius: 5px;
+        text-decoration: none;
+        width: auto; /* Automatic width */
+        margin-left: 10px; /* Space between title and button */
+    }
+
+    .add-new-container {
+        display: flex;
+        justify-content: space-between; /* Space between title and button */
+        align-items: center; /* Centers vertically */
+        margin-bottom: 20px;
+        margin-top: 5%; /* Space below the header */
+    }
+
+    /* Card styles */
+    .card {
+        margin-bottom: 20px; /* Space between cards */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+        .add-new-container {
+            flex-direction: row; /* Keep items in a row */
+            align-items: center; /* Align items in the center */
+            justify-content: space-between;
+            margin-top: 15%; /* Space between title and button */
+        }
+
+        .add-new-btn {
+            margin-top: 0; /* Remove spacing above button */
+            width: auto; /* Auto width for smaller screens */
+            font-size: 0.9rem; /* Slightly smaller font size for smaller screens */
+        }
+
+        /* Ensure cards are responsive */
+        .row > div {
+            flex: 1 0 100%; /* Take full width on small screens */
+        }
+    }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <!-- Coffee Menu Section -->
-        <div class="col-md-9 p-4 bg-light"> <!-- Adjusted to col-md-9 -->
-            <h2 class="text-center text-uppercase fw-bold">Coffee Menu</h2>
-            <button class="btn btn-secondary btn-sm d-block mx-auto mb-3">
-                <a href="/order_menu/create" class="text-white text-decoration-none">Add new</a>
-            </button>
+        <div class="col-md-12 p-4 bg-light">
+            <div class="add-new-container">
+                <h2 class="text-uppercase fw-bold mb-0">Coffee Menu</h2>
+                <a href="/order_menu/create" class="text-white add-new-btn">Add new</a>
+            </div>
             <div class="row">
                 <?php foreach ($products as $item): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 text-center" style="height: 250px;">
+                    <div class="col-md-3 col-sm-6 mb-4"> <!-- Adjust for smaller screens -->
+                        <div class="card h-100 text-center position-relative">
                             <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= $item['name'] ?>" style="height: 150px; object-fit: cover;">
+                            <!-- Delete Icon -->
+                            <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="z-index: 1;">
+                                <i class="fas fa-trash"></i>
+                            </button>
                             <div class="card-body p-2">
-                                <h4 class="card-title mb-1"><?= $item['name'] ?></h4>
-                                <p class="card-text mb-1" style="font-size: 0.9rem;"><?= $item['description'] ?></p>
+                                <h4 class="card-title mb-1"> <?= $item['name'] ?> </h4>
+                                <p class="card-text mb-1" style="font-size: 0.9rem;"> <?= $item['description'] ?> </p>
                                 <span class="fw-bold">$<?= $item['price'] ?></span>
                                 <div class="mt-2">
-                                    <form method="POST" action="/cart/add">
-                                        <input type="hidden" name="product_id" value="<?= $item['product_ID'] ?>" />
-                                        <button class="btn btn-primary btn-sm view-details">Add to cart</button>
-                                    </form>
-                                    <button class="btn btn-secondary btn-sm view-details mt-1">View Details</button>
+                                    <button class="btn btn-primary btn-sm add-to-cart" data-id="<?= $item['product_ID'] ?>">Add to cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
-
-        <!-- Cart Section -->
-        <div class="col-md-3 p-4 bg-danger-subtle"> <!-- Adjusted to col-md-3 -->
-            <h2 class="text-center text-uppercase fw-bold">Cart Order <span class="fw-normal">#3343</span></h2>
-            <div class="card-container">
-                <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])): ?>
-                    <?php foreach ($_SESSION['cart'] as $item): ?>
-                        <div class="card mb-3">
-                            <div class="card-body d-flex justify-content-between p-2">
-                                <span class="card-title"><?= $item['name'] ?></span>
-                                <span class="fw-bold"><?= $item['quantity'] ?> x $<?= $item['price'] ?></span>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No items in cart</p>
-                <?php endif; ?>
-            </div>
-            <div class="mt-3 p-3 border-top">
-                <div class="d-flex justify-content-between">
-                    <span>Items</span><span class="total-items fw-bold">$<?= isset($totalAmount) ? $totalAmount : '0.00' ?></span>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span>Discounts</span><span class="total-discounts text-danger">-$3.00</span>
-                </div>
-                <div class="d-flex justify-content-between fw-bold">
-                    <span>Total</span><span class="total-amount text-success">$<?= isset($totalAmount) ? $totalAmount : '0.00' ?></span>
-                </div>
-            </div>
-            <button class="btn btn-warning w-100 mt-3">Place an order</button>
         </div>
     </div>
 </div>
