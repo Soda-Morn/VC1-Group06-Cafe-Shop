@@ -9,9 +9,9 @@ require_once "Controllers/ProductListController.php";
 require_once "Controllers/ProductDetailController.php";
 require_once "Controllers/PurchaseitemController.php";
 require_once "Controllers/PurchaseItemAddController.php";
-require_once "Controllers/RegistrationController.php";
 require_once "Controllers/OrderlistController.php";
 require_once "Controllers/OrdermenuController.php";
+require_once "Controllers/CardController.php";
 
 
 
@@ -32,12 +32,13 @@ $route->get("/purchase_item_add", [PurchaseItemAddController::class, 'index']);
 $route->get("/order_list", [OrderlistController::class, 'index']);
 
 // order_menu
-$route->get('/order_menu', [OrdermenuController::class,'index']);
+$route->get('/order_menu', [OrdermenuController::class, 'index']);
+$route->get('/order_menu/create', [OrdermenuController::class, 'create']);
+$route->post('/order_menu/store', [OrdermenuController::class, 'store']);
 
-$route->route();
-//reguster
-$route->get("/Registration", [RegistrationController::class, 'Registration']);
-// login routs
-$route->post("/login", [LoginController::class, 'login']);
+//card_order
+$route->get('/order_card', [CardController::class, 'index']);
+
+
 
 $route->route();
