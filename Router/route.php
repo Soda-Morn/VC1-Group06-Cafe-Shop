@@ -34,6 +34,8 @@ $route->get("/order_list", [OrderlistController::class, 'index']);
 $route->get('/order_menu', [OrdermenuController::class, 'index']);
 $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
+$route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);
+$route->get('/order_now/preview_order/shows', [PurchaseItemAddController::class, 'shows']);
 
 
 
