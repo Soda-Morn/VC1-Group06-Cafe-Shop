@@ -37,7 +37,10 @@ $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
 
 //card_order
-$route->get('/order_card', [CardController::class, 'index']);
+$route->get('/orderCard', [CardController::class, 'index']);
+$route->get('/orderCard/addToCart', [CardController::class, 'addToCart']);
+$route->get('/orderCard/removeFromCart', [CardController::class, 'removeFromCart']);
+
 
 
 
