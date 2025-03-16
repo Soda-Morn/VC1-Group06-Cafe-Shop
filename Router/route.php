@@ -12,6 +12,8 @@ require_once "Controllers/PurchaseItemAddController.php";
 require_once "Controllers/RegistrationController.php";
 require_once "Controllers/OrderlistController.php";
 require_once "Controllers/OrdermenuController.php";
+require_once 'Controllers/SupplierController.php';
+
 
 
 
@@ -41,3 +43,11 @@ $route->get("/Registration", [RegistrationController::class, 'Registration']);
 $route->post("/login", [LoginController::class, 'login']);
 
 $route->route();
+
+// supplier
+$routes->get('/supplier',[SupplierController::class, 'index']);
+$routes->get('/supplier/create',[SupplierController::class, 'create']);
+$routes->post('/supplier/store',[SupplierController::class, 'store']);
+$routes->get('/supplier/edit',[SupplierController::class, 'edit']);
+$routes->put('/supplier/update',[SupplierController::class, 'update']);
+$routes->delete('/supplier/delete',[SupplierController::class, 'destroy']);

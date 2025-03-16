@@ -144,7 +144,7 @@
                 </a>
               </li>
               <li>
-                <a href="tables/datatables.html">
+                <a href="/supplier">
                   <span class="sub-item">Suplier info</span>
                 </a>
               </li>
