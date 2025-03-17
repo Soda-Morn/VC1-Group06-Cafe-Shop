@@ -1,6 +1,8 @@
-<div class="container mt-7">
+
+
+<div class="container ">
     <!-- Header Section -->
-    <div class="header">
+    <div class="header mt-0">
         <h2>Purchase Item Add</h2>
         <div class="header-controls">
             <button class="add-new-btn"><i class="fas fa-plus"></i><a href="/purchase_item/create"> Add New</a></button>
@@ -8,11 +10,11 @@
         </div>
     </div>
     <!-- Product Cards -->
-    <div class="d-flex flex-wrap justify-content-start gap-2" id="product-list">
+    <div class="d-flex flex-wrap justify-content-center gap-3" id="product-list">
         <?php foreach ($products as $item): ?>
             <div class="card shadow-lg p-0 rounded d-flex flex-column align-items-center text-center" style="width: 280px; height: 380px;">
                 <div class="edit-delete-icons">
-                    <i class="fas fa-edit edit-btn"></i>
+                    <i class="fas fa-edit" style="color: #f7020f;"></i>
                     <i class="fas fa-trash delete-btn"></i>
                 </div>
                 <!-- Adjusted image height -->
