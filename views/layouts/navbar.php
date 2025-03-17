@@ -144,7 +144,7 @@
                 </a>
               </li>
               <li>
-                <a href="/supplier">
+                <a href="">
                   <span class="sub-item">Suplier info</span>
                 </a>
               </li>
