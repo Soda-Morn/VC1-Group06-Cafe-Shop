@@ -1,5 +1,6 @@
 <script src="views/assets/js/research.js"></script>
 
+
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
@@ -144,7 +145,7 @@
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="/suppliers/list">
                   <span class="sub-item">Suplier info</span>
                 </a>
               </li>

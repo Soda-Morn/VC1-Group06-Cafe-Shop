@@ -40,13 +40,16 @@ $route->get('/order_menu', [OrdermenuController::class,'index']);
 $route->route();
 //reguster
 $route->get("/Registration", [RegistrationController::class, 'Registration']);
+// supplier
+$route->get("/suppliers/list", [SupplierController::class, 'suppliers']);
 // login routs
 $route->post("/login", [LoginController::class, 'login']);
 
+
 $route->route();
 
-// supplier
-$route->get("/suppliers", [SupplierController::class, 'index']);
+
+
 
 
 

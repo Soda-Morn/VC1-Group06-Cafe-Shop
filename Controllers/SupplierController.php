@@ -1,7 +1,7 @@
 <?php
 
 class SupplierController extends BaseController {
-    public function stocklist() {
-        $this->view('supplier/create');
+    public function suppliers() {
+        $this->view('suppliers/list');
     }
 }
