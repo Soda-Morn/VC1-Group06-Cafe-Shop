@@ -107,7 +107,7 @@
                     <h6 class="text-muted">Fill in the details below to create a product</h6>
                 </div>
 
-                <form action="/purchase_item/store" method="POST" enctype="multipart/form-data">
+                <form action="/purchase_item_add/store" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Product Name</label>
                         <input type="text" name="name" class="form-control" placeholder="Enter product name" required>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-submit me-2">Submit <i class="fas fa-check"></i></button>
-                        <a href="/purchase_item" class="btn btn-cancel">Cancel <i class="fas fa-times"></i></a>
+                        <a href="/purchase_item_add" class="btn btn-cancel">Cancel <i class="fas fa-times"></i></a>
                     </div>
                 </form>
             </div>

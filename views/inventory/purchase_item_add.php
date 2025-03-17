@@ -3,7 +3,7 @@
     <div class="header mt-0">
         <h2>Purchase Item Add</h2>
         <div class="header-controls">
-            <button class="add-new-btn"><i class="fas fa-plus"></i><a href="/purchase_item/create"> Add New</a></button>
+            <button class="add-new-btn"><i class="fas fa-plus"></i><a href="/purchase_item_add/create"> Add New</a></button>
             <button class="add-new-btn order-btn"><i class="fas fa-shopping-cart"></i> Order Now</button>
         </div>
     </div>
