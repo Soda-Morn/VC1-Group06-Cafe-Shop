@@ -1,3 +1,15 @@
+<?php
+// Start the session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['admin_ID']);
+$userName = $isLoggedIn ? ($_SESSION['name'] ?? 'Admin') : 'User';
+$userEmail = $isLoggedIn ? ($_SESSION['email'] ?? 'admin@example.com') : 'user@example.com';
+$profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
+?>
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
@@ -408,16 +420,23 @@
               class="dropdown-toggle profile-pic"
               data-bs-toggle="dropdown"
               href="#"
+              role="button"
               aria-expanded="false">
               <div class="avatar-sm">
-                <img
-                  src="assets/img/profile.jpg"
-                  alt="..."
-                  class="avatar-img rounded-circle" />
+                <?php if (!empty($_SESSION['profile_picture'])): ?>
+                  <img
+                    src="/<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>"
+                    alt="Profile"
+                    class="avatar-img rounded-circle" />
+                <?php else: ?>
+                  <div class="avatar-img rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                    <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+                  </div>
+                <?php endif; ?>
               </div>
               <span class="profile-username">
                 <span class="op-7">Hi,</span>
-                <span class="fw-bold">Hizrian</span>
+                <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
               </span>
             </a>
             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -425,29 +444,39 @@
                 <li>
                   <div class="user-box">
                     <div class="avatar-lg">
-                      <img
-                        src="assets/img/profile.jpg"
-                        alt="image profile"
-                        class="avatar-img rounded" />
+                      <?php if (!empty($_SESSION['profile_picture'])): ?>
+                        <img
+                          src="/<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>"
+                          alt="Profile"
+                          class="avatar-img rounded" />
+                      <?php else: ?>
+                        <div class="avatar-img rounded bg-primary text-white d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+                          <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+                        </div>
+                      <?php endif; ?>
                     </div>
                     <div class="u-text">
-                      <h4>Hizrian</h4>
-                      <p class="text-muted">hello@example.com</p>
-                      <a
-                        href="profile.html"
-                        class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                      <h4><?php echo htmlspecialchars($_SESSION['name']); ?></h4>
+                      <p class="text-muted"><?php echo htmlspecialchars($_SESSION['email']); ?></p>
+                      <div class="d-flex mt-2">
+                        <a href="/profile" class="btn btn-xs btn-secondary btn-sm me-2">View Profile</a>
+                        <a href="/logout" class="btn btn-xs btn-danger btn-sm">Logout</a>
+                      </div>
                     </div>
                   </div>
                 </li>
                 <li>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">My Profile</a>
-                  <a class="dropdown-item" href="#">My Balance</a>
-                  <a class="dropdown-item" href="#">Inbox</a>
+                  <a class="dropdown-item" href="/profile">
+                    <i class="fas fa-user me-2"></i> My Profile
+                  </a>
+                  <a class="dropdown-item" href="/profile#settings">
+                    <i class="fas fa-cog me-2"></i> Account Settings
+                  </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Account Setting</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item text-danger" href="/logout">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                  </a>
                 </li>
               </div>
             </ul>
@@ -457,3 +486,25 @@
     </nav>
     <!-- End Navbar -->
   </div>
+
+  <!-- Add this script at the bottom of navbar.php -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap dropdowns
+    var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+    dropdownElementList.forEach(function (dropdownToggleEl) {
+        new bootstrap.Dropdown(dropdownToggleEl);
+    });
+
+    // Ensure profile dropdown toggles correctly
+    var profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
+    if (profileDropdown) {
+        profileDropdown.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
+            dropdown.toggle();
+        });
+    }
+});
+</script>
