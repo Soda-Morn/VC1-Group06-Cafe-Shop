@@ -159,6 +159,8 @@
         });
       });
     </script>
+    <!--   Core JS Files   -->
+       <script src="/views/assets/js/research.js"></script>
     <!-- end felter Stock-->
   </body>
 </html>
