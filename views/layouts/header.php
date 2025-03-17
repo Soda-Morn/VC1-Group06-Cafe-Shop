@@ -38,9 +38,6 @@
   <link rel="stylesheet" href="../views/assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../views/assets/css/plugins.min.css" />
   <link rel="stylesheet" href="../views/assets/css/kaiadmin.min.css" />
-  <link rel="stylesheet" href="../views/assets/css/login.css" />
-  <link rel="stylesheet" href="../views/assets/css/register.css" />
-
   <link rel="stylesheet" href="../views/assets/css/productlist.css">
 
   <!-- <link rel="stylesheet" href="views/assets/css/order_menu.css"> -->
