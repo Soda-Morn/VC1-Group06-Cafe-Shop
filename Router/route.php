@@ -7,21 +7,28 @@ require_once "Controllers/DashboardController.php";
 require_once "Controllers/StocklistController.php";
 require_once "Controllers/ProductListController.php";
 require_once "Controllers/ProductDetailController.php";
-require_once "Controllers/PurchaseitemController.php";
-require_once "Controllers/PurchaseItemAddController.php";
-require_once "Controllers/OrderlistController.php";
+require_once "Controllers/WelcomeController.php";
+require_once "Controllers/LoginRegisterController.php";
+require_once "Controllers/UserController.php";
 require_once "Controllers/OrdermenuController.php";
-
+require_once "Controllers/OrderlistController.php";
+require_once "Controllers/PurchaseItemAddController.php";
+require_once "Controllers/PurchaseitemController.php";
 
 
 $route = new Router();
-//Dashboard Routs
-$route->get("/", [DashboardController::class, 'index']);
-//Stocklist Routs
-$route->get("/stocklist", [StocklistController::class, 'stocklist']);
+// welcome
+$route->get("/", [WelcomeController::class, 'welcome']);
+$route->get("/dashboard", [DashboardController::class, 'index']);
 
-$route->route();
-// productList
+// login and register
+$route->get("/login", [UserController::class, 'login']);
+$route->get("/register", [UserController::class, 'register']);
+$route->post("/users/store", [UserController::class, 'store']);
+$route->post("/users/authenticate", [UserController::class, 'authenticate']);
+$route->get("/logout", [UserController::class, 'logout']);
+
+// Product List
 $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
 $route->get("/purchase_item", [PurchaseitemController::class, 'index']);
@@ -38,5 +45,10 @@ $route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);
 $route->get('/order_now/preview_order/shows', [PurchaseItemAddController::class, 'shows']);
 
 
+$route->get('/order_menu', [OrdermenuController::class,'index']);
+
+//Inventory
+$route->get('/stocklist', [StocklistController::class,'stocklist']);
 
 $route->route();
+
