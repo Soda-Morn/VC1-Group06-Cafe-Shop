@@ -68,9 +68,10 @@
                                 <h4 class="card-title mb-1"> <?= $item['name'] ?> </h4>
                                 <p class="card-text mb-1" style="font-size: 0.9rem;"> <?= $item['description'] ?> </p>
                                 <span class="fw-bold">$<?= $item['price'] ?></span>
-                                <div class="mt-2">
-                                    <button class="btn btn-primary btn-sm add-to-cart" data-id="<?= $item['product_ID'] ?>">Add to cart</button>
-                                </div>
+                                <form action="/orderCard/addToCart" method="POST" class="d-inline">
+                                    <input type="hidden" name="product_id" value="<?= $item['product_ID'] ?>">
+                                    <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>
