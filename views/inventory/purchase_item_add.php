@@ -1,6 +1,4 @@
-
-
-<div class="container ">
+<div class="container">
     <!-- Header Section -->
     <div class="header mt-0">
         <h2>Purchase Item Add</h2>
@@ -15,7 +13,7 @@
             <div class="card shadow-lg p-0 rounded d-flex flex-column align-items-center text-center" style="width: 280px; height: 380px;">
                 <div class="edit-delete-icons">
                     <i class="fas fa-edit" style="color: #f7020f;"></i>
-                    <i class="fas fa-trash delete-btn"></i>
+                    <i class="fas fa-trash delete-btn" data-id="<?= $item['purchase_item_id'] ?>"></i>
                 </div>
                 <!-- Adjusted image height -->
                 <img src="<?= $item['product_image'] ?>" class="card-img-top" style="width: 100%; height: 200px; object-fit: cover;">
@@ -28,3 +26,22 @@
         <?php endforeach; ?>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attach click event listener to all delete buttons
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+    
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const purchaseItemId = this.getAttribute('data-id');
+                
+                // Confirm deletion
+                if (confirm('Are you sure you want to delete this item?')) {
+                    // Perform the delete action (make a GET request to destroy method)
+                    window.location.href = '/purchase_item/destroy/' + purchaseItemId;
+                }
+            });
+        });
+    });
+</script>
+

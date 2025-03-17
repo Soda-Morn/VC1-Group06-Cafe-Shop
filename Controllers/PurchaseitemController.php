@@ -16,7 +16,7 @@ class PurchaseitemController extends BaseController
     {
         $products = $this->model->getPurchases();
         $this->view('/inventory/purchase_item_add', ['products' => $products]);
-    }   
+    }
     function create()
     {
         $products = $this->model->getPurchases();
@@ -53,5 +53,14 @@ class PurchaseitemController extends BaseController
             $this->model->createPurchase($data);
             $this->redirect('/purchase_item');
         }
+    }
+    // Destroy a specific purchase item by ID
+    function destroy($purchase_item_id)
+    {
+        // Call the delete function from the model
+        $this->model->deletePurchase($purchase_item_id);
+
+        // Redirect after deletion
+        $this->redirect('/purchase_item');
     }
 }

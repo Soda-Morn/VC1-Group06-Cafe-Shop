@@ -37,6 +37,7 @@ $route->get("/product_detail", [ProductDetailController::class, 'index']);
 $route->get("/purchase_item", [PurchaseitemController::class, 'index']);
 $route->get("/purchase_item/create", [PurchaseitemController::class, 'create']);
 $route->get("/purchase_item/store", [PurchaseitemController::class, 'store']);
+$route->get("/purchase_item/destroy", [PurchaseitemController::class, 'destroy']);
 
 // purchase_item_add
 $route->get("/purchase_item_add", [PurchaseItemAddController::class, 'index']);

@@ -36,4 +36,13 @@ class PurchaseItemModel
                                    WHERE purchase_item_id = '$purchase_item_id'");
         return $stmt->fetch();
     }
+    // Delete a specific purchase item by ID
+    function deletePurchase($purchase_item_id)
+    {
+        // Create the SQL query to delete the item
+        $sql = "DELETE FROM purchase_items WHERE purchase_item_id = '$purchase_item_id'";
+
+        // Execute the query
+        $this->pdo->query($sql);
+    }
 }
