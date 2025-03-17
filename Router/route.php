@@ -32,7 +32,13 @@ $route->get("/logout", [UserController::class, 'logout']);
 // Product List
 $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
+
+// purchase_item
 $route->get("/purchase_item", [PurchaseitemController::class, 'index']);
+$route->get("/purchase_item/create", [PurchaseitemController::class, 'create']);
+$route->get("/purchase_item/store", [PurchaseitemController::class, 'store']);
+
+// purchase_item_add
 $route->get("/purchase_item_add", [PurchaseItemAddController::class, 'index']);
 $route->get("/purchase_item_add/create", [PurchaseItemAddController::class, 'create']);
 $route->post("/purchase_item_add/store", [PurchaseItemAddController::class, 'store']); // POST request for storing items
