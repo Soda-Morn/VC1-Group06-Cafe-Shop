@@ -14,9 +14,11 @@
             <button class="add-new-btn order-btn"><i class="fas fa-shopping-cart"></i> Order Now</button>
         </div>
     </div>
+
+    <!-- <?php print_r($purchase_items); ?> -->
     <!-- Product Cards -->
     <div class="d-flex flex-wrap justify-content-center gap-3" id="product-list">
-        <?php foreach ($products as $item): ?>
+        <?php foreach ($purchase_items as $item): ?>
             <div class="card shadow-lg p-0 rounded d-flex flex-column align-items-center text-center" style="width: 270px;">
                 <div class="edit-delete-icons">
                     <i class="fas fa-edit" style="color: #f7020f;"></i>

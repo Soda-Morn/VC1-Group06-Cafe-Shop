@@ -11,7 +11,7 @@ class PurchaseItemAddModel {
 
     function getPurchaseItemAdd()
     {
-        $stmt = $this->pdo->query("SELECT * FROM products");
+        $stmt = $this->pdo->query("SELECT * FROM purchase_items");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

@@ -13,7 +13,7 @@ class PurchaseItemAddController extends BaseController {
         $purchaseItem = $this->products->getPurchaseItemAdd();
         
         // Pass the data correctly to the view
-        $this->view('inventory/purchase_item_add', ['products' => $purchaseItem]);
+        $this->view('inventory/purchase_item_add', ['purchase_items' => $purchaseItem]);
     }
 
 
