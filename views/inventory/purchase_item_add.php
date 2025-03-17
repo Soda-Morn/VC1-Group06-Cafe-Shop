@@ -1,10 +1,10 @@
 
 
-<div class="container mt-7">
+<div class="container ">
     <!-- Header Section -->
-    <div class="header">
+    <div class="header mt-0">
         <h2>Purchase Item Add</h2>
-        <div class="header-controls">
+        <div class="header-controls  ">
             <button class="add-new-btn"><i class="fas fa-plus"></i> Add New</button>
             <select class="sort-dropdown">
                 <option value="">Sort by</option>
@@ -15,14 +15,14 @@
         </div>
     </div>
     <!-- Product Cards -->
-    <div class="d-flex flex-wrap justify-content-start gap-2" id="product-list">
+    <div class="d-flex flex-wrap justify-content-center gap-3" id="product-list">
         <?php foreach ($products as $item): ?>
-            <div class="card shadow-lg p-0 rounded d-flex flex-column align-items-center text-center" style="width: 280px;">
+            <div class="card shadow-lg p-0 rounded d-flex flex-column align-items-center text-center" style="width: 270px;">
                 <div class="edit-delete-icons">
-                    <i class="fas fa-edit edit-btn"></i>
+                    <i class="fas fa-edit" style="color: #f7020f;"></i>
                     <i class="fas fa-trash delete-btn"></i>
                 </div>
-                <img src="<?= $item['image'] ?>" class="card-img-top " style="width: 100%; height: 300px; object-fit: cover;">
+                <img src="<?= $item['image'] ?>" class="card-img-top " style="width: 100%; height: 220px; object-fit: cover;">
                 <div class=" p-6">
                     <h4 class="font-weight-bold"><?= $item['name'] ?></h4>
                     <h4 class="text-success">$<?= $item['price'] ?></h4>
