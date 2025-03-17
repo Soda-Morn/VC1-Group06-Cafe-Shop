@@ -34,6 +34,10 @@ $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
 $route->get("/purchase_item", [PurchaseitemController::class, 'index']);
 $route->get("/purchase_item_add", [PurchaseItemAddController::class, 'index']);
+$route->get("/purchase_item_add/create", [PurchaseItemAddController::class, 'create']);
+$route->post("/purchase_item_add/store", [PurchaseItemAddController::class, 'store']); // POST request for storing items
+
+
 
 //order_list
 $route->get("/order_list", [OrderlistController::class, 'index']);
