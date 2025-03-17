@@ -1,5 +1,4 @@
 <?php
-require_once 'Database/Database.php';
 
 class PurchaseItemAddControlerModel
 {
@@ -9,27 +8,38 @@ class PurchaseItemAddControlerModel
     {
         $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
     }
+    
 
-    function getPurchaseItems()
+    // Get all products (purchase items)
+    function getProducts()
     {
         $stmt = $this->pdo->query("SELECT * FROM purchase_items");
         return $stmt->fetchAll();
     }
 
-    function createPurchaseItem($data)
+    // Create a new product (purchase item)
+    public function createProduct($data)
     {
-        $stmt = $this->pdo->query("INSERT INTO purchase_items (name, category, quality, image, description) VALUES (:name, :category, :quality, :image, :description)", [
+        // Prepare the SQL query with placeholders
+        $stmt = $this->pdo->query("INSERT INTO purchase_items (name, price, image, description) 
+                                     VALUES (:name, :price, :image, :description)");
+    
+        // Execute the query with the actual data
+        $stmt->execute([
             'name' => $data['name'],
-            'category' => $data['category'],
-            'quality' => $data['quality'],
-            'image' => $data['image'] ?? null,
+            'price' => $data['price'],
+            'image' => $data['image'] ?? null, // Handle case where no image is uploaded
             'description' => $data['description'],
         ]);
     }
+    
 
-    function getPurchaseItem($item_ID)
+    // Get a specific product by ID
+    function getProduct($purchase_item_ID)
     {
-        $stmt = $this->pdo->query("SELECT item_ID, category, quality, description, price, image FROM purchase_items WHERE item_ID = :item_ID", ['item_ID' => $item_ID]);
+        $stmt = $this->pdo->query("SELECT purchase_item_ID, description, price, image 
+                                     FROM purchase_items WHERE purchase_item_ID = :purchase_item_ID");
+        $stmt->execute(['purchase_item_ID' => $purchase_item_ID]);
         return $stmt->fetch();
     }
 }

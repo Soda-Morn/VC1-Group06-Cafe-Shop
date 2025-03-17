@@ -1,6 +1,7 @@
 <?php
 require_once 'Models/PurchaseItemAddControlerModel.php';
 require_once 'BaseController.php';
+
 class PurchaseItemAddController extends BaseController
 {
     private $model;
@@ -10,24 +11,25 @@ class PurchaseItemAddController extends BaseController
         $this->model = new PurchaseItemAddControlerModel();
     }
 
+    // Index function to list products
     function index()
     {
-        $items = $this->model->getPurchaseItems();
-        $this->view('/inventory/purchase_item_add', ['items' => $items]);
-    }
+        // Fetch products from the model
+        $products = $this->model->getProducts();
+        // Pass the products to the view
+        $this->view('/inventory/purchase_item_add', ['purchase_items' => $products]);
+    }   
 
-    function create()
-    {
-      echo "creat";
-    }
+ 
 
+    // Store function to add a new product
     function store()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Capture the POST data from the form
-            $purchase_id = $_POST['purchase_id'] ?? '';
-            $product_id = $_POST['product_id'] ?? '';
-            $quantity = $_POST['quantity'] ?? '';
+            // Get POST data for name, price, and description
+            $name = $_POST['name'] ?? '';
+            $price = $_POST['price'] ?? '';
+            $description = $_POST['description'] ?? '';
 
             // Handling Image Upload
             $image_url = null;
@@ -44,24 +46,18 @@ class PurchaseItemAddController extends BaseController
                 }
             }
 
-            // Insert Data
+            // Prepare the data for insertion
             $data = [
-                'purchase_id' => $purchase_id,
-                'product_id' => $product_id,
-                'quantity' => $quantity,
-                'image' => $image_url
+                'name' => $name,
+                'price' => $price,
+                'description' => $description,
+                'image' => $image_url,
             ];
 
-            $this->model->createPurchaseItem($data); // Pass data to model for DB insertion
+            // Store the new product in the database
+            $this->model->createProduct($data);
+            // Redirect to the purchase item add page after storing the product
             $this->redirect('/purchase_item_add');
         }
     }
-
-    function show($item_ID)
-    {
-        $item = $this->model->getPurchaseItem($item_ID);
-        $this->view('/inventory/show', ['item' => $item]);
-    }
 }
-
-
