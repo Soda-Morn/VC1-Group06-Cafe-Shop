@@ -14,6 +14,7 @@ require_once "Controllers/OrdermenuController.php";
 require_once "Controllers/OrderlistController.php";
 require_once "Controllers/PurchaseItemAddController.php";
 require_once "Controllers/PurchaseitemController.php";
+require_once "Controllers/CardController.php";
 
 
 $route = new Router();
@@ -43,6 +44,11 @@ $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
 $route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);
 $route->get('/order_now/preview_order/shows', [PurchaseItemAddController::class, 'shows']);
+
+//card_order
+$route->get('/orderCard', [CardController::class, 'index']);
+$route->get('/orderCard/addToCart', [CardController::class, 'addToCart']);
+$route->get('/orderCard/removeFromCart', [CardController::class, 'removeFromCart']);
 
 
 $route->get('/order_menu', [OrdermenuController::class,'index']);

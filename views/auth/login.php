@@ -35,5 +35,5 @@ require_once __DIR__ . "/../layouts/header.php";
         Don't have an account? <a href="/register">Register here</a>
     </div>
 </div>
-<script src="views/assets/js/login.js"></script>
+<script src="../views/assets/js/login.js"></script>
 

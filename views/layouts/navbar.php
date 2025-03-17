@@ -410,75 +410,10 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           <li class="nav-item topbar-icon dropdown hidden-caret">
             <a
               class="nav-link"
-              data-bs-toggle="dropdown"
-              href="#"
+              href="/orderCard"
               aria-expanded="false">
               <i class="fas fa-layer-group"></i>
             </a>
-            <div class="dropdown-menu quick-actions animated fadeIn">
-              <div class="quick-actions-header">
-                <span class="title mb-1">Quick Actions</span>
-                <span class="subtitle op-7">Shortcuts</span>
-              </div>
-              <div class="quick-actions-scroll scrollbar-outer">
-                <div class="quick-actions-items">
-                  <div class="row m-0">
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div class="avatar-item bg-danger rounded-circle">
-                          <i class="far fa-calendar-alt"></i>
-                        </div>
-                        <span class="text">Calendar</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-warning rounded-circle">
-                          <i class="fas fa-map"></i>
-                        </div>
-                        <span class="text">Maps</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div class="avatar-item bg-info rounded-circle">
-                          <i class="fas fa-file-excel"></i>
-                        </div>
-                        <span class="text">Reports</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-success rounded-circle">
-                          <i class="fas fa-envelope"></i>
-                        </div>
-                        <span class="text">Emails</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-primary rounded-circle">
-                          <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <span class="text">Invoice</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-secondary rounded-circle">
-                          <i class="fas fa-credit-card"></i>
-                        </div>
-                        <span class="text">Payments</span>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </li>
 
           <li class="nav-item topbar-user dropdown hidden-caret">
@@ -489,20 +424,20 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               role="button"
               aria-expanded="false">
               <div class="avatar-sm">
-                <?php if (!empty($profilePicture)): ?>
+                <?php if (!empty($_SESSION['profile_picture'])): ?>
                   <img
-                    src="<?php echo htmlspecialchars($profilePicture); ?>"
+                    src="/<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>"
                     alt="Profile"
                     class="avatar-img rounded-circle" />
                 <?php else: ?>
                   <div class="avatar-img rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
-                    <?php echo strtoupper(substr($userName, 0, 1)); ?>
+                    <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
                   </div>
                 <?php endif; ?>
               </div>
               <span class="profile-username">
                 <span class="op-7">Hi,</span>
-                <span class="fw-bold"><?php echo htmlspecialchars($userName); ?></span>
+                <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
               </span>
             </a>
             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -510,20 +445,20 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                 <li>
                   <div class="user-box">
                     <div class="avatar-lg">
-                      <?php if (!empty($profilePicture)): ?>
+                      <?php if (!empty($_SESSION['profile_picture'])): ?>
                         <img
-                          src="<?php echo htmlspecialchars($profilePicture); ?>"
+                          src="/<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>"
                           alt="Profile"
                           class="avatar-img rounded" />
                       <?php else: ?>
                         <div class="avatar-img rounded bg-primary text-white d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
-                          <?php echo strtoupper(substr($userName, 0, 1)); ?>
+                          <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
                         </div>
                       <?php endif; ?>
                     </div>
                     <div class="u-text">
-                      <h4><?php echo htmlspecialchars($userName); ?></h4>
-                      <p class="text-muted"><?php echo htmlspecialchars($userEmail); ?></p>
+                      <h4><?php echo htmlspecialchars($_SESSION['name']); ?></h4>
+                      <p class="text-muted"><?php echo htmlspecialchars($_SESSION['email']); ?></p>
                       <div class="d-flex mt-2">
                         <a href="/profile" class="btn btn-xs btn-secondary btn-sm me-2">View Profile</a>
                         <a href="/logout" class="btn btn-xs btn-danger btn-sm">Logout</a>
@@ -556,29 +491,21 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   <!-- Add this script at the bottom of navbar.php -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize Bootstrap dropdowns
-  if (typeof bootstrap !== 'undefined') {
+    // Initialize Bootstrap dropdowns
     var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-    if (dropdownElementList.length > 0) {
-      var dropdownList = Array.from(dropdownElementList).map(function (dropdownToggleEl) {
-        return new bootstrap.Dropdown(dropdownToggleEl);
-      });
-    }
-    
-    // Make sure the profile dropdown works on click
+    dropdownElementList.forEach(function (dropdownToggleEl) {
+        new bootstrap.Dropdown(dropdownToggleEl);
+    });
+
+    // Ensure profile dropdown toggles correctly
     var profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
     if (profileDropdown) {
-      profileDropdown.addEventListener('click', function(e) {
-        e.preventDefault();
-        var dropdown = bootstrap.Dropdown.getInstance(this);
-        if (!dropdown) {
-          dropdown = new bootstrap.Dropdown(this);
-        }
-        dropdown.toggle();
-      });
+        profileDropdown.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
+            dropdown.toggle();
+        });
     }
-  } else {
-    console.error('Bootstrap is not loaded. Make sure you include the Bootstrap JavaScript library.');
-  }
 });
 </script>

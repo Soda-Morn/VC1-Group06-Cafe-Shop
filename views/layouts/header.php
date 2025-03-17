@@ -35,6 +35,7 @@
   </script>
 
   <!-- CSS Files -->
+<<<<<<< HEAD
   <link rel="stylesheet" href="../../views/assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../../views/assets/css/plugins.min.css" />
   <link rel="stylesheet" href="../../views/assets/css/kaiadmin.min.css" />
@@ -42,6 +43,12 @@
   <link rel="stylesheet" href="../../views/assets/css/register.css" />
   <link rel="stylesheet" href="../../views/assets/css/productlist.css">
   <link rel="stylesheet" href="../../views/assets/css/purchase_Item_add.css">
+=======
+  <link rel="stylesheet" href="../views/assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../views/assets/css/plugins.min.css" />
+  <link rel="stylesheet" href="../views/assets/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="../views/assets/css/productlist.css">
+>>>>>>> 3d2a8fddb0d60707226dd0039416e0354e33f646
 
   <!-- <link rel="stylesheet" href="../../views/assets/css/order_menu.css"> -->
   <!-- Adding Font Awesome for icons -->
@@ -49,4 +56,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     
+=======
+>>>>>>> 3d2a8fddb0d60707226dd0039416e0354e33f646
