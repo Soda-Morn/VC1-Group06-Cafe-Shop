@@ -1,78 +1,63 @@
-/* General Header Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+.container {
+    margin-top: 40px;
+}
+
+/* Header Styling */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
+    background: white;
+    padding: 15px 20px;
     margin-bottom: 20px;
+    margin-top: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
 }
 .header h2 {
-    font-size: 2rem;
-    font-weight: 600;
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
 }
 .header-controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 10px;
 }
 .add-new-btn, .order-btn {
-    font-size: 16px;
-    padding: 10px 15px;
-    margin-right: 10px;
-    width: 170px;
-    height: 40px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.sort-dropdown {
-    font-size: 16px;
-    width: 170px;
-    height: 40px;
-}
-
-/* Product Cards Styling */
-.card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-left: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-.card-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.card-body {
-    padding: 15px;
-    text-align: center;
-}
-.card-body h6 {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #333;
-    margin: 10px 0;
-}
-.card-body h4 {
-    font-size: 1.25rem;
-    color: #000;
-}
-.bg-cart {
-    background: rgb(77, 213, 36);
+    background: rgb(0, 143, 14);
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
-    width: 170px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
-.order {
-    background: rgb(77, 213, 36);
-    width: 170px;
-    margin-left: 10px;
-    height: 40px;
+.add-new-btn:hover, .order-btn:hover {
+    background: rgb(2, 143, 0);
+}
+.sort-dropdown {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
-/* Edit and Delete Icons */
+/* Product Cards Styling */
+.card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.card:hover {
+    transform: translateY(-5px);
+}
 .edit-delete-icons {
     position: absolute;
     top: 10px;
@@ -81,10 +66,9 @@
     gap: 10px;
 }
 .edit-delete-icons i {
-    font-size: 1.2rem;
-    color: #666;
     cursor: pointer;
-    margin-right: 10px;
+    font-size: 18px;
+    transition: 0.3s;
     padding: 5px;
     border-radius: 50%;
 }
@@ -94,88 +78,25 @@
 .delete-btn {
     color: red;
 }
-
-/* Modal Styling */
-.modal-content {
-    border-radius: 10px;
+.edit-delete-icons i:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
-.modal-header {
-    border-bottom: 1px solid #ddd;
+.card-img {
+    width: 100%;
+    height: 100%; /* Ensure uniform image size */
+    object-fit: cover;
 }
-.form-control, select {
-    border-radius: 8px;
-    padding: 10px;
+.card-body h6 {
     font-size: 16px;
+    margin: 10px 0;
 }
-
-/* Responsive Styles */
-@media (max-width: 1024px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-    .header-controls {
-        flex-direction: column;
-        align-items: center;
-    }
-    .add-new-btn, .order-btn, .sort-dropdown, .bg-cart {
-        width: 100%;
-        font-size: 15px;
-        margin-bottom: 10px;
-    }
-    .card {
-        width: 100%;
-        margin-left: 0;
-        margin-bottom: 20px;
-    }
-    .card-img {
-        height: 180px;
-    }
-    .modal-content {
-        padding: 20px;
-    }
+.bg-cart {
+    background: rgb(77, 213, 36);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
 }
-
-@media (max-width: 768px) {
-  
-    .header h2 {
-        font-size: 1.6rem;
-    }
-    .add-new-btn, .order-btn, .bg-cart {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
-    .sort-dropdown {
-        width: 100%;
-    }
-    .card-img {
-        height: 160px;
-    }
-    .modal-content {
-        padding: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        margin-top: 70px;
-    }
-    .header h2 {
-        font-size: 1.4rem;
-    }
-    .add-new-btn, .order-btn {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-    .sort-dropdown, .bg-cart {
-        height: 35px;
-    }
-    .order {
-        width: 100%;
-        height: 45px;
-        margin: 10px;
-    }
-    .card-img {
-        height: 150px;
-    }
+.bg-cart:hover {
+    background: #ff8c00;
 }
