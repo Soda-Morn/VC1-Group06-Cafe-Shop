@@ -254,6 +254,11 @@ h2 span {
     background-color: #b4531a;
     transform: scale(1.05);
 }
+.menu-button {
+    margin-top: -110px; 
+    font-size: 14px;
+    padding: 5px 10px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

@@ -6,7 +6,7 @@
     <div class="logo-header" data-background-color="dark">
       <a href="/" class="logo">
         <img
-          src="views/assets/img/kaiadmin/logo_light.svg"
+          src="../views/assets/img/kaiadmin/logo_light.svg"
           alt="navbar brand"
           class="navbar-brand"
           height="20" />
