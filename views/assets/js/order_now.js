@@ -3,8 +3,11 @@ let quantities = [12, 12];
 let pricePerItem = 12;
 
 function updateTotalPrice() {
-    let totalPrice = quantities.reduce((sum, qty) => sum + qty * pricePerItem, 0);
-    document.getElementById("total-price").textContent = `$${totalPrice}`;
+    let grandTotal = 0;
+    for (let i = 0; i < quantities.length; i++) {
+        grandTotal += quantities[i] * pricePerItem;
+    }
+    document.getElementById("grand-total").textContent = `$${grandTotal}`;
 }
 
 function increaseQuantity(index) {
@@ -29,3 +32,5 @@ function showPopup(message) {
 function closePopup() {
     document.getElementById("popup").classList.add("d-none");
 }
+
+updateTotalPrice(); // Initialize total prices on load
