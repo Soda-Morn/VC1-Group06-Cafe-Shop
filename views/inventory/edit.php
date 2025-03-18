@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Edit Product</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa; /* Light background for the entire page */
+            background-color: #f8f9fa;
         }
 
         .card {
-            background-color: #ffffff; /* White background for the card */
-            border: none; /* Remove default border */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            background-color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .image-upload {
@@ -26,7 +26,7 @@
             border-radius: 10px;
             text-align: center;
             margin-bottom: 20px;
-            transition: background-color 0.3s; /* Smooth transition for hover */
+            transition: background-color 0.3s;
         }
 
         .image-upload:hover {
@@ -39,19 +39,19 @@
         }
 
         .btn-submit {
-            background: linear-gradient(90deg, #007bff, #00c6ff); /* Gradient background */
+            background: linear-gradient(90deg, #007bff, #00c6ff);
             color: white;
-            transition: background 0.3s; /* Smooth transition for hover */
+            transition: background 0.3s;
         }
 
         .btn-cancel {
-            background-color:rgb(255, 51, 0);
+            background-color: rgb(255, 51, 0);
             color: white;
-            transition: background 0.3s; /* Smooth transition for hover */
+            transition: background 0.3s;
         }
 
         .btn-submit:hover {
-            background: linear-gradient(90deg, #00c6ff, #007bff); /* Reverse gradient on hover */
+            background: linear-gradient(90deg, #00c6ff, #007bff);
         }
 
         .btn-cancel:hover {
@@ -64,36 +64,43 @@
             padding: 5px;
         }
 
-        .form-group input, .form-group textarea {
-            border-radius: 5px; /* Rounded corners for inputs */
-            transition: border-color 0.3s; /* Smooth transition for focus */
+        .form-group input {
+            border-radius: 5px;
+            transition: border-color 0.3s;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: #007bff; /* Change border color on focus */
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus */
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
         .form-group {
             margin-bottom: 15px;
         }
 
-        /* Responsive adjustments */
+        .existing-image {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
         @media (max-width: 576px) {
             .image-upload {
-                padding: 15px; /* Reduced padding for smaller screens */
+                padding: 15px;
             }
 
             .btn-submit, .btn-cancel {
-                width: 100%; /* Full width buttons */
-                margin: 5px 0; /* Margins between buttons */
+                width: 100%;
+                margin: 5px 0;
             }
-            .btn-cancel{
+
+            .btn-cancel {
                 background: red;
             }
 
             body {
-                padding: 10px; /* Add some padding to the body */
+                padding: 10px;
             }
         }
     </style>
@@ -103,30 +110,40 @@
         <div class="card shadow-lg">
             <div class="card-body">
                 <div class="text-center mb-4">
-                    <h4 class="font-weight-bold">Add a New Product</h4>
-                    <h6 class="text-muted">Fill in the details below to create a product</h6>
+                    <h4 class="font-weight-bold">Edit Product</h4>
+                    <h6 class="text-muted">Update the details below</h6>
                 </div>
 
-                <form action="/purchase_item_add/store" method="POST" enctype="multipart/form-data">
+                <form action="/purchase_item_add/update/<?= $product['purchase_item_id']; ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Product Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter product name" required>
+                        <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($product['product_name']); ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="price">Price ($)</label>
-                        <input type="number" name="price" class="form-control" step="0.01" placeholder="Enter price" required>
+                        <input type="number" name="price" class="form-control" step="0.01" value="<?= htmlspecialchars($product['price']); ?>" required>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="image" class="font-weight-bold">Product Image</label>
+                        <label class="font-weight-bold">Product Image</label>
                         <div class="image-upload" onclick="document.getElementById('file-input').click();">
-                            <input type="file" name="image" accept="image/*" id="file-input" class="d-none" required>
+                            <input type="file" name="image" accept="image/*" id="file-input" class="d-none">
                             <img src="/Views/assets/img1/icons/upload.svg" alt="Upload Image">
                             <h5 class="text-muted">Drag and drop a file to upload or click to select</h5>
                         </div>
+
+                        <input type="hidden" name="existing_image" value="<?= htmlspecialchars($product['product_image']); ?>">
+                        
+                        <?php if (!empty($product['product_image'])): ?>
+                            <p>Current Image:</p>
+                            <img src="/<?= htmlspecialchars($product['product_image']); ?>" alt="Current Image" class="existing-image">
+                        <?php endif; ?>
+
                         <div id="file-name" class="text-success"></div>
                     </div>
+
                     <div class="text-center">
-                        <button type="submit" class="btn btn-submit me-2">Submit <i class="fas fa-check"></i></button>
+                        <button type="submit" class="btn btn-submit me-2">Update <i class="fas fa-check"></i></button>
                         <a href="/purchase_item_add" class="btn btn-cancel">Cancel <i class="fas fa-times"></i></a>
                     </div>
                 </form>
