@@ -1,3 +1,6 @@
+<?php
+include("views/layouts/header.php");
+?>
 <div class="container mt-7">
     <!-- Header Section -->
     <div class="header">
