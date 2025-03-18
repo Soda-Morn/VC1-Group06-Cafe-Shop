@@ -35,9 +35,12 @@ $route->get("/product_detail", [ProductDetailController::class, 'index']);
 
 // purchase_item
 $route->get("/purchase_item_add", [PurchaseitemController::class, 'index']);
-$route->get("/purchase_item_add/create", [PurchaseitemController::class, 'createItem']);
-$route->get("/purchase_item_add/store", [PurchaseitemController::class, 'storeItem']);
+$route->get("/purchase_item_add/create", [PurchaseitemController::class, 'create']);
+$route->get("/purchase_item_add/store", [PurchaseitemController::class, 'store']);
 $route->get("/purchase_item/destroy/{id}", [PurchaseitemController::class, 'destroy']);
+$route->get("/purchase_item_add/update/{id}", [PurchaseitemController::class, 'update']);
+$route->get("/purchase_item_add/edit/{id}", [PurchaseitemController::class, 'edit']);
+
 
 //checkout-stocks
 $route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);

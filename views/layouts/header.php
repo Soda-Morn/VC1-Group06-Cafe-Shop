@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="../views/assets/css/plugins.min.css" />
   <link rel="stylesheet" href="../views/assets/css/kaiadmin.min.css" />
   <link rel="stylesheet" href="../views/assets/css/productlist.css">
+  
 
   <!-- <link rel="stylesheet" href="../../views/assets/css/order_menu.css"> -->
   <!-- Adding Font Awesome for icons -->

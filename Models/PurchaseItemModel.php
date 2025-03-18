@@ -20,7 +20,6 @@ class PurchaseItemModel
     // Create a new purchase item
     function createPurchase($data)
     {
-        // Use query for insertion with placeholders
         $sql = "INSERT INTO purchase_items (product_name, product_image, price) 
                 VALUES ('" . $data['product_name'] . "', 
                         '" . ($data['product_image'] ?? null) . "', 
@@ -36,13 +35,23 @@ class PurchaseItemModel
                                    WHERE purchase_item_id = '$purchase_item_id'");
         return $stmt->fetch();
     }
-    
+
+    // Update a purchase item
+    function updatePurchase($purchase_item_id, $data)
+    {
+        $sql = "UPDATE purchase_items 
+                SET product_name = '" . $data['product_name'] . "', 
+                    price = '" . $data['price'] . "', 
+                    product_image = '" . ($data['product_image'] ?? null) . "' 
+                WHERE purchase_item_id = '$purchase_item_id'";
+
+        $this->pdo->query($sql);
+    }
+
+    // Delete a purchase item
     function deletePurchase($purchase_item_id)
     {
-        // Create the SQL query to delete the item
         $sql = "DELETE FROM purchase_items WHERE purchase_item_id = '$purchase_item_id'";
-
-        // Execute the query
         $this->pdo->query($sql);
     }
 }
