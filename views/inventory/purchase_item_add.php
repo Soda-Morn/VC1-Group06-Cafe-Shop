@@ -19,12 +19,21 @@
                 <div class="card shadow-sm rounded-3 overflow-hidden" 
                      style="background: linear-gradient(135deg, #fffaf5, #fff); border: none;">
                      
-                    <!-- Edit and Delete Icons -->
+                    <!-- Vertical Ellipsis Dropdown Menu -->
                     <div class="edit-delete-icons text-end p-2">
-                        <a href="/purchase_item_add/edit/<?= $item['purchase_item_id'] ?>" class="text-danger me-2">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <i class="fas fa-trash text-danger delete-btn" data-id="<?= $item['purchase_item_id'] ?>" style="cursor: pointer;"></i>
+                        <div class="custom-dropdown">
+                            <button class="btn btn-sm p-0 ellipsis-btn" type="button">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="custom-dropdown-menu">
+                                <a class="custom-dropdown-item" href="/purchase_item_add/edit/<?= $item['purchase_item_id'] ?>">
+                                    <i class="fas fa-edit me-2"></i> Edit
+                                </a>
+                                <a class="custom-dropdown-item delete-item" href="javascript:void(0);" data-id="<?= $item['purchase_item_id'] ?>">
+                                    <i class="fas fa-trash me-2 text-danger"></i> <span class="text-danger">Delete</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Product Image -->
@@ -50,37 +59,5 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Attach click event listener to all delete buttons
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-    
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const purchaseItemId = this.getAttribute('data-id');
-                
-                // Confirm deletion
-                if (confirm('Are you sure you want to delete this item?')) {
-                    // Perform the delete action
-                    window.location.href = '/purchase_item/destroy/' + purchaseItemId;
-                }
-            });
-        });
-    });
-</script>
 
-<style>
-    .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-    .btn-primary {
-        transition: background 0.3s ease;
-    }
-    .btn-primary:hover {
-        background: linear-gradient(90deg, #357abd, #50a8ff);
-    }
-</style>
+
