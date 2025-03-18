@@ -5,7 +5,7 @@
         <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Sip & Shop</h2>
         <div class="header-controls">
             <a href="/purchase_item_add/create" class="btn btn-outline-primary me-2 shadow-sm">
-                <i class="fas fa-plus"></i> Add New
+                <i class="fas fa-plus"></i> Add new
             </a>
             <button class="btn btn-success shadow-sm">
                 <i class="fas fa-shopping-cart"></i> Order Now
