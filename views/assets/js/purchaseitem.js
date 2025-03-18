@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Custom dropdown functionality
+    // Fancy dropdown functionality
     const dropdownButtons = document.querySelectorAll('.ellipsis-btn');
     
     dropdownButtons.forEach(button => {
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const dropdownMenu = this.nextElementSibling;
             
             // Close all other dropdowns
-            document.querySelectorAll('.custom-dropdown-menu').forEach(menu => {
+            document.querySelectorAll('.fancy-dropdown-menu').forEach(menu => {
                 if (menu !== dropdownMenu) {
                     menu.classList.remove('show');
                 }
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Close dropdown when clicking outside
     document.addEventListener('click', function() {
-        document.querySelectorAll('.custom-dropdown-menu').forEach(menu => {
+        document.querySelectorAll('.fancy-dropdown-menu').forEach(menu => {
             menu.classList.remove('show');
         });
     });
