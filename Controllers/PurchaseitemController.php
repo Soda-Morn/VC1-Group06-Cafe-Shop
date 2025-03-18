@@ -106,4 +106,5 @@ class PurchaseitemController extends BaseController
         $this->model->deletePurchase($purchase_item_id);
         $this->redirect('/purchase_item_add');
     }
+
 }
