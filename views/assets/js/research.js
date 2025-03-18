@@ -1,45 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.querySelector(".form-control");
-  
-    if (searchInput) {
-      let timeoutId;
-  
+  const searchInput = document.querySelector(".form-control"); // The search input field
+  let timeoutId;
+
+  if (searchInput) {
       searchInput.addEventListener("input", function () {
-        clearTimeout(timeoutId);
-  
-        timeoutId = setTimeout(() => {
-          const searchValue = searchInput.value.toLowerCase();
-  
-          // Get all product elements
-          const productElements = document.querySelectorAll(".name, .price, .card,#product-list");
-  
-          // If search is empty, show all products
-          if (!searchValue.trim()) {
-            productElements.forEach(product => {
-              product.style.display = "";
-            });
-            return;
-          }
-  
-          // Loop through all products and filter by name
-          productElements.forEach(product => {
-            // Get product name element
-            const nameElement = product.querySelector("h4, .card-title, .product-name");
-  
-            // If nameElement exists, check the text content
-            if (nameElement) {
-              const nameText = nameElement.textContent.toLowerCase();
-  
-              // If the name matches the search value, show the product
-              if (nameText.includes(searchValue)) {
-                product.style.display = "";
-              } else {
-                product.style.display = "none";
+          clearTimeout(timeoutId); // Clear any previous timeout (debounce)
+
+          timeoutId = setTimeout(() => {
+              const searchValue = searchInput.value.toLowerCase(); // Get the search input value
+
+              // Get all product elements that need to be filtered
+              const productElements = document.querySelectorAll(".name, .price, .card, #product-list");
+
+              // If the search is empty, show all products
+              if (!searchValue.trim()) {
+                  productElements.forEach(product => {
+                      product.style.display = "";
+                  });
+                  return;
               }
-            }
-          });
-        }, 300);
+
+              // Loop through all products and filter by name
+              productElements.forEach(product => {
+                  // Get product name element
+                  const nameElement = product.querySelector("h5, .card-title, .product-name");
+
+                  // If the nameElement exists, check the text content
+                  if (nameElement) {
+                      const nameText = nameElement.textContent.toLowerCase();
+
+                      // If the name matches the search value, show the product
+                      if (nameText.includes(searchValue)) {
+                          product.style.display = "";
+                      } else {
+                          product.style.display = "none";
+                      }
+                  }
+              });
+          }, 300); // Set debounce delay (300ms)
       });
-    }
-  });
-  
+  }
+});
