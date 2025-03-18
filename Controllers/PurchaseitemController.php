@@ -16,13 +16,13 @@ class PurchaseitemController extends BaseController
     {
         $products = $this->model->getPurchases();
         $this->view('/inventory/purchase_item_add', ['products' => $products]);
-    }   
-    function create()
+    }
+    function createItem()
     {
         $products = $this->model->getPurchases();
         $this->view('/inventory/create', ['products' => $products]);
     }
-    function store()
+    function storeItem()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $product_name = $_POST['name'] ?? '';
@@ -51,7 +51,16 @@ class PurchaseitemController extends BaseController
             ];
 
             $this->model->createPurchase($data);
-            $this->redirect('/purchase_item');
+            $this->redirect('/purchase_item_add');
         }
+    }
+    // Destroy a specific purchase item by ID
+    function destroy($purchase_item_id)
+    {
+        // Call the delete function from the model
+        $this->model->deletePurchase($purchase_item_id);
+
+        // Redirect after deletion
+        $this->redirect('/purchase_item_add');
     }
 }

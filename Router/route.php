@@ -34,16 +34,14 @@ $route->get("/product_list", [ProductListController::class, 'index']);
 $route->get("/product_detail", [ProductDetailController::class, 'index']);
 
 // purchase_item
-$route->get("/purchase_item", [PurchaseitemController::class, 'index']);
-$route->get("/purchase_item/create", [PurchaseitemController::class, 'create']);
-$route->get("/purchase_item/store", [PurchaseitemController::class, 'store']);
+$route->get("/purchase_item_add", [PurchaseitemController::class, 'index']);
+$route->get("/purchase_item_add/create", [PurchaseitemController::class, 'createItem']);
+$route->get("/purchase_item_add/store", [PurchaseitemController::class, 'storeItem']);
+$route->get("/purchase_item/destroy/{id}", [PurchaseitemController::class, 'destroy']);
 
-// purchase_item_add
-$route->get("/purchase_item_add", [PurchaseItemAddController::class, 'index']);
-$route->get("/purchase_item_add/create", [PurchaseItemAddController::class, 'create']);
-$route->post("/purchase_item_add/store", [PurchaseItemAddController::class, 'store']); // POST request for storing items
-
-
+//checkout-stocks
+$route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);
+$route->get('/order_now/preview_order/shows', [PurchaseItemAddController::class, 'shows']);
 
 //order_list
 $route->get("/order_list", [OrderlistController::class, 'index']);
@@ -52,8 +50,8 @@ $route->get("/order_list", [OrderlistController::class, 'index']);
 $route->get('/order_menu', [OrdermenuController::class, 'index']);
 $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
-$route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);
-$route->get('/order_now/preview_order/shows', [PurchaseItemAddController::class, 'shows']);
+
+
 
 //card_order
 $route->get('/orderCard', [CardController::class, 'index']);
