@@ -13,7 +13,6 @@
                                     <th class = "bg-warning">ID</th>
                                     <th class = "bg-warning">Image</th>
                                     <th class = "bg-warning">PRODUCTS</th>
-                                    <th class = "bg-warning">CATEGORY</th>
                                     <th class = "bg-warning">DATE ADDED</th>
                                     <th class = "bg-warning">STOCK</th>
                                     <th class = "bg-warning">STATUS</th>
