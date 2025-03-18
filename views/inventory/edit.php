@@ -116,6 +116,14 @@
 
                 <form action="/purchase_item_add/update/<?= $product['purchase_item_id']; ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
+                        <label class="font-weight-bold">Product Image</label>
+                        <div class="image-upload" onclick="document.getElementById('file-input').click();">
+                            <input type="file" name="image" accept="image/*" id="file-input" class="d-none">
+                            <img src="/Views/assets/img1/icons/upload.svg" alt="Upload Image">
+                            <h5 class="text-muted">Select Product Image</h5>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="name">Product Name</label>
                         <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($product['product_name']); ?>" required>
                     </div>
@@ -125,12 +133,6 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="font-weight-bold">Product Image</label>
-                        <div class="image-upload" onclick="document.getElementById('file-input').click();">
-                            <input type="file" name="image" accept="image/*" id="file-input" class="d-none">
-                            <img src="/Views/assets/img1/icons/upload.svg" alt="Upload Image">
-                            <h5 class="text-muted">Drag and drop a file to upload or click to select</h5>
-                        </div>
 
                         <input type="hidden" name="existing_image" value="<?= htmlspecialchars($product['product_image']); ?>">
                         

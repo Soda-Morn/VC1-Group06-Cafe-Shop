@@ -1,4 +1,3 @@
-
 <div class="container py-4" style="background-color: #f0f4f8;">
     <!-- Header Section -->
     <div class="header d-flex justify-content-between align-items-center mb-4">
@@ -14,7 +13,7 @@
     </div>
 
     <!-- Product Cards -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 mb-4" id="product-list">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mb-4" id="product-list">
         <?php foreach ($products as $item): ?>
             <div class="col">
                 <div class="card shadow-sm rounded-3 overflow-hidden" 
@@ -38,28 +37,28 @@
                     </div>
 
                     <!-- Product Image -->
-                    <img src="<?= $item['product_image'] ?>" class="card-img-top" 
-                         style="height: 150px; object-fit: cover; transition: transform 0.3s ease;">
+                    <div style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <img src="<?= $item['product_image'] ?>" class="card-img-top" 
+                             style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    </div>
 
                     <!-- Card Body -->
-                    <div class="card-body text-center">
+                    <div class="card-body text-center" style="padding-top: 20px;">
                         <h5 class="fw-bold text-dark" style="font-size: 1.2rem; text-transform: capitalize;">
                             <?= $item['product_name'] ?>
                         </h5>
-                        <h6 class="text-success mb-2" style="font-size: 1rem; font-weight: 700;">
-                            $<span class="price"><?= $item['price'] ?></span>
-                        </h6>
-                        <a href="/order_now/show" class="btn btn-primary w-100 py-1 mt-auto rounded-pill" 
-                           style="background: linear-gradient(90deg, #4a90e2, #63b8ff); border: none;">
-                            <i class="fas fa-shopping-cart me-1"></i> Add
-                        </a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="text-success mb-0" style="font-size: 1rem; font-weight: 700;">
+                                $<span class="price"><?= $item['price'] ?></span>
+                            </h6>
+                            <form action="/restock_checkout/addStock" method="POST" class="d-inline">
+                                <input type="hidden" name="purchase_item_id" value="<?= $item['purchase_item_id'] ?>">
+                                <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
 </div>
-
-
-
-
