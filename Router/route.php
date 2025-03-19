@@ -11,10 +11,9 @@ require_once "Controllers/LoginRegisterController.php";
 require_once "Controllers/UserController.php";
 require_once "Controllers/OrdermenuController.php";
 require_once "Controllers/OrderlistController.php";
-require_once "Controllers/PurchaseItemAddController.php";
 require_once "Controllers/PurchaseitemController.php";
 require_once "Controllers/CardController.php";
-
+require_once "Controllers/RestockCheckoutController.php";
 
 $route = new Router();
 
@@ -37,17 +36,17 @@ $route->get("/product_detail", [ProductDetailController::class, 'index']);
 // purchase_item
 $route->get("/purchase_item_add", [PurchaseitemController::class, 'index']);
 $route->get("/purchase_item_add/create", [PurchaseitemController::class, 'create']);
-$route->get("/purchase_item_add/store", [PurchaseitemController::class, 'store']);
+$route->post("/purchase_item_add/store", [PurchaseitemController::class, 'store']);
 $route->get("/purchase_item/destroy/{id}", [PurchaseitemController::class, 'destroy']);
 $route->get("/purchase_item_add/update/{id}", [PurchaseitemController::class, 'update']);
 $route->get("/purchase_item_add/edit/{id}", [PurchaseitemController::class, 'edit']);
 
+// restock_checkout
+$route->get("/restock_checkout", [RestockCheckoutController::class, 'index_restock']);
+$route->get("/restock_checkout/addStock", [RestockCheckoutController::class, 'addStock']);
+$route->get("/restock_checkout/removeStock", [RestockCheckoutController::class, 'removeStock']);
 
-//checkout-stocks
-$route->get('/order_now/show', [PurchaseItemAddController::class, 'show']);
-$route->get('/order_now/preview_order/shows', [PurchaseItemAddController::class, 'shows']);
-
-//order_list
+// order_list
 $route->get("/order_list", [OrderlistController::class, 'index']);
 
 // order_menu
@@ -55,16 +54,13 @@ $route->get('/order_menu', [OrdermenuController::class, 'index']);
 $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
 
-
-
-//card_order
+// card_order (for CardController)
 $route->get('/orderCard', [CardController::class, 'index']);
 $route->get('/orderCard/addToCart', [CardController::class, 'addToCart']);
 $route->get('/orderCard/removeFromCart', [CardController::class, 'removeFromCart']);
 
+// Inventory
+$route->get('/stocklist', [StocklistController::class, 'stocklist']);
 
-//Inventory
-$route->get('/stocklist', [StocklistController::class,'stocklist']);
-
+// Execute the routing
 $route->route();
-

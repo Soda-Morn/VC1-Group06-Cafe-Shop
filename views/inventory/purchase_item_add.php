@@ -4,7 +4,7 @@
         <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Sip & Shop</h2>
         <div class="header-controls">
             <a href="/purchase_item_add/create" class="btn btn-outline-primary me-2 shadow-sm">
-                <i class="fas fa-plus"></i> Add New
+                <i class="fas fa-plus"></i> Add new
             </a>
             <button class="btn btn-success shadow-sm">
                 <i class="fas fa-shopping-cart"></i> Order Now
@@ -51,10 +51,10 @@
                             <h6 class="text-success mb-0" style="font-size: 1rem; font-weight: 700;">
                                 $<span class="price"><?= $item['price'] ?></span>
                             </h6>
-                            <a href="/order_now/show" class="btn btn-primary rounded-pill" 
-                               style="background: linear-gradient(90deg, #4a90e2, #63b8ff); border: none; font-size: 0.9rem;">
-                                <i class="fas fa-shopping-cart me-1"></i> Add
-                            </a>
+                            <form action="/restock_checkout/addStock" method="POST" class="d-inline">
+                                <input type="hidden" name="purchase_item_id" value="<?= $item['purchase_item_id'] ?>">
+                                <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
