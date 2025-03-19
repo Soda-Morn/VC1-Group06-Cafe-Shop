@@ -68,26 +68,47 @@ class RestockCheckoutController extends BaseController
     }
 
     // Save or update the stock list in the database
-    public function saveStockList() {
+    public function saveStockList()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['cart'])) {
             // Get the updated quantities from the form
             $quantities = $_POST['quantities'] ?? [];
-    
+
             // Update the quantities in the session cart
             foreach ($_SESSION['cart'] as &$item) {
                 if (isset($quantities[$item['purchase_item_id']])) {
                     $item['quantity'] = (int)$quantities[$item['purchase_item_id']];
+                    // Ensure quantity is at least 1
+                    if ($item['quantity'] < 1) {
+                        $item['quantity'] = 1;
+                    }
                 }
             }
-    
+            unset($item); // Unset the reference to avoid issues
+
+            // Clear out old pending items in stock_lists before saving new ones
+            $this->restockModel->clearPendingStock();
+
             // Save or update the stock list in the database
             $this->restockModel->saveStockList($_SESSION['cart']);
-    
+
             // Clear the cart after saving
             unset($_SESSION['cart']);
-    
-            // Redirect to the preview page
-            $this->redirect('/restock_checkout/preview');
+
+            // Return a success response for the AJAX request
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'success']);
+            exit;
         }
+
+        // If not a POST request, redirect to the checkout page
+        $this->redirect('/restock_checkout');
+    }
+
+    // Show the preview page (no data needed since JavaScript handles it)
+    public function preview()
+    {
+        $this->view('/form_restock/preview_order', []);
     }
 }
+?>
