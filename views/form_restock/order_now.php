@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +11,8 @@
         }
 
         .checkout-container {
-            max-width: 900px;
+            margin-top: 20px;
+            max-width: 1000px;
             background: white;
             padding: 25px;
             border-radius: 10px;
@@ -27,55 +25,6 @@
             object-fit: cover;
             border-radius: 5px;
         }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-controls button {
-            border: none;
-            width: 35px;
-            height: 35px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            background: #ffc107;
-            color: white;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .quantity-controls button:hover {
-            background: #e0a800;
-        }
-
-        .quantity-input {
-            width: 50px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .total-price {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: right;
-            margin-top: 15px;
-        }
-
-        .btn-remove {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn-remove:hover {
-            background: #c82333;
-        }
     </style>
 </head>
 
@@ -84,7 +33,7 @@
         <div class="checkout-container w-100">
             <h2 class="text-center text-warning fw-bold">Checkout</h2>
             <p class="text-center fw-semibold">Review your items before proceeding.</p>
-            
+
             <table class="table table-hover text-center">
                 <thead>
                     <tr>
@@ -97,76 +46,102 @@
                 </thead>
                 <tbody>
                     <?php $total = 0; ?>
-                    <?php if (!empty($orderItems)): ?>
-                        <?php foreach ($orderItems as $purchase): ?>
-                            <tr class="cart-item" data-id="<?= $purchase['purchase_item_id'] ?>">
-                                <td><img src="<?= $purchase['product_image'] ?>" alt="<?= $purchase['product_name'] ?>" class="img-fluid"></td>
-                                <td><?= $purchase['product_name'] ?></td>
-                                <td class="item-price">$<?= number_format($purchase['price'], 2) ?></td>
-                                <td class="quantity-controls">
-                                    <button class="btn-decrease">−</button>
-                                    <input type="number" class="quantity-input" value="<?= $purchase['quantity'] ?>" min="1">
-                                    <button class="btn-increase">+</button>
-                                </td>
-                                <td>
-                                    <form action="/restock_checkout/removeStock" method="POST">
-                                        <input type="hidden" name="purchase_item_id" value="<?= $purchase['purchase_item_id'] ?>">
-                                        <button type="submit" class="btn-remove">🗑 Remove</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php $total += $purchase['price'] * $purchase['quantity']; ?>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="5" class="text-center">No items in cart.</td>
+                    <?php foreach ($orderItems as $item): ?>
+                        <tr class="cart-item">
+                            <td><img src="<?= $item['product_image'] ?>" alt="<?= $item['product_name'] ?>" class="img-fluid"></td>
+                            <td><?= $item['product_name'] ?></td>
+                            <td>$<?= number_format($item['price'], 2) ?></td>
+                            <td>
+                                <div class="input-group w-auto justify-content-center">
+                                    <button type="button" class="btn btn-warning decrease-btn">−</button>
+                                    <input type="number" class="form-control text-center quantity-input"
+                                        value="<?= $item['quantity'] ?>" min="1"
+                                        data-purchase-item-id="<?= $item['purchase_item_id'] ?>">
+                                    <button type="button" class="btn btn-warning increase-btn">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <form action="/restock_checkout/removeStock" method="POST">
+                                    <input type="hidden" name="purchase_item_id" value="<?= $item['purchase_item_id'] ?>">
+                                    <button type="submit" class="btn-remove">🗑 Remove</button>
+                                </form>
+                            </td>
                         </tr>
-                    <?php endif; ?>
+                        <?php $total += $item['price'] * $item['quantity']; ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
-            
-            <div class="total-price">
-                Total: $<span id="total-price"><?= number_format($total, 2) ?></span>
+
+            <div class="total-price text-end fw-bold">
+                Total: $<span><?= number_format($total, 2) ?></span>
             </div>
-            
+
             <div class="text-center mt-4">
                 <a href="/purchase_item_add" class="btn btn-outline-warning">Add More</a>
-                <a href="/checkout" class="btn btn-success">Proceed to Payment</a>
+                <form id="previewForm" action="/restock_checkout/saveStockList" method="POST">
+                    <!-- Hidden input to store updated quantities -->
+                    <?php foreach ($orderItems as $item): ?>
+                        <input type="hidden" name="quantities[<?= $item['purchase_item_id'] ?>]"
+                            value="<?= $item['quantity'] ?>" id="quantity-<?= $item['purchase_item_id'] ?>">
+                    <?php endforeach; ?>
+                    <button type="submit" class="btn btn-success">Preview</button>
+                </form>
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            function updateCartTotal() {
-                let total = 0;
-                $(".cart-item").each(function() {
-                    let price = parseFloat($(this).find(".item-price").text().replace("$", ""));
-                    let quantity = parseInt($(this).find(".quantity-input").val());
-                    total += price * quantity;
-                });
-                $("#total-price").text(total.toFixed(2));
-            }
-            
-            $(".btn-increase").click(function() {
-                let input = $(this).siblings(".quantity-input");
-                input.val(parseInt(input.val()) + 1);
-                updateCartTotal();
-            });
-
-            $(".btn-decrease").click(function() {
-                let input = $(this).siblings(".quantity-input");
-                let newValue = Math.max(1, parseInt(input.val()) - 1);
-                input.val(newValue);
-                updateCartTotal();
-            });
-
-            $(".quantity-input").on("change", function() {
-                if ($(this).val() < 1) $(this).val(1);
-                updateCartTotal();
-            });
-        });
-    </script>
 </body>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const updateTotal = () => {
+            let total = 0;
+            document.querySelectorAll(".cart-item").forEach(row => {
+                const price = parseFloat(row.querySelector("td:nth-child(3)").textContent.replace("$", ""));
+                const quantity = parseInt(row.querySelector(".quantity-input").value);
+                total += price * quantity;
+            });
+            document.querySelector(".total-price span").textContent = total.toFixed(2);
+        };
+
+        const updateHiddenInputs = () => {
+            document.querySelectorAll(".quantity-input").forEach(input => {
+                const purchaseItemId = input.getAttribute("data-purchase-item-id");
+                const hiddenInput = document.querySelector(`#quantity-${purchaseItemId}`);
+                hiddenInput.value = input.value;
+            });
+        };
+
+        document.querySelectorAll(".cart-item").forEach(row => {
+            const input = row.querySelector(".quantity-input");
+            const increaseBtn = row.querySelector(".increase-btn");
+            const decreaseBtn = row.querySelector(".decrease-btn");
+
+            increaseBtn.addEventListener("click", () => {
+                input.value = parseInt(input.value) + 1;
+                updateTotal();
+                updateHiddenInputs();
+            });
+
+            decreaseBtn.addEventListener("click", () => {
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                    updateTotal();
+                    updateHiddenInputs();
+                }
+            });
+
+            input.addEventListener("change", () => {
+                if (parseInt(input.value) < 1 || isNaN(input.value)) {
+                    input.value = 1;
+                }
+                updateTotal();
+                updateHiddenInputs();
+            });
+        });
+
+        // Update hidden inputs and total on page load
+        updateHiddenInputs();
+        updateTotal();
+    });
+</script>
