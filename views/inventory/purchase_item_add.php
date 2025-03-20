@@ -22,16 +22,16 @@
                     <!-- Vertical Ellipsis Dropdown Menu -->
                     <div class="edit-delete-icons text-end p-2">
                         <div class="custom-dropdown">
-                            <button class="btn btn-sm p-0 ellipsis-btn" type="button">
+                            <button class="btn btn-sm p-0 product-ellipsis-btn" type="button">
                                 <i class="fas fa-ellipsis-v"></i>
                             </button>
                             <div class="custom-dropdown-menu">
                                 <a class="custom-dropdown-item" href="/purchase_item_add/edit/<?= $item['purchase_item_id'] ?>">
                                     <i class="fas fa-edit me-2"></i> Edit
                                 </a>
-                                <a class="custom-dropdown-item delete-item" href="javascript:void(0);" data-id="<?= $item['purchase_item_id'] ?>">
+                                <button class="custom-dropdown-item delete-product-item" type="button" data-id="<?= $item['purchase_item_id'] ?>">
                                     <i class="fas fa-trash me-2 text-danger"></i> <span class="text-danger">Delete</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

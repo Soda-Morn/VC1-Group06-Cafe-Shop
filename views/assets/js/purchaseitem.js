@@ -1,77 +1,59 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let openDropdown = null; // Keep track of the open dropdown
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM fully loaded. Attaching event listeners...");
 
-    function closeDropdown(dropdown) {
-        if (dropdown) {
-            dropdown.classList.remove('show');
-        }
-    }
-
-    // Toggle dropdowns
-    document.querySelectorAll('.ellipsis-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
+    // Handle dropdown menu toggle
+    const ellipsisButtons = document.querySelectorAll('.product-ellipsis-btn');
+    console.log("Found ellipsis buttons:", ellipsisButtons.length);
+    ellipsisButtons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            console.log("Ellipsis button clicked");
+            e.stopPropagation(); // Prevent the click from bubbling up to the "click outside" handler
             const dropdownMenu = this.nextElementSibling;
-
-            // Close the previously opened dropdown (if any)
-            if (openDropdown && openDropdown !== dropdownMenu) {
-                closeDropdown(openDropdown);
-            }
-
-            // Toggle the clicked dropdown
-            if (dropdownMenu.classList.contains('show')) {
-                closeDropdown(dropdownMenu);
-                openDropdown = null;
-            } else {
-                dropdownMenu.classList.add('show');
-                openDropdown = dropdownMenu;
-            }
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
         });
     });
 
     // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (openDropdown && !e.target.closest('.fancy-dropdown')) {
-            closeDropdown(openDropdown);
-            openDropdown = null;
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.custom-dropdown')) {
+            console.log("Clicked outside dropdown. Closing all dropdowns...");
+            document.querySelectorAll('.custom-dropdown-menu').forEach(menu => {
+                menu.style.display = 'none';
+            });
         }
     });
 
-    // ✅ Delete item functionality
-    document.querySelectorAll('.delete-item').forEach(button => {
-        button.addEventListener('click', async function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+    // Handle delete action
+    const deleteButtons = document.querySelectorAll('.delete-product-item');
+    console.log("Found delete buttons:", deleteButtons.length);
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            console.log('Delete button clicked for ID:', this.getAttribute('data-id'));
 
             const purchaseItemId = this.getAttribute('data-id');
+            const productCard = this.closest('.col');
 
-            if (confirm('Are you sure you want to delete this item?')) {
-                try {
-                    const response = await fetch(`/purchase_item/destroy/${purchaseItemId}`, {
-                        method: 'DELETE',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-
-                    if (!response.ok) throw new Error('Failed to delete');
-
-                    const data = await response.json();
-
-                    if (data.success) {
-                        // Remove the deleted item from the DOM instantly
-                        const itemToRemove = this.closest('.product-card');
-                        if (itemToRemove) {
-                            itemToRemove.remove();
-                        }
-                    } else {
-                        throw new Error('Server did not confirm deletion');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    // Fallback: Redirect to delete page if AJAX fails
-                    window.location.href = `/purchase_item/destroy/${purchaseItemId}`;
+            fetch(`/purchase_item/destroy/${purchaseItemId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            }
+            })
+            .then(response => {
+                if (response.ok) {
+                    productCard.style.transition = 'opacity 0.3s ease';
+                    productCard.style.opacity = '0';
+                    setTimeout(() => {
+                        productCard.remove();
+                        console.log('Product card removed for ID:', purchaseItemId);
+                    }, 300);
+                } else {
+                    console.error('Failed to delete product. Status:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
     });
 });
