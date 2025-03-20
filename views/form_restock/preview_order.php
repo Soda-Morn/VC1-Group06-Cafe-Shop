@@ -32,7 +32,7 @@
                 <p class="fs-4 fw-bold">Total Price: <span id="grand-total">$0.00</span></p>
                 <div class="mt-3 d-flex flex-column flex-sm-row justify-content-end gap-3">
                     <a href="/purchase_item_add" class="btn btn-warning text-white w-sm-auto">Add More</a>
-                    <a href="/restock_checkout/checkout" class="btn btn-success text-white w-sm-auto">Checkout</a>
+                    <a href="/stocklist" class="btn btn-success text-white w-sm-auto">Checkout</a>
                 </div>
             </div>
         </div>

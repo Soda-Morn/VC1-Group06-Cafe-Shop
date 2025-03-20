@@ -157,7 +157,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </li>
               <li>
                 <a href="/purchase">
-                  <span class="sub-item">Purchase Item</span>
+                  <span class="sub-item">Purchase History</span>
                 </a>
               </li>
               <li>
