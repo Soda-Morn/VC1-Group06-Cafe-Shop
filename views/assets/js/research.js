@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.getElementById("searchBox");
-  const itemList = document.getElementById("itemList").getElementsByTagName("li");
-
-  searchInput.addEventListener("keyup", function () {
-    let filter = searchInput.value.toLowerCase();
-
-    for (let i = 0; i < itemList.length; i++) {
-      let text = itemList[i].textContent || itemList[i].innerText;
-      if (text.toLowerCase().indexOf(filter) > -1) {
-        itemList[i].style.display = "";
-      } else {
-        itemList[i].style.display = "none";
-      }
-    }
-  });
+  const searchInput = document.querySelector(".form-control");
+  
+  if (searchInput) {
+      searchInput.addEventListener("input", function () {
+          const searchValue = searchInput.value.toLowerCase();
+          const coffeeItems = document.querySelectorAll(".col-md-3");
+          
+          coffeeItems.forEach(item => {
+              const itemName = item.querySelector(".card-title").textContent.toLowerCase();
+              if (itemName.includes(searchValue)) {
+                  item.style.display = "block";
+              } else {
+                  item.style.display = "none";
+              }
+          });
+      });
+  }
 });
+

@@ -1,7 +1,7 @@
 <body class="bg-light">
     <div class="container py-4">
         <!-- Header Section -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 ">
             <h2 class="d-flex align-items-center gap-3">
                 <i class="fas fa-coffee text-warning"></i> Product List in Shop
             </h2>
@@ -22,7 +22,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card h-100">
                     <div class="image-container">
-                        <img src="views/assets/images/image.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                        <img src="views/assets/images/image copy 4.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body text-center d-flex flex-column justify-content-between">
                         <h5 class="card-title">Cappuccino Coffee</h5>
@@ -162,7 +162,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card h-100">
                     <div class="image-container">
-                        <img src="views/assets/images/image copy 2.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                        <img src="views/assets/images/image copy 4.png" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
                     </div>
                     <div class="card-body text-center d-flex flex-column justify-content-between">
                         <h5 class="card-title">Affogato</h5>
