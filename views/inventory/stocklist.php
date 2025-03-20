@@ -20,28 +20,23 @@
                                 </tr>
                             </thead>
 
-                        
                             <tbody>
                                
                         <?php foreach ($stocklist as $row) : ?>
-                             <?php
-                             $statusClass = ($row['Stock'] > 0) ? "bg-success" : "bg-danger";
-                             $statusText = ($row['Stock'] > 0) ? "In Stock" : "Out of Stock";
-                             ?>
+                            
                              <tr>
-                                 <td><?=$row['ID']; ?></td>
+                                 <td><?=$row['stock_list_id']; ?></td>
                                  <td>
-                                     <img src="<?=$row['Image']; ?>" alt="<?= $row['Products']; ?>" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
+                                     <img src="<?=$row['product_image']; ?>"  style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
                                  </td>
-                                 <td><?= $row['Products']; ?></td>
-                                 <td><?= date('F j, Y', strtotime($row['DATE ADDED'])); ?></td>
+                                 <td><?= $row['product_name']; ?></td>
+                                 <td><?= date('F j, Y', strtotime($row['date'])); ?></td>
 
-                                 <td><?= $row['ProductName']; ?></td>
+                                 <td><?= $row['quantity']; ?></td>
                                  <td>
-                                     <span class="<?=$statusClass; ?><?= $row['Stock']; ?> mr-9 p-2 rounded-4"><?= $statusText; ?></span>
+                                     <span class=" mr-9 p-2 "><?= $row['status']; ?> </span>
                                  </td>
-                                 <!-- <td><?= $row['Stock']; ?></td> -->
-                                 <td><a href=""><i class="fas fa-edit me-2"></i></a></td>
+                                 <td><a href=".edite_stocklist"><i class="fas fa-edit me-2"></i></a></td>
 
                                  
                              </tr>
