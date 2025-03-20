@@ -2,11 +2,11 @@
     
 
 
-<div class="container mt-4">
+<div class="container mt-9 table table-striped table-sm">
     <h1>Suppliers List</h1>
-    <a href="/suppliers/create" class="btn btn-primary">Create New Supplier</a>
-    <table class="table">
-        <thead>
+    <a href="/suppliers/create" class="btn btn-primary m-4">Create New Supplier</a>
+    <table class="table table-striped table-sm m-3 m-3 ">
+        <thead class="table-warning">
             <tr>
                 <th>Id</th>
                 <th>Name</th>

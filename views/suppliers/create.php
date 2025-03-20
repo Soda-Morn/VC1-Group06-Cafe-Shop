@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container " style="max-width: 50%;">
     <form action="/suppliers/store" method="post">
         <div class="mb-3 mt-3">
             <label for="name" class="form-label">Name:</label>
@@ -16,6 +16,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/suppliers" class="btn btn-secondary">Cancel</a>
+        <a href="/suppliers" class="btn btn-danger">Cancel</a>
     </form>
 </div>
