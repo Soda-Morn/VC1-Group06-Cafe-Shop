@@ -1,4 +1,8 @@
 <script src="views/assets/js/research.js"></script>
+<script src="views/assets/js/purchaseitem.js" defer></script>
+
+
+
 
 <?php
 // Start the session if not already started
@@ -152,8 +156,8 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                 </a>
               </li>
               <li>
-                <a href="/purchase_item">
-                  <span class="sub-item">Purchase Item</span>
+                <a href="/purchase">
+                  <span class="sub-item">Purchase History</span>
                 </a>
               </li>
               <li>
