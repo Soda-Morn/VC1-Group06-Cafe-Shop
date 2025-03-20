@@ -49,6 +49,7 @@
 
   <!-- <link rel="stylesheet" href="../../views/assets/css/order_menu.css"> -->
   <!-- Adding Font Awesome for icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 

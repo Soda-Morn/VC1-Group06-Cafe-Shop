@@ -1,5 +1,6 @@
 <?php
 require_once 'Database/Database.php';
+
 class StockListModel {
 
     private $pdo;

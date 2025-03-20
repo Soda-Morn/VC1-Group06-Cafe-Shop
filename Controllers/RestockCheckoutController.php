@@ -51,19 +51,32 @@ class RestockCheckoutController extends BaseController
         $this->redirect('/restock_checkout');
     }
 
-    // Remove an item from the cart
+    // Remove an item from the cart and the stock_lists table
     public function removeStock()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $itemId = $_POST['purchase_item_id'] ?? null;
 
             if ($itemId && isset($_SESSION['cart'])) {
-                // Filter out the item to be removed
-                $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($purchase) use ($itemId) {
-                    return $purchase['purchase_item_id'] != $itemId;
-                });
+                try {
+                    // Delete the item from stock_lists if it exists with 'pending' status
+                    $this->restockModel->deletePendingStockById($itemId);
+
+                    // Filter out the item from the session cart
+                    $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($purchase) use ($itemId) {
+                        return $purchase['purchase_item_id'] != $itemId;
+                    });
+
+                    // Set a success message
+                    $_SESSION['message'] = "Item removed successfully!";
+                } catch (Exception $e) {
+                    // Log the error and set an error message
+                    error_log("Failed to delete stock item: " . $e->getMessage());
+                    $_SESSION['message'] = "Failed to remove item.";
+                }
             }
         }
+        // Always redirect to the checkout page
         $this->redirect('/restock_checkout');
     }
 
@@ -71,34 +84,52 @@ class RestockCheckoutController extends BaseController
     public function saveStockList()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['cart'])) {
-            // Get the updated quantities from the form
-            $quantities = $_POST['quantities'] ?? [];
+            try {
+                // Get the updated quantities from the form
+                $quantities = $_POST['quantities'] ?? [];
 
-            // Update the quantities in the session cart
-            foreach ($_SESSION['cart'] as &$item) {
-                if (isset($quantities[$item['purchase_item_id']])) {
-                    $item['quantity'] = (int)$quantities[$item['purchase_item_id']];
-                    // Ensure quantity is at least 1
-                    if ($item['quantity'] < 1) {
-                        $item['quantity'] = 1;
+                // Update the quantities in the session cart
+                foreach ($_SESSION['cart'] as &$item) {
+                    if (isset($quantities[$item['purchase_item_id']])) {
+                        $item['quantity'] = (int)$quantities[$item['purchase_item_id']];
+                        // Ensure quantity is at least 1
+                        if ($item['quantity'] < 1) {
+                            $item['quantity'] = 1;
+                        }
                     }
                 }
+                unset($item); // Unset the reference to avoid issues
+
+                // Save or update the stock list in the database
+                $this->restockModel->saveStockList($_SESSION['cart']);
+
+                // Clear the cart after saving
+                unset($_SESSION['cart']);
+
+                // Check if the request is an AJAX request
+                $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+                if ($isAjax) {
+                    // Return a JSON response for AJAX requests (used by the Preview button)
+                    header('Content-Type: application/json');
+                    echo json_encode(['status' => 'success']);
+                    exit;
+                }
+
+                // For non-AJAX requests, redirect to the checkout page
+                $this->redirect('/restock_checkout');
+            } catch (Exception $e) {
+                // Log the error and return an error response for AJAX requests
+                error_log("Error in saveStockList: " . $e->getMessage());
+                $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+                if ($isAjax) {
+                    header('Content-Type: application/json', true, 500);
+                    echo json_encode(['status' => 'error', 'message' => 'Failed to save stock list: ' . $e->getMessage()]);
+                    exit;
+                }
+                // For non-AJAX requests, redirect with an error message
+                $_SESSION['message'] = "Failed to save stock list.";
+                $this->redirect('/restock_checkout');
             }
-            unset($item); // Unset the reference to avoid issues
-
-            // Clear out old pending items in stock_lists before saving new ones
-            $this->restockModel->clearPendingStock();
-
-            // Save or update the stock list in the database
-            $this->restockModel->saveStockList($_SESSION['cart']);
-
-            // Clear the cart after saving
-            unset($_SESSION['cart']);
-
-            // Return a success response for the AJAX request
-            header('Content-Type: application/json');
-            echo json_encode(['status' => 'success']);
-            exit;
         }
 
         // If not a POST request, redirect to the checkout page

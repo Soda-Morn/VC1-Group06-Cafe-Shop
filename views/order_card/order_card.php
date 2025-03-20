@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Now</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <style>
         body {
             background-color: #f8f9fa;
         }
-
         .cart-container {
             max-width: auto;
             margin-top: 20px;
@@ -21,20 +18,17 @@
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
-
         .cart-item img {
             width: 60px;
             height: 60px;
             object-fit: cover;
             border-radius: 5px;
         }
-
         .quantity-controls {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .quantity-controls button {
             border: none;
             width: 30px;
@@ -59,14 +53,12 @@
             border: none;
             outline: none;
         }
-
         .total-price {
             font-size: 1.5em;
             font-weight: bold;
             text-align: right;
             margin-top: 10px;
         }
-
         .btn-remove {
             background: #dc3545;
             color: white;
@@ -75,13 +67,11 @@
             border-radius: 5px;
             transition: 0.3s;
         }
-
         .btn-remove:hover {
             background: #c82333;
         }
     </style>
 </head>
-
 <body>
     <div class="container mt-5">
         <div class="cart-container">

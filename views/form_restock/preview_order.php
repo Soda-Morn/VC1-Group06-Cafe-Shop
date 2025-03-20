@@ -4,83 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview Order</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="bg-light d-flex justify-content-center align-items-center vh-100">
-        <div class="bg-white p-4 rounded shadow-lg w-100" style="max-width: 900px;">
-            <h1 class="text-warning fw-bold">Preview Order</h1>
-            <p class="fw-semibold mt-2">Your selection:</p>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
 
-            <div class="table-responsive">
-                <table class="table align-middle">
-                    <thead class="border-bottom">
-                        <tr>
-                            <th class="text-start p-3">IMAGE</th>
-                            <th class="text-start p-3">NAME</th>
-                            <th class="text-start p-3">PRICE</th>
-                            <th class="text-end p-3">QUANTITY</th>
-                        </tr>
-                    </thead>
-                    <tbody id="order-list">
-                        <!-- Table rows will be populated by JavaScript -->
-                    </tbody>
-                </table>
+        .preview-container {
+            max-width: 1000px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-header h2 {
+            color: #f5a623;
+            font-weight: bold;
+            font-size: 2rem; /* Match the larger font size from the screenshot */
+            margin-bottom: 10px;
+        }
+
+        .preview-header p {
+            color: #6c757d;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table thead {
+            background-color: #f5a623;
+            color: #fff;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: center;
+            border: none;
+        }
+
+        .table tbody tr {
+            background-color: #fff;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .total-and-button {
+            display: flex;
+            flex-direction: column; /* Stack total and button vertically */
+            align-items: flex-end; /* Align to the right */
+            gap: 10px; /* Space between total and button */
+        }
+
+        .total-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .total-price span {
+            color: #f5a623;
+        }
+
+        .btn-confirm {
+            background-color: #28a745; /* Match the green color from the screenshot */
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-weight: 600; /* Match the bold text */
+            text-transform: uppercase; /* Match the uppercase text */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center">
+        <div class="preview-container w-100">
+            <div class="preview-header">
+                <h2>Preview</h2>
+                <p>Review your order before finalizing.</p>
             </div>
 
-            <div class="mt-4 text-end">
-                <p class="fs-4 fw-bold">Total Price: <span id="grand-total">$0.00</span></p>
-                <div class="mt-3 d-flex flex-column flex-sm-row justify-content-end gap-3">
-                    <a href="/purchase_item_add" class="btn btn-warning text-white w-sm-auto">Add More</a>
-                    <a href="/restock_checkout/checkout" class="btn btn-success text-white w-sm-auto">Checkout</a>
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>IMAGE</th>
+                        <th>ITEM</th>
+                        <th>PRICE</th>
+                        <th>QUANTITY</th>
+                        <th>SUBTOTAL</th>
+                    </tr>
+                </thead>
+                <tbody id="previewItems">
+                    <!-- Items will be populated by JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="total-and-button">
+                <div class="total-price">
+                    TOTAL: $<span id="previewTotal">0.00</span>
                 </div>
+                <button type="button" id="confirmBtn" class="btn btn-confirm">Confirm Order</button>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Fetch cart data from localStorage
+            // Load cart items from localStorage
             const cartItems = JSON.parse(localStorage.getItem("previewCart")) || [];
-            const orderList = document.getElementById("order-list");
-            const grandTotalElement = document.getElementById("grand-total");
+            const previewItems = document.getElementById("previewItems");
+            const previewTotal = document.getElementById("previewTotal");
 
-            let totalPrice = 0;
+            let total = 0;
 
-            if (cartItems.length === 0) {
-                // If no items, display a message
+            // Populate the table with cart items
+            cartItems.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+
                 const row = document.createElement("tr");
+                row.classList.add("cart-item");
                 row.innerHTML = `
-                    <td colspan="4" class="text-center p-3">No items to preview.</td>
+                    <td><img src="${item.product_image}" alt="${item.product_name}" class="img-fluid"></td>
+                    <td>${item.product_name}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${subtotal.toFixed(2)}</td>
                 `;
-                orderList.appendChild(row);
-            } else {
-                // Populate the table with cart items
-                cartItems.forEach(item => {
-                    const row = document.createElement("tr");
-                    row.classList.add("border-bottom");
-                    row.innerHTML = `
-                        <td class="p-2">
-                            <img src="${item.product_image}" alt="Product" class="img-fluid" style="width: 60px; height: 60px; object-fit: cover;">
-                        </td>
-                        <td class="p-2">${item.product_name}</td>
-                        <td class="p-2">$${item.price.toFixed(2)}</td>
-                        <td class="p-2 text-end">
-                            <span class="fw-bold">${item.quantity}</span>
-                        </td>
-                    `;
-                    orderList.appendChild(row);
+                previewItems.appendChild(row);
+            });
 
-                    // Calculate total price
-                    totalPrice += item.price * item.quantity;
-                });
-            }
+            // Update the total
+            previewTotal.textContent = total.toFixed(2);
 
-            // Update the total price
-            grandTotalElement.textContent = `$${totalPrice.toFixed(2)}`;
-
-            // Clear localStorage after rendering to prevent old data from persisting
-            localStorage.removeItem("previewCart");
+            // Handle the Confirm Order button
+            document.getElementById("confirmBtn").addEventListener("click", function () {
+                localStorage.removeItem("previewCart");
+                window.location.href = "/stocklist";
+            });
         });
     </script>
 </body>

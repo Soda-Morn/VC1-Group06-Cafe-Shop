@@ -1,7 +1,7 @@
 <div class="container py-4" style="background-color: #f0f4f8;">
     <!-- Header Section -->
     <div class="header d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Sip & Shop</h2>
+        <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Purchase Item</h2>
         <div class="header-controls">
             <a href="/purchase_item_add/create" class="btn btn-outline-primary me-2 shadow-sm">
                 <i class="fas fa-plus"></i> Add new
@@ -11,7 +11,6 @@
             </button>
         </div>
     </div>
-
     <!-- Product Cards -->
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mb-4" id="product-list">
         <?php foreach ($products as $item): ?>
