@@ -14,16 +14,16 @@ class StocklistController extends BaseController {
         $this->view('inventory/stocklist',['stocklist' => $stocklist]);
     }
 
-    // function edit($stock_list_id)
-    // {
-    //     $stock = $this->stocklist->getStockItem($stock_list_id);
-    //         $this->view('/inventory/edit_stocklist', ['stocklist' => $stock]);
+    function edit($stock_list_id)
+    {
+        $stock = $this->model->getStockItem($stock_list_id);
+            $this->view('/inventory/edit', ['stock' => $stock]);
 
-    //     // if ($stock) {
-    //     // } else {
-    //     //     $this->redirect('/stock_list');
-    //     // }
-    // }
+        // if ($stock) {
+        // } else {
+        //     $this->redirect('/stock_list');
+        // }
+    }
 
     // Update function - Save changes to the item
     // function update($stock_list_id)
