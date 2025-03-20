@@ -22,7 +22,7 @@ class RestockCheckoutModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Clear all pending items in stock_lists
+    // Clear all pending items in stock_lists (optional method, not used now)
     public function clearPendingStock()
     {
         $query = "DELETE FROM stock_lists WHERE status = 'pending'";
@@ -40,9 +40,11 @@ class RestockCheckoutModel
 
             if ($existingItem) {
                 // If the product exists, update the quantity
-                $updateQuery = "UPDATE stock_lists SET quantity = :quantity WHERE purchase_item_id = :purchase_item_id AND status = 'pending'";
+                $newQuantity = $existingItem['quantity'] + $item['quantity']; // Add the new quantity to the existing one
+                $updateQuery = "UPDATE stock_lists SET quantity = :quantity, date = NOW() 
+                                WHERE purchase_item_id = :purchase_item_id AND status = 'pending'";
                 $this->db->query($updateQuery, [
-                    'quantity' => $item['quantity'],
+                    'quantity' => $newQuantity,
                     'purchase_item_id' => $item['purchase_item_id']
                 ]);
             } else {
@@ -70,6 +72,14 @@ class RestockCheckoutModel
 
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Delete an item from stock_lists with 'pending' status
+    public function deletePendingStockById($purchase_item_id)
+    {
+        $query = "DELETE FROM stock_lists 
+                  WHERE purchase_item_id = :purchase_item_id AND status = 'pending'";
+        $this->db->query($query, ['purchase_item_id' => $purchase_item_id]);
     }
 }
 ?>
