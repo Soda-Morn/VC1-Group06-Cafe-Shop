@@ -1,25 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-<<<<<<< HEAD
-  const searchInput = document.querySelector(".form-control");
-  
-  if (searchInput) {
-      searchInput.addEventListener("input", function () {
-          const searchValue = searchInput.value.toLowerCase();
-          const coffeeItems = document.querySelectorAll(".col-md-3");
-          
-          coffeeItems.forEach(item => {
-              const itemName = item.querySelector(".card-title").textContent.toLowerCase();
-              if (itemName.includes(searchValue)) {
-                  item.style.display = "block";
-              } else {
-                  item.style.display = "none";
-              }
-          });
-      });
-  }
-});
-
-=======
   const searchInput = document.querySelector(".form-control"); // The search input field
   let timeoutId;
 
@@ -62,4 +41,3 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 });
->>>>>>> eaed316480f8a2665745985a566a497cb6682270
