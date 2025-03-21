@@ -6,9 +6,6 @@
             <a href="/purchase_item_add/create" class="btn btn-outline-primary me-2 shadow-sm">
                 <i class="fas fa-plus"></i> Add new
             </a>
-            <!-- <button class="btn btn-success shadow-sm">
-                <i class="fas fa-shopping-cart"></i> Order Now
-            </button> -->
         </div>
     </div>
     <!-- Product Cards -->
