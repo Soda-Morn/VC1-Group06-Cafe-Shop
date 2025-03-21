@@ -6,7 +6,6 @@
     <title>Order Now</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <style>
         body {
             background-color: #f8f9fa;
@@ -42,9 +41,11 @@
             border-radius: 5px;
             transition: 0.3s;
         }
+
         .quantity-controls button:hover {
             background: #0056b3;
         }
+
         .quantity-input {
             width: 50px;
             text-align: center;
@@ -91,13 +92,13 @@
                     <?php $total = 0; ?>
                     <?php if (!empty($cartItems)): ?>
                         <?php foreach ($cartItems as $item): ?>
-                            <tr class="text-center cart-item" data-id="<?= $item['product_ID'] ?>">
-                                <td><img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>" class="img-fluid"></td>
-                                <td><?= $item['name'] ?></td>
-                                <td class="item-price">$<?= $item['price'] ?></td>
+                            <tr class="text-center cart-item" product-id="<?= $item['product_ID'] ?>">
+                                <td><img src="<?= isset($item['image']) ? $item['image'] : 'default_image.png' ?>" alt="<?= isset($item['name']) ? $item['name'] : 'N/A' ?>" class="img-fluid"></td>
+                                <td><?= isset($item['name']) ? $item['name'] : 'N/A' ?></td>
+                                <td class="item-price">$<?= isset($item['price']) ? $item['price'] : '0.00' ?></td>
                                 <td class="quantity-controls">
                                     <button class="btn-decrease">−</button>
-                                    <input type="number" class="quantity-input" value="<?= $item['quantity'] ?>" min="1">
+                                    <input type="number" class="quantity-input" value="<?= isset($item['quantity']) ? $item['quantity'] : '1' ?>" min="1">
                                     <button class="btn-increase">+</button>
                                 </td>
                                 <td>
@@ -107,10 +108,12 @@
                                     </form>
                                 </td>
                             </tr>
-                            <?php $total += $item['price'] * $item['quantity']; ?>
+                            <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <tr><td colspan="5" class="text-center">No items in cart.</td></tr>
+                        <tr>
+                            <td colspan="5" class="text-center">No items in cart.</td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -127,10 +130,10 @@
     </div>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             function updateTotal() {
                 let total = 0;
-                $('.cart-item').each(function () {
+                $('.cart-item').each(function() {
                     let price = parseFloat($(this).find('.item-price').text().replace('$', ''));
                     let quantity = parseInt($(this).find('.quantity-input').val());
                     total += price * quantity;
@@ -138,21 +141,21 @@
                 $('#total-price').text(total.toFixed(2));
             }
 
-            $('.btn-increase').click(function () {
+            $('.btn-increase').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = parseInt(input.val()) + 1;
                 input.val(newValue);
                 updateTotal();
             });
 
-            $('.btn-decrease').click(function () {
+            $('.btn-decrease').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = Math.max(1, parseInt(input.val()) - 1);
                 input.val(newValue);
                 updateTotal();
             });
 
-            $('.quantity-input').on('change', function () {
+            $('.quantity-input').on('change', function() {
                 let value = parseInt($(this).val());
                 if (isNaN(value) || value < 1) {
                     $(this).val(1);
@@ -163,4 +166,5 @@
     </script>
 
 </body>
+
 </html>
