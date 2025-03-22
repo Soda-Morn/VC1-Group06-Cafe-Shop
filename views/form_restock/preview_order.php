@@ -6,6 +6,8 @@
     <title>Preview Order</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body {
             background-color: #fff;
@@ -13,7 +15,7 @@
             min-height: 100vh;
             padding: 20px;
             margin: 0;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: auto;
         }
 
         .preview-container {
@@ -33,7 +35,7 @@
         .preview-header h2 {
             color: #f5a623;
             font-weight: bold;
-            font-size: 2rem; /* Match the larger font size from the screenshot */
+            font-size: 2rem;
             margin-bottom: 10px;
         }
 
@@ -70,11 +72,17 @@
             border-radius: 5px;
         }
 
+        #pdf-content {
+            margin-right: 20px; /* Add a right margin to create a gap */
+        }
+
         .total-and-button {
             display: flex;
-            flex-direction: column; /* Stack total and button vertically */
-            align-items: flex-end; /* Align to the right */
-            gap: 10px; /* Space between total and button */
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .total-price {
@@ -87,14 +95,38 @@
             color: #f5a623;
         }
 
-        .btn-confirm {
-            background-color: #28a745; /* Match the green color from the screenshot */
-            color: #fff;
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-back, .btn-save-pdf {
             border: none;
-            border-radius: 20px;
+            border-radius: 5px;
             padding: 8px 20px;
-            font-weight: 600; /* Match the bold text */
-            text-transform: uppercase; /* Match the uppercase text */
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-save-pdf {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-save-pdf:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -107,26 +139,32 @@
                 <p>Review your order before finalizing.</p>
             </div>
 
-            <table class="table table-hover text-center">
-                <thead>
-                    <tr>
-                        <th>IMAGE</th>
-                        <th>ITEM</th>
-                        <th>PRICE</th>
-                        <th>QUANTITY</th>
-                        <th>SUBTOTAL</th>
-                    </tr>
-                </thead>
-                <tbody id="previewItems">
-                    <!-- Items will be populated by JavaScript -->
-                </tbody>
-            </table>
+            <div id="pdf-content">
+                <table class="table table-hover text-center" id="previewTable">
+                    <thead>
+                        <tr>
+                            <th>IMAGE</th>
+                            <th>ITEM</th>
+                            <th>PRICE</th>
+                            <th>QUANTITY</th>
+                            <th>SUBTOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewItems">
+                        <!-- Items will be populated by JavaScript -->
+                    </tbody>
+                </table>
 
-            <div class="total-and-button">
-                <div class="total-price">
+                <div class="total-price" style="text-align: right; margin-bottom: 20px;">
                     TOTAL: $<span id="previewTotal">0.00</span>
                 </div>
-                <button type="button" id="confirmBtn" class="btn btn-confirm">Confirm Order</button>
+            </div>
+
+            <div class="total-and-button">
+                <div class="button-group">
+                    <button type="button" id="backBtn" class="btn btn-back">Back</button>
+                    <button type="button" id="savePdfBtn" class="btn btn-save-pdf">Save to PDF</button>
+                </div>
             </div>
         </div>
     </div>
@@ -160,10 +198,32 @@
             // Update the total
             previewTotal.textContent = total.toFixed(2);
 
-            // Handle the Confirm Order button
-            document.getElementById("confirmBtn").addEventListener("click", function () {
-                localStorage.removeItem("previewCart");
-                window.location.href = "/stocklist";
+            // Handle the Back button
+            document.getElementById("backBtn").addEventListener("click", function () {
+                window.location.href = "/restock_checkout";
+            });
+
+            // Handle the Save to PDF button
+            document.getElementById("savePdfBtn").addEventListener("click", function () {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Capture only the pdf-content div (table and total price)
+                html2canvas(document.querySelector("#pdf-content"), {
+                    scale: 2,
+                    useCORS: true
+                }).then(canvas => {
+                    const imgData = canvas.toDataURL("image/png");
+                    const imgProps = doc.getImageProperties(imgData);
+                    const pdfWidth = doc.internal.pageSize.getWidth() - 20; // Reduce width to add right margin
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                    // Add the image to the PDF with a left margin to center it
+                    doc.addImage(imgData, "PNG", 10, 0, pdfWidth, pdfHeight);
+
+                    // Download the PDF
+                    doc.save("order_preview.pdf");
+                });
             });
         });
     </script>

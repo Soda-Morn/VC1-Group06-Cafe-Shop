@@ -22,6 +22,15 @@ class RestockCheckoutModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // Get all purchase items for the dropdown
+    public function getAllPurchaseItems()
+    {
+        $query = "SELECT purchase_item_id, product_id, product_name, price, product_image 
+                  FROM purchase_items";
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Clear all pending items in stock_lists (optional method, not used now)
     public function clearPendingStock()
     {
@@ -29,7 +38,7 @@ class RestockCheckoutModel
         $this->db->query($query);
     }
 
-    // Save or update the stock list when preview is clicked
+    // Save or update the stock list when the Submit button is clicked
     public function saveStockList($orderItems)
     {
         foreach ($orderItems as $item) {
@@ -53,7 +62,7 @@ class RestockCheckoutModel
                                 VALUES (:purchase_item_id, :product_id, :quantity, 'pending', NOW())";
                 $this->db->query($insertQuery, [
                     'purchase_item_id' => $item['purchase_item_id'],
-                    'product_id' => $item['product_id'],
+                    'product_id' => $item['product_id'] ?? null,
                     'quantity' => $item['quantity']
                 ]);
             }
