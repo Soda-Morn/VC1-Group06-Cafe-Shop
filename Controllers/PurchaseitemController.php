@@ -19,7 +19,8 @@ class PurchaseItemController extends BaseController
 
     function create()
     {
-        $this->view('/inventory/create');
+        $categories = $this->model->getCategories();
+        $this->view('/inventory/create', ['categories' => $categories]);
     }
 
     function store()
@@ -40,10 +41,13 @@ class PurchaseItemController extends BaseController
 
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
                     $image_url = $target_file;
+                } else {
+                    // Log or display an error if the file upload fails
+                    error_log("Failed to upload image: " . $_FILES['image']['error']);
                 }
             }
 
-            // Insert Data
+            // Insert Data (excluding category_id)
             $data = [
                 'product_name' => $product_name,
                 'price' => $price,
@@ -52,6 +56,9 @@ class PurchaseItemController extends BaseController
 
             $this->model->createPurchase($data);
             $this->redirect('/purchase_item_add');
+        } else {
+            // If the request method is not POST, redirect back to the create form
+            $this->redirect('/purchase_item_add/create');
         }
     }
 
@@ -59,8 +66,9 @@ class PurchaseItemController extends BaseController
     function edit($purchase_item_id)
     {
         $product = $this->model->getPurchase($purchase_item_id);
+        $categories = $this->model->getCategories();
         if ($product) {
-            $this->view('/inventory/edit', ['product' => $product]);
+            $this->view('/inventory/edit', ['product' => $product, 'categories' => $categories]);
         } else {
             $this->redirect('/purchase_item_add');
         }
@@ -85,10 +93,12 @@ class PurchaseItemController extends BaseController
 
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
                     $image_url = $target_file;
+                } else {
+                    error_log("Failed to upload image: " . $_FILES['image']['error']);
                 }
             }
 
-            // Update Data
+            // Update Data (excluding category_id)
             $data = [
                 'product_name' => $product_name,
                 'price' => $price,
@@ -96,6 +106,8 @@ class PurchaseItemController extends BaseController
             ];
 
             $this->model->updatePurchase($purchase_item_id, $data);
+            $this->redirect('/purchase_item_add');
+        } else {
             $this->redirect('/purchase_item_add');
         }
     }

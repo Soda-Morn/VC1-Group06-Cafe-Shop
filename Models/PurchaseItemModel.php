@@ -22,16 +22,29 @@ class PurchaseItemModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Fetch all categories
+    function getCategories()
+    {
+        $sql = "SELECT category_id, name FROM categories";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Create a new purchase item
     function createPurchase($data)
     {
         $sql = "INSERT INTO purchase_items (product_name, product_image, price) 
                 VALUES (:product_name, :product_image, :price)";
-        $this->pdo->query($sql, [
-            'product_name' => $data['product_name'],
-            'product_image' => $data['product_image'] ?? null,
-            'price' => $data['price']
-        ]);
+        try {
+            $this->pdo->query($sql, [
+                'product_name' => $data['product_name'],
+                'product_image' => $data['product_image'] ?? null,
+                'price' => $data['price']
+            ]);
+        } catch (PDOException $e) {
+            error_log("Failed to insert purchase item: " . $e->getMessage());
+            throw $e; // Re-throw the exception for debugging
+        }
     }
 
     // Get a specific purchase item by ID
@@ -54,12 +67,17 @@ class PurchaseItemModel
                     price = :price, 
                     product_image = :product_image 
                 WHERE purchase_item_id = :purchase_item_id";
-        $this->pdo->query($sql, [
-            'product_name' => $data['product_name'],
-            'price' => $data['price'],
-            'product_image' => $data['product_image'] ?? null,
-            'purchase_item_id' => $purchase_item_id
-        ]);
+        try {
+            $this->pdo->query($sql, [
+                'product_name' => $data['product_name'],
+                'price' => $data['price'],
+                'product_image' => $data['product_image'] ?? null,
+                'purchase_item_id' => $purchase_item_id
+            ]);
+        } catch (PDOException $e) {
+            error_log("Failed to update purchase item: " . $e->getMessage());
+            throw $e;
+        }
     }
 
     // Delete related records in stock_lists

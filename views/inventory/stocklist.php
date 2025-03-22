@@ -5,6 +5,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Stock Inventory List</h4>
                 </div>
+                
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="basic-datatables" class="display table table-striped table-hover">
