@@ -2,7 +2,7 @@
 require_once 'Models/PurchaseItemModel.php';
 require_once 'BaseController.php';
 
-class PurchaseitemController extends BaseController
+class PurchaseItemController extends BaseController
 {
     private $model;
 
@@ -101,9 +101,10 @@ class PurchaseitemController extends BaseController
     }
 
     // Destroy a specific purchase item by ID
-function destroy($purchase_item_id)
-{
-    $this->model->deletePurchase($purchase_item_id);
-    $this->redirect('/purchase_item_add');
-}}
+    function destroy($purchase_item_id)
+    {
+        $this->model->deletePurchase($purchase_item_id);
+        $this->redirect('/purchase_item_add');
+    }
+}
 ?>

@@ -10,11 +10,16 @@ class PurchaseItemModel
         $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
     }
 
-    // Fetch all purchase items
+    // Fetch all purchase items with their stock quantity
     function getPurchases()
     {
-        $stmt = $this->pdo->query("SELECT * FROM purchase_items");
-        return $stmt->fetchAll();
+        $sql = "SELECT pi.purchase_item_id, pi.product_name, pi.price, pi.product_image, 
+                       COALESCE(SUM(sl.quantity), 0) as stock_quantity
+                FROM purchase_items pi
+                LEFT JOIN stock_lists sl ON pi.purchase_item_id = sl.purchase_item_id
+                GROUP BY pi.purchase_item_id, pi.product_name, pi.price, pi.product_image";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Create a new purchase item
@@ -38,7 +43,7 @@ class PurchaseItemModel
              WHERE purchase_item_id = :purchase_item_id",
             ['purchase_item_id' => $purchase_item_id]
         );
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Update a purchase item
@@ -65,14 +70,14 @@ class PurchaseItemModel
     }
 
     // Delete a purchase item
-function deletePurchase($purchase_item_id)
-{
-    // First, delete related records in stock_lists
-    $this->deleteRelatedStockLists($purchase_item_id);
+    function deletePurchase($purchase_item_id)
+    {
+        // First, delete related records in stock_lists
+        $this->deleteRelatedStockLists($purchase_item_id);
 
-    // Then delete the purchase item
-    $sql = "DELETE FROM purchase_items WHERE purchase_item_id = :purchase_item_id";
-    $this->pdo->query($sql, ['purchase_item_id' => $purchase_item_id]);
-}
+        // Then delete the purchase item
+        $sql = "DELETE FROM purchase_items WHERE purchase_item_id = :purchase_item_id";
+        $this->pdo->query($sql, ['purchase_item_id' => $purchase_item_id]);
+    }
 }
 ?>
