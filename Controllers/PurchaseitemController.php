@@ -19,7 +19,8 @@ class PurchaseitemController extends BaseController
 
     function create()
     {
-        $this->view('/inventory/create');
+        $category = $this->model->getCategories();
+        $this->view('/inventory/create', ['categories' => $category]);
     }
 
     function store()

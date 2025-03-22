@@ -16,6 +16,14 @@ class PurchaseItemModel
         $stmt = $this->pdo->query("SELECT * FROM purchase_items");
         return $stmt->fetchAll();
     }
+    
+    function getCategories()
+    {
+        $stmt = $this->pdo->query("SELECT * FROM categories");
+        return $stmt->fetchAll();
+        
+    }    
+    
 
     // Create a new purchase item
     function createPurchase($data)

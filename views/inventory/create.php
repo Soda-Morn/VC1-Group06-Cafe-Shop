@@ -219,10 +219,17 @@
                     </div>
 
                     <!-- Category -->
+                    <!-- <?php print_r($categories); ?> -->
                     <div class="form-group">
                         <label for="category">Category</label>
+
                         <select name="category" id="category" class="form-control" required>
-                            <option value="" disabled selected>Select a category</option>
+                     <?php foreach ($categories as $item):?>
+
+                            <option><?= $item['name']?></option>
+                           
+                        <?php endforeach; ?>
+
                         </select>
                     </div>
 
