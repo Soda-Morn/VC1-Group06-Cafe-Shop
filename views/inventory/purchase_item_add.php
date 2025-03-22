@@ -34,17 +34,66 @@
         .custom-dropdown-item:hover {
             background-color: #f0f0f0;
         }
+        .card {
+            margin: 10px;
+            border: none; /* No border */
+            background: rgb(255, 255, 255); /* Card background */
+            max-width: 200px; /* Set max width for smaller cards */
+            margin: auto; /* Center the card */
+        }
+        .price {
+            font-weight: bold;
+            color: black; /* Price color */
+        }
+        .stock {
+            color: black; /* Stock color */
+            font-weight: bold;/* Make stock text bold */
+        }
+        .btn-add-to-cart {
+            padding: 5px 10px; /* Adjust padding for button */
+            font-size: 0.9rem; /* Smaller font size */
+            font-weight: bold;
+            margin-top: 10px;
+            background:rgb(183, 90, 23); /* Button color */
+            color: white; /* Text color */
+            border: none; /* Remove border */
+            border-radius: 5px; 
+            cursor: default; /* Prevent hover effect */
+        }
+        .btn-outline-primary{
+            background: #28A745;
+            color: rgb(255, 255, 255); /* Button color */
+            border: 1px solid rgb(255, 255, 255); /* Button border */
+            border-radius: 5px;
+        }
+        .fixed-header {
+            top: 0;
+            background-color: rgb(255, 255, 255);
+            z-index: 10;
+            padding: 15px 0;
+            margin-top: 5px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        @media (max-width: 576px) { /* Mobile styles */
+            .card {
+                margin-left: 10px;
+                margin-right: 10px; /* Ensure consistent margin */
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container py-4" style="background-color: #f0f4f8;">
-        <!-- Header Section -->
-        <div class="header d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Purchase Item</h2>
-            <div class="header-controls">
-                <a href="/purchase_item_add/create" class="btn btn-outline-primary me-2 shadow-sm">
-                    <i class="fas fa-plus"></i> Add new
-                </a>
+    <div class="container py-4">
+        <!-- Fixed Header Section -->
+        <div class="fixed-header mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Restock</h2>
+                <div class="header-controls">
+                    <a href="/purchase_item_add/create" class="btn btn-outline-primary" style="font-family: 'Poppins', sans-serif;">
+                        <i class="fas fa-plus"></i> Add Product
+                    </a>
+                </div>
             </div>
         </div>
         <!-- Product Cards -->
@@ -56,13 +105,12 @@
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
                     <div class="col">
-                        <div class="card shadow-sm rounded-3 overflow-hidden" 
-                             style="background: linear-gradient(135deg, #fffaf5, #fff); border: none;">
+                        <div class="card shadow-sm rounded-3 overflow-hidden">
                              
                             <!-- Vertical Ellipsis Dropdown Menu -->
                             <div class="edit-delete-icons text-end p-2">
                                 <div class="custom-dropdown">
-                                    <button class="btn btn-sm p-0 product-ellipsis-btn" type="button">
+                                    <button class="btn btn-sm p-0 product-ellipsis-btn" type="button" aria-label="Options">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </button>
                                     <div class="custom-dropdown-menu">
@@ -77,27 +125,27 @@
                             </div>
 
                             <!-- Product Image -->
-                            <div style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                            <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
                                 <img src="<?= htmlspecialchars($item['product_image'] ?? 'uploads/default.jpg') ?>" class="card-img-top" 
                                      style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="Product Image">
                             </div>
 
                             <!-- Card Body -->
-                            <div class="card-body text-center" style="padding-top: 20px;">
-                                <h5 class="fw-bold text-dark" style="font-size: 1.2rem; text-transform: capitalize;">
+                            <div class="card-body text-center" style="padding-top: 10px;">
+                                <h5 class="fw-bold text-dark" style="font-size: 1rem; text-transform: capitalize;">
                                     <?= htmlspecialchars($item['product_name']) ?>
                                 </h5>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="text-success mb-0" style="font-size: 1rem; font-weight: 700;">
-                                        $<span class="price"><?= htmlspecialchars($item['price']) ?></span>
+                                    <h6 class="price mb-0" style="font-size: 0.9rem;">
+                                        $<span><?= htmlspecialchars($item['price']) ?></span>
                                     </h6>
-                                    <span class="badge bg-info text-dark">
-                                        Stock: <?= htmlspecialchars($item['stock_quantity']) ?>
+                                    <span class="stock">
+                                        Qty: <?= htmlspecialchars($item['stock_quantity']) ?>
                                     </span>
                                 </div>
                                 <form action="/restock_checkout/addStock" method="POST" class="d-inline">
                                     <input type="hidden" name="purchase_item_id" value="<?= htmlspecialchars($item['purchase_item_id']) ?>">
-                                    <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                                    <button type="submit" class="btn btn-add-to-cart" style="font-family: 'Poppins', sans-serif;" >Add to stock</button>
                                 </form>
                             </div>
                         </div>
