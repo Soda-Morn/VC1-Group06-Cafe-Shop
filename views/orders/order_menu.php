@@ -1,82 +1,176 @@
-<style>
-    .add-new-btn {
-        background: #28a745;
-        color: white;
-        font-size: 1rem; /* Slightly smaller font size */
-        font-weight: bold;
-        text-align: center;
-        padding: 8px 12px; /* Smaller padding */
-        border-radius: 5px;
-        text-decoration: none;
-        width: auto; /* Automatic width */
-        margin-left: 10px; /* Space between title and button */
-    }
-
-    .add-new-container {
-        display: flex;
-        justify-content: space-between; /* Space between title and button */
-        align-items: center; /* Centers vertically */
-        margin-bottom: 20px;
-        margin-top: 5%; /* Space below the header */
-    }
-
-    /* Card styles */
-    .card {
-        margin-bottom: 20px; /* Space between cards */
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 576px) {
-        .add-new-container {
-            flex-direction: row; /* Keep items in a row */
-            align-items: center; /* Align items in the center */
-            justify-content: space-between;
-            margin-top: 15%; /* Space between title and button */
-        }
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
         .add-new-btn {
-            margin-top: 0; /* Remove spacing above button */
-            width: auto; /* Auto width for smaller screens */
-            font-size: 0.9rem; /* Slightly smaller font size for smaller screens */
+            background: #28a745;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            width: auto;
+            margin-left: 10px;
+            transition: background 0.3s ease;
         }
 
-        /* Ensure cards are responsive */
-        .row > div {
-            flex: 1 0 100%; /* Take full width on small screens */
+        .add-new-btn:hover {
+            background: #218838;
         }
-    }
-</style>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Coffee Menu Section -->
-        <div class="col-md-12 p-4 bg-light">
-            <div class="add-new-container">
-                <h2 class="text-uppercase fw-bold mb-0">Coffee Menu</h2>
-                <a href="/order_menu/create" class="text-white add-new-btn">Add new</a>
-            </div>
-            <div class="row">
-                <?php foreach ($products as $item): ?>
-                    <div class="col-md-3 col-sm-6 mb-4"> <!-- Adjust for smaller screens -->
-                        <div class="card h-100 text-center position-relative">
-                            <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= $item['name'] ?>" style="height: 150px; object-fit: cover;">
-                            <!-- Delete Icon -->
-                            <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" style="z-index: 1;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <div class="card-body p-2">
-                                <h4 class="card-title mb-1"> <?= $item['name'] ?> </h4>
-                                <p class="card-text mb-1" style="font-size: 0.9rem;"> <?= $item['description'] ?> </p>
-                                <span class="fw-bold">$<?= $item['price'] ?></span>
-                                <form action="/orderCard/addToCart" method="POST" class="d-inline">
-                                    <input type="hidden" name="product_id" value="<?= $item['product_ID'] ?>">
-                                    <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
-                                </form>
+        .add-new-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top: 5%;
+        }
+
+        /* Card styles */
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top {
+            height: 200px; /* Adjusted height */
+            object-fit: cover; /* Full display */
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        .btn-danger {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+            z-index: 1;
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 0, 0, 0.8);
+        }
+
+        .card-body {
+            padding: 15px;
+            text-align: center;
+            display: flex; /* Use flexbox */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .price-button-container {
+            display: flex; /* Align price and button in a row */
+            justify-content: space-between; /* Space them out */
+            align-items: center; /* Center vertically */
+            margin-top: auto; /* Push it to the bottom of the card */
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #007bff, #00a8ff);
+            border: none;
+            padding: 10px 20px; /* Increased padding */
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin-left: 10px; /* Space between price and button */
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #0056b3, #007bff);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .add-new-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 15%;
+            }
+
+            .add-new-btn {
+                margin-top: 0;
+                width: auto;
+                font-size: 0.9rem;
+            }
+
+            .row > div {
+                flex: 1 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Coffee Menu Section -->
+            <div class="col-md-12 p-4 bg-light">
+                <div class="add-new-container">
+                    <h2 class="text-uppercase fw-bold mb-0">Coffee Menu</h2>
+                    <a href="/order_menu/create" class="text-white add-new-btn">Add new</a>
+                </div>
+                <div class="row">
+                    <?php foreach ($products as $item): ?>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="card h-100 text-center position-relative">
+                                <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
+                                <!-- Delete Icon -->
+                                <button class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <div class="card-body">
+                                    <h4 class="card-title mb-1"><?= htmlspecialchars($item['name']) ?></h4>
+                                    <p class="card-text mb-1"><?= htmlspecialchars($item['description']) ?></p>
+                                    <div class="price-button-container">
+                                        <span class="fw-bold">$<?= number_format($item['price'], 2) ?></span>
+                                        <form action="/orderCard/addToCart" method="POST" class="d-inline">
+                                            <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_ID']) ?>">
+                                            <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>
