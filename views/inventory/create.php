@@ -404,23 +404,6 @@
                 alert('Please select a category');
                 isValid = false;
             }
-
-            if (!isValid) return;
-
-            // Simulate form submission
-            submitButton.classList.add('loading');
-            submitButton.disabled = true;
-
-            try {
-                // Replace with actual API call
-                await new Promise((resolve) => setTimeout(resolve, 2000));
-                alert('Product added successfully!');
-            } catch (error) {
-                alert('Error adding product. Please try again.');
-            } finally {
-                submitButton.classList.remove('loading');
-                submitButton.disabled = false;
-            }
         });
     </script>
 </body>

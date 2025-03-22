@@ -498,20 +498,25 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Bootstrap dropdowns
-    var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+    let dropdownElementList = document.querySelectorAll('.dropdown-toggle');
     dropdownElementList.forEach(function (dropdownToggleEl) {
         new bootstrap.Dropdown(dropdownToggleEl);
     });
 
     // Ensure profile dropdown toggles correctly
-    var profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
+    let profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
     if (profileDropdown) {
         profileDropdown.addEventListener('click', function(event) {
             event.preventDefault();
             event.stopPropagation();
-            var dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
-            dropdown.toggle();
+            let dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
+            if (dropdown._element.classList.contains('show')) {
+                dropdown.hide();
+            } else {
+                dropdown.show();
+            }
         });
     }
 });
 </script>
+
