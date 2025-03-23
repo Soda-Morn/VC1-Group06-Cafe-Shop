@@ -33,7 +33,6 @@
                                         <td>
                                             <span class="mr-9 p-2">
                                                 <?php
-                                                // Calculate status based on quantity
                                                 $quantity = $row['quantity'];
                                                 if ($quantity == 0) {
                                                     echo "Out of Stock";
