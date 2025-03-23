@@ -1,9 +1,6 @@
 <script src="views/assets/js/research.js"></script>
 <script src="views/assets/js/purchaseitem.js" defer></script>
 
-
-
-
 <?php
 // Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
