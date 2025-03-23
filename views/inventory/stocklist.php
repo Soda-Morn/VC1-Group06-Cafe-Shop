@@ -6,9 +6,7 @@
                     <h4 class="card-title">Stock Inventory List</h4>
                     <div class="input-group w-25">
                         <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-                        <span class="input-group-text">
-                            <i class="fas fa-search"></i>
-                        </span>
+                        <i class="fas fa-search search-icon"></i>
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,4 +50,21 @@
     </div>
 </div>
 
+<!-- CSS for icon positioning -->
+<style>
+    .input-group {
+        position: relative;
+    }
 
+    .search-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: gray; /* Adjust color if needed */
+    }
+
+    .form-control {
+        padding-right: 30px; /* Adjust to ensure space for the icon */
+    }
+</style>
