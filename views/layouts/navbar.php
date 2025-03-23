@@ -1,5 +1,6 @@
 <script src="views/assets/js/research.js"></script>
 <script src="views/assets/js/purchaseitem.js" defer></script>
+<script src="views/assets/js/stock_list.js" defer></script>
 
 
 
