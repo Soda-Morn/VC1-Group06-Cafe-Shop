@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE
+html >
+  <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,20 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Declaring color variables */
+        :root {
+            --primary-color: #28A745;
+            --secondary-color: #6c757d;
+            --text-dark: #343a40;
+            --text-light: #f8f9fa;
+            --background-light: #ffffff;
+            --button-color: rgb(183, 90, 23);
+            --border-color: #ced4da;
+            --border-radius: 5px;
+            --order-default: 1;
+            --width-default: 200px;
+        }
+
         .custom-dropdown {
             position: relative;
         }
@@ -75,6 +90,62 @@
             margin-left: 10px;
             margin-right: 10px;
         }
+        /* Search styles */
+        .search-container {
+            position: relative;
+            margin-right: 10px;
+        }
+        .search-input {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 6px 12px;
+            padding-left: 35px; /* Add padding for the search icon */
+            padding-right: 30px;
+            width: 200px;
+        }
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            pointer-events: none; /* Ensures clicks pass through to the input */
+        }
+        .search-button {
+            background: #28A745;
+            color: white;
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .search-clear {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .header-controls {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 5px;
+            }
+            .search-container {
+                order: 1;
+                width: 100%;
+                margin-top: 10px;
+                margin-right: 0;
+            }
+            .search-input {
+                width: 100%;
+            }
+        }
         @media (max-width: 576px) { /* Mobile styles */
             .card {
                 margin-left: 10px;
@@ -87,9 +158,21 @@
     <div class="container py-4">
         <!-- Fixed Header Section -->
         <div class="fixed-header mb-4">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Restock</h2>
-                <div class="header-controls">
+                <div class="header-controls d-flex align-items-center">
+                    <!-- Search Form -->
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="product-search" class="search-input" placeholder="Search products..." aria-label="Search products">
+                        <button type="button" id="search-clear" class="search-clear" aria-label="Clear search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- Search Button (visible on mobile) -->
+                    <button id="search-toggle" class="btn search-button d-md-none" type="button" aria-label="Toggle search">
+                        <i class="fas fa-search"></i>
+                    </button>
                     <a href="/purchase_item_add/create" class="btn btn-outline-primary" style="font-family: 'Poppins', sans-serif;">
                         <i class="fas fa-plus"></i> Add Product
                     </a>
@@ -104,7 +187,7 @@
                 </div>
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
-                    <div class="col">
+                    <div class="col product-item">
                         <div class="card shadow-sm rounded-3 overflow-hidden">
                              
                             <!-- Vertical Ellipsis Dropdown Menu -->
@@ -132,7 +215,7 @@
 
                             <!-- Card Body -->
                             <div class="card-body text-center" style="padding-top: 10px;">
-                                <h5 class="fw-bold text-dark" style="font-size: 1rem; text-transform: capitalize;">
+                                <h5 class="fw-bold text-dark product-name" style="font-size: 1rem; text-transform: capitalize;">
                                     <?= htmlspecialchars($item['product_name']) ?>
                                 </h5>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -168,6 +251,58 @@
                 }
             });
         });
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('product-search');
+            const searchClear = document.getElementById('search-clear');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchContainer = document.querySelector('.search-container');
+            const productItems = document.querySelectorAll('.product-item');
+
+            // Function to filter products
+            function filterProducts() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                // Show/hide clear button
+                if (searchTerm.length > 0) {
+                    searchClear.style.display = 'block';
+                } else {
+                    searchClear.style.display = 'none';
+                }
+                
+                // Filter products
+                productItems.forEach(item => {
+                    const productName = item.querySelector('.product-name').textContent.toLowerCase();
+                    if (productName.includes(searchTerm)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            // Search input event
+            searchInput.addEventListener('input', filterProducts);
+            
+            // Clear search
+            searchClear.addEventListener('click', function() {
+                searchInput.value = '';
+                filterProducts();
+                searchInput.focus();
+            });
+            
+            // Toggle search on mobile
+            if (searchToggle) {
+                searchToggle.addEventListener('click', () => {
+                    searchContainer.classList.toggle('d-none');
+                    if (!searchContainer.classList.contains('d-none')) {
+                        searchInput.focus();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
+

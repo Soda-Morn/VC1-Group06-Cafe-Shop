@@ -492,28 +492,77 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   </div>
 
   <!-- Add this script at the bottom of navbar.php -->
+<!-- Add this script at the bottom of navbar.php -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Bootstrap dropdowns
-    let dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-    dropdownElementList.forEach(function (dropdownToggleEl) {
-        new bootstrap.Dropdown(dropdownToggleEl);
+    // Handle sidebar menu toggles
+    const sidebarMenuItems = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
+    
+    sidebarMenuItems.forEach(function(menuItem) {
+        menuItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            // Toggle the target element's visibility
+            targetElement.classList.toggle('show');
+            this.setAttribute('aria-expanded', targetElement.classList.contains('show'));
+        
+            // Close all other submenus
+            sidebarMenuItems.forEach(function(item) {
+                if (item !== menuItem) {
+                    const otherTargetId = item.getAttribute('href');
+                    const otherTargetElement = document.querySelector(otherTargetId);
+                    otherTargetElement.classList.remove('show');
+                    item.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
     });
-
-    // Ensure profile dropdown toggles correctly
-    let profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
-    if (profileDropdown) {
-        profileDropdown.addEventListener('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            let dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
-            if (dropdown._element.classList.contains('show')) {
-                dropdown.hide();
+    
+    // Handle header dropdowns
+    const headerDropdowns = document.querySelectorAll('.topbar-nav .dropdown-toggle');
+    
+    headerDropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const parent = this.closest('.dropdown');
+            const isOpen = parent.classList.contains('show');
+            
+            // Close all other dropdowns first
+            document.querySelectorAll('.topbar-nav .dropdown.show').forEach(function(openDropdown) {
+                if (openDropdown !== parent) {
+                    openDropdown.classList.remove('show');
+                    openDropdown.querySelector('.dropdown-menu').classList.remove('show');
+                    openDropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Toggle this dropdown
+            if (isOpen) {
+                parent.classList.remove('show');
+                parent.querySelector('.dropdown-menu').classList.remove('show');
+                this.setAttribute('aria-expanded', 'false');
             } else {
-                dropdown.show();
+                parent.classList.add('show');
+                parent.querySelector('.dropdown-menu').classList.add('show');
+                this.setAttribute('aria-expanded', 'true');
             }
         });
-    }
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown.show').forEach(function(dropdown) {
+                dropdown.classList.remove('show');
+                dropdown.querySelector('.dropdown-menu').classList.remove('show');
+                dropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
 });
 </script>
-
