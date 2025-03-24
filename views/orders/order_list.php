@@ -17,116 +17,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>5</td>
-                        <td>$50</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>4</td>
-                        <td>$40</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>3</td>
-                        <td>$30</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>2</td>
-                        <td>$20</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>6</td>
-                        <td>$60</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>1</td>
-                        <td>$10</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>7</td>
-                        <td>$70</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>8</td>
-                        <td>$80</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>9</td>
-                        <td>$90</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>
-                            <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px"> 
-                            Cappuccino
-                        </td>
-                        <td>$10</td>
-                        <td>10</td>
-                        <td>$100</td>
-                        <td><span class="badge bg-success">Completed</span></td>
-                    </tr>
+                    <?php if (!empty($orders)): ?>
+                        <?php foreach ($orders as $order): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($order['id']); ?></td>
+                                <td>
+                                    <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px">
+                                    <?php echo htmlspecialchars($order['item']); ?>
+                                </td>
+                                <td>$<?php echo htmlspecialchars($order['original_price']); ?></td>
+                                <td><?php echo htmlspecialchars($order['quantity']); ?></td>
+                                <td>$<?php echo htmlspecialchars($order['total_price']); ?></td>
+                                <td><span class="badge bg-success"><?php echo htmlspecialchars($order['status']); ?></span></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="6" class="text-center">No orders found.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

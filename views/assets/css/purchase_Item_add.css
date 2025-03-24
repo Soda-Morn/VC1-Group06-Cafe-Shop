@@ -28,35 +28,27 @@ body {
     display: flex;
     gap: 10px;
 }
-.add-new-btn, .order-btn {
-    background: rgb(0, 143, 14);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.add-new-btn:hover, .order-btn:hover {
-    background: rgb(2, 143, 0);
-}
-.sort-dropdown {
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
 
 /* Product Cards Styling */
 .card {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    margin-left: 10px;
     transition: transform 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .card:hover {
     transform: translateY(-5px);
+}
+.product-image {
+    height: 150px; /* Fixed height */
+    object-fit: cover; /* Ensures the image covers the entire area */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+.card:hover .product-image {
+    transform: scale(1.05); /* Slight zoom effect on hover */
 }
 .edit-delete-icons {
     position: absolute;
@@ -72,31 +64,70 @@ body {
     padding: 5px;
     border-radius: 50%;
 }
-.edit-btn {
-    color: green;
-}
-.delete-btn {
-    color: red;
-}
 .edit-delete-icons i:hover {
     background: rgba(0, 0, 0, 0.1);
-}
-.card-img {
-    width: 100%;
-    height: 100%; /* Ensure uniform image size */
-    object-fit: cover;
 }
 .card-body h6 {
     font-size: 16px;
     margin: 10px 0;
 }
-.bg-cart {
-    background: rgb(77, 213, 36);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
+.btn-primary {
+    transition: background 0.3s ease;
 }
-.bg-cart:hover {
-    background: #ff8c00;
+.btn-primary:hover {
+    background: linear-gradient(90deg, #357abd, #50a8ff);
+}
+
+/* Custom dropdown styling - SMALLER VERSION */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    color: #ff8c00;
+}
+.ellipsis-btn {
+    background-color: transparent; /* Remove background */
+    border: none;
+    color: rgb(107, 147, 153) !important; /* Force blue color */
+    font-size: 1.5rem; /* Adjust size if needed */
+    cursor: pointer;
+    padding: 2px;
+    transition: color 0.3s ease;
+}
+.ellipsis-btn:focus, .ellipsis-btn:hover {
+    color: rgb(255, 0, 0) !important; /* Darker blue on hover */
+}
+.custom-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    display: none;
+    min-width: 7rem; /* Smaller width */
+    padding: 0.25rem 0; /* Reduced padding */
+    margin: 0.125rem 0 0;
+    font-size: 0.85rem; /* Smaller font */
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15); /* Smaller shadow */
+}
+.custom-dropdown-menu.show {
+    display: block;
+}
+.custom-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem; /* Reduced padding */
+    clear: both;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+.custom-dropdown-item:hover, .custom-dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
 }

@@ -1,14 +1,31 @@
+<script src="views/assets/js/research.js"></script>
+<script src="views/assets/js/purchaseitem.js" defer></script>
+<script src="views/assets/js/stock_list.js" defer></script>
+
+<?php
+// Start the session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['admin_ID']);
+$userName = $isLoggedIn ? ($_SESSION['name'] ?? 'Admin') : 'User';
+$userEmail = $isLoggedIn ? ($_SESSION['email'] ?? 'admin@example.com') : 'user@example.com';
+$profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
+?>
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="dark">
       <a href="/" class="logo">
         <img
-          src="views/assets/img/kaiadmin/logo_light.svg"
+          src="../../views/assets/img/kaiadmin/logo_light.svg"
           alt="navbar brand"
           class="navbar-brand"
           height="20" />
       </a>
+      <a href="form_order"></a>
       <div class="nav-toggle">
         <button class="btn btn-toggle toggle-sidebar">
           <i class="gg-menu-right"></i>
@@ -36,58 +53,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#base">
-            <i class="fas fa-layer-group"></i>
-            <p>Products</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="base">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/product_list">
-                  <span class="sub-item">Product List</span>
-                </a>
-              </li>
-              <li>
-                <a href="components/buttons.html">
-                  <span class="sub-item">Product Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="/product_detail">
-                  <span class="sub-item">Product Detail</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-            <i class="fas fa-th-list"></i>
-            <p>Categories</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="sidebarLayouts">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="sidebar-style-2.html">
-                  <span class="sub-item">Category List</span>
-                </a>
-              </li>
-              <li>
-                <a href="icon-menu.html">
-                  <span class="sub-item">Category Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="icon-menu.html">
-                  <span class="sub-item">Category Edite</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
           <a data-bs-toggle="collapse" href="#forms">
             <i class="fas fa-pen-square"></i>
             <p>Orders</p>
@@ -101,18 +66,8 @@
                 </a>
               </li>
               <li>
-                <a href="forms/forms.html">
-                  <span class="sub-item">Order Detail</span>
-                </a>
-              </li>
-              <li>
                 <a href="/order_menu">
                   <span class="sub-item">Order Menu</span>
-                </a>
-              </li>
-              <li>
-                <a href="forms/forms.html">
-                  <span class="sub-item">Order History</span>
                 </a>
               </li>
             </ul>
@@ -133,21 +88,30 @@
               </li>
               <li>
                 <a href="/purchase_item_add">
-                  <span class="sub-item">Purchase Item Add</span>
+                  <span class="sub-item">Restock</span>
                 </a>
               </li>
               <li>
-                <a href="/purchase_item">
-                  <span class="sub-item">Purchase Item</span>
-                </a>
-              </li>
-              <li>
-                <a href="tables/datatables.html">
+                <a href="/suppliers">
                   <span class="sub-item">Suplier info</span>
                 </a>
               </li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#base">
+            <i class="fas fa-layer-group"></i>
+            <p>Products</p>
+           
+          </a>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#sidebarLayouts">
+            <i class="fas fa-th-list"></i>
+            <p>Categories</p>
+          </a>
+       
         </li>
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#maps">
@@ -199,20 +163,7 @@
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-        <nav
-          class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="submit" class="btn btn-search pe-1">
-                <i class="fa fa-search search-icon"></i>
-              </button>
-            </div>
-            <input
-              type="text"
-              placeholder="Search ..."
-              class="form-control" />
-          </div>
-        </nav>
+    
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
@@ -397,75 +348,10 @@
           <li class="nav-item topbar-icon dropdown hidden-caret">
             <a
               class="nav-link"
-              data-bs-toggle="dropdown"
-              href="#"
+              href="/orderCard"
               aria-expanded="false">
-              <i class="fas fa-layer-group"></i>
+              <i class="fas fa-shopping-cart"></i>
             </a>
-            <div class="dropdown-menu quick-actions animated fadeIn">
-              <div class="quick-actions-header">
-                <span class="title mb-1">Quick Actions</span>
-                <span class="subtitle op-7">Shortcuts</span>
-              </div>
-              <div class="quick-actions-scroll scrollbar-outer">
-                <div class="quick-actions-items">
-                  <div class="row m-0">
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div class="avatar-item bg-danger rounded-circle">
-                          <i class="far fa-calendar-alt"></i>
-                        </div>
-                        <span class="text">Calendar</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-warning rounded-circle">
-                          <i class="fas fa-map"></i>
-                        </div>
-                        <span class="text">Maps</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div class="avatar-item bg-info rounded-circle">
-                          <i class="fas fa-file-excel"></i>
-                        </div>
-                        <span class="text">Reports</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-success rounded-circle">
-                          <i class="fas fa-envelope"></i>
-                        </div>
-                        <span class="text">Emails</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-primary rounded-circle">
-                          <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <span class="text">Invoice</span>
-                      </div>
-                    </a>
-                    <a class="col-6 col-md-4 p-0" href="#">
-                      <div class="quick-actions-item">
-                        <div
-                          class="avatar-item bg-secondary rounded-circle">
-                          <i class="fas fa-credit-card"></i>
-                        </div>
-                        <span class="text">Payments</span>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </li>
 
           <li class="nav-item topbar-user dropdown hidden-caret">
@@ -473,16 +359,23 @@
               class="dropdown-toggle profile-pic"
               data-bs-toggle="dropdown"
               href="#"
+              role="button"
               aria-expanded="false">
               <div class="avatar-sm">
-                <img
-                  src="assets/img/profile.jpg"
-                  alt="..."
-                  class="avatar-img rounded-circle" />
+                <?php if (!empty($_SESSION['profile_picture'])): ?>
+                  <img
+                    src="/<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>"
+                    alt="Profile"
+                    class="avatar-img rounded-circle" />
+                <?php else: ?>
+                  <div class="avatar-img rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                    <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+                  </div>
+                <?php endif; ?>
               </div>
               <span class="profile-username">
                 <span class="op-7">Hi,</span>
-                <span class="fw-bold">Hizrian</span>
+                <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['name']); ?></span>
               </span>
             </a>
             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -490,29 +383,39 @@
                 <li>
                   <div class="user-box">
                     <div class="avatar-lg">
-                      <img
-                        src="assets/img/profile.jpg"
-                        alt="image profile"
-                        class="avatar-img rounded" />
+                      <?php if (!empty($_SESSION['profile_picture'])): ?>
+                        <img
+                          src="/<?php echo htmlspecialchars($_SESSION['profile_picture']); ?>"
+                          alt="Profile"
+                          class="avatar-img rounded" />
+                      <?php else: ?>
+                        <div class="avatar-img rounded bg-primary text-white d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+                          <?php echo strtoupper(substr($_SESSION['name'], 0, 1)); ?>
+                        </div>
+                      <?php endif; ?>
                     </div>
                     <div class="u-text">
-                      <h4>Hizrian</h4>
-                      <p class="text-muted">hello@example.com</p>
-                      <a
-                        href="profile.html"
-                        class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                      <h4><?php echo htmlspecialchars($_SESSION['name']); ?></h4>
+                      <p class="text-muted"><?php echo htmlspecialchars($_SESSION['email']); ?></p>
+                      <div class="d-flex mt-2">
+                        <a href="/profile" class="btn btn-xs btn-secondary btn-sm me-2">View Profile</a>
+                        <a href="/logout" class="btn btn-xs btn-danger btn-sm">Logout</a>
+                      </div>
                     </div>
                   </div>
                 </li>
                 <li>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">My Profile</a>
-                  <a class="dropdown-item" href="#">My Balance</a>
-                  <a class="dropdown-item" href="#">Inbox</a>
+                  <a class="dropdown-item" href="/profile">
+                    <i class="fas fa-user me-2"></i> My Profile
+                  </a>
+                  <a class="dropdown-item" href="/profile#settings">
+                    <i class="fas fa-cog me-2"></i> Account Settings
+                  </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Account Setting</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <a class="dropdown-item text-danger" href="/logout">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                  </a>
                 </li>
               </div>
             </ul>
@@ -522,3 +425,52 @@
     </nav>
     <!-- End Navbar -->
   </div>
+
+  <!-- Add this script at the bottom of navbar.php -->
+  <!-- Add this script at the bottom of navbar.php -->
+  <script>
+const collapseLinks = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
+
+collapseLinks.forEach(link => {
+  link.addEventListener('click', function() {
+    const caret = this.querySelector('.caret');
+    const targetCollapse = this.nextElementSibling; // Assuming the collapse element is right after the link
+
+    // Toggle caret icon direction
+    caret.classList.toggle('down');
+
+    // Toggle collapse visibility
+    if (caret.classList.contains('down')) {
+      targetCollapse.style.display = 'block'; // Show the collapsible element
+    } else {
+      targetCollapse.style.display = 'none'; // Hide the collapsible element
+    }
+  });
+});
+
+
+  </script>
+  <style>
+    .collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  opacity: 0;
+}
+
+.collapse.show {
+  max-height: 500px; /* Adjust as needed */
+  opacity: 1;
+}
+  
+/* Caret animation */
+.caret {
+  transition: transform 0.3s ease;
+}
+
+.caret.down {
+  transform: rotate(180deg);
+}
+
+  </style>
+  
