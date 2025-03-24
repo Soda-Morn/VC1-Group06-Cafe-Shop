@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,11 +60,13 @@
         .card {
             margin: 10px auto;
             border: none;
-            background: rgb(251, 249, 249);
+            background: rgb(255, 255, 255);
             max-width: 200px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(137, 197, 249, 0.2);
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            margin-left: 15px;
+            margin-right: 10px;
         }
 
         /* Price and stock text styling */
@@ -92,13 +93,20 @@
             border-radius: var(--border-radius);
             cursor: default;
         }
-
-        /* Add product button styling */
-        .btn-outline-primary {
-            background: var(--primary-color);
-            color: white;
-            border: 1px solid white;
-            border-radius: var(--border-radius);
+        .btn-add-to-cart:focus {
+            outline: none; /* Remove the default outline */
+        }
+        .btn-Added {
+            background: rgb(183, 90, 23);
+            color: rgb(255, 255, 255); /* Button color */
+            border: 1px solid rgb(255, 255, 255); /* Button border */
+            border-radius: 5px;
+            padding: 5px 10px; /* Adjust padding for button */
+            font-size: 1rem;
+            
+        }
+        .btn-Added:hover{
+            color: #ffffff;
         }
 
         /* Header section styling */
@@ -122,14 +130,23 @@
             padding: 6px 12px 6px 35px;
             width: 200px;
         }
-
+        .search-input:focus {
+            border-color: #007bff; /* Keep the border color on focus if desired */
+            outline: none; /* Remove the default outline */
+        }
         .search-icon {
             position: absolute;
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--secondary-color);
-            pointer-events: none;
+            color: #6c757d;
+            pointer-events: none; /* Ensures clicks pass through to the input */
+        }
+        .search-button {
+            color: white;
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 5px;
+            margin-right: 10px;
         }
 
         .search-clear {
@@ -189,8 +206,11 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <!-- Add Product Button -->
-                    <a href="/purchase_item_add/create" class="btn btn-outline-primary" style="font-family: 'Poppins', sans-serif;">
+                    <!-- Search Button (visible on mobile) -->
+                    <button id="search-toggle" class="btn search-button d-md-none" type="button" aria-label="Toggle search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <a href="/purchase_item_add/create" class="btn-Added" style="font-family: 'Poppins', sans-serif;">
                         <i class="fas fa-plus"></i> Add Product
                     </a>
                 </div>
@@ -206,7 +226,7 @@
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
                     <div class="col product-item">
-                        <div class="card shadow-sm rounded-3 overflow-hidden">
+                        <div class="card rounded-3 overflow-hidden">
                             <!-- Dropdown Menu for Edit/Delete -->
                             <div class="edit-delete-icons text-end p-2">
                                 <div class="custom-dropdown">
@@ -246,7 +266,6 @@
                                 <!-- Form to Add Item to Cart -->
                                 <form action="/purchase_item_add/addToCart" method="POST" class="d-inline">
                                     <input type="hidden" name="purchase_item_id" value="<?= htmlspecialchars($item['purchase_item_id']) ?>">
-                                    <input type="hidden" name="quantity" value="1">
                                     <button type="submit" class="btn btn-add-to-cart" style="font-family: 'Poppins', sans-serif;">Add to stock</button>
                                 </form>
                             </div>
@@ -331,5 +350,4 @@
         });
     </script>
 </body>
-
 </html>
