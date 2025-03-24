@@ -39,7 +39,8 @@
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             margin: 0 auto;
-            position: relative; /* Added for back button positioning */
+            position: relative;
+            /* Added for back button positioning */
         }
 
         /* Header styles */
@@ -243,23 +244,34 @@
         }
 
         .button-group {
-            margin-bottom: 20px; /* Space below the button */
-            text-align: left; /* Align to the left */
+            margin-bottom: 20px;
+            /* Space below the button */
+            text-align: left;
+            /* Align to the left */
         }
 
         .btn-back {
-            background-color: transparent; /* No background */
-            color: #555; /* Text color */
-            text-decoration: none; /* Remove underline */
-            font-size: 1rem; /* Font size */
-            display: flex; /* Align icon and text */
-            align-items: center; /* Center vertically */
+            background-color: transparent;
+            /* No background */
+            color: #555;
+            /* Text color */
+            text-decoration: none;
+            /* Remove underline */
+            font-size: 1rem;
+            /* Font size */
+            display: flex;
+            /* Align icon and text */
+            align-items: center;
+            /* Center vertically */
         }
 
         .btn-back svg {
-            margin-right: 5px; /* Space between icon and text */
-            width: 24px; /* Icon size */
-            height: 24px; /* Icon size */
+            margin-right: 5px;
+            /* Space between icon and text */
+            width: 24px;
+            /* Icon size */
+            height: 24px;
+            /* Icon size */
         }
 
         /* Buttons */
@@ -477,8 +489,8 @@
 <body>
     <div class="container d-flex justify-content-center">
         <div class="checkout-container w-100">
-            <!-- Back button inside the card -->
-            <a href="/purchase_item_add" class="btn-back">
+            <!-- Back button inside the card, clears cart before redirecting -->
+            <a href="/restock_checkout/clearCartAndRedirect" class="btn-back">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -509,7 +521,7 @@
                                     error_log("Missing purchase_item_id for item: " . print_r($item, true));
                                     continue;
                                 }
-                                ?>
+                        ?>
                                 <tr class="cart-item" data-item-id="<?= htmlspecialchars($item['purchase_item_id']) ?>">
                                     <td>
                                         <img src="<?= htmlspecialchars($item['product_image'] ?? '') ?>"
@@ -534,7 +546,7 @@
                                             Remove</button>
                                     </td>
                                 </tr>
-                                <?php
+                        <?php
                                 $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 1);
                             endforeach;
                         } else {
@@ -649,22 +661,22 @@
                 // Only update if the item is not a new placeholder
                 if (!purchaseItemId.startsWith('new-')) {
                     fetch('/restock_checkout/updateQuantity', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantity}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            alert('Failed to update quantity: ' + (data.message || 'Unknown error'));
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error updating quantity:', error);
-                        alert('An error occurred while updating the quantity');
-                    });
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantity}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                alert('Failed to update quantity: ' + (data.message || 'Unknown error'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error updating quantity:', error);
+                            alert('An error occurred while updating the quantity');
+                        });
                 }
             };
 
@@ -747,21 +759,21 @@
 
                 // Add the new item to the session cart via AJAX
                 fetch('/restock_checkout/addStock', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantityInput.value}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.success) {
-                        alert('Failed to add item to cart: ' + (data.message || 'Unknown error'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error adding item to cart:', error);
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantityInput.value}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Failed to add item to cart: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error adding item to cart:', error);
+                    });
 
                 updateTotalPrice();
             });
@@ -776,25 +788,25 @@
                     if (!purchaseItemId.startsWith('new-')) {
                         // Send AJAX request to remove the item from the session cart
                         fetch('/restock_checkout/removecard', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                newRow.remove();
-                                updateTotalPrice();
-                            } else {
-                                alert('Failed to remove item: ' + (data.message || 'Unknown error'));
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error removing item:', error);
-                            alert('An error occurred while removing the item');
-                        });
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    newRow.remove();
+                                    updateTotalPrice();
+                                } else {
+                                    alert('Failed to remove item: ' + (data.message || 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error removing item:', error);
+                                alert('An error occurred while removing the item');
+                            });
                     } else {
                         // For new items, just remove the row
                         newRow.remove();
@@ -819,26 +831,26 @@
 
                 // Send AJAX request to remove the item
                 fetch('/restock_checkout/removecard', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const row = button.closest('tr');
-                        row.remove();
-                        updateTotalPrice();
-                    } else {
-                        alert('Failed to remove item: ' + (data.message || 'Unknown error'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error removing item:', error);
-                    alert('An error occurred while removing the item');
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const row = button.closest('tr');
+                            row.remove();
+                            updateTotalPrice();
+                        } else {
+                            alert('Failed to remove item: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error removing item:', error);
+                        alert('An error occurred while removing the item');
+                    });
             });
         });
 

@@ -9,74 +9,89 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Declaring color variables */
+        /* Define color variables for consistent theming */
         :root {
             --primary-color: #28A745;
+            /* Green for buttons */
             --secondary-color: #6c757d;
+            /* Gray for secondary elements */
             --text-dark: #343a40;
-            --text-light: #f8f9fa;
-            --background-light: #ffffff;
+            /* Dark text color */
             --button-color: rgb(183, 90, 23);
+            /* Orange for add-to-cart button */
             --border-color: #ced4da;
+            /* Border color for inputs */
             --border-radius: 5px;
-            --order-default: 1;
-            --width-default: 200px;
+            /* Consistent border radius */
         }
 
+        /* Dropdown menu for edit/delete actions */
         .custom-dropdown {
             position: relative;
         }
+
         .custom-dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             right: 0;
             background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             min-width: 120px;
         }
+
         .custom-dropdown:hover .custom-dropdown-menu {
             display: block;
         }
+
         .custom-dropdown-item {
             display: block;
             padding: 8px 12px;
             color: #333;
             text-decoration: none;
         }
+
         .custom-dropdown-item:hover {
-            background-color:rgb(255, 252, 252);
+            background-color: rgb(255, 252, 252);
         }
+
+        /* Product card styling */
         .card {
-            margin: 10px;
-            border: none; /* No border */
-            background: rgb(251, 249, 249); /* Card background */
-            max-width: 200px; /* Set max width for smaller cards */
-            margin: auto; /* Center the card */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-            cursor: pointer; /* Change cursor on hover */
-            box-shadow: 0 4px 8px rgba(137, 197, 249, 0.2); /* Box shadow */
+            margin: 10px auto;
+            border: none;
+            background: rgb(255, 255, 255);
+            max-width: 200px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            margin-left: 15px;
+            margin-right: 10px;
         }
-        /* Optional: Add a border on hover for better visibility */
+
+        /* Price and stock text styling */
         .price {
             font-weight: bold;
-            color: black; /* Price color */
+            color: black;
+            font-size: 0.9rem;
         }
+
         .stock {
-            color: black; /* Stock color */
-            font-weight: bold;/* Make stock text bold */
+            color: black;
+            font-weight: bold;
         }
+
+        /* Add to stock button styling */
         .btn-add-to-cart {
-            padding: 5px 10px; /* Adjust padding for button */
-            font-size: 0.9rem; /* Smaller font size */
+            padding: 5px 10px;
+            font-size: 0.9rem;
             font-weight: bold;
             margin-top: 10px;
-            background:rgb(183, 90, 23); /* Button color */
-            color: white; /* Text color */
-            border: none; /* Remove border */
-            border-radius: 5px; 
-            cursor: default; /* Prevent hover effect */
+            background: var(--button-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: default;
         }
         .btn-add-to-cart:focus {
             outline: none; /* Remove the default outline */
@@ -93,26 +108,26 @@
         .btn-Added:hover{
             color: #ffffff;
         }
+
+        /* Header section styling */
         .fixed-header {
             top: 0;
-            background-color: rgb(255, 255, 255);
+            background-color: white;
             z-index: 10;
             padding: 15px 0;
-            margin-top: 5px;
-            margin-left: 10px;
-            margin-right: 10px;
+            margin: 5px 10px 4px;
         }
-        /* Search styles */
+
+        /* Search input styling */
         .search-container {
             position: relative;
             margin-right: 10px;
         }
+
         .search-input {
-            border-radius: 5px;
-            border: 1px solid #ced4da;
-            padding: 6px 12px;
-            padding-left: 35px; /* Add padding for the search icon */
-            padding-right: 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px 6px 35px;
             width: 200px;
         }
         .search-input:focus {
@@ -133,6 +148,7 @@
             border-radius: 5px;
             margin-right: 10px;
         }
+
         .search-clear {
             position: absolute;
             right: 10px;
@@ -140,10 +156,12 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #6c757d;
+            color: var(--secondary-color);
             cursor: pointer;
             display: none;
         }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .header-controls {
                 display: flex;
@@ -151,28 +169,32 @@
                 justify-content: flex-end;
                 gap: 5px;
             }
+
             .search-container {
                 order: 1;
                 width: 100%;
                 margin-top: 10px;
                 margin-right: 0;
             }
+
             .search-input {
                 width: 100%;
             }
         }
-        @media (max-width: 576px) { /* Mobile styles */
+
+        @media (max-width: 576px) {
             .card {
                 margin-left: 10px;
-                margin-right: 10px; /* Ensure consistent margin */
+                margin-right: 10px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container py-4">
         <!-- Fixed Header Section -->
-        <div class="fixed-header mb-4">
+        <div class="fixed-header">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Restock</h2>
                 <div class="header-controls d-flex align-items-center">
@@ -194,6 +216,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Product Cards -->
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mb-4" id="product-list">
             <?php if (empty($products)): ?>
@@ -203,9 +226,8 @@
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
                     <div class="col product-item">
-                        <div class="card shadow-sm rounded-3 overflow-hidden">
-                             
-                            <!-- Vertical Ellipsis Dropdown Menu -->
+                        <div class="card rounded-3 overflow-hidden">
+                            <!-- Dropdown Menu for Edit/Delete -->
                             <div class="edit-delete-icons text-end p-2">
                                 <div class="custom-dropdown">
                                     <button class="btn btn-sm p-0 product-ellipsis-btn" type="button" aria-label="Options">
@@ -224,8 +246,8 @@
 
                             <!-- Product Image -->
                             <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
-                                <img src="<?= htmlspecialchars($item['product_image'] ?? 'uploads/default.jpg') ?>" class="card-img-top" 
-                                     style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="Product Image">
+                                <img src="<?= htmlspecialchars($item['product_image'] ?? 'uploads/default.jpg') ?>" class="card-img-top"
+                                    style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="Product Image">
                             </div>
 
                             <!-- Card Body -->
@@ -234,14 +256,15 @@
                                     <?= htmlspecialchars($item['product_name']) ?>
                                 </h5>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="price mb-0" style="font-size: 0.9rem;">
+                                    <h6 class="price mb-0">
                                         $<span><?= htmlspecialchars($item['price']) ?></span>
                                     </h6>
                                     <span class="stock">
                                         Qty: <?= htmlspecialchars($item['stock_quantity']) ?>
                                     </span>
                                 </div>
-                                <form action="/restock_checkout/addStock" method="POST" class="d-inline">
+                                <!-- Form to Add Item to Cart -->
+                                <form action="/purchase_item_add/addToCart" method="POST" class="d-inline">
                                     <input type="hidden" name="purchase_item_id" value="<?= htmlspecialchars($item['purchase_item_id']) ?>">
                                     <button type="submit" class="btn btn-add-to-cart" style="font-family: 'Poppins', sans-serif;">Add to stock</button>
                                 </form>
@@ -253,69 +276,77 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS and Popper.js -->
+    <!-- Replace the existing script section with this -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <!-- JavaScript for Delete Confirmation -->
     <script>
+        // Delete Functionality with error handling
         document.querySelectorAll('.delete-product-item').forEach(button => {
-            button.addEventListener('click', function() {
-                if (confirm('Are you sure you want to delete this item?')) {
-                    const id = this.getAttribute('data-id');
-                    window.location.href = `/purchase_item/destroy/${id}`;
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent any default behavior
+
+                // Disable button to prevent multiple clicks
+                button.disabled = true;
+
+                const id = this.getAttribute('data-id');
+                if (!id) {
+                    console.error('No product ID found');
+                    button.disabled = false;
+                    return;
                 }
+
+                // Add a small delay and loading state
+                button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Deleting...';
+
+                setTimeout(() => {
+                    fetch(`/purchase_item_add/destroy/${id}`, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Delete request failed');
+                            }
+                            // Remove the product card from DOM
+                            const card = button.closest('.product-item');
+                            if (card) {
+                                card.remove();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting product:', error);
+                            // Restore button state on error
+                            button.innerHTML = '<i class="fas fa-trash me-2 text-danger"></i> <span class="text-danger">Delete</span>';
+                            button.disabled = false;
+                        });
+                }, 300); // 300ms delay for better UX
             });
         });
 
-        // Search functionality
+        // Search Functionality (unchanged)
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('product-search');
             const searchClear = document.getElementById('search-clear');
-            const searchToggle = document.getElementById('search-toggle');
-            const searchContainer = document.querySelector('.search-container');
             const productItems = document.querySelectorAll('.product-item');
 
-            // Function to filter products
             function filterProducts() {
                 const searchTerm = searchInput.value.toLowerCase().trim();
-                
-                // Show/hide clear button
-                if (searchTerm.length > 0) {
-                    searchClear.style.display = 'block';
-                } else {
-                    searchClear.style.display = 'none';
-                }
-                
-                // Filter products
+                searchClear.style.display = searchTerm.length > 0 ? 'block' : 'none';
+
                 productItems.forEach(item => {
                     const productName = item.querySelector('.product-name').textContent.toLowerCase();
-                    if (productName.includes(searchTerm)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                    item.style.display = productName.includes(searchTerm) ? '' : 'none';
                 });
             }
 
-            // Search input event
             searchInput.addEventListener('input', filterProducts);
-            
-            // Clear search
             searchClear.addEventListener('click', function() {
                 searchInput.value = '';
                 filterProducts();
                 searchInput.focus();
             });
-            
-            // Toggle search on mobile
-            if (searchToggle) {
-                searchToggle.addEventListener('click', () => {
-                    searchContainer.classList.toggle('d-none');
-                    if (!searchContainer.classList.contains('d-none')) {
-                        searchInput.focus();
-                    }
-                });
-            }
         });
     </script>
 </body>
