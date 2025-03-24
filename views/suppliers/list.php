@@ -1,4 +1,8 @@
-
+<style>
+    h1{
+        margin-left: 70px;
+    }
+</style>
 <div class="container">
     <h1>Suppliers List</h1>
     <a href="/suppliers/create" class="btn btn-primary " style="transform: scale(0.9); font-size: 1.1rem; padding: 8px px; margin-left: 67px;">
