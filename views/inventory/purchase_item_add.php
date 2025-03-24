@@ -12,17 +12,11 @@
         /* Define color variables for consistent theming */
         :root {
             --primary-color: #28A745;
-            /* Green for buttons */
             --secondary-color: #6c757d;
-            /* Gray for secondary elements */
             --text-dark: #343a40;
-            /* Dark text color */
             --button-color: rgb(183, 90, 23);
-            /* Orange for add-to-cart button */
             --border-color: #ced4da;
-            /* Border color for inputs */
             --border-radius: 5px;
-            /* Consistent border radius */
         }
 
         /* Dropdown menu for edit/delete actions */
@@ -55,31 +49,38 @@
         .custom-dropdown-item:hover {
             background-color: rgb(255, 252, 252);
         }
-
+        .restock{
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
         /* Product card styling */
         .card {
-            margin: 10px;
-            border: none; /* No border */
-            background: rgb(255, 255, 255); /* Card background */
-            max-width: 200px; /* Set max width for smaller cards */
-            margin: auto; /* Center the card */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-            cursor: pointer; /* Change cursor on hover */
+            margin: 10px auto;
+            border: none;
+            background: rgb(255, 255, 255);
+            max-width: 200px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            margin-left: 10px;
+            margin-left: 15px;
             margin-right: 10px;
         }
 
-        /* Optional: Add a border on hover for better visibility */
+        /* Enhanced Price Styling */
         .price {
             font-weight: bold;
-            color: black;
-            font-size: 0.9rem;
+            font-size: 1rem; /* Larger font size */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
         }
 
+        /* Enhanced Stock Quantity Styling */
         .stock {
-            color: black;
             font-weight: bold;
+            font-size: 1rem; /* Slightly larger font size */
+            padding: 5px 10px; /* Padding for better appearance */
+            border-radius: 5px; /* Rounded corners */
+            display: inline-block; /* Inline block for better spacing */
         }
 
         /* Add to stock button styling */
@@ -104,7 +105,6 @@
             border-radius: 5px;
             padding: 5px 10px; /* Adjust padding for button */
             font-size: 1rem;
-            
         }
         .btn-Added:hover{
             color: #ffffff;
@@ -197,7 +197,7 @@
         <!-- Fixed Header Section -->
         <div class="fixed-header">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <h2 class="fw-bold text-dark" style="font-family: 'Poppins', sans-serif;">Restock</h2>
+                <h2 class=" restock text-dark" style="font-family: 'Poppins', sans-serif;"> Product Restock</h2>
                 <div class="header-controls d-flex align-items-center">
                     <!-- Search Form -->
                     <div class="search-container">
@@ -228,8 +228,7 @@
                 <?php foreach ($products as $item): ?>
                     <div class="col product-item">
                         <div class="card rounded-3 overflow-hidden">
-                             
-                            <!-- Vertical Ellipsis Dropdown Menu -->
+                            <!-- Dropdown Menu for Edit/Delete -->
                             <div class="edit-delete-icons text-end p-2">
                                 <div class="custom-dropdown">
                                     <button class="btn btn-sm p-0 product-ellipsis-btn" type="button" aria-label="Options">
