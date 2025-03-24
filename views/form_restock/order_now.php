@@ -8,132 +8,135 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-/* Reset and base styles */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-        background-color: #fff;
-        font-family: Arial, sans-serif;
-        min-height: 100vh;
-        padding: 20px;
-        margin: 0;
-        overflow-x: hidden;
-    }
+        body {
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
+        }
 
-    /* Container styles */
-    .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
+        /* Container styles */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
 
-    .checkout-container {
-        max-width: 1000px;
-        background: white;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        margin: 0 auto;
-    }
+        .checkout-container {
+            max-width: 1000px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            position: relative;
+            /* Added for back button positioning */
+        }
 
-    /* Header styles */
-    .checkout-header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        /* Header styles */
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
 
-    .checkout-header h2 {
-        color: #f5a623;
-        font-weight: bold;
-        font-size: 2rem;
-        margin-bottom: 10px;
-    }
+        .checkout-header h2 {
+            color: #f5a623;
+            font-weight: bold;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
 
-    .checkout-header p {
-        color: #6c757d;
-        font-size: 1rem;
-        margin: 0;
-    }
+        .checkout-header p {
+            color: #6c757d;
+            font-size: 1rem;
+            margin: 0;
+        }
 
-    /* Table styles */
-    .table-responsive {
-        overflow-x: auto;
-        width: 100%;
-        margin-bottom: 20px;
-    }
+        /* Table styles */
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+            margin-bottom: 20px;
+        }
 
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    .table thead {
-        background-color: transparent;
-        color: #000;
-    }
+        .table thead {
+            background-color: transparent;
+            color: #000;
+        }
 
-    .table th,
-    .table td {
-        padding: 10px;
-        text-align: center;
-        border: none;
-    }
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: center;
+            border: none;
+        }
 
-    .table tbody tr {
-        background-color: #fff;
-        border-bottom: 1px solid #f0f0f0;
-    }
+        .table tbody tr {
+            background-color: #fff;
+            border-bottom: 1px solid #f0f0f0;
+        }
 
-    /* Cart item styles */
-    .cart-item img {
-        width: 60px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
+        /* Cart item styles */
+        .cart-item img {
+            width: 60px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
 
-    .placeholder-image {
-        width: 70px;
-        height: 90px;
-        background-color: #f0f0f0;
-        border-radius: 5px;
-        margin: 0 auto;
-    }
+        .placeholder-image {
+            width: 70px;
+            height: 90px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin: 0 auto;
+        }
 
-    /* Quantity controls */
-    .quantity-group {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-    }
+        /* Quantity controls */
+        .quantity-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
 
-    .quantity-btn {
-        background-color: rgb(183, 90, 23);
-        color: #fff;
-        border: none;
-        border-radius: 2px;
-        padding: 5px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        width: 25px;
-        height: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.3s ease;
-    }
+        .quantity-btn {
+            background-color: rgb(183, 90, 23);
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .quantity-btn:hover {
-        background-color: rgb(220, 120, 23);
-    }
-    .btn-back {
+        .quantity-btn:hover {
+            background-color: rgb(220, 120, 23);
+        }
+
+        .btn-back {
             position: absolute;
             top: 20px;
             left: 20px;
@@ -166,304 +169,337 @@
             fill: none;
         }
 
-
-    .quantity-input {
-        width: 40px;
-        text-align: center;
-        border: 1px solid #ced4da;
-        border-radius: 3px;
-        padding: 2px;
-        font-size: 0.9rem;
-    }
-
-    /* Action buttons */
-    .remove-btn {
-        background-color: #e53935;
-        color: #fff;
-        border: none;
-        padding: 6px 12px;
-        cursor: pointer;
-        font-size: 0.8rem;
-        border-radius: 4px;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        transition: background-color 0.2s ease;
-    }
-
-    .remove-btn:hover {
-        background-color: #c62828;
-    }
-    .btn-add-more {
-
-        margin-right: 600px;
-    }
-    /* Product select */
-    .product-select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ced4da;
-        font-size: 0.9rem;
-    }
-
-    /* Footer area */
-    .checkout-footer {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    @media (min-width: 640px) {
-        .checkout-footer {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-    }
-
-    .total-and-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 10px;
-    }
-
-    .total-price {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #000;
-    }
-
-    .total-price span {
-        color: #f5a623;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 10px;
-    }
-
-    /* Buttons */
-    .btn {
-        border: none;
-        border-radius: 5px;
-        padding: 8px 15px;
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-add-more {
-        background-color: rgb(183, 90, 23);
-        color: #fff;
-    }
-
-    .btn-add-more:hover {
-        background-color: rgb(220, 120, 23);
-    }
-
-    .btn-preview {
-        background-color: rgb(183, 90, 23);
-        color: #fff;
-    }
-
-    .btn-preview:hover {
-        background-color: rgb(220, 120, 23);
-    }
-
-    .btn-submit {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .btn-submit:hover {
-        background-color: #0069d9;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 992px) {
-        .btn-add-more {
-            margin-right: 0;
-        }
-        
-        .button-group {
-            width: 100%;
-            justify-content: space-between;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .checkout-header h2 {
-            font-size: 1.5rem;
-        }
-
-        .table th,
-        .table td {
-            padding: 8px 5px;
-            font-size: 0.9rem;
-        }
-
-        .quantity-btn {
-            width: 22px;
-            height: 22px;
-        }
-
         .quantity-input {
-            width: 35px;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-        }
-        
-        .checkout-footer {
-            flex-direction: column;
-        }
-        
-        .total-and-buttons {
-            width: 100%;
-        }
-        
-        .button-group {
-            width: 100%;
-            justify-content: space-between;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .checkout-container {
-            padding: 15px;
-            box-shadow: none;
-            border-radius: 0;
-        }
-        
-        .checkout-header h2 {
-            font-size: 1.3rem;
-        }
-        
-        .checkout-header p {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            padding: 2px;
             font-size: 0.9rem;
         }
 
-        .table th,
-        .table td {
-            padding: 6px 3px;
-            font-size: 0.8rem;
-        }
-        
-        .table th:nth-child(1),
-        .table td:nth-child(1) {
-            width: 50px;
-        }
-
-        .cart-item img,
-        .placeholder-image {
-            width: 40px;
-            height: 40px;
-        }
-
+        /* Action buttons */
         .remove-btn {
-            padding: 4px 8px;
-            font-size: 0.7rem;
+            background-color: #e53935;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #c62828;
+        }
+
+        .btn-add-more {
+            margin-right: 600px;
+        }
+
+        /* Product select */
+        .product-select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            font-size: 0.9rem;
+        }
+
+        /* Footer area */
+        .checkout-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        @media (min-width: 640px) {
+            .checkout-footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+
+        .total-and-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
         }
 
         .total-price {
-            font-size: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
         }
-        
+
+        .total-price span {
+            color: #f5a623;
+        }
+
         .button-group {
-            flex-wrap: wrap;
-            gap: 8px;
+            margin-bottom: 20px;
+            /* Space below the button */
+            text-align: left;
+            /* Align to the left */
         }
-        
+
+        .btn-back {
+            background-color: transparent;
+            /* No background */
+            color: #555;
+            /* Text color */
+            text-decoration: none;
+            /* Remove underline */
+            font-size: 1rem;
+            /* Font size */
+            display: flex;
+            /* Align icon and text */
+            align-items: center;
+            /* Center vertically */
+        }
+
+        .btn-back svg {
+            margin-right: 5px;
+            /* Space between icon and text */
+            width: 24px;
+            /* Icon size */
+            height: 24px;
+            /* Icon size */
+        }
+
+        /* Buttons */
         .btn {
-            padding: 5px 10px;
-            font-size: 0.75rem;
-            flex: 1;
-            text-align: center;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-    }
 
-    @media (max-width: 480px) {
-        body {
-            padding: 10px;
+        .btn-add-more {
+            background-color: rgb(183, 90, 23);
+            color: #fff;
         }
-        
-        .checkout-container {
-            padding: 10px;
-        }
-        
-        .table th:nth-child(5),
-        .table td:nth-child(5) {
-            width: 70px;
-        }
-        
-        .quantity-group {
-            gap: 2px;
-        }
-        
-        .quantity-btn {
-            width: 20px;
-            height: 20px;
-        }
-        
-        .quantity-input {
-            width: 30px;
-            font-size: 0.8rem;
-        }
-    }
 
-    @media (max-width: 360px) {
-        .table {
-            font-size: 0.7rem;
+        .btn-add-more:hover {
+            background-color: rgb(220, 120, 23);
         }
-        
-        .table th,
-        .table td {
-            padding: 4px 2px;
+
+        .btn-preview {
+            background-color: rgb(183, 90, 23);
+            color: #fff;
         }
-        
-        .cart-item img,
-        .placeholder-image {
-            width: 35px;
-            height: 35px;
+
+        .btn-preview:hover {
+            background-color: rgb(220, 120, 23);
         }
-        
-        .quantity-btn {
-            width: 18px;
-            height: 18px;
-            font-size: 0.8rem;
+
+        .btn-submit {
+            background-color: #007bff;
+            color: #fff;
         }
-        
-        .quantity-input {
-            width: 25px;
-            font-size: 0.7rem;
+
+        .btn-submit:hover {
+            background-color: #0069d9;
         }
-        
-        .remove-btn {
-            padding: 3px 6px;
-            font-size: 0.65rem;
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .btn-add-more {
+                margin-right: 0;
+            }
+
+            .button-group {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
-        
-        .remove-btn::before {
-            font-size: 0.8rem;
+
+        @media (max-width: 768px) {
+            .checkout-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 8px 5px;
+                font-size: 0.9rem;
+            }
+
+            .quantity-btn {
+                width: 22px;
+                height: 22px;
+            }
+
+            .quantity-input {
+                width: 35px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .checkout-footer {
+                flex-direction: column;
+            }
+
+            .total-and-buttons {
+                width: 100%;
+            }
+
+            .button-group {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
-    }
+
+        @media (max-width: 576px) {
+            .checkout-container {
+                padding: 15px;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .checkout-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .checkout-header p {
+                font-size: 0.9rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 6px 3px;
+                font-size: 0.8rem;
+            }
+
+            .table th:nth-child(1),
+            .table td:nth-child(1) {
+                width: 50px;
+            }
+
+            .cart-item img,
+            .placeholder-image {
+                width: 40px;
+                height: 40px;
+            }
+
+            .remove-btn {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+            .total-price {
+                font-size: 1rem;
+            }
+
+            .button-group {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .checkout-container {
+                padding: 10px;
+            }
+
+            .table th:nth-child(5),
+            .table td:nth-child(5) {
+                width: 70px;
+            }
+
+            .quantity-group {
+                gap: 2px;
+            }
+
+            .quantity-btn {
+                width: 20px;
+                height: 20px;
+            }
+
+            .quantity-input {
+                width: 30px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .table {
+                font-size: 0.7rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 4px 2px;
+            }
+
+            .cart-item img,
+            .placeholder-image {
+                width: 35px;
+                height: 35px;
+            }
+
+            .quantity-btn {
+                width: 18px;
+                height: 18px;
+                font-size: 0.8rem;
+            }
+
+            .quantity-input {
+                width: 25px;
+                font-size: 0.7rem;
+            }
+
+            .remove-btn {
+                padding: 3px 6px;
+                font-size: 0.65rem;
+            }
+
+            .remove-btn::before {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container d-flex justify-content-center">
         <div class="checkout-container w-100">
+            <!-- Back button inside the card, clears cart before redirecting -->
+            <a href="/restock_checkout/clearCartAndRedirect" class="btn-back">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+
             <div class="checkout-header">
                 <h2>Checkout</h2>
                 <p>Review your items before proceeding.</p>
-            </div>`
+            </div>
 
             <form action="/restock_checkout/submit" method="POST">
                 <table class="table table-hover text-center">
@@ -485,7 +521,7 @@
                                     error_log("Missing purchase_item_id for item: " . print_r($item, true));
                                     continue;
                                 }
-                                ?>
+                        ?>
                                 <tr class="cart-item" data-item-id="<?= htmlspecialchars($item['purchase_item_id']) ?>">
                                     <td>
                                         <img src="<?= htmlspecialchars($item['product_image'] ?? '') ?>"
@@ -510,7 +546,7 @@
                                             Remove</button>
                                     </td>
                                 </tr>
-                                <?php
+                        <?php
                                 $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 1);
                             endforeach;
                         } else {
@@ -625,22 +661,22 @@
                 // Only update if the item is not a new placeholder
                 if (!purchaseItemId.startsWith('new-')) {
                     fetch('/restock_checkout/updateQuantity', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantity}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            alert('Failed to update quantity: ' + (data.message || 'Unknown error'));
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error updating quantity:', error);
-                        alert('An error occurred while updating the quantity');
-                    });
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantity}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                alert('Failed to update quantity: ' + (data.message || 'Unknown error'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error updating quantity:', error);
+                            alert('An error occurred while updating the quantity');
+                        });
                 }
             };
 
@@ -723,21 +759,21 @@
 
                 // Add the new item to the session cart via AJAX
                 fetch('/restock_checkout/addStock', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantityInput.value}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.success) {
-                        alert('Failed to add item to cart: ' + (data.message || 'Unknown error'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error adding item to cart:', error);
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}&quantity=${quantityInput.value}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Failed to add item to cart: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error adding item to cart:', error);
+                    });
 
                 updateTotalPrice();
             });
@@ -752,25 +788,25 @@
                     if (!purchaseItemId.startsWith('new-')) {
                         // Send AJAX request to remove the item from the session cart
                         fetch('/restock_checkout/removecard', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                newRow.remove();
-                                updateTotalPrice();
-                            } else {
-                                alert('Failed to remove item: ' + (data.message || 'Unknown error'));
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error removing item:', error);
-                            alert('An error occurred while removing the item');
-                        });
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    newRow.remove();
+                                    updateTotalPrice();
+                                } else {
+                                    alert('Failed to remove item: ' + (data.message || 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error removing item:', error);
+                                alert('An error occurred while removing the item');
+                            });
                     } else {
                         // For new items, just remove the row
                         newRow.remove();
@@ -795,26 +831,26 @@
 
                 // Send AJAX request to remove the item
                 fetch('/restock_checkout/removecard', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const row = button.closest('tr');
-                        row.remove();
-                        updateTotalPrice();
-                    } else {
-                        alert('Failed to remove item: ' + (data.message || 'Unknown error'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error removing item:', error);
-                    alert('An error occurred while removing the item');
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `purchase_item_id=${encodeURIComponent(purchaseItemId)}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const row = button.closest('tr');
+                            row.remove();
+                            updateTotalPrice();
+                        } else {
+                            alert('Failed to remove item: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error removing item:', error);
+                        alert('An error occurred while removing the item');
+                    });
             });
         });
 
