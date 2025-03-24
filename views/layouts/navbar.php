@@ -52,58 +52,6 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           </a>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#base">
-            <i class="fas fa-layer-group"></i>
-            <p>Products</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="base">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/product_list">
-                  <span class="sub-item">Product List</span>
-                </a>
-              </li>
-              <li>
-                <a href="components/buttons.html">
-                  <span class="sub-item">Product Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="/product_detail">
-                  <span class="sub-item">Product Detail</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-            <i class="fas fa-th-list"></i>
-            <p>Categories</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="sidebarLayouts">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="sidebar-style-2.html">
-                  <span class="sub-item">Category List</span>
-                </a>
-              </li>
-              <li>
-                <a href="icon-menu.html">
-                  <span class="sub-item">Category Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="icon-menu.html">
-                  <span class="sub-item">Category Edite</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
           <a data-bs-toggle="collapse" href="#forms">
             <i class="fas fa-pen-square"></i>
             <p>Orders</p>
@@ -117,18 +65,8 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                 </a>
               </li>
               <li>
-                <a href="forms/forms.html">
-                  <span class="sub-item">Order Detail</span>
-                </a>
-              </li>
-              <li>
                 <a href="/order_menu">
                   <span class="sub-item">Order Menu</span>
-                </a>
-              </li>
-              <li>
-                <a href="forms/forms.html">
-                  <span class="sub-item">Order History</span>
                 </a>
               </li>
             </ul>
@@ -153,17 +91,26 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                 </a>
               </li>
               <li>
-                <a href="/purchase">
-                  <span class="sub-item">Purchase History</span>
-                </a>
-              </li>
-              <li>
                 <a href="/suppliers">
                   <span class="sub-item">Suplier info</span>
                 </a>
               </li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#base">
+            <i class="fas fa-layer-group"></i>
+            <p>Products</p>
+           
+          </a>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#sidebarLayouts">
+            <i class="fas fa-th-list"></i>
+            <p>Categories</p>
+          </a>
+       
         </li>
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#maps">
@@ -400,7 +347,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               class="nav-link"
               href="/orderCard"
               aria-expanded="false">
-              <i class="fas fa-layer-group"></i>
+              <i class="fas fa-shopping-cart"></i>
             </a>
           </li>
 
