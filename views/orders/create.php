@@ -107,7 +107,17 @@
                     <h6 class="text-muted">Fill in the details below to create a product</h6>
                 </div>
 
+
                 <form action="/order_menu/store" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="image" class="font-weight-bold">Product Image</label>
+                        <div class="image-upload" onclick="document.getElementById('file-input').click();">
+                            <input type="file" name="image" accept="image/*" id="file-input" class="d-none" required>
+                            <img src="/Views/assets/img1/icons/upload.svg" alt="Upload Image">
+                            <h5 class="text-muted">Select Product Image</h5>
+                        </div>
+                        <div id="file-name" class="text-success"></div>
+                    </div>
                     <div class="form-group">
                         <label for="name">Product Name</label>
                         <input type="text" name="name" class="form-control" placeholder="Enter product name" required>
@@ -119,15 +129,6 @@
                     <div class="form-group">
                         <label for="description">Description</label>
                         <textarea name="description" class="form-control" rows="4" placeholder="Enter product description" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="image" class="font-weight-bold">Product Image</label>
-                        <div class="image-upload" onclick="document.getElementById('file-input').click();">
-                            <input type="file" name="image" accept="image/*" id="file-input" class="d-none" required>
-                            <img src="/Views/assets/img1/icons/upload.svg" alt="Upload Image">
-                            <h5 class="text-muted">Drag and drop a file to upload or click to select</h5>
-                        </div>
-                        <div id="file-name" class="text-success"></div>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-submit me-2">Submit <i class="fas fa-check"></i></button>

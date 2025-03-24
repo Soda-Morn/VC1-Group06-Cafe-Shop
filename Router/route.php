@@ -45,9 +45,11 @@ $route->get("/purchase_item_add/edit/{id}", [PurchaseitemController::class, 'edi
 // restock_checkout
 $route->get("/restock_checkout", [RestockCheckoutController::class, 'index_restock']);
 $route->get("/restock_checkout/addStock", [RestockCheckoutController::class, 'addStock']);
-$route->get("/restock_checkout/removeStock", [RestockCheckoutController::class, 'removeStock']);
-$route->get("/restock_checkout/saveStockList", [RestockCheckoutController::class, 'saveStockList']);
+$route->get("/restock_checkout/removecard", [RestockCheckoutController::class, 'removecard']);
+$route->get("/restock_checkout/clearCart", [RestockCheckoutController::class, 'clearCart']);
+$route->get("/restock_checkout/submit", [RestockCheckoutController::class, 'submit']);
 $route->get("/restock_checkout/preview", [RestockCheckoutController::class, 'preview']);
+$route->get("/restock_checkout/updateQuantity", [RestockCheckoutController::class, 'updateQuantity']);
 
 // order_list
 $route->get("/order_list", [OrderlistController::class, 'index']);
