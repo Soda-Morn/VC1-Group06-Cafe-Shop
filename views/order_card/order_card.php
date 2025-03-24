@@ -11,8 +11,8 @@
             background-color: #f8f9fa;
         }
         .cart-container {
-            max-width: auto;
-            margin-top: 20px;
+            width: 78%;
+            margin: 20px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -24,12 +24,7 @@
             object-fit: cover;
             border-radius: 5px;
         }
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .quantity-controls button {
+          .quantity-controls button {
             border: none;
             width: 30px;
             height: 30px;
@@ -41,18 +36,23 @@
             border-radius: 5px;
             transition: 0.3s;
         }
-
-        .quantity-controls button:hover {
-            background: #0056b3;
-        }
-
-        .quantity-input {
-            width: 50px;
-            text-align: center;
-            font-size: 1rem;
-            border: none;
-            outline: none;
-        }
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+    }
+    .total-price {
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: right;
+        margin-top: 10px;
+    }
+    
+    .btn-remove:hover {
+        background: #c82333;
+    }
         .total-price {
             font-size: 1.5em;
             font-weight: bold;
@@ -70,15 +70,18 @@
         .btn-remove:hover {
             background: #c82333;
         }
+        
+       
+
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-9">
         <div class="cart-container">
             <h2 class="text-center">🛒 Your Cart</h2>
             <p class="text-center"><strong>Review your selection:</strong></p>
 
-            <table class="table table-bordered">
+            <table class="table">
                 <thead>
                     <tr class="text-center">
                         <th>Image</th>
@@ -122,9 +125,10 @@
                 <span>Total Price: $<span id="total-price"><?= $total ?></span></span>
             </div>
 
-            <div class="text-center mt-4">
-                <a href="/order_menu" class="btn btn-primary">➕ Add More</a>
-                <button class="btn btn-success">✅ Checkout</button>
+            <div class="text-right mt-4">
+                <a href="/order_menu" class="btn btn-warning"><i class="fa-solid fa-plus" style="color: #ffffff;"></i> Add More</a>
+                <!-- Checkout button aligned to the right -->
+                <button class="btn btn-primary ml-2">✅ Checkout</button>
             </div>
         </div>
     </div>
@@ -166,5 +170,4 @@
     </script>
 
 </body>
-
 </html>
