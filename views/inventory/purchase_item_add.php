@@ -52,13 +52,14 @@ html >
         .card {
             margin: 10px;
             border: none; /* No border */
-            background: rgb(251, 249, 249); /* Card background */
+            background: rgb(255, 255, 255); /* Card background */
             max-width: 200px; /* Set max width for smaller cards */
             margin: auto; /* Center the card */
             transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
             cursor: pointer; /* Change cursor on hover */
-            box-shadow: 0 4px 8px rgba(137, 197, 249, 0.2); /* Box shadow */
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         }
+
         /* Optional: Add a border on hover for better visibility */
         .price {
             font-weight: bold;
@@ -192,7 +193,7 @@ html >
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
                     <div class="col product-item">
-                        <div class="card shadow-sm rounded-3 overflow-hidden">
+                        <div class="card rounded-3 overflow-hidden">
                              
                             <!-- Vertical Ellipsis Dropdown Menu -->
                             <div class="edit-delete-icons text-end p-2">
