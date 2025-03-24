@@ -47,7 +47,7 @@ html >
             text-decoration: none;
         }
         .custom-dropdown-item:hover {
-            background-color: #f0f0f0;
+            background-color:rgb(255, 252, 252);
         }
         .card {
             margin: 10px;
