@@ -26,7 +26,7 @@ class RestockCheckoutController extends BaseController
     }
 
     /**
-     * Add a new item to the cart
+     * Add a new item to the cart (appends to existing cart)
      */
     public function addStock()
     {
@@ -52,7 +52,7 @@ class RestockCheckoutController extends BaseController
                         // Update quantity if item already exists
                         $_SESSION['cart'][$existingIndex]['quantity'] = $quantity;
                     } else {
-                        // Add new item to cart
+                        // Append new item to cart (do not clear)
                         $_SESSION['cart'][] = $purchaseItem;
                     }
 
@@ -144,6 +144,21 @@ class RestockCheckoutController extends BaseController
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;
+    }
+
+    /**
+     * Clear the cart and redirect to /purchase_item_add
+     */
+    public function clearCartAndRedirect()
+    {
+        // Clear the cart
+        if (isset($_SESSION['cart'])) {
+            unset($_SESSION['cart']);
+            $_SESSION['cart'] = [];
+        }
+
+        // Redirect to /purchase_item_add
+        $this->redirect('/purchase_item_add');
     }
 
     /**
