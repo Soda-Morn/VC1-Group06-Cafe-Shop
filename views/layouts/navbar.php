@@ -452,15 +452,24 @@ collapseLinks.forEach(link => {
   </script>
   <style>
     .collapse {
-  display: none;
-  transition: opacity 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
   opacity: 0;
 }
 
 .collapse.show {
-  display: block;
-  transition: opacity 0.3s ease-in-out;
+  max-height: 500px; /* Adjust as needed */
   opacity: 1;
+}
+  
+/* Caret animation */
+.caret {
+  transition: transform 0.3s ease;
+}
+
+.caret.down {
+  transform: rotate(180deg);
 }
 
   </style>
