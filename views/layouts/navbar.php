@@ -1,5 +1,6 @@
 <script src="views/assets/js/research.js"></script>
 <script src="views/assets/js/purchaseitem.js" defer></script>
+<script src="views/assets/js/stock_list.js" defer></script>
 
 <?php
 // Start the session if not already started
@@ -162,6 +163,8 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
+    
+
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
             class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
