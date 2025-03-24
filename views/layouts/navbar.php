@@ -1,13 +1,10 @@
 <script src="views/assets/js/research.js"></script>
 <script src="views/assets/js/purchaseitem.js" defer></script>
 
-
-
-
 <?php
 // Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 // Check if user is logged in
@@ -218,21 +215,6 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-        <nav
-          class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="submit" class="btn btn-search pe-1">
-                <i class="fa fa-search search-icon"></i>
-              </button>
-            </div>
-            <input
-              type="text"
-              placeholder="Search ..."
-              class="form-control" />
-          </div>
-        </nav>
-
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
             class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
@@ -495,23 +477,77 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   </div>
 
   <!-- Add this script at the bottom of navbar.php -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Bootstrap dropdowns
-    var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-    dropdownElementList.forEach(function (dropdownToggleEl) {
-        new bootstrap.Dropdown(dropdownToggleEl);
-    });
+  <!-- Add this script at the bottom of navbar.php -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle sidebar menu toggles
+      const sidebarMenuItems = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
 
-    // Ensure profile dropdown toggles correctly
-    var profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
-    if (profileDropdown) {
-        profileDropdown.addEventListener('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            var dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
-            dropdown.toggle();
+      sidebarMenuItems.forEach(function(menuItem) {
+        menuItem.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          // Toggle the target element's visibility
+          targetElement.classList.toggle('show');
+          this.setAttribute('aria-expanded', targetElement.classList.contains('show'));
+
+          // Close all other submenus
+          sidebarMenuItems.forEach(function(item) {
+            if (item !== menuItem) {
+              const otherTargetId = item.getAttribute('href');
+              const otherTargetElement = document.querySelector(otherTargetId);
+              otherTargetElement.classList.remove('show');
+              item.setAttribute('aria-expanded', 'false');
+            }
+          });
         });
-    }
-});
-</script>
+      });
+
+      // Handle header dropdowns
+      const headerDropdowns = document.querySelectorAll('.topbar-nav .dropdown-toggle');
+
+      headerDropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const parent = this.closest('.dropdown');
+          const isOpen = parent.classList.contains('show');
+
+          // Close all other dropdowns first
+          document.querySelectorAll('.topbar-nav .dropdown.show').forEach(function(openDropdown) {
+            if (openDropdown !== parent) {
+              openDropdown.classList.remove('show');
+              openDropdown.querySelector('.dropdown-menu').classList.remove('show');
+              openDropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          // Toggle this dropdown
+          if (isOpen) {
+            parent.classList.remove('show');
+            parent.querySelector('.dropdown-menu').classList.remove('show');
+            this.setAttribute('aria-expanded', 'false');
+          } else {
+            parent.classList.add('show');
+            parent.querySelector('.dropdown-menu').classList.add('show');
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown.show').forEach(function(dropdown) {
+            dropdown.classList.remove('show');
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
+            dropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    });
+  </script>
