@@ -52,10 +52,14 @@ html >
         .card {
             margin: 10px;
             border: none; /* No border */
-            background: rgb(255, 255, 255); /* Card background */
+            background: rgb(251, 249, 249); /* Card background */
             max-width: 200px; /* Set max width for smaller cards */
             margin: auto; /* Center the card */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+            cursor: pointer; /* Change cursor on hover */
+            box-shadow: 0 4px 8px rgba(137, 197, 249, 0.2); /* Box shadow */
         }
+        /* Optional: Add a border on hover for better visibility */
         .price {
             font-weight: bold;
             color: black; /* Price color */
