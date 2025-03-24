@@ -9,137 +9,181 @@ class RestockCheckoutController extends BaseController
     public function __construct()
     {
         $this->restockModel = new RestockCheckoutModel();
-        session_start(); // Start session to manage cart items
+        session_start();
     }
 
-    // Display the restock checkout page
+    /**
+     * Display the checkout page with cart items
+     */
     public function index_restock()
     {
         $orderItems = $_SESSION['cart'] ?? [];
-        $this->view('/form_restock/order_now', ['orderItems' => $orderItems]);
+        $purchaseItems = $this->restockModel->getAllPurchaseItems();
+        $this->view('/form_restock/order_now', [
+            'orderItems' => $orderItems,
+            'purchaseItems' => $purchaseItems
+        ]);
     }
 
-    // Add an item to the cart
+    /**
+     * Add a new item to the cart
+     */
     public function addStock()
     {
+        $response = ['success' => false, 'message' => ''];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $itemId = $_POST['purchase_item_id'] ?? null;
+            $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
             if ($itemId) {
                 $purchaseItem = $this->restockModel->getPurchaseById($itemId);
 
                 if ($purchaseItem) {
-                    $purchaseItem['quantity'] = 1; // Default quantity is 1
+                    $purchaseItem['quantity'] = $quantity;
 
                     if (!isset($_SESSION['cart'])) {
                         $_SESSION['cart'] = [];
                     }
 
-                    // Check if the item already exists in the cart
                     $existingIndex = array_search($itemId, array_column($_SESSION['cart'], 'purchase_item_id'));
 
                     if ($existingIndex !== false) {
-                        // If the item exists, increase the quantity
-                        $_SESSION['cart'][$existingIndex]['quantity'] += 1;
+                        // Update quantity if item already exists
+                        $_SESSION['cart'][$existingIndex]['quantity'] = $quantity;
                     } else {
-                        // If the item does not exist, add it to the cart
+                        // Add new item to cart
                         $_SESSION['cart'][] = $purchaseItem;
                     }
+
+                    $response['success'] = true;
+                } else {
+                    $response['message'] = "Item not found for purchase_item_id: $itemId";
+                    error_log("Item not found for purchase_item_id: " . $itemId);
                 }
+            } else {
+                $response['message'] = "No purchase_item_id provided in POST data";
+                error_log("No purchase_item_id provided in POST data");
             }
+        } else {
+            $response['message'] = "Invalid request method";
         }
-        $this->redirect('/restock_checkout');
+
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            // If this is an AJAX request, return JSON
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
+        } else {
+            // For non-AJAX requests, redirect
+            $this->redirect('/restock_checkout');
+        }
     }
 
-    // Remove an item from the cart and the stock_lists table
-    public function removeStock()
+    /**
+     * Update the quantity of an item in the cart
+     */
+    public function updateQuantity()
     {
+        $response = ['success' => false, 'message' => ''];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $itemId = $_POST['purchase_item_id'] ?? null;
+            $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
             if ($itemId && isset($_SESSION['cart'])) {
-                try {
-                    // Delete the item from stock_lists if it exists with 'pending' status
-                    $this->restockModel->deletePendingStockById($itemId);
+                $existingIndex = array_search($itemId, array_column($_SESSION['cart'], 'purchase_item_id'));
 
-                    // Filter out the item from the session cart
-                    $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($purchase) use ($itemId) {
-                        return $purchase['purchase_item_id'] != $itemId;
-                    });
-
-                    // Set a success message
-                    $_SESSION['message'] = "Item removed successfully!";
-                } catch (Exception $e) {
-                    // Log the error and set an error message
-                    error_log("Failed to delete stock item: " . $e->getMessage());
-                    $_SESSION['message'] = "Failed to remove item.";
+                if ($existingIndex !== false) {
+                    $_SESSION['cart'][$existingIndex]['quantity'] = $quantity;
+                    $response['success'] = true;
+                } else {
+                    $response['message'] = 'Item not found in cart';
                 }
+            } else {
+                $response['message'] = 'Invalid request or cart is empty';
             }
+        } else {
+            $response['message'] = 'Invalid request method';
         }
-        // Always redirect to the checkout page
-        $this->redirect('/restock_checkout');
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
 
-    // Save or update the stock list in the database
-    public function saveStockList()
+    /**
+     * Remove an item from the cart
+     */
+    public function removecard()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['cart'])) {
-            try {
-                // Get the updated quantities from the form
-                $quantities = $_POST['quantities'] ?? [];
+        $response = ['success' => false, 'message' => ''];
 
-                // Update the quantities in the session cart
-                foreach ($_SESSION['cart'] as &$item) {
-                    if (isset($quantities[$item['purchase_item_id']])) {
-                        $item['quantity'] = (int)$quantities[$item['purchase_item_id']];
-                        // Ensure quantity is at least 1
-                        if ($item['quantity'] < 1) {
-                            $item['quantity'] = 1;
-                        }
-                    }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productId = $_POST['purchase_item_id'] ?? null;
+
+            if ($productId && isset($_SESSION['cart'])) {
+                $initialCount = count($_SESSION['cart']);
+                $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($item) use ($productId) {
+                    return $item['purchase_item_id'] != $productId;
+                });
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+
+                if (count($_SESSION['cart']) < $initialCount) {
+                    $response['success'] = true;
+                } else {
+                    $response['message'] = 'Item not found in cart';
                 }
-                unset($item); // Unset the reference to avoid issues
-
-                // Save or update the stock list in the database
-                $this->restockModel->saveStockList($_SESSION['cart']);
-
-                // Clear the cart after saving
-                unset($_SESSION['cart']);
-
-                // Check if the request is an AJAX request
-                $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-                if ($isAjax) {
-                    // Return a JSON response for AJAX requests (used by the Preview button)
-                    header('Content-Type: application/json');
-                    echo json_encode(['status' => 'success']);
-                    exit;
-                }
-
-                // For non-AJAX requests, redirect to the checkout page
-                $this->redirect('/restock_checkout');
-            } catch (Exception $e) {
-                // Log the error and return an error response for AJAX requests
-                error_log("Error in saveStockList: " . $e->getMessage());
-                $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-                if ($isAjax) {
-                    header('Content-Type: application/json', true, 500);
-                    echo json_encode(['status' => 'error', 'message' => 'Failed to save stock list: ' . $e->getMessage()]);
-                    exit;
-                }
-                // For non-AJAX requests, redirect with an error message
-                $_SESSION['message'] = "Failed to save stock list.";
-                $this->redirect('/restock_checkout');
+            } else {
+                $response['message'] = 'Invalid request or cart is empty';
             }
+        } else {
+            $response['message'] = 'Invalid request method';
         }
 
-        // If not a POST request, redirect to the checkout page
-        $this->redirect('/restock_checkout');
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
 
-    // Show the preview page (no data needed since JavaScript handles it)
+    /**
+     * Show the preview page with only the items from the current cart
+     */
     public function preview()
     {
-        $this->view('/form_restock/preview_order', []);
+        $cartItems = $_SESSION['cart'] ?? [];
+        $this->view('/form_restock/preview_order', [
+            'cartItems' => $cartItems
+        ]);
+    }
+
+    /**
+     * Handle form submission to update stock list
+     */
+    public function submit()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $quantities = $_POST['quantities'] ?? [];
+
+            if (empty($quantities)) {
+                error_log("No quantities found in POST data");
+            }
+
+            foreach ($quantities as $purchaseItemId => $quantity) {
+                $quantity = (int)$quantity;
+                if ($quantity <= 0) {
+                    error_log("Skipping purchase_item_id $purchaseItemId due to quantity $quantity");
+                    continue;
+                }
+
+                $result = $this->restockModel->updateStock($purchaseItemId, $quantity);
+                if (!$result) {
+                    error_log("Failed to update stock for purchase_item_id: $purchaseItemId");
+                }
+            }
+
+            $_SESSION['cart'] = [];
+            $this->redirect('/stocklist');
+        }
     }
 }
-?>
