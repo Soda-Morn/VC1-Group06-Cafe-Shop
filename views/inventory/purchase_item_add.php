@@ -1,6 +1,5 @@
-<!DOCTYPE
-html >
-  <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,11 +78,20 @@ html >
             border-radius: 5px; 
             cursor: default; /* Prevent hover effect */
         }
-        .btn-outline-primary{
-            background: #28A745;
+        .btn-add-to-cart:focus {
+            outline: none; /* Remove the default outline */
+        }
+        .btn-Added {
+            background: rgb(183, 90, 23);
             color: rgb(255, 255, 255); /* Button color */
             border: 1px solid rgb(255, 255, 255); /* Button border */
             border-radius: 5px;
+            padding: 5px 10px; /* Adjust padding for button */
+            font-size: 1rem;
+            
+        }
+        .btn-Added:hover{
+            color: #ffffff;
         }
         .fixed-header {
             top: 0;
@@ -107,6 +115,10 @@ html >
             padding-right: 30px;
             width: 200px;
         }
+        .search-input:focus {
+            border-color: #007bff; /* Keep the border color on focus if desired */
+            outline: none; /* Remove the default outline */
+        }
         .search-icon {
             position: absolute;
             left: 10px;
@@ -116,7 +128,6 @@ html >
             pointer-events: none; /* Ensures clicks pass through to the input */
         }
         .search-button {
-            background: #28A745;
             color: white;
             border: 1px solid rgb(255, 255, 255);
             border-radius: 5px;
@@ -177,7 +188,7 @@ html >
                     <button id="search-toggle" class="btn search-button d-md-none" type="button" aria-label="Toggle search">
                         <i class="fas fa-search"></i>
                     </button>
-                    <a href="/purchase_item_add/create" class="btn btn-outline-primary" style="font-family: 'Poppins', sans-serif;">
+                    <a href="/purchase_item_add/create" class="btn-Added" style="font-family: 'Poppins', sans-serif;">
                         <i class="fas fa-plus"></i> Add Product
                     </a>
                 </div>
@@ -232,7 +243,7 @@ html >
                                 </div>
                                 <form action="/restock_checkout/addStock" method="POST" class="d-inline">
                                     <input type="hidden" name="purchase_item_id" value="<?= htmlspecialchars($item['purchase_item_id']) ?>">
-                                    <button type="submit" class="btn btn-add-to-cart" style="font-family: 'Poppins', sans-serif;" >Add to stock</button>
+                                    <button type="submit" class="btn btn-add-to-cart" style="font-family: 'Poppins', sans-serif;">Add to stock</button>
                                 </form>
                             </div>
                         </div>
@@ -309,4 +320,3 @@ html >
     </script>
 </body>
 </html>
-
