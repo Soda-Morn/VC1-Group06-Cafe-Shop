@@ -41,11 +41,9 @@
             border-radius: 5px;
             transition: 0.3s;
         }
-
         .quantity-controls button:hover {
             background: #0056b3;
         }
-
         .quantity-input {
             width: 50px;
             text-align: center;
@@ -70,6 +68,9 @@
         .btn-remove:hover {
             background: #c82333;
         }
+        .alert {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -78,54 +79,68 @@
             <h2 class="text-center">🛒 Your Cart</h2>
             <p class="text-center"><strong>Review your selection:</strong></p>
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $total = 0; ?>
-                    <?php if (!empty($cartItems)): ?>
-                        <?php foreach ($cartItems as $item): ?>
-                            <tr class="text-center cart-item" product-id="<?= $item['product_ID'] ?>">
-                                <td><img src="<?= isset($item['image']) ? $item['image'] : 'default_image.png' ?>" alt="<?= isset($item['name']) ? $item['name'] : 'N/A' ?>" class="img-fluid"></td>
-                                <td><?= isset($item['name']) ? $item['name'] : 'N/A' ?></td>
-                                <td class="item-price">$<?= isset($item['price']) ? $item['price'] : '0.00' ?></td>
-                                <td class="quantity-controls">
-                                    <button class="btn-decrease">−</button>
-                                    <input type="number" class="quantity-input" value="<?= isset($item['quantity']) ? $item['quantity'] : '1' ?>" min="1">
-                                    <button class="btn-increase">+</button>
-                                </td>
-                                <td>
-                                    <form action="/orderCard/removeFromCart" method="POST">
-                                        <input type="hidden" name="product_id" value="<?= $item['product_ID'] ?>">
-                                        <button type="submit" class="btn-remove">🗑 Remove</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="5" class="text-center">No items in cart.</td>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo htmlspecialchars($error); ?>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($success)): ?>
+                <div class="alert alert-success" role="alert">
+                    <?php echo htmlspecialchars($success); ?>
+                </div>
+            <?php endif; ?>
+
+            <form id="checkout-form" action="/orderCard/checkout" method="POST">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $total = 0; ?>
+                        <?php if (!empty($cartItems)): ?>
+                            <?php foreach ($cartItems as $index => $item): ?>
+                                <tr class="text-center cart-item" product-id="<?= $item['product_ID'] ?>">
+                                    <td><img src="<?= isset($item['image']) ? $item['image'] : 'default_image.png' ?>" alt="<?= isset($item['name']) ? $item['name'] : 'N/A' ?>" class="img-fluid"></td>
+                                    <td><?= isset($item['name']) ? $item['name'] : 'N/A' ?></td>
+                                    <td class="item-price">$<?= isset($item['price']) ? $item['price'] : '0.00' ?></td>
+                                    <td class="quantity-controls">
+                                        <button type="button" class="btn-decrease">−</button>
+                                        <input type="number" name="cart[<?= $index ?>][quantity]" class="quantity-input" value="<?= isset($item['quantity']) ? $item['quantity'] : '1' ?>" min="1">
+                                        <input type="hidden" name="cart[<?= $index ?>][product_id]" value="<?= $item['product_ID'] ?>">
+                                        <button type="button" class="btn-increase">+</button>
+                                    </td>
+                                    <td>
+                                        <form action="/orderCard/removeFromCart" method="POST">
+                                            <input type="hidden" name="product_id" value="<?= $item['product_ID'] ?>">
+                                            <button type="submit" class="btn-remove">🗑 Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5" class="text-center">No items in cart.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
 
-            <div class="total-price">
-                <span>Total Price: $<span id="total-price"><?= $total ?></span></span>
-            </div>
+                <div class="total-price">
+                    <span>Total Price: $<span id="total-price"><?= $total ?></span></span>
+                </div>
 
-            <div class="text-center mt-4">
-                <a href="/order_menu" class="btn btn-primary">➕ Add More</a>
-                <button class="btn btn-success">✅ Checkout</button>
-            </div>
+                <div class="text-center mt-4">
+                    <a href="/order_menu" class="btn btn-primary">➕ Add More</a>
+                    <button type="submit" class="btn btn-success">✅ Checkout</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -164,7 +179,5 @@
             });
         });
     </script>
-
 </body>
-
 </html>

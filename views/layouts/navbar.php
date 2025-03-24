@@ -88,7 +88,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </li>
               <li>
                 <a href="/purchase_item_add">
-                  <span class="sub-item">Restock</span>
+                  <span class="sub-item">Purchase Item Add</span>
                 </a>
               </li>
               <li>
@@ -353,7 +353,6 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               <i class="fas fa-shopping-cart"></i>
             </a>
           </li>
-
           <li class="nav-item topbar-user dropdown hidden-caret">
             <a
               class="dropdown-toggle profile-pic"
@@ -429,39 +428,75 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   <!-- Add this script at the bottom of navbar.php -->
   <!-- Add this script at the bottom of navbar.php -->
   <script>
-const collapseLinks = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle sidebar menu toggles
+      const sidebarMenuItems = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
 
-collapseLinks.forEach(link => {
-  link.addEventListener('click', function() {
-    const caret = this.querySelector('.caret');
-    const targetCollapse = this.nextElementSibling; // Assuming the collapse element is right after the link
+      sidebarMenuItems.forEach(function(menuItem) {
+        menuItem.addEventListener('click', function(e) {
+          e.preventDefault();
 
-    // Toggle caret icon direction
-    caret.classList.toggle('down');
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
 
-    // Toggle collapse visibility
-    if (caret.classList.contains('down')) {
-      targetCollapse.style.display = 'block'; // Show the collapsible element
-    } else {
-      targetCollapse.style.display = 'none'; // Hide the collapsible element
-    }
-  });
-});
+          // Toggle the target element's visibility
+          targetElement.classList.toggle('show');
+          this.setAttribute('aria-expanded', targetElement.classList.contains('show'));
 
+          // Close all other submenus
+          sidebarMenuItems.forEach(function(item) {
+            if (item !== menuItem) {
+              const otherTargetId = item.getAttribute('href');
+              const otherTargetElement = document.querySelector(otherTargetId);
+              otherTargetElement.classList.remove('show');
+              item.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+      });
 
+      // Handle header dropdowns
+      const headerDropdowns = document.querySelectorAll('.topbar-nav .dropdown-toggle');
+
+      headerDropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const parent = this.closest('.dropdown');
+          const isOpen = parent.classList.contains('show');
+
+          // Close all other dropdowns first
+          document.querySelectorAll('.topbar-nav .dropdown.show').forEach(function(openDropdown) {
+            if (openDropdown !== parent) {
+              openDropdown.classList.remove('show');
+              openDropdown.querySelector('.dropdown-menu').classList.remove('show');
+              openDropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          // Toggle this dropdown
+          if (isOpen) {
+            parent.classList.remove('show');
+            parent.querySelector('.dropdown-menu').classList.remove('show');
+            this.setAttribute('aria-expanded', 'false');
+          } else {
+            parent.classList.add('show');
+            parent.querySelector('.dropdown-menu').classList.add('show');
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown.show').forEach(function(dropdown) {
+            dropdown.classList.remove('show');
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
+            dropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    });
   </script>
-  <style>
-    .collapse {
-  display: none;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 0;
-}
-
-.collapse.show {
-  display: block;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 1;
-}
-
-  </style>
-  

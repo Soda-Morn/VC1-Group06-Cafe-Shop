@@ -57,4 +57,13 @@ class OrdermenuController extends BaseController
             $this->redirect('/order_menu');
         }
     }
+    function destroy($product_ID)
+    {
+        $product = $this->model->getProduct($product_ID);
+        if ($product && $product['image'] && file_exists($product['image'])) {
+            unlink($product['image']);
+        }
+        $this->model->deleteProduct($product_ID);
+        $this->redirect('/order_menu');
+    }
 }
