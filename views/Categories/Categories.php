@@ -20,11 +20,21 @@
                             <tr>
                                 <td><?= $i++ ?></td> <!-- Start the counter from 1 -->
                                 <td><?= htmlspecialchars($category['name']) ?></td>
-                                <td>
-                                    <a href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>"><i class="material-icons">edit</i></a>
-                                    <a href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
-                                        <i class="material-icons text-danger">delete</i>
-                                    </a>
+                                <td class="icon-actions">
+                                    <!-- Three dot dropdown menu for actions -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-link p-0" type="button" id="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>">
+                                            <a class="dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
+                                                <i class="material-icons">edit</i> Edit
+                                            </a>
+                                            <a class="dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
+                                                <i class="material-icons">delete</i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -54,3 +64,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all the dropdown buttons
+        const dropdownButtons = document.querySelectorAll('.dropdown button');
+
+        // Add a click event listener for each dropdown button
+        dropdownButtons.forEach(function(button) {
+            button.addEventListener('click', function (event) {
+                const dropdownMenu = event.target.closest('.dropdown').querySelector('.dropdown-menu');
+                
+                // Toggle the visibility of the dropdown menu
+                dropdownMenu.classList.toggle('show');
+            });
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown')) {
+                // Hide any open dropdowns
+                const openDropdowns = document.querySelectorAll('.dropdown-menu.show');
+                openDropdowns.forEach(function(menu) {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+    });
+</script>
