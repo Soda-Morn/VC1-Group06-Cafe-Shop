@@ -8,7 +8,7 @@
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
+                        <th>NO</th>
                         <th>Item</th>
                         <th>Original Price</th>
                         <th>Quantity</th>
