@@ -72,7 +72,7 @@
         .card-img-top {
             height: 150px;
             object-fit: contain;
-            background-color: #f8f9fa;
+            background-color:rgb(253, 254, 255);
             padding: 5px;
         }
         
@@ -120,8 +120,9 @@
         }
 
         .card-title {
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
+            font-size: 0.98rem;
+            margin-bottom: 0.10rem;
+            font-size: bold;
             font-weight: 600;
         }
 
