@@ -17,7 +17,6 @@
             border-radius: 5px;
             text-decoration: none;
             width: auto;
-            margin-left: 10px;
             transition: background 0.3s ease;
         }
 
@@ -33,6 +32,14 @@
             margin-top: 5%;
         }
 
+        /* Position the Order Now button to the left of Add Product */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            /* Space between the buttons */
+            align-items: center;
+        }
+
         /* Card styles */
         .card {
             margin-bottom: 20px;
@@ -42,6 +49,9 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: linear-gradient(145deg, #ffffff, #f8f9fa);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+            /* Indicate the card is clickable */
         }
 
         .card:hover {
@@ -51,15 +61,12 @@
 
         .card-img-top {
             height: 200px;
-            /* Adjusted height */
             object-fit: cover;
-            /* Full display */
             transition: transform 0.3s ease;
         }
 
         .card:hover .card-img-top {
             transform: scale(1.05);
-            /* Slight zoom effect */
         }
 
         .btn-danger {
@@ -81,20 +88,14 @@
             padding: 15px;
             text-align: center;
             display: flex;
-            /* Use flexbox */
             flex-direction: column;
-            /* Stack items vertically */
         }
 
         .price-button-container {
             display: flex;
-            /* Align price and button in a row */
             justify-content: space-between;
-            /* Space them out */
             align-items: center;
-            /* Center vertically */
             margin-top: auto;
-            /* Push it to the bottom of the card */
         }
 
         .card-title {
@@ -114,17 +115,64 @@
             background: linear-gradient(90deg, #007bff, #00a8ff);
             border: none;
             padding: 10px 20px;
-            /* Increased padding */
             border-radius: 5px;
             font-size: 0.9rem;
             font-weight: bold;
             transition: background 0.3s ease;
             margin-left: 10px;
-            /* Space between price and button */
         }
 
         .btn-primary:hover {
             background: linear-gradient(90deg, #0056b3, #007bff);
+        }
+
+        /* Checkbox styles */
+        .select-checkbox {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .card.selected {
+            border: 2px solid #28a745;
+            background: linear-gradient(145deg, #e6ffe6, #f8f9fa);
+        }
+
+        .card.selected .select-checkbox {
+            display: block;
+            /* Show checkbox when card is selected */
+        }
+
+        .checkout-btn {
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: none;
+            transition: background 0.3s ease;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .checkout-btn:hover {
+            background: #0056b3;
+        }
+
+        .checkout-btn.visible {
+            display: block;
+        }
+
+        /* Prevent click events on buttons from triggering card selection */
+        .btn-danger,
+        .btn-primary,
+        .add-new-btn,
+        .checkout-btn {
+            pointer-events: auto;
         }
 
         /* Responsive adjustments */
@@ -136,10 +184,14 @@
                 margin-top: 15%;
             }
 
-            .add-new-btn {
-                margin-top: 0;
+            .add-new-btn,
+            .checkout-btn {
                 width: auto;
                 font-size: 0.9rem;
+            }
+
+            .button-group {
+                gap: 5px;
             }
 
             .row>div {
@@ -156,37 +208,75 @@
             <div class="col-md-12 p-4 bg-light">
                 <div class="add-new-container">
                     <h2 class="text-uppercase fw-bold mb-0">Coffee Menu</h2>
-                    <a href="/order_menu/create" class="text-white add-new-btn">Add Product</a>
+                    <div class="button-group">
+                        <button type="submit" form="checkoutForm" class="checkout-btn" id="checkoutBtn">Order Now</button>
+                        <a href="/order_menu/create" class="text-white add-new-btn">Add Product</a>
+                    </div>
                 </div>
-                <div class="row">
-                    <?php foreach ($products as $item): ?>
-                        <div class="col-md-3 col-sm-6 mb-4">
-                            <div class="card h-100 text-center position-relative">
-                                <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
-                                <!-- Delete Icon -->
-                                <form action="/order_menu/destroy/<?= htmlspecialchars($item['product_ID']) ?>" method="POST" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                                <div class="card-body">
-                                    <h4 class="card-title mb-1"><?= htmlspecialchars($item['name']) ?></h4>
-                                    <p class="card-text mb-1"><?= htmlspecialchars($item['description']) ?></p>
-                                    <div class="price-button-container">
-                                        <span class="fw-bold">$<?= number_format($item['price'], 2) ?></span>
-                                        <form action="/orderCard/addToCart" method="POST" class="d-inline">
-                                            <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_ID']) ?>">
-                                            <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
-                                        </form>
+                <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
+                    <div class="row">
+                        <?php foreach ($products as $item): ?>
+                            <div class="col-md-3 col-sm-6 mb-4">
+                                <div class="card h-100 text-center position-relative">
+                                    <input type="checkbox" class="select-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_ID']) ?>">
+                                    <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
+                                    <!-- Delete Icon -->
+                                    <form action="/order_menu/destroy/<?= htmlspecialchars($item['product_ID']) ?>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-1"><?= htmlspecialchars($item['name']) ?></h4>
+                                        <p class="card-text mb-1"><?= htmlspecialchars($item['description']) ?></p>
+                                        <div class="price-button-container">
+                                            <span class="fw-bold">$<?= number_format($item['price'], 2) ?></span>
+                                            <form action="/orderCard/addToCart" method="POST" class="d-inline">
+                                                <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_ID']) ?>">
+                                                <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+                        <?php endforeach; ?>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <script>
+        // Get all cards and the checkout button
+        const cards = document.querySelectorAll('.card');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // Add click event listener to each card
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Prevent the click event from bubbling up if the target is a button
+                if (e.target.closest('.btn-danger') || e.target.closest('.btn-primary') || e.target.closest('.add-new-btn') || e.target.closest('.checkout-btn')) {
+                    return; // Do nothing if clicking on buttons
+                }
+
+                const checkbox = this.querySelector('.select-checkbox');
+
+                // Toggle the checkbox state
+                checkbox.checked = !checkbox.checked;
+
+                // Toggle the 'selected' class based on checkbox state
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+
+                // Show or hide the checkout button based on selection
+                const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
+                checkoutBtn.classList.toggle('visible', anyChecked);
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -49,6 +49,37 @@ class CardController extends BaseController {
         $this->redirect('/orderCard');
     }
 
+    public function addMultipleToCart() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $selectedProducts = $_POST['selected_products'] ?? [];
+
+            if (!empty($selectedProducts)) {
+                if (!isset($_SESSION['cart'])) {
+                    $_SESSION['cart'] = [];
+                }
+
+                foreach ($selectedProducts as $productId) {
+                    $product = $this->model->getProductById($productId);
+
+                    if ($product) {
+                        // Check if the product already exists in the cart
+                        $existingIndex = array_search($productId, array_column($_SESSION['cart'], 'product_ID'));
+
+                        if ($existingIndex !== false) {
+                            // Increment the quantity if the product already exists
+                            $_SESSION['cart'][$existingIndex]['quantity'] += 1;
+                        } else {
+                            // Add the product with an initial quantity of 1
+                            $product['quantity'] = 1;
+                            $_SESSION['cart'][] = $product;
+                        }
+                    }
+                }
+            }
+        }
+        $this->redirect('/orderCard');
+    }
+
     public function removeFromCart() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = $_POST['product_id'] ?? null;
