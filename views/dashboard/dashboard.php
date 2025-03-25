@@ -83,18 +83,18 @@
       </div>
     </div>
   <div class="row ">
-    <div class="col-md-8  ">
+    <div class="col-md-8 ">
         <div class="card card-round">
           <div class="card-header">
             <div class="card-head-row gap-3">
               <div class="card-title">User Statistics</div>
               <div class="d-flex">
                 <div class="btn-group gap-1" role="group" aria-label="Time Period Selection">
-                <button class="btn btn-sm btn-outline-success fw-bold active rounded-pill border-success"
+                <button class="btn btn-sm btn-outline-primary fw-bold active rounded-pill border-success"
                         onclick="showPage(event, 'week')">Week</button>
-                <button class="btn btn-sm btn-outline-success fw-bold rounded-pill"
+                <button class="btn btn-sm btn-outline-primary fw-bold rounded-pill"
                         onclick="showPage(event, 'month')">Month</button>
-                <button class="btn btn-sm btn-outline-success fw-bold rounded-pill"
+                <button class="btn btn-sm btn-outline-primary fw-bold rounded-pill"
                         onclick="showPage(event, 'year')">Year</button>
               </div>
             </div>
@@ -120,21 +120,21 @@
             <div id="week" class="d-block">
               <div class="card-body">
                 <div class="chart-container">
-                  <canvas id="singelBarChart"></canvas>
+                <canvas id="barChart" height="390"></canvas>
                 </div>
             </div>
           </div>
           <div id="month" class="d-none">
             <div class="card-body">
-                <div class="chart-container">
-                <canvas id="barChart"></canvas>
+                <div class="chart-container p-9">
+                <canvas id="singelBarChart"height="390"></canvas>
                 </div>
             </div>
           </div>
           <div id="year" class="d-none">
-            <div class="card-body">
-                <div class="chart-container">
-                  <canvas id="morris-bar-chart"></canvas>
+            <div class="card-body ">
+                <div class="chart-container p-3"style="height: 390px;">
+                  <canvas id="morris-bar-chart" height="390"></canvas>
                 </div>
             </div>
           </div>
@@ -491,7 +491,7 @@
 <script src="../views/assets/js/dist/jquery.js"></script>
 <script>
    var ctx = document.getElementById( "singelBarChart" );
-    ctx.height = 140;
+    ctx.height = 160;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
@@ -529,7 +529,7 @@
 <script>
     $(document).ready(function() {
         var ctx = document.getElementById("morris-bar-chart").getContext("2d");
-        ctx.height = 140;
+
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
