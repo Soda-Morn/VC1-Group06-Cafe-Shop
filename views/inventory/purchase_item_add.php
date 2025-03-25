@@ -69,7 +69,7 @@
             max-width: none;
             cursor: default;
             margin-left: 10px;
-            margin-right: 10px; 	
+            margin-right: 10px;
         }
 
         .card:hover {
@@ -79,8 +79,8 @@
 
         /* Price and stock text styling */
         .price {
-            font-weight: 600;
-            color: #333;
+            font-weight: 700;
+            color: black;
             font-size: 0.95rem;
             margin-bottom: 0;
         }
@@ -196,7 +196,6 @@
             max-width: 100%;
             object-fit: contain;
         }
-
         /* Product name styling */
         .product-name {
             font-size: 1rem;
@@ -210,6 +209,7 @@
         .card-body {
             padding: 0.75rem 1rem;
             text-align: center;
+            gap: 5px;
         }
 
         /* Responsive adjustments */
@@ -309,7 +309,7 @@
                                     <h6 class="price">
                                         $<span><?= htmlspecialchars($item['price']) ?></span>
                                     </h6>
-                                    <span class="stock">
+                                    <span class="stock ">
                                         Qty: <?= htmlspecialchars($item['stock_quantity']) ?>
                                     </span>
                                 </div>
