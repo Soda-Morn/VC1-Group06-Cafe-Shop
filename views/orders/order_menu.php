@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,13 +50,16 @@
         }
 
         .card-img-top {
-            height: 200px; /* Adjusted height */
-            object-fit: cover; /* Full display */
+            height: 200px;
+            /* Adjusted height */
+            object-fit: cover;
+            /* Full display */
             transition: transform 0.3s ease;
         }
 
         .card:hover .card-img-top {
-            transform: scale(1.05); /* Slight zoom effect */
+            transform: scale(1.05);
+            /* Slight zoom effect */
         }
 
         .btn-danger {
@@ -76,15 +80,21 @@
         .card-body {
             padding: 15px;
             text-align: center;
-            display: flex; /* Use flexbox */
-            flex-direction: column; /* Stack items vertically */
+            display: flex;
+            /* Use flexbox */
+            flex-direction: column;
+            /* Stack items vertically */
         }
 
         .price-button-container {
-            display: flex; /* Align price and button in a row */
-            justify-content: space-between; /* Space them out */
-            align-items: center; /* Center vertically */
-            margin-top: auto; /* Push it to the bottom of the card */
+            display: flex;
+            /* Align price and button in a row */
+            justify-content: space-between;
+            /* Space them out */
+            align-items: center;
+            /* Center vertically */
+            margin-top: auto;
+            /* Push it to the bottom of the card */
         }
 
         .card-title {
@@ -103,12 +113,14 @@
         .btn-primary {
             background: linear-gradient(90deg, #007bff, #00a8ff);
             border: none;
-            padding: 10px 20px; /* Increased padding */
+            padding: 10px 20px;
+            /* Increased padding */
             border-radius: 5px;
             font-size: 0.9rem;
             font-weight: bold;
             transition: background 0.3s ease;
-            margin-left: 10px; /* Space between price and button */
+            margin-left: 10px;
+            /* Space between price and button */
         }
 
         .btn-primary:hover {
@@ -130,12 +142,13 @@
                 font-size: 0.9rem;
             }
 
-            .row > div {
+            .row>div {
                 flex: 1 0 100%;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -143,7 +156,7 @@
             <div class="col-md-12 p-4 bg-light">
                 <div class="add-new-container">
                     <h2 class="text-uppercase fw-bold mb-0">Coffee Menu</h2>
-                    <a href="/order_menu/create" class="text-white add-new-btn">Add new</a>
+                    <a href="/order_menu/create" class="text-white add-new-btn">Add Product</a>
                 </div>
                 <div class="row">
                     <?php foreach ($products as $item): ?>
@@ -151,9 +164,11 @@
                             <div class="card h-100 text-center position-relative">
                                 <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
                                 <!-- Delete Icon -->
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <form action="/order_menu/destroy/<?= htmlspecialchars($item['product_ID']) ?>" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                                 <div class="card-body">
                                     <h4 class="card-title mb-1"><?= htmlspecialchars($item['name']) ?></h4>
                                     <p class="card-text mb-1"><?= htmlspecialchars($item['description']) ?></p>
@@ -173,4 +188,5 @@
         </div>
     </div>
 </body>
+
 </html>

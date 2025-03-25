@@ -88,7 +88,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </li>
               <li>
                 <a href="/purchase_item_add">
-                  <span class="sub-item">Purchase Item Add</span>
+                  <span class="sub-item">Restock</span>
                 </a>
               </li>
               <li>
@@ -103,7 +103,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           <a data-bs-toggle="collapse" href="#base">
             <i class="fas fa-layer-group"></i>
             <p>Products</p>
-           
+
           </a>
         </li>
         <li class="nav-item">
@@ -111,7 +111,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
             <i class="fas fa-th-list"></i>
             <p>Categories</p>
           </a>
-       
+
         </li>
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#maps">
@@ -163,7 +163,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-    
+
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
@@ -354,6 +354,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
             </a>
           </li>
 
+
           <li class="nav-item topbar-user dropdown hidden-caret">
             <a
               class="dropdown-toggle profile-pic"
@@ -429,6 +430,24 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   <!-- Add this script at the bottom of navbar.php -->
   <!-- Add this script at the bottom of navbar.php -->
   <script>
+    const collapseLinks = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
+
+    collapseLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        const caret = this.querySelector('.caret');
+        const targetCollapse = this.nextElementSibling; // Assuming the collapse element is right after the link
+
+        // Toggle caret icon direction
+        caret.classList.toggle('down');
+
+        // Toggle collapse visibility
+        if (caret.classList.contains('down')) {
+          targetCollapse.style.display = 'block'; // Show the collapsible element
+        } else {
+          targetCollapse.style.display = 'none'; // Hide the collapsible element
+        }
+      });
+    });
     document.addEventListener('DOMContentLoaded', function() {
       // Handle sidebar menu toggles
       const sidebarMenuItems = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
@@ -501,3 +520,26 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
       });
     });
   </script>
+  <style>
+    .collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      opacity: 0;
+    }
+
+    .collapse.show {
+      max-height: 500px;
+      /* Adjust as needed */
+      opacity: 1;
+    }
+
+    /* Caret animation */
+    .caret {
+      transition: transform 0.3s ease;
+    }
+
+    .caret.down {
+      transform: rotate(180deg);
+    }
+  </style>

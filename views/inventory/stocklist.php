@@ -8,14 +8,14 @@
                             <h4 class="card-title fs-2 m-3">Stock Inventory List</h4>
                         </div>
                         <div class="col-md-6 m-0 d-flex justify-content-md-end">
-    <input type="text" id="tableSearch" class="form-control me-2" placeholder="Search products..." style="max-width: 200px; height: 38px;">
-    <select id="stockFilter" class="form-select me-2" style="max-width: 150px;">
-        <option value="">All Status</option>
-        <option value="In Stock">In Stock</option>
-        <option value="Low Stock">Low Stock</option>
-        <option value="Out of Stock">Out of Stock</option>
-    </select>
-</div>
+                            <input type="text" id="tableSearch" class="form-control me-2" placeholder="Search products..." style="max-width: 200px; height: 38px;">
+                            <select id="stockFilter" class="form-select me-2" style="max-width: 150px;">
+                                <option value="">All Status</option>
+                                <option value="In Stock">In Stock</option>
+                                <option value="Low Stock">Low Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="table-responsive">
@@ -23,7 +23,7 @@
                         <table id="stockTable" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th class="bg-warning text-center">ID</th>
+                                    <th class="bg-warning text-center">NO</th>
                                     <th class="bg-warning text-center">Image</th>
                                     <th class="bg-warning text-center">PRODUCTS</th>
                                     <th class="bg-warning text-center">DATE ADDED</th>
@@ -44,17 +44,17 @@
                                         <td class="text-center"><?= $row['quantity']; ?></td>
                                         <td class="text-center">
                                             <span class="px-4 py-1 fw-semibold rounded-5 d-inline-block 
-                                            <?php 
-                                                $quantity = $row['quantity']; 
-                                                if ($quantity == 0) { 
-                                                    echo ' text-danger ';  
-                                                } elseif ($quantity <= 3) { 
-                                                    echo ' text-danger  ';  
-                                                } else { 
-                                                    echo ' text-success  ';  
-                                                } 
-                                            ?>">
                                             <?php
+                                            $quantity = $row['quantity'];
+                                            if ($quantity == 0) {
+                                                echo ' text-danger ';
+                                            } elseif ($quantity <= 3) {
+                                                echo ' text-danger  ';
+                                            } else {
+                                                echo ' text-success  ';
+                                            }
+                                            ?>">
+                                                <?php
                                                 if ($quantity == 0) {
                                                     echo "Out of Stock";
                                                 } elseif ($quantity <= 3) {
@@ -62,7 +62,7 @@
                                                 } else {
                                                     echo "In Stock";
                                                 }
-                                            ?>
+                                                ?>
                                             </span>
                                         </td>
                                         <td class="text-center">
@@ -101,31 +101,34 @@
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var table = $('#stockTable').DataTable({
-            "lengthMenu": [[ 10, 15, 20], [5, 10, 15, 20]], // Custom page length options
+            "lengthMenu": [
+                [10, 15, 20],
+                [5, 10, 15, 20]
+            ], // Custom page length options
             "searching": true, // Enable global search functionality
-            "order": [[0, 'asc']], // Sort by ID
-            "columnDefs": [
-                {
-                    "targets": 2, // Search only in the 'PRODUCTS' column
-                    "searchable": true
-                }
-            ]
+            "order": [
+                [0, 'asc']
+            ], // Sort by ID
+            "columnDefs": [{
+                "targets": 2, // Search only in the 'PRODUCTS' column
+                "searchable": true
+            }]
         });
 
         // Remove default DataTable search box
         $('#stockTable_filter').hide();
 
         // Search by product name in the PRODUCTS column (index 2)
-        $('#tableSearch').on('keyup', function () {
+        $('#tableSearch').on('keyup', function() {
             table.column(2).search(this.value).draw(); // Search only in the 'PRODUCTS' column
         });
 
         // Filter by stock status
-        $('#stockFilter').on('change', function () {
+        $('#stockFilter').on('change', function() {
             var selectedStatus = this.value.toLowerCase();
-            table.rows().every(function () {
+            table.rows().every(function() {
                 var rowData = this.node();
                 var status = $(rowData).data('status').toLowerCase();
                 if (selectedStatus === '' || status === selectedStatus) {
@@ -143,9 +146,11 @@
     #stockTable_filter {
         display: none;
     }
+
     #stockTable_length {
         display: none;
     }
+
     /* Remove sorting icons (::before and ::after) */
     table.dataTable thead .sorting::before,
     table.dataTable thead .sorting::after,

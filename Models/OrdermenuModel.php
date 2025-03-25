@@ -30,4 +30,11 @@ class OrdermenuModel
         $stmt = $this->pdo->query("SELECT product_ID, description, price, image FROM products WHERE product_ID = :product_ID", ['product_ID' => $product_ID]);
         return $stmt->fetch();
     }
+    function deleteProduct($product_ID)
+    {
+        $stmt = $this->pdo->query(
+            "DELETE FROM products WHERE product_ID = :product_ID", 
+            ['product_ID' => $product_ID]
+        );
+    }
 }
