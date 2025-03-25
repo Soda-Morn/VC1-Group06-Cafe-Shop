@@ -56,55 +56,72 @@
             background-color: rgb(255, 252, 252);
         }
 
-        /* Product card styling */
+        /* Updated Product card styling to match coffee menu */
         .card {
-            margin: 10px auto;
             border: none;
-            background: rgb(255, 255, 255);
-            max-width: 200px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            margin-left: 15px;
-            margin-right: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            background-color: white;
+            height: 94%;
+            margin: 0 1px 15px;
+            max-width: none;
+            cursor: default;
+            margin-left: 10px;
+            margin-right: 10px; 	
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
         }
 
         /* Price and stock text styling */
         .price {
-            font-weight: bold;
-            color: black;
-            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 0;
         }
 
         .stock {
-            color: black;
-            font-weight: bold;
+            color: #6c757d;
+            font-weight: 600;
+            font-size: 0.85rem;
         }
 
         /* Add to stock button styling */
         .btn-add-to-cart {
             padding: 5px 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
             margin-top: 10px;
             background: var(--button-color);
             color: white;
             border: none;
-            border-radius: var(--border-radius);
-            cursor: default;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 60%;
         }
+        
+        .btn-add-to-cart:hover {
+            background-color: #a04d13;
+        }
+        
         .btn-add-to-cart:focus {
-            outline: none; /* Remove the default outline */
+            outline: none;
         }
+        
         .btn-Added {
             background: rgb(183, 90, 23);
-            color: rgb(255, 255, 255); /* Button color */
-            border: 1px solid rgb(255, 255, 255); /* Button border */
+            color: rgb(255, 255, 255);
+            border: 1px solid rgb(255, 255, 255);
             border-radius: 5px;
-            padding: 5px 10px; /* Adjust padding for button */
+            padding: 5px 10px;
             font-size: 1rem;
-            
         }
+        
         .btn-Added:hover{
             color: #ffffff;
         }
@@ -130,18 +147,21 @@
             padding: 6px 12px 6px 35px;
             width: 200px;
         }
+        
         .search-input:focus {
-            border-color: #007bff; /* Keep the border color on focus if desired */
-            outline: none; /* Remove the default outline */
+            border-color: #007bff;
+            outline: none;
         }
+        
         .search-icon {
             position: absolute;
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
             color: #6c757d;
-            pointer-events: none; /* Ensures clicks pass through to the input */
+            pointer-events: none;
         }
+        
         .search-button {
             color: white;
             border: 1px solid rgb(255, 255, 255);
@@ -159,6 +179,37 @@
             color: var(--secondary-color);
             cursor: pointer;
             display: none;
+        }
+
+        /* Product image container */
+        .product-image-container {
+            height: 155px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 5px;
+        }
+
+        .card-img-top {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Product name styling */
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            text-transform: capitalize;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Card body styling */
+        .card-body {
+            padding: 0.75rem 1rem;
+            text-align: center;
         }
 
         /* Responsive adjustments */
@@ -184,8 +235,8 @@
 
         @media (max-width: 576px) {
             .card {
-                margin-left: 10px;
-                margin-right: 10px;
+                margin-left: 5px;
+                margin-right: 5px;
             }
         }
     </style>
@@ -218,7 +269,7 @@
         </div>
 
         <!-- Product Cards -->
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mb-4" id="product-list">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-2 mb-4" id="product-list">
             <?php if (empty($products)): ?>
                 <div class="col-12">
                     <p class="text-muted text-center">No products found.</p>
@@ -226,7 +277,7 @@
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
                     <div class="col product-item">
-                        <div class="card rounded-3 overflow-hidden">
+                        <div class="card">
                             <!-- Dropdown Menu for Edit/Delete -->
                             <div class="edit-delete-icons text-end p-2">
                                 <div class="custom-dropdown">
@@ -245,18 +296,17 @@
                             </div>
 
                             <!-- Product Image -->
-                            <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
-                                <img src="<?= htmlspecialchars($item['product_image'] ?? 'uploads/default.jpg') ?>" class="card-img-top"
-                                    style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="Product Image">
+                            <div class="product-image-container">
+                                <img src="<?= htmlspecialchars($item['product_image'] ?? 'uploads/default.jpg') ?>" class="card-img-top" alt="Product Image">
                             </div>
 
                             <!-- Card Body -->
-                            <div class="card-body text-center" style="padding-top: 10px;">
-                                <h5 class="fw-bold text-dark product-name" style="font-size: 1rem; text-transform: capitalize;">
+                            <div class="card-body">
+                                <h5 class="product-name">
                                     <?= htmlspecialchars($item['product_name']) ?>
                                 </h5>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="price mb-0">
+                                    <h6 class="price">
                                         $<span><?= htmlspecialchars($item['price']) ?></span>
                                     </h6>
                                     <span class="stock">
@@ -266,7 +316,7 @@
                                 <!-- Form to Add Item to Cart -->
                                 <form action="/purchase_item_add/addToCart" method="POST" class="d-inline">
                                     <input type="hidden" name="purchase_item_id" value="<?= htmlspecialchars($item['purchase_item_id']) ?>">
-                                    <button type="submit" class="btn btn-add-to-cart" style="font-family: 'Poppins', sans-serif;">Add to stock</button>
+                                    <button type="submit" class="btn-add-to-cart" style="font-family: 'Poppins', sans-serif;">Add to stock</button>
                                 </form>
                             </div>
                         </div>
