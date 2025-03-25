@@ -107,12 +107,13 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           </a>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-            <i class="fas fa-th-list"></i>
-            <p>Categories</p>
+          <a href="/Categories">
+               <i class="fas fa-th-list"></i>
+               <p>Categories</p>
           </a>
+      </li>
 
-        </li>
+     
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#maps">
             <i class="fas fa-user-friends"></i>
