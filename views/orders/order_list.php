@@ -22,7 +22,13 @@
                             <tr>
                                 <td><?php echo htmlspecialchars($order['id']); ?></td>
                                 <td>
-                                    <img src="views/assets/img/product_detail/coffee.png" class="rounded-circle" alt="Coffee" style="width:50px">
+                                    <?php
+                                    // Define the base path for images
+                                    $imagePath = !empty($order['image']) && file_exists(__DIR__ . '/../../' . $order['image'])
+                                        ? htmlspecialchars($order['image'])
+                                        : 'views/assets/img/product_detail/coffee.png';
+                                    ?>
+                                    <img src="<?php echo $imagePath; ?>" class="rounded-circle" alt="Product Image" style="width:50px">
                                     <?php echo htmlspecialchars($order['item']); ?>
                                 </td>
                                 <td>$<?php echo htmlspecialchars($order['original_price']); ?></td>

@@ -211,7 +211,7 @@
                         Total Price: $<span id="total-price"><?= $total ?></span>
                     </div>
                     <a href="/order_menu" class="btn-add-more">Add More</a>
-                    <button type="submit" class="btn-checkout"><i class="fas fa-check"></i> Checkout</button>
+                    <button type="submit" class="btn-checkout"><i class="fas fa-check"></i><a href="/order_list">Checkout</a></button>
                 </div>
             </form>
         </div>
