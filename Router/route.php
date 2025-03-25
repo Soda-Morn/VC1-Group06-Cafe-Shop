@@ -36,6 +36,7 @@ $route->get("/product_detail", [ProductDetailController::class, 'index']);
 
 // purchase_item
 $route->get("/purchase_item_add", [PurchaseitemController::class, 'index']);
+$route->get("/purchase_item_add/addToCart", [PurchaseitemController::class, 'addToCart']);
 $route->get("/purchase_item_add/create", [PurchaseitemController::class, 'create']);
 $route->post("/purchase_item_add/store", [PurchaseitemController::class, 'store']);
 $route->get("/purchase_item/destroy/{id}", [PurchaseitemController::class, 'destroy']);
@@ -48,6 +49,7 @@ $route->get("/restock_checkout/addStock", [RestockCheckoutController::class, 'ad
 $route->get("/restock_checkout/removecard", [RestockCheckoutController::class, 'removecard']);
 $route->get("/restock_checkout/clearCart", [RestockCheckoutController::class, 'clearCart']);
 $route->get("/restock_checkout/submit", [RestockCheckoutController::class, 'submit']);
+$route->get("/restock_checkout/clearCartAndRedirect", [RestockCheckoutController::class, 'clearCartAndRedirect']);
 $route->get("/restock_checkout/preview", [RestockCheckoutController::class, 'preview']);
 $route->get("/restock_checkout/updateQuantity", [RestockCheckoutController::class, 'updateQuantity']);
 
@@ -58,11 +60,13 @@ $route->get("/order_list", [OrderlistController::class, 'index']);
 $route->get('/order_menu', [OrdermenuController::class, 'index']);
 $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
+$route->post('/order_menu/destroy/{id}', [OrdermenuController::class, 'destroy']);
 
 // card_order (for CardController)
 $route->get('/orderCard', [CardController::class, 'index']);
 $route->get('/orderCard/addToCart', [CardController::class, 'addToCart']);
 $route->get('/orderCard/removeFromCart', [CardController::class, 'removeFromCart']);
+$route->get('/orderCard/checkout', [CardController::class, 'checkout']);
 
 // Inventory
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);

@@ -48,19 +48,20 @@
 
     <!-- Bootstrap Notify -->
     <script src="views/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
+    
     <!-- jQuery Vector Maps -->
     <script src="views/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
     <script src="views/assets/js/plugin/jsvectormap/world.js"></script>
-
+    
     <!-- Sweet Alert -->
     <script src="views/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
-
+    
     <!-- Kaiadmin JS -->
     <script src="views/assets/js/kaiadmin.min.js"></script>
     <script src="views/assets/js/order_menu.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <script src="views/assets/js/purchaseitem"></script>
     <script>
       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
         type: "line",
@@ -89,12 +90,6 @@
         fillColor: "rgba(255, 165, 52, .14)",
       });
     </script>
-
-   <!--   Core JS Files stock List -->
-   
-  
-<!-- PurchaseItem Add-->
-<script src="views/assets/js/purchaseitem"></script>
 
   </body>
 </html>
