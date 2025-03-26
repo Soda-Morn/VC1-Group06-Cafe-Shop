@@ -180,13 +180,16 @@ class CardController extends BaseController {
 
                     // Step 5: Clear the cart after checkout
                     $_SESSION['cart'] = [];
-                    $this->redirect('/orderCard?success=Checkout completed successfully');
+                    // Redirect to /order_list
+                    $this->redirect('/order_list?success=Checkout completed successfully');
                 } catch (Exception $e) {
                     error_log("Checkout failed: " . $e->getMessage());
-                    $this->redirect('/orderCard?error=Checkout failed: ' . urlencode($e->getMessage()));
+                    // Redirect to /order_list with error message
+                    $this->redirect('/order_list?error=Checkout failed: ' . urlencode($e->getMessage()));
                 }
             } else {
-                $this->redirect('/orderCard?error=Cart is empty');
+                // Redirect to /order_list with error message
+                $this->redirect('/order_list?error=Cart is empty');
             }
         }
     }
