@@ -96,14 +96,14 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
 /* General Container Styling */
 .category-container {
-    max-width: 90%;
+    max-width: 97%;
     margin: auto;
     padding: 20px;
 }
 
 /* Card Styling */
 .category-card {
-    margin-top: 90px;
+    margin-top: 60px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: none;
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 .category-card-header {
-    background: #0056b3;
+    background:orange;
     color: white;
     font-weight: 600;
     text-align: center;
@@ -190,20 +190,9 @@ input[type="text"] {
     width: 100%;
 }
 
-/* Buttons */
-.category-btn-primary {
-    background: #007bff;
-    border: none;
-    padding: 10px 16px;
-    font-weight: 600;
-}
 
-.category-btn-secondary {
-    background: #6c757d;
-    border: none;
-    padding: 10px 16px;
-    font-weight: 600;
-}
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -216,4 +205,49 @@ input[type="text"] {
         margin-bottom: 20px;
     }
 }
+/* Create Button Styling */
+.category-btn-primary {
+    background: #ff8a00;  /* Orange background */
+    color: white;         /* White text color */
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.category-btn-primary:hover {
+    background: #e76a00;  /* Darker orange on hover */
+    transform: translateY(-2px); /* Lift the button slightly */
+}
+
+.category-btn-primary:active {
+    background: #e56a00;  /* Slightly darker orange when active */
+    transform: translateY(0); /* Button presses down when clicked */
+}
+
+.category-btn-secondary {
+    background: #f1f3f5;  /* Light gray background */
+    color: #333;           /* Dark text */
+    border: 1px solid #ccc;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.category-btn-secondary:hover {
+    background: #e0e2e5;  /* Darker gray on hover */
+    transform: translateY(-2px); /* Lift the button slightly */
+}
+
+.category-btn-secondary:active {
+    background: #d1d4d7;  /* Even darker gray when active */
+    transform: translateY(0); /* Button presses down when clicked */
+}
+
 </style>
