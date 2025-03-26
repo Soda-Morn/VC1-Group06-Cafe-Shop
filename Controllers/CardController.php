@@ -135,63 +135,55 @@ class CardController extends BaseController {
 
             if (!empty($cartItems)) {
                 try {
-                    // Step 1: Always create a new sale_id for each checkout
                     $saleId = $this->model->createNewSale();
-
-                    // Step 2: Consolidate cart items by product ID and sum their quantities
                     $consolidatedItems = [];
                     $totalPrice = 0;
 
                     foreach ($cartItems as $index => $item) {
                         $productId = $item['product_ID'];
-                        // Use quantity from $_POST['cart'] if available, otherwise fall back to $_SESSION['cart']
                         $quantity = isset($cartData[$index]['quantity']) ? (int)$cartData[$index]['quantity'] : (int)$item['quantity'];
                         $price = $item['price'];
 
                         if (isset($consolidatedItems[$productId])) {
-                            // If the product already exists, sum the quantity
                             $consolidatedItems[$productId]['quantity'] += $quantity;
                         } else {
-                            // Otherwise, create a new entry
                             $consolidatedItems[$productId] = [
                                 'product_id' => $productId,
                                 'quantity' => $quantity,
                                 'price' => $price
                             ];
                         }
-
-                        // Add to the total price for this checkout
                         $totalPrice += $price * $quantity;
                     }
 
-                    // Step 3: Insert sale items with the consolidated quantities
                     foreach ($consolidatedItems as $item) {
                         $productId = $item['product_id'];
                         $quantity = $item['quantity'];
 
                         if ($productId && $quantity > 0) {
-                            // Insert a new entry with the consolidated quantity
                             $this->model->addSaleItem($saleId, $productId, $quantity);
                         }
                     }
 
-                    // Step 4: Update the total price in the sales table
                     $this->model->updateSaleTotalPrice($saleId, $totalPrice);
-
-                    // Step 5: Clear the cart after checkout
                     $_SESSION['cart'] = [];
-                    // Redirect to /order_list
-                    $this->redirect('/order_list?success=Checkout completed successfully');
+                    $this->redirect('/order_list?success=Checkout completed successfully'); // Updated route
                 } catch (Exception $e) {
                     error_log("Checkout failed: " . $e->getMessage());
-                    // Redirect to /order_list with error message
-                    $this->redirect('/order_list?error=Checkout failed: ' . urlencode($e->getMessage()));
+                    $this->redirect('/order_list?error=Checkout failed: ' . urlencode($e->getMessage())); // Updated route
                 }
             } else {
-                // Redirect to /order_list with error message
-                $this->redirect('/order_list?error=Cart is empty');
+                $this->redirect('/order_list?error=Cart is empty'); // Updated route
             }
         }
+    }
+    public function orderList() { // New method for /order_list route
+        $orders = $this->model->getAllOrders(); // Fetch orders
+        $this->view('/order/order_list', [
+            'orders' => $orders,
+            'error' => $_GET['error'] ?? '',
+            'success' => $_GET['success'] ?? ''
+        ]);
     }
 }
 ?>

@@ -38,9 +38,14 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($orders)): ?>
-                                <?php foreach ($orders as $order): ?>
+                                <?php 
+                                // Reverse the orders array to show newest first
+                                $orders = array_reverse($orders);
+                                $index = 1; // Start index from 1
+                                foreach ($orders as $order): 
+                                ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($order['id']); ?></td>
+                                        <td><?= $index++ ?></td>
                                         <td>
                                             <?php
                                             // Define the base path for images
@@ -48,13 +53,13 @@
                                                 ? htmlspecialchars($order['image'])
                                                 : 'views/assets/img/product_detail/coffee.png';
                                             ?>
-                                            <img src="<?php echo $imagePath; ?>" class="rounded-circle" alt="Product Image" style="width:50px">
-                                            <?php echo htmlspecialchars($order['item']); ?>
+                                            <img src="<?= $imagePath ?>" class="rounded-circle" alt="Product Image" style="width:50px">
+                                            <?= htmlspecialchars($order['item']) ?>
                                         </td>
-                                        <td>$<?php echo htmlspecialchars($order['original_price']); ?></td>
-                                        <td><?php echo htmlspecialchars($order['quantity']); ?></td>
-                                        <td>$<?php echo htmlspecialchars($order['total_price']); ?></td>
-                                        <td><span class="badge bg-success"><?php echo htmlspecialchars($order['status']); ?></span></td>
+                                        <td>$<?= htmlspecialchars($order['original_price']) ?></td>
+                                        <td><?= htmlspecialchars($order['quantity']) ?></td>
+                                        <td>$<?= htmlspecialchars($order['total_price']) ?></td>
+                                        <td><span class="badge bg-success"><?= htmlspecialchars($order['status']) ?></span></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
