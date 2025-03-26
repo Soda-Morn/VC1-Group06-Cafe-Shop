@@ -5,8 +5,6 @@ require_once "Database/Database.php";
 require_once "Controllers/LoginController.php";
 require_once "Controllers/DashboardController.php";
 require_once "Controllers/StocklistController.php";
-require_once "Controllers/ProductListController.php";
-require_once "Controllers/ProductDetailController.php";
 require_once "Controllers/LoginRegisterController.php";
 require_once "Controllers/UserController.php";
 require_once "Controllers/OrdermenuController.php";
@@ -28,11 +26,6 @@ $route->post("/users/store", [UserController::class, 'store']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 $route->get("/logout", [UserController::class, 'logout']);
 
-
-
-// Product List
-$route->get("/product_list", [ProductListController::class, 'index']);
-$route->get("/product_detail", [ProductDetailController::class, 'index']);
 
 // purchase_item
 $route->get("/purchase_item_add", [PurchaseitemController::class, 'index']);
