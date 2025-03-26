@@ -13,11 +13,37 @@
         }
         
         .header {
-            margin-top: 15px;
+            margin-top: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input {
+            width: 200px;
+            padding: 8px 15px 8px 35px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            background-size: 16px 16px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
 
         .add-new-btn {
@@ -29,7 +55,7 @@
             padding: 0.375rem 0.75rem;
         }
 
-        .btn-create{
+        .btn-create {
             background: #28a745;
             color: white;
             font-weight: bold;
@@ -125,7 +151,6 @@
             padding-left: 20px;
             padding-right: 20px;
             max-width: 1400px;
-            background: white;
         }
 
         /* Responsive adjustments */
@@ -138,6 +163,16 @@
         @media (max-width: 767.98px) {
             .col-5-cards {
                 width: 33.333%; /* 3 per row on small screens */
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-container {
+                width: 100%;
+            }
+            .search-input {
+                width: 100%;
             }
         }
 
@@ -153,12 +188,15 @@
     <div class="container">
         <div class="header">
             <h2>Coffee Menu</h2>
-            <a href="/order_menu/create" class="btn-create add-new-btn">Create Menu</a>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search coffee..." onkeyup="filterProducts()">
+                <a href="/order_menu/create" class="btn-create add-new-btn">Create Menu</a>
+            </div>
         </div>
 
-        <div class="row card-row">
+        <div class="row card-row" id="productsContainer">
             <?php foreach ($products as $item): ?>
-                <div class="col-5-cards">
+                <div class="col-5-cards product-card" data-name="<?= htmlspecialchars(strtolower($item['name'])) ?>">
                     <div class="card">
                         <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
                         <div class="position-absolute top-0 end-0 m-2">
@@ -184,6 +222,24 @@
             <?php endforeach; ?>
         </div>
     </div>
+
+    <script>
+        function filterProducts() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                
+                if (name.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
