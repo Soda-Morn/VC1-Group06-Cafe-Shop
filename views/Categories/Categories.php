@@ -1,4 +1,5 @@
 <div class="category-container mt-4">
+    <h1>Category_list</h1>
     <div class="row">
         <!-- Category List Card -->
         <div class="col-md-6">
@@ -53,7 +54,6 @@
                 <div class="category-card-body">
                     <form action="/Categories/store" method="POST">
                         <div class="category-form-group">
-                            <label for="name">Category Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <button type="submit" class="category-btn-primary mt-3">Create</button>
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
-/* General Container Styling */
+    /* General Container Styling */
 .category-container {
     max-width: 97%;
     margin: auto;
@@ -103,15 +103,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Card Styling */
 .category-card {
-    margin-top: 60px;
+    margin-top: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: none;
     background: #fff;
+    padding: 20px;
 }
 
 .category-card-header {
-    background:orange;
+    background: rgb(204, 121, 61);
     color: white;
     font-weight: 600;
     text-align: center;
@@ -122,32 +123,37 @@ document.addEventListener('DOMContentLoaded', function () {
 /* Table Styling */
 .category-table {
     width: 100%;
-    margin-bottom: 0;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 12px;
+    border-collapse: collapse;
+    border-radius: 8px;
     overflow: hidden;
 }
 
-.category-table th {
-    background: #f1f3f5;
-    text-align: center;
-    font-weight: 600;
+.category-table th, .category-table td {
     padding: 12px;
-    border-bottom: 2px solid #ddd;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
-.category-table td {
-    vertical-align: middle;
-    text-align: center;
-    padding: 10px;
+.category-table th {
+    background: #f7f7f7;
+    font-weight: 600;
+}
+
+.category-table tr:hover {
+    background: rgba(255, 165, 0, 0.2);
 }
 
 /* Action Buttons */
 .category-actions {
+    position: relative;
     display: flex;
     justify-content: center;
     gap: 10px;
+}
+
+/* Dropdown Styling */
+.dropdown {
+    position: relative;
 }
 
 .dropdown button {
@@ -157,24 +163,30 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 .category-dropdown-menu {
-    min-width: 150px;
+    position: absolute;
+    top: 30px;
+    right: 0;
     background: white;
     border-radius: 6px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    border: none;
-    display: none; /* Hide dropdown menu by default */
+    display: none;
+    z-index: 10;
 }
 
 .category-dropdown-menu.show {
-    display: block; /* Show dropdown when toggled */
+    display: block;
 }
 
 .category-dropdown-item {
-    padding: 8px 15px;
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    transition: background 0.3s;
 }
 
-.category-dropdown-item i {
-    margin-right: 8px; /* Adjust space between icon and text */
+.category-dropdown-item:hover {
+    background: rgba(255, 165, 0, 0.2);
 }
 
 /* Form Styling */
@@ -189,10 +201,41 @@ input[type="text"] {
     padding: 10px;
     width: 100%;
 }
+h1{
+    margin-top: 30px;
+}
 
+/* Button Styling */
+.category-btn-primary {
+    background: rgb(183, 90, 23);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
 
+.category-btn-primary:hover {
+    background: rgb(150, 70, 15);
+    transform: scale(1.05);
+}
 
+.category-btn-secondary {
+    background: #ccc;
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
 
+.category-btn-secondary:hover {
+    background: #bbb;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -205,49 +248,9 @@ input[type="text"] {
         margin-bottom: 20px;
     }
 }
-/* Create Button Styling */
-.category-btn-primary {
-    background: #ff8a00;  /* Orange background */
-    color: white;         /* White text color */
-    border: none;
-    padding: 12px 20px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-}
-
-.category-btn-primary:hover {
-    background: #e76a00;  /* Darker orange on hover */
-    transform: translateY(-2px); /* Lift the button slightly */
-}
-
-.category-btn-primary:active {
-    background: #e56a00;  /* Slightly darker orange when active */
-    transform: translateY(0); /* Button presses down when clicked */
-}
-
-.category-btn-secondary {
-    background: #f1f3f5;  /* Light gray background */
-    color: #333;           /* Dark text */
-    border: 1px solid #ccc;
-    padding: 12px 20px;
-    font-weight: 600;
-    border-radius: 6px;
-    text-align: center;
-    display: inline-block;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.category-btn-secondary:hover {
-    background: #e0e2e5;  /* Darker gray on hover */
-    transform: translateY(-2px); /* Lift the button slightly */
-}
-
-.category-btn-secondary:active {
-    background: #d1d4d7;  /* Even darker gray when active */
-    transform: translateY(0); /* Button presses down when clicked */
+.category-form-group{
+    margin: 10px;
+    font-size: 30px;
 }
 
 </style>
