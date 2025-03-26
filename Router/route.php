@@ -62,11 +62,15 @@ $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
 $route->post('/order_menu/destroy/{id}', [OrdermenuController::class, 'destroy']);
 
+
 // card_order (for CardController)
 $route->get('/orderCard', [CardController::class, 'index']);
 $route->get('/orderCard/addToCart', [CardController::class, 'addToCart']);
 $route->get('/orderCard/removeFromCart', [CardController::class, 'removeFromCart']);
 $route->get('/orderCard/checkout', [CardController::class, 'checkout']);
+$route->get('/orderCard/addMultipleToCart', [CardController::class, 'addMultipleToCart']);
+$route->get('/orderCard/updateQuantity', [CardController::class, 'updateQuantity']);
+$route->get('/orderCard/orderList', [CardController::class, 'orderList']);
 
 // Inventory
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);

@@ -24,7 +24,7 @@
 
                     <tr>
                         <th scope="row">1</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px" class="rounded-circle custom-size"></td>
                         <td>Coffe</td>
 
 
@@ -46,7 +46,7 @@
                     </tr>
                     <tr>
                         <th scope="row">3</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px" class="rounded-circle custom-size"></td>
                         <td>Coffe</td>
 
 
@@ -57,7 +57,7 @@
                     </tr>
                     <tr>
                         <th scope="row">4</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px" class="rounded-circle custom-size"></td>
                         <td>Coffe</td>
 
 
@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <th scope="row">5</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px" class="rounded-circle custom-size"></td>
                         <td>Coffe</td>
 
 
@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <th scope="row">6</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px" class="rounded-circle custom-size"></td>
                         <td>Coffe</td>
 
 
@@ -90,7 +90,7 @@
                     </tr>
                     <tr>
                         <th scope="row">7</th>
-                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px"></td>
+                        <td><img src="views/assets/img/./product_detail/coffee.png" alt="" style="width:55px" class="rounded-circle custom-size"></td>
                         <td>Coffe</td>
 
 

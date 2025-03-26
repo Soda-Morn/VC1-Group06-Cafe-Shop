@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Now</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
@@ -21,11 +22,49 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        .cart-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cart-header h2 i {
+            margin-right: 8px;
+        }
+
+        .cart-header p {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
         .cart-item img {
             width: 60px;
             height: 60px;
             object-fit: cover;
             border-radius: 5px;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            font-weight: bold;
+            color: #333;
+            border-top: none;
+            text-align: center;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+            color: #666;
         }
 
         .quantity-controls button {
@@ -38,7 +77,11 @@
             background: #007bff;
             color: white;
             border-radius: 5px;
-            transition: 0.3s;
+            transition: background 0.3s;
+        }
+
+        .quantity-controls button:hover {
+            background: #0056b3;
         }
 
         .quantity-input {
@@ -47,13 +90,7 @@
             font-size: 1rem;
             border: none;
             outline: none;
-        }
-
-        .total-price {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: right;
-            margin-top: 10px;
+            background: transparent;
         }
 
         .btn-remove {
@@ -62,11 +99,60 @@
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
-            transition: 0.3s;
+            transition: background 0.3s;
+            font-size: 0.9rem;
         }
 
         .btn-remove:hover {
             background: #c82333;
+        }
+
+        .cart-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .total-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .btn-add-more {
+            background: #f0ad4e;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-add-more:hover {
+            background: #ec971f;
+        }
+
+        .btn-checkout {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-checkout:hover {
+            background: #0056b3;
+        }
+
+        .btn-checkout i {
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -74,13 +160,15 @@
 <body>
     <div class="container mt-9">
         <div class="cart-container">
-            <h2 class="text-center">🛒 Your Cart</h2>
-            <p class="text-center"><strong>Review your selection:</strong></p>
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+                <p><strong>Review your selection:</strong></p>
+            </div>
 
             <form id="checkout-form" action="/orderCard/checkout" method="POST">
                 <table class="table">
                     <thead>
-                        <tr class="text-center">
+                        <tr>
                             <th>Image</th>
                             <th>Name</th>
                             <th>Price</th>
@@ -92,20 +180,20 @@
                         <?php $total = 0; ?>
                         <?php if (!empty($cartItems)): ?>
                             <?php foreach ($cartItems as $index => $item): ?>
-                                <tr class="text-center cart-item" data-product-id="<?= $item['product_ID'] ?>">
-                                    <td><img src="<?= isset($item['image']) ? $item['image'] : 'default_image.png' ?>"
-                                            alt="<?= isset($item['name']) ? $item['name'] : 'N/A' ?>" class="img-fluid"></td>
-                                    <td><?= isset($item['name']) ? $item['name'] : 'N/A' ?></td>
-                                    <td class="item-price">$<?= isset($item['price']) ? $item['price'] : '0.00' ?></td>
+                                <tr class="text-center cart-item" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
+                                    <td><img src="<?= isset($item['image']) ? htmlspecialchars($item['image']) : 'default_image.png' ?>"
+                                            alt="<?= isset($item['name']) ? htmlspecialchars($item['name']) : 'N/A' ?>" class="img-fluid"></td>
+                                    <td><?= isset($item['name']) ? htmlspecialchars($item['name']) : 'N/A' ?></td>
+                                    <td class="item-price">$<?= isset($item['price']) ? number_format($item['price'], 2) : '0.00' ?></td>
                                     <td class="quantity-controls">
                                         <button type="button" class="btn-decrease">−</button>
                                         <input type="number" name="cart[<?= $index ?>][quantity]" class="quantity-input"
-                                            value="<?= isset($item['quantity']) ? $item['quantity'] : '1' ?>" min="1">
-                                        <input type="hidden" name="cart[<?= $index ?>][product_id]" value="<?= $item['product_ID'] ?>">
+                                            value="<?= isset($item['quantity']) ? htmlspecialchars($item['quantity']) : '1' ?>" min="1">
+                                        <input type="hidden" name="cart[<?= $index ?>][product_id]" value="<?= htmlspecialchars($item['product_ID']) ?>">
                                         <button type="button" class="btn-increase">+</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn-remove" data-product-id="<?= $item['product_ID'] ?>">🗑 Remove</button>
+                                        <button type="button" class="btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">🗑 Remove</button>
                                     </td>
                                 </tr>
                                 <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
@@ -118,25 +206,23 @@
                     </tbody>
                 </table>
 
-                <div class="total-price">
-                    <span>Total Price: $<span id="total-price"><?= $total ?></span></span>
-                </div>
-
-                <div class="text-right mt-4">
-                    <a href="/order_menu" class="btn btn-warning"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>
-                        Add More</a>
-                    <button type="submit" class="btn btn-primary ml-2">✅ Checkout</button>
+                <div class="cart-footer">
+                    <div class="total-price">
+                        Total Price: $<span id="total-price"><?= number_format($total, 2) ?></span>
+                    </div>
+                    <a href="/order_menu" class="btn-add-more">Add More</a>
+                    <button type="submit" class="btn-checkout"><i class="fas fa-check"></i>Checkout</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Function to update the total price
             function updateTotal() {
                 let total = 0;
-                $('.cart-item').each(function () {
+                $('.cart-item').each(function() {
                     let price = parseFloat($(this).find('.item-price').text().replace('$', ''));
                     let quantity = parseInt($(this).find('.quantity-input').val());
                     total += price * quantity;
@@ -145,7 +231,7 @@
             }
 
             // Handle quantity increase
-            $('.btn-increase').click(function () {
+            $('.btn-increase').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = parseInt(input.val()) + 1;
                 input.val(newValue);
@@ -153,7 +239,7 @@
             });
 
             // Handle quantity decrease
-            $('.btn-decrease').click(function () {
+            $('.btn-decrease').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = Math.max(1, parseInt(input.val()) - 1);
                 input.val(newValue);
@@ -161,7 +247,7 @@
             });
 
             // Handle manual quantity input
-            $('.quantity-input').on('change', function () {
+            $('.quantity-input').on('change', function() {
                 let value = parseInt($(this).val());
                 if (isNaN(value) || value < 1) {
                     $(this).val(1);
@@ -170,7 +256,7 @@
             });
 
             // Handle remove button click with AJAX
-            $('.btn-remove').click(function () {
+            $('.btn-remove').click(function() {
                 const productId = $(this).data('product-id');
                 const row = $(this).closest('tr');
 
@@ -178,9 +264,11 @@
                 $.ajax({
                     url: '/orderCard/removeFromCart',
                     type: 'POST',
-                    data: { product_id: productId },
+                    data: {
+                        product_id: productId
+                    },
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         if (data.success) {
                             row.remove(); // Remove the row from the UI
                             updateTotal(); // Update the total price
@@ -191,7 +279,7 @@
                             alert('Failed to remove item: ' + (data.message || 'Unknown error'));
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error('Error removing item:', error);
                         alert('An error occurred while removing the item');
                     }
@@ -199,7 +287,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

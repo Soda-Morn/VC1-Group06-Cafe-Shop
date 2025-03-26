@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coffee Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             background-color: white;
@@ -94,15 +94,24 @@
             background-color: white;
             padding: 5px;
         }
-        
+
         .card-body {
             margin-top: 5px;
             background-color: white;
         }
 
-        /* Fixed delete button styling */
-        .btn-delete {
-            background: transparent;
+        /* Delete button styling (matching the first page) */
+        .btn-danger {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+            z-index: 1;
+            background: #dc3545;
+            color: white;
             border: none;
             color: #dc3545;
             font-size: 16px;
@@ -126,10 +135,6 @@
             margin-top: 0.5rem;
         }
 
-        .card-body {
-            padding: 0.75rem;
-        }
-
         .card-title {
             font-size: 0.98rem;
             margin-bottom: 0.10rem;
@@ -140,7 +145,6 @@
             font-size: 0.8rem;
             margin-bottom: 0.5rem;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             line-height: 1.3;
@@ -153,16 +157,69 @@
             max-width: 1400px;
         }
 
+        /* Checkbox styles (from the first page, adapted to fit the second page's design) */
+        .select-checkbox {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            display: none;
+        }
+
+        .card.selected {
+            border: 2px solid #28a745;
+            background: linear-gradient(145deg, #e6ffe6, #f8f9fa);
+        }
+
+        .card.selected .select-checkbox {
+            display: block;
+        }
+
+        .checkout-btn {
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.375rem 0.75rem;
+            border-radius: 8px;
+            border: none;
+            transition: background 0.3s ease;
+            display: none;
+        }
+
+        .checkout-btn:hover {
+            background: #0056b3;
+        }
+
+        .checkout-btn.visible {
+            display: inline-block;
+        }
+
+        /* Prevent click events on buttons from triggering card selection */
+        .btn-danger,
+        .btn,
+        .add-new-btn,
+        .checkout-btn {
+            pointer-events: auto;
+        }
+
+        /* Adjust the button group spacing to make Order Now and Create Menu appear closer */
+        .button-group {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 1199.98px) {
             .col-5-cards {
-                width: 25%; /* 4 per row on medium screens */
+                width: 25%;
             }
         }
 
         @media (max-width: 767.98px) {
             .col-5-cards {
-                width: 33.333%; /* 3 per row on small screens */
+                width: 33.333%;
             }
             .header {
                 flex-direction: column;
@@ -178,7 +235,17 @@
 
         @media (max-width: 575.98px) {
             .col-5-cards {
-                width: 50%; /* 2 per row on extra small screens */
+                width: 50%;
+            }
+
+            .button-group {
+                gap: 0.15rem;
+            }
+
+            .checkout-btn,
+            .btn-create {
+                font-size: 0.9rem;
+                padding: 0.3rem 0.6rem;
             }
         }
     </style>
@@ -188,39 +255,36 @@
     <div class="container">
         <div class="header">
             <h2>Coffee Menu</h2>
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search coffee..." onkeyup="filterProducts()">
+            <div class="button-group">
+                <button type="submit" form="checkoutForm" class="checkout-btn" id="checkoutBtn">Order Now</button>
                 <a href="/order_menu/create" class="btn-create add-new-btn">Create Menu</a>
             </div>
         </div>
-
-        <div class="row card-row" id="productsContainer">
-            <?php foreach ($products as $item): ?>
-                <div class="col-5-cards product-card" data-name="<?= htmlspecialchars(strtolower($item['name'])) ?>">
-                    <div class="card">
-                        <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
-                        <div class="position-absolute top-0 end-0 m-2">
-                            <form action="/order_menu/destroy/<?= htmlspecialchars($item['product_ID']) ?>" method="POST">
-                                <button type="submit" class="btn-delete">
+        <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
+            <div class="row card-row">
+                <?php foreach ($products as $item): ?>
+                    <div class="col-5-cards">
+                        <div class="card" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
+                            <input type="checkbox" class="select-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_ID']) ?>">
+                            <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <button type="button" class="btn btn-danger btn-sm btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                            </form>
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title"><?= htmlspecialchars($item['name']) ?></h5>
-                            <p class="card-text text-muted"><?= htmlspecialchars($item['description']) ?></p>
-                            <div class="price-button-container">
-                                <span class="fw-bold">$<?= number_format($item['price'], 2) ?></span>
-                                <form action="/orderCard/addToCart" method="POST">
-                                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_ID']) ?>">
-                                    <button type="submit" class="btn">Add to cart</button>
-                                </form>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><?= htmlspecialchars($item['name']) ?></h5>
+                                <p class="card-text text-muted"><?= htmlspecialchars($item['description']) ?></p>
+                                <div class="price-button-container">
+                                    <span class="fw-bold">$<?= number_format($item['price'], 2) ?></span>
+                                    <button type="button" class="btn btn-add-to-cart" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">Add to cart</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -242,4 +306,86 @@
     </script>
 </body>
 
+    <script>
+        $(document).ready(function() {
+            // Handle remove button click with AJAX
+            $('.btn-remove').click(function(e) {
+                e.stopPropagation();
+                const productId = $(this).data('product-id');
+                const card = $(this).closest('.card');
+
+                $.ajax({
+                    url: `/order_menu/destroy/${productId}`,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            card.closest('.col-5-cards').remove();
+                            if ($('.card').length === 0) {
+                                $('.card-row').html('<div class="col-12 text-center">No products available.</div>');
+                            }
+                            const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
+                            document.getElementById('checkoutBtn').classList.toggle('visible', anyChecked);
+                        } else {
+                            alert('Failed to delete product: ' + (data.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error deleting product:', {status: status, error: error, responseText: xhr.responseText});
+                        alert('An error occurred while deleting the product: ' + (xhr.responseText || error));
+                    }
+                });
+            });
+
+            // Handle Add to Cart button with AJAX
+            $('.btn-add-to-cart').click(function(e) {
+                e.stopPropagation();
+                const productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/orderCard/addToCart',
+                    type: 'POST',
+                    data: { product_id: productId },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            // Redirect to /orderCard after successful addition to cart
+                            window.location.href = '/orderCard';
+                        } else {
+                            alert('Failed to add product to cart: ' + (data.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error adding to cart:', {status: status, error: error, responseText: xhr.responseText});
+                        alert('An error occurred while adding to cart: ' + (xhr.responseText || error));
+                    }
+                });
+            });
+
+            // Card selection for multi-select
+            const cards = document.querySelectorAll('.card');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.btn-danger') || e.target.closest('.btn-add-to-cart') || e.target.closest('.add-new-btn') || e.target.closest('.checkout-btn')) {
+                        return;
+                    }
+
+                    const checkbox = this.querySelector('.select-checkbox');
+                    checkbox.checked = !checkbox.checked;
+
+                    if (checkbox.checked) {
+                        this.classList.add('selected');
+                    } else {
+                        this.classList.remove('selected');
+                    }
+
+                    const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
+                    checkoutBtn.classList.toggle('visible', anyChecked);
+                });
+            });
+        });
+    </script>
+</body>
 </html>
