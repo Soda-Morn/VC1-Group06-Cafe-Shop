@@ -100,23 +100,18 @@
             background-color: white;
         }
 
-        /* Delete button styling (matching the first page) */
-        .btn-danger {
+        /* Delete button styling */
+        .btn-delete {
             position: absolute;
-            top: 10px;
+            top: 5px;
             right: 10px;
-            font-size: 18px;
-            padding: 5px;
-            border-radius: 50%;
-            transition: background 0.3s ease;
-            z-index: 1;
-            background: #dc3545;
-            color: white;
-            border: none;
-            color: #dc3545;
             font-size: 16px;
+            color: #dc3545;
+            background: transparent;
+            border: none;
             padding: 0;
             cursor: pointer;
+            z-index: 1;
         }
 
         .btn {
@@ -157,7 +152,7 @@
             max-width: 1400px;
         }
 
-        /* Checkbox styles (from the first page, adapted to fit the second page's design) */
+        /* Checkbox styles */
         .select-checkbox {
             position: absolute;
             top: 10px;
@@ -203,10 +198,10 @@
             pointer-events: auto;
         }
 
-        /* Adjust the button group spacing to make Order Now and Create Menu appear closer */
+        /* Adjust the button group spacing */
         .button-group {
             display: flex;
-            gap: 0.25rem;
+            gap: 10px;
             align-items: center;
         }
 
@@ -231,17 +226,19 @@
             .search-input {
                 width: 100%;
             }
+            .button-group {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
 
         @media (max-width: 575.98px) {
             .col-5-cards {
                 width: 50%;
             }
-
             .button-group {
-                gap: 0.15rem;
+                gap: 5px;
             }
-
             .checkout-btn,
             .btn-create {
                 font-size: 0.9rem;
@@ -256,6 +253,9 @@
         <div class="header">
             <h2>Coffee Menu</h2>
             <div class="button-group">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search menu......" onkeyup="filterProducts()">
+                </div>
                 <button type="submit" form="checkoutForm" class="checkout-btn" id="checkoutBtn">Order Now</button>
                 <a href="/order_menu/create" class="btn-create add-new-btn">Create Menu</a>
             </div>
@@ -263,12 +263,12 @@
         <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
             <div class="row card-row">
                 <?php foreach ($products as $item): ?>
-                    <div class="col-5-cards">
+                    <div class="col-5-cards product-card" data-name="<?= htmlspecialchars(strtolower($item['name'])) ?>">
                         <div class="card" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
                             <input type="checkbox" class="select-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_ID']) ?>">
                             <img src="<?= $item['image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>">
                             <div class="position-absolute top-0 end-0 m-2">
-                                <button type="button" class="btn btn-danger btn-sm btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
+                                <button type="button" class="btn-delete btn-sm btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -303,16 +303,19 @@
                 }
             });
         }
-    </script>
-</body>
 
-    <script>
         $(document).ready(function() {
             // Handle remove button click with AJAX
             $('.btn-remove').click(function(e) {
                 e.stopPropagation();
                 const productId = $(this).data('product-id');
                 const card = $(this).closest('.card');
+                
+                // Show confirmation dialog
+                const isConfirmed = confirm('Are you sure you want to delete this product?');
+                if (!isConfirmed) {
+                    return; // Exit if user cancels
+                }
 
                 $.ajax({
                     url: `/order_menu/destroy/${productId}`,
