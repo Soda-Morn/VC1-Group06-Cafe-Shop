@@ -43,10 +43,31 @@ class CardController extends BaseController {
                         $product['quantity'] = 1;
                         $_SESSION['cart'][] = $product;
                     }
+
+                    // Check if the request is AJAX
+                    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                        // Return JSON response for AJAX request
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'success' => true,
+                            'message' => 'Product added to cart successfully',
+                            'cart_count' => count($_SESSION['cart'])
+                        ]);
+                        exit;
+                    }
                 }
             }
+            // For non-AJAX requests, redirect as before
+            $this->redirect('/orderCard');
         }
-        $this->redirect('/orderCard');
+        // For invalid requests (non-AJAX)
+        header('Content-Type: application/json');
+        http_response_code(400);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Invalid request'
+        ]);
+        exit;
     }
 
     public function addMultipleToCart() {
@@ -112,7 +133,7 @@ class CardController extends BaseController {
             $cartData = $_POST['cart'] ?? [];
             $cartItems = $_SESSION['cart'] ?? [];
 
-            if (!empty($cartData)) {
+            if (!empty($cartItems)) {
                 try {
                     // Step 1: Always create a new sale_id for each checkout
                     $saleId = $this->model->createNewSale();
@@ -120,9 +141,11 @@ class CardController extends BaseController {
                     // Step 2: Consolidate cart items by product ID and sum their quantities
                     $consolidatedItems = [];
                     $totalPrice = 0;
+
                     foreach ($cartItems as $index => $item) {
                         $productId = $item['product_ID'];
-                        $quantity = isset($cartData[$index]['quantity']) ? (int)$cartData[$index]['quantity'] : 1;
+                        // Use quantity from $_POST['cart'] if available, otherwise fall back to $_SESSION['cart']
+                        $quantity = isset($cartData[$index]['quantity']) ? (int)$cartData[$index]['quantity'] : (int)$item['quantity'];
                         $price = $item['price'];
 
                         if (isset($consolidatedItems[$productId])) {
@@ -147,7 +170,6 @@ class CardController extends BaseController {
                         $quantity = $item['quantity'];
 
                         if ($productId && $quantity > 0) {
-                            // Since this is a new sale_id, there should be no existing entries
                             // Insert a new entry with the consolidated quantity
                             $this->model->addSaleItem($saleId, $productId, $quantity);
                         }

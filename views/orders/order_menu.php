@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coffee Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Added jQuery for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .header {
             margin-top: 15px;
@@ -239,7 +238,6 @@
                 <a href="/order_menu/create" class="btn-create add-new-btn">Create Menu</a>
             </div>
         </div>
-
         <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
             <div class="row card-row">
                 <?php foreach ($products as $item): ?>
@@ -257,10 +255,7 @@
                                 <p class="card-text text-muted"><?= htmlspecialchars($item['description']) ?></p>
                                 <div class="price-button-container">
                                     <span class="fw-bold">$<?= number_format($item['price'], 2) ?></span>
-                                    <form action="/orderCard/addToCart" method="POST">
-                                        <input type="hidden" name="product_id" value="<?= htmlspecialchars($item['product_ID']) ?>">
-                                        <button type="submit" class="btn">Add to cart</button>
-                                    </form>
+                                    <button type="button" class="btn btn-add-to-cart" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">Add to cart</button>
                                 </div>
                             </div>
                         </div>
@@ -274,27 +269,20 @@
         $(document).ready(function() {
             // Handle remove button click with AJAX
             $('.btn-remove').click(function(e) {
-                e.stopPropagation(); // Prevent the card's click event from triggering
-
+                e.stopPropagation();
                 const productId = $(this).data('product-id');
                 const card = $(this).closest('.card');
 
-                // Send AJAX request to delete the product
                 $.ajax({
                     url: `/order_menu/destroy/${productId}`,
                     type: 'POST',
                     dataType: 'json',
                     success: function(data) {
                         if (data.success) {
-                            // Remove the card from the UI
                             card.closest('.col-5-cards').remove();
-
-                            // If no cards are left, show a message
                             if ($('.card').length === 0) {
                                 $('.card-row').html('<div class="col-12 text-center">No products available.</div>');
                             }
-
-                            // Update the visibility of the "Order Now" button
                             const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
                             document.getElementById('checkoutBtn').classList.toggle('visible', anyChecked);
                         } else {
@@ -302,41 +290,56 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error('Error deleting product:', {
-                            status: status,
-                            error: error,
-                            responseText: xhr.responseText
-                        });
+                        console.error('Error deleting product:', {status: status, error: error, responseText: xhr.responseText});
                         alert('An error occurred while deleting the product: ' + (xhr.responseText || error));
                     }
                 });
             });
 
-            // Get all cards and the checkout button
+            // Handle Add to Cart button with AJAX
+            $('.btn-add-to-cart').click(function(e) {
+                e.stopPropagation();
+                const productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/orderCard/addToCart',
+                    type: 'POST',
+                    data: { product_id: productId },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            // Redirect to /orderCard after successful addition to cart
+                            window.location.href = '/orderCard';
+                        } else {
+                            alert('Failed to add product to cart: ' + (data.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error adding to cart:', {status: status, error: error, responseText: xhr.responseText});
+                        alert('An error occurred while adding to cart: ' + (xhr.responseText || error));
+                    }
+                });
+            });
+
+            // Card selection for multi-select
             const cards = document.querySelectorAll('.card');
             const checkoutBtn = document.getElementById('checkoutBtn');
 
-            // Add click event listener to each card for multi-select
             cards.forEach(card => {
                 card.addEventListener('click', function(e) {
-                    // Prevent the click event from bubbling up if the target is a button
-                    if (e.target.closest('.btn-danger') || e.target.closest('.btn') || e.target.closest('.add-new-btn') || e.target.closest('.checkout-btn')) {
-                        return; // Do nothing if clicking on buttons
+                    if (e.target.closest('.btn-danger') || e.target.closest('.btn-add-to-cart') || e.target.closest('.add-new-btn') || e.target.closest('.checkout-btn')) {
+                        return;
                     }
 
                     const checkbox = this.querySelector('.select-checkbox');
-
-                    // Toggle the checkbox state
                     checkbox.checked = !checkbox.checked;
 
-                    // Toggle the 'selected' class based on checkbox state
                     if (checkbox.checked) {
                         this.classList.add('selected');
                     } else {
                         this.classList.remove('selected');
                     }
 
-                    // Show or hide the checkout button based on selection
                     const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
                     checkoutBtn.classList.toggle('visible', anyChecked);
                 });
@@ -344,5 +347,4 @@
         });
     </script>
 </body>
-
 </html>

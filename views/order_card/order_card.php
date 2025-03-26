@@ -180,20 +180,20 @@
                         <?php $total = 0; ?>
                         <?php if (!empty($cartItems)): ?>
                             <?php foreach ($cartItems as $index => $item): ?>
-                                <tr class="text-center cart-item" data-product-id="<?= $item['product_ID'] ?>">
-                                    <td><img src="<?= isset($item['image']) ? $item['image'] : 'default_image.png' ?>"
-                                            alt="<?= isset($item['name']) ? $item['name'] : 'N/A' ?>" class="img-fluid"></td>
-                                    <td><?= isset($item['name']) ? $item['name'] : 'N/A' ?></td>
-                                    <td class="item-price">$<?= isset($item['price']) ? $item['price'] : '0.00' ?></td>
+                                <tr class="text-center cart-item" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
+                                    <td><img src="<?= isset($item['image']) ? htmlspecialchars($item['image']) : 'default_image.png' ?>"
+                                            alt="<?= isset($item['name']) ? htmlspecialchars($item['name']) : 'N/A' ?>" class="img-fluid"></td>
+                                    <td><?= isset($item['name']) ? htmlspecialchars($item['name']) : 'N/A' ?></td>
+                                    <td class="item-price">$<?= isset($item['price']) ? number_format($item['price'], 2) : '0.00' ?></td>
                                     <td class="quantity-controls">
                                         <button type="button" class="btn-decrease">−</button>
                                         <input type="number" name="cart[<?= $index ?>][quantity]" class="quantity-input"
-                                            value="<?= isset($item['quantity']) ? $item['quantity'] : '1' ?>" min="1">
-                                        <input type="hidden" name="cart[<?= $index ?>][product_id]" value="<?= $item['product_ID'] ?>">
+                                            value="<?= isset($item['quantity']) ? htmlspecialchars($item['quantity']) : '1' ?>" min="1">
+                                        <input type="hidden" name="cart[<?= $index ?>][product_id]" value="<?= htmlspecialchars($item['product_ID']) ?>">
                                         <button type="button" class="btn-increase">+</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn-remove" data-product-id="<?= $item['product_ID'] ?>">🗑 Remove</button>
+                                        <button type="button" class="btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">🗑 Remove</button>
                                     </td>
                                 </tr>
                                 <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
@@ -208,10 +208,10 @@
 
                 <div class="cart-footer">
                     <div class="total-price">
-                        Total Price: $<span id="total-price"><?= $total ?></span>
+                        Total Price: $<span id="total-price"><?= number_format($total, 2) ?></span>
                     </div>
                     <a href="/order_menu" class="btn-add-more">Add More</a>
-                    <button type="submit" class="btn-checkout"><i class="fas fa-check"></i><a href="/order_list">Checkout</a></button>
+                    <button type="submit" class="btn-checkout"><i class="fas fa-check"></i>Checkout</button>
                 </div>
             </form>
         </div>
