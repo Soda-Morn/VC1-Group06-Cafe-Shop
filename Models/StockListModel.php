@@ -9,7 +9,7 @@ class StockListModel {
     {
         $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
     }
-
+// Fetch all stock lists
     function getStockList()
     {
         $stmt = $this->pdo->query("SELECT 
@@ -26,25 +26,30 @@ class StockListModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-//editestock
+    //update stock list
+//     function updateStocklistDetails($purchaseItemId, $productName, $productImage)
+// {
+//     $stmt = $this->pdo->query("UPDATE purchase_items 
+//                                  SET product_name = :product_name, 
+//                                      product_image = :product_image 
+//                                  WHERE purchase_item_id = :purchase_item_id");
+    
+//     $stmt->execute([
+//         ':product_name' => $productName,
+//         ':product_image' => $productImage,
+//         ':purchase_item_id' => $purchaseItemId
+//     ]);
 
-    public function editStock($stock_list_id, $quantity, $status, $date, $product_name, $product_image) {
-           try {
-               $stmt = $this->pdo->prepare("UPDATE stock_lists 
-                   SET quantity = :quantity, status = :status, date = :date 
-                   WHERE stock_list_id = :stock_list_id");
+//     return $stmt->rowCount(); 
+// }
 
-               $stmt->bindParam(':quantity', $quantity);
-               $stmt->bindParam(':status', $status);
-               $stmt->bindParam(':date', $date);
-               $stmt->bindParam(':stock_list_id', $stock_list_id);
-               $stmt->bindParam(':product_name', $product_name);
-               $stmt->bindParam(':product_image', $product_image);
+//delete stock list
+// function deletestocklist($purchaseItemId)
+// {
+//     $stmt = $this->pdo->query("DELETE FROM purchase_items WHERE purchase_item_id = :purchase_item_id");
+//     $stmt->execute([':purchase_item_id' => $purchaseItemId]);
 
-               return $stmt->execute(); // Returns true on success, false on failure
-           } catch (PDOException $e) {
-               return "Error: " . $e->getMessage();
-           }
-       }
+//     return $stmt->rowCount(); 
+// }
     
 }

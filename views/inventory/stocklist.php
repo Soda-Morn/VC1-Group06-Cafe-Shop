@@ -71,12 +71,12 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </button>
                                                 <div class="custom-dropdown-menu">
-                                                    <a class="custom-dropdown-item" href="/purchase_item_add/edit/<?= htmlspecialchars($row['stock_list_id']) ?>">
-                                                        <i class="fas fa-edit me-2"></i> Edit
-                                                    </a>
-                                                    <button class="custom-dropdown-item delete-product-item" type="button" data-id="<?= htmlspecialchars($row['stock_list_id']) ?>">
+                                                <a class="custom-dropdown-item" href="/purchase_item_add/edit_stocklist/<?= urlencode($row['stock_list_id']); ?>">
+                                                    <i class="fas fa-edit me-2"></i> Edit
+                                                </a>
+                                                    <a class="custom-dropdown-item delete-product-item" type="button" data-id="<?= htmlspecialchars($row['stock_list_id']) ?>">
                                                         <i class="fas fa-trash me-2 text-danger"></i> <span class="text-danger">Delete</span>
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
