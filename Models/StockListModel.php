@@ -27,21 +27,32 @@ class StockListModel {
     }
 
     //update stock list
-//     function updateStocklistDetails($purchaseItemId, $productName, $productImage)
-// {
-//     $stmt = $this->pdo->query("UPDATE purchase_items 
-//                                  SET product_name = :product_name, 
-//                                      product_image = :product_image 
-//                                  WHERE purchase_item_id = :purchase_item_id");
+    public function updateStocklist($purchaseItemId, $productName, $productImage)
+    {
+        $stmt = $this->pdo->prepare("UPDATE purchase_items 
+                                     SET product_name = :product_name, 
+                                         product_image = :product_image 
+                                     WHERE purchase_item_id = :purchase_item_id");
     
-//     $stmt->execute([
-//         ':product_name' => $productName,
-//         ':product_image' => $productImage,
-//         ':purchase_item_id' => $purchaseItemId
-//     ]);
-
-//     return $stmt->rowCount(); 
-// }
+        $stmt->execute([
+            ':product_name' => $productName,
+            ':product_image' => $productImage,
+            ':purchase_item_id' => $purchaseItemId
+        ]);
+    
+        return $stmt->rowCount();
+    }
+    
+    // DELETE FUNCTION
+    public function deleteStocklist($purchaseItemId)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM purchase_items WHERE purchase_item_id = :purchase_item_id");
+        $stmt->execute([':purchase_item_id' => $purchaseItemId]);
+    
+        return $stmt->rowCount();
+    }
+    
+    
 
 //delete stock list
 // function deletestocklist($purchaseItemId)

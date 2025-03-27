@@ -220,7 +220,7 @@
         </div>
 
         <!-- Form -->
-        <form action="/purchase_item_add/update/<?= $purchaseItemId['purchase_item_id']; ?>" method="POST" enctype="multipart/form-data">
+        <form action="/stocklist/update/<?= $row['purchase_item_id']; ?>" method="POST" enctype="multipart/form-data">
             <!-- Image Upload Section -->
             <div class="form-group">
                 <label class="form-label">Product Image</label>
@@ -237,7 +237,7 @@
                         </span>
                     </div>
                     <div class="image-preview-container" id="image-preview-container">
-                        <img id="preview-image" class="preview-image" src="/<?= htmlspecialchars($product['product_image']); ?>" alt="Preview">
+                        <img id="preview-image" class="preview-image" src="/<?= htmlspecialchars( $row['product_image']); ?>" alt="Preview">
                         <button type="button" class="change-image-btn" id="change-image-btn">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M23 4v6h-6"></path>
@@ -248,20 +248,16 @@
                     </div>
                 </div>
             </div>
-<!-- <?php print_r($stocklist); ?> -->
             <!-- Product Name and Price Row -->
-            <div class="form-row">
-                <!-- Product Name -->
+            <form action="/purchase_item_add/update_stocklist/<?= $row['purchase_item_id']; ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="form-label" for="name">Product Name</label>
-                    <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($productName['stocklist']); ?>" required>
+                    <label class="form-label" for="product_name">Product Name</label>
+                    <input type="text" name="product_name" class="form-control" value="<?= htmlspecialchars($row['product_name']); ?>" required>
                 </div>
 
                 <!-- Price -->
-            </div>
-
             <!-- Hidden Field for Existing Image -->
-            <input type="hidden" name="existing_image" value="<?= htmlspecialchars($product['product_image']); ?>">
+            <input type="hidden" name="existing_image" value="<?= htmlspecialchars($productImage['product_image']); ?>">
 
             <!-- Buttons -->
             <div class="buttons-container">
