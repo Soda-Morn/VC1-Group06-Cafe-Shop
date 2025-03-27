@@ -1,5 +1,5 @@
-
-    <div class="bg-light">
+<!-- views/inventory/edit_stock.php -->
+<div class="bg-light">
     <div class="container py-5">
         <div class="card shadow-lg">
             <div class="card-body">
@@ -8,10 +8,10 @@
                     <h6 class="text-muted">Update stock details below</h6>
                 </div>
 
-                <form action="/stock_list/update/<?= $stock['stock_list_id']; ?>" method="POST" enctype="multipart/form-data">
+                <form action="/stocklist/edit/<?= htmlspecialchars($stock['stock_list_id']); ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="stock_list_id" value="<?= htmlspecialchars($stock['stock_list_id']); ?>">
 
-                    <!-- Product Image Field (Moved to First Step) -->
+                    <!-- Product Image Field -->
                     <div class="mb-3">
                         <label class="fw-bold">Product Image</label>
                         <div class="border border-primary border-2 rounded-3 p-4 text-center bg-primary-subtle" onclick="document.getElementById('file-input').click();">
@@ -20,8 +20,6 @@
                             <h5 class="text-muted">Select Product Image</h5>
                         </div>
                     </div>
-
-                    <input type="hidden" name="existing_image" value="<?= htmlspecialchars($stock['product_image']); ?>">
 
                     <?php if (!empty($stock['product_image'])): ?>
                         <div class="mb-3 text-center">
@@ -46,7 +44,8 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select name="status" class="form-select" required>
-                            <option value="Available" <?= $stock['status'] == 'Available' ? 'selected' : ''; ?>>Available</option>
+                            <option value="In Stock" <?= $stock['status'] == 'In Stock' ? 'selected' : ''; ?>>In Stock</option>
+                            <option value="Low Stock" <?= $stock['status'] == 'Low Stock' ? 'selected' : ''; ?>>Low Stock</option>
                             <option value="Out of Stock" <?= $stock['status'] == 'Out of Stock' ? 'selected' : ''; ?>>Out of Stock</option>
                         </select>
                     </div>
@@ -54,7 +53,7 @@
                     <!-- Date -->
                     <div class="mb-3">
                         <label for="date" class="form-label">Date</label>
-                        <input type="date" name="date" class="form-control" value="<?= htmlspecialchars($stock['date']); ?>" required>
+                        <input type="date" name="date" class="form-control" value="<?= htmlspecialchars(date('Y-m-d', strtotime($stock['date']))); ?>" required>
                     </div>
 
                     <div id="file-name" class="text-success mt-2"></div>
@@ -62,7 +61,7 @@
                     <!-- Buttons -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary me-2">Update <i class="fas fa-check"></i></button>
-                        <a href="stocklist" class="btn btn-danger">Cancel <i class="fas fa-times"></i></a>
+                        <a href="/stocklist" class="btn btn-danger">Cancel <i class="fas fa-times"></i></a>
                     </div>
                 </form>
             </div>
@@ -78,7 +77,4 @@
             fileNameDisplay.textContent = fileName;
         });
     </script>
-
- </div>
-   
-    
+</div>
