@@ -43,7 +43,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   <div class="sidebar-wrapper scrollbar scrollbar-inner">
     <div class="sidebar-content">
       <ul class="nav nav-secondary">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a
             href="/"
             class="collapsed"
@@ -53,81 +53,55 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           </a>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#forms">
-            <i class="fas fa-pen-square"></i>
-            <p>Orders</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="forms">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/order_list">
-                  <span class="sub-item">Order List</span>
-                </a>
-              </li>
-              <li>
-                <a href="/order_menu">
-                  <span class="sub-item">Order Menu</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#tables">
-            <i class="fas fa-table"></i>
-            <p>Inventory</p>
-            <span class="caret"></span>
-          </a>
-          <div class="collapse" id="tables">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/stocklist">
-                  <span class="sub-item">Stock List</span>
-                </a>
-              </li>
-              <li>
-                <a href="/purchase_item_add">
-                  <span class="sub-item">Restock</span>
-                </a>
-              </li>
-              <li>
-                <a href="/suppliers">
-                  <span class="sub-item">Suplier info</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#base">
-            <i class="fas fa-layer-group"></i>
-            <p>Products</p>
-
+          <a
+            href="/order_menu"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-store  "></i>
+            <p>Order Menu</p>
           </a>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-            <i class="fas fa-th-list"></i>
-            <p>Categories</p>
+          <a
+            href="/order_list"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Order Report</p>
           </a>
-
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#maps">
-            <i class="fas fa-user-friends"></i>
-            <p>Customer</p>
-            <span class="caret"></span>
+          <a
+            href="/stocklist"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-inbox"></i>
+            <p>Stock List</p>
           </a>
-          <div class="collapse" id="maps">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="maps/googlemaps.html">
-                  <span class="sub-item">Customer List</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+        </li>
+        <li class="nav-item">
+          <a
+            href="/purchase_item_add"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-cart-arrow-down"></i>
+            <p>Restock</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            href="/suppliers"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-user-tag"></i>
+            <p>Supplier Info</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/Categories">
+               <i class="fas fa-th-list"></i>
+               <p>Categories</p>
+          </a>
         </li>
       </ul>
     </div>

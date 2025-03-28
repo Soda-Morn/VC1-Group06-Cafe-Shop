@@ -146,5 +146,22 @@ class CardModel {
             throw $e;
         }
     }
+    public function getAllOrders() {
+        $query = "
+            SELECT 
+                si.sale_item_id AS id,
+                p.name AS item,
+                p.image AS image,
+                p.price AS original_price,
+                si.quantity AS quantity,
+                (p.price * si.quantity) AS total_price,
+                'Completed' AS status
+            FROM sale_items si
+            JOIN products p ON si.product_id = p.product_ID
+            JOIN sales s ON si.sale_id = s.sale_id
+            ORDER BY s.sale_date DESC"; // Order by date descending to get newest first
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

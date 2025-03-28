@@ -5,8 +5,6 @@ require_once "Database/Database.php";
 require_once "Controllers/LoginController.php";
 require_once "Controllers/DashboardController.php";
 require_once "Controllers/StocklistController.php";
-require_once "Controllers/ProductListController.php";
-require_once "Controllers/ProductDetailController.php";
 require_once "Controllers/LoginRegisterController.php";
 require_once "Controllers/UserController.php";
 require_once "Controllers/OrdermenuController.php";
@@ -15,6 +13,7 @@ require_once "Controllers/PurchaseitemController.php";
 require_once "Controllers/CardController.php";
 require_once "Controllers/RestockCheckoutController.php";
 require_once "Controllers/SupplierController.php";
+require_once "Controllers/CategoriesController.php";
 
 $route = new Router();
 
@@ -28,11 +27,6 @@ $route->post("/users/store", [UserController::class, 'store']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 $route->get("/logout", [UserController::class, 'logout']);
 
-
-
-// Product List
-$route->get("/product_list", [ProductListController::class, 'index']);
-$route->get("/product_detail", [ProductDetailController::class, 'index']);
 
 // purchase_item
 $route->get("/purchase_item_add", [PurchaseitemController::class, 'index']);
@@ -62,11 +56,15 @@ $route->get('/order_menu/create', [OrdermenuController::class, 'create']);
 $route->post('/order_menu/store', [OrdermenuController::class, 'store']);
 $route->post('/order_menu/destroy/{id}', [OrdermenuController::class, 'destroy']);
 
+
 // card_order (for CardController)
 $route->get('/orderCard', [CardController::class, 'index']);
 $route->get('/orderCard/addToCart', [CardController::class, 'addToCart']);
 $route->get('/orderCard/removeFromCart', [CardController::class, 'removeFromCart']);
 $route->get('/orderCard/checkout', [CardController::class, 'checkout']);
+$route->get('/orderCard/addMultipleToCart', [CardController::class, 'addMultipleToCart']);
+$route->get('/orderCard/updateQuantity', [CardController::class, 'updateQuantity']);
+$route->get('/orderCard/orderList', [CardController::class, 'orderList']);
 
 // Inventory
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);
@@ -82,6 +80,13 @@ $route->post('/suppliers/store', [SupplierController::class,'store']);
 $route->get('/suppliers/edit/{id}', [SupplierController::class, 'edit']);
 $route->post('/suppliers/update/{id}', [SupplierController::class, 'update']);
 $route->get('/suppliers/delete/{id}', [SupplierController::class, 'delete']);
+
+$route->get("/Categories", [CategoriesController::class, 'index']);
+$route->get("/Categories/create", [CategoriesController::class, 'create']);
+$route->post("/Categories/store", [CategoriesController::class, 'store']);
+$route->post("/Categories/edit/{id}", [CategoriesController::class, 'edit']);
+$route->get("/Categories/delete/{id}", [CategoriesController::class, 'delete']);
+$route->post("/Categories/update/{id}", [CategoriesController::class, 'update']);
 
     
 
