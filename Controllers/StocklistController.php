@@ -16,52 +16,44 @@ class StocklistController extends BaseController {
     }
 
     
+    public function edit($purchase_item_id)
+{
+    // Fetch specific stock item by ID
+    $stocklist = $this->stocklist->getStockList($purchase_item_id);
     
-    public function edit($purchaseItemId)
-    {
-        // Fetch specific stock item by ID
-        $stocklist = $this->stocklist->getStockList($purchaseItemId);
-        
-        // Load the edit form with the stocklist data
-        $this->view('inventory/edit_stocklist', ['stocklist' => $stocklist]);
+    if (!$stocklist) {
+        die("Stock item not found.");
     }
-    
-    public function update($purchaseItemId)
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Sanitize input
-            $productName = htmlspecialchars($_POST['product_name'] ?? '', ENT_QUOTES, 'UTF-8');
-    
-            // Handle file upload (if a new image is provided)
-            $productImage = '';
-            if (!empty($_FILES['product_image']['name'])) {
-                $targetDir = "uploads/";
-                $fileName = basename($_FILES["product_image"]["name"]);
-                $targetFilePath = $targetDir . $fileName;
-                $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
-    
-                // Allowed file formats
-                $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-                if (in_array($fileType, $allowedTypes)) {
-                    if (move_uploaded_file($_FILES["product_image"]["tmp_name"], $targetFilePath)) {
-                        $productImage = $targetFilePath;
-                    } else {
-                        die("Error uploading file.");
-                    }
-                } else {
-                    die("Invalid file format.");
-                }
-            } else {
-                // Keep existing image if no new image is uploaded
-                $currentStock = $this->stocklist->getStockList($purchaseItemId);
-                $productImage = $currentStock['product_image'];
-            }
-    
-            // Update database
-            $this->stocklist->updateStocklist($purchaseItemId, $productName, $productImage);
-            $this->redirect('/stocklist');
+
+    // Load the edit form with the stocklist data
+    $this->view('inventory/edit_stocklist', ['stocklist' => $stocklist]);
+}
+
+public function update($purchase_item_id)
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $stockListId = $_POST['stock_list_id'];
+        $quantity = $_POST['quantity'];
+        $status = $_POST['status'];
+        $date = $_POST['date'];
+        $productName = $_POST['product_name'];
+        $productImage = $_POST['product_image'];
+
+        // Call the update function from the model
+        $updatedRows = $this->stocklist->updateStockAndProduct($stockListId, $quantity, $status, $date, $productName, $productImage);
+
+        if ($updatedRows > 0) {
+            // Redirect with success message
+            header("Location: /inventory?success=Stock updated successfully");
+            exit();
+        } else {
+            // Redirect with error message
+            header("Location: /inventory/edit/$stockListId?error=Failed to update stock");
+            exit();
         }
     }
+}
+
     
     // DELETE FUNCTION
     public function delete($purchaseItemId)

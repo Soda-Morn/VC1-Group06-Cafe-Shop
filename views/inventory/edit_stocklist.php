@@ -220,7 +220,7 @@
         </div>
 
         <!-- Form -->
-        <form action="/stocklist/update/<?= $row['purchase_item_id']; ?>" method="POST" enctype="multipart/form-data">
+        <form action="/stocklist/update/<?= $row['purchase_item_id']; ?>"  enctype="multipart/form-data">
             <!-- Image Upload Section -->
             <div class="form-group">
                 <label class="form-label">Product Image</label>
@@ -257,12 +257,11 @@
 
                 <!-- Price -->
             <!-- Hidden Field for Existing Image -->
-            <input type="hidden" name="existing_image" value="<?= htmlspecialchars($productImage['product_image']); ?>">
-
+            <input type="hidden" name="existing_image" value="<?= htmlspecialchars($row['product_image']); ?>">
             <!-- Buttons -->
             <div class="buttons-container">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/purchase_item_add" class="btn btn-danger">Cancel</a>
+                <a href="/stocklist" class="btn btn-danger">Cancel</a>
             </div>
         </form>
     </div>

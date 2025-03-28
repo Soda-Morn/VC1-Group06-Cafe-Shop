@@ -68,8 +68,7 @@ $route->get('/orderCard/orderList', [CardController::class, 'orderList']);
 
 // Inventory
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);
-$route->get('/purchase_item_add/edit_stocklist/{id}', [StocklistController::class, 'edit']);
-
+$route->get('/stocklist/edit_stocklist/{id}', [StocklistController::class, 'edit']);
 
 
 //supplier
