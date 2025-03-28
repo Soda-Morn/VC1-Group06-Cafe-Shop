@@ -214,8 +214,11 @@
                         <tbody>
                             <?php if (!empty($orders)): ?>
                                 <?php
-                                // Reverse the orders array to show newest first
-                                $orders = array_reverse($orders);
+                                // Sort orders by ID in descending order (if they have an 'id' field)
+                                usort($orders, function ($a, $b) {
+                                    return $b['id'] - $a['id']; // Sorting by newest order first
+                                });
+
                                 $index = 1; // Start index from 1
                                 foreach ($orders as $order):
                                 ?>
@@ -243,6 +246,7 @@
                                 </tr>
                             <?php endif; ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>
