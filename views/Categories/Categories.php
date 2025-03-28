@@ -8,39 +8,40 @@
                     <h5>Category List</h5>
                 </div>
                 <div class="category-card-body">
-                    <table class="category-table">
-                        <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>NAME</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; foreach ($categories as $category): ?>
-                            <tr>
-                                <td><?= $i++ ?></td> <!-- Start the counter from 1 -->
-                                <td><?= htmlspecialchars($category['name']) ?></td>
-                                <td class="category-actions">
-                                    <!-- Three dot dropdown menu for actions -->
-                                    <div class="dropdown">
-                                        <button class="btn btn-link p-0" type="button" id="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="material-icons">more_vert</i> <!-- Three dots icon -->
-                                        </button>
-                                        <div class="category-dropdown-menu" aria-labelledby="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>">
-                                            <a class="category-dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
-                                                <i class="material-icons">edit</i> Edit <!-- Edit icon inside dropdown -->
-                                            </a>
-                                            <a class="category-dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
-                                                <i class="material-icons">delete</i> Delete <!-- Delete icon inside dropdown -->
-                                            </a>
+                    <div class="table-container">
+                        <table class="category-table">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>NAME</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; foreach ($categories as $category): ?>
+                                <tr>
+                                    <td><?= $i++ ?></td> <!-- Start the counter from 1 -->
+                                    <td><?= htmlspecialchars($category['name']) ?></td>
+                                    <td class="category-actions">
+                                        <div class="dropdown">
+                                            <button class="btn btn-link p-0" type="button" id="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </button>
+                                            <div class="category-dropdown-menu" aria-labelledby="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>">
+                                                <a class="category-dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
+                                                    <i class="material-icons category-icon">edit</i> Edit
+                                                </a>
+                                                <a class="category-dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
+                                                    <i class="material-icons category-icon">delete</i> Delete
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
-    /* General Container Styling */
+/* General Container Styling */
 .category-container {
     max-width: 97%;
     margin: auto;
@@ -128,7 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
     overflow: hidden;
 }
 
-.category-table th, .category-table td {
+.category-table th, 
+.category-table td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -141,9 +143,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .category-table tr:hover {
     background: rgba(255, 165, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
 }
 
-/* Action Buttons */
+/* Actions Column */
 .category-actions {
     position: relative;
     display: flex;
@@ -158,21 +162,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 .dropdown button {
     border: none;
-    background: transparent;
+    background: white;
     cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Box-shadow effect */
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
+/* Hover effect for three-dot menu */
+.dropdown button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+/* Dropdown Menu */
 .category-dropdown-menu {
     position: absolute;
-    top: 30px;
+    top: 35px;
     right: 0;
     background: white;
+    height: 60px;
     border-radius: 6px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     display: none;
     z-index: 10;
+    min-width: 90px;
 }
 
+/* Show dropdown when active */
 .category-dropdown-menu.show {
     display: block;
 }
@@ -201,7 +219,8 @@ input[type="text"] {
     padding: 10px;
     width: 100%;
 }
-h1{
+
+h1 {
     margin-top: 30px;
 }
 
@@ -237,6 +256,22 @@ h1{
     background: #bbb;
 }
 
+/* Scrollable Table Container */
+.table-container {
+    max-height: 300px; /* Set the desired height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Icon Size for Edit and Delete */
+.category-icon {
+    font-size: 10px; /* Set the icon size to 10px */
+}
+
+/* Text Size for Edit and Delete */
+.category-dropdown-item {
+    font-size: 10px; /* Set text size to 10px */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .row {
@@ -248,9 +283,43 @@ h1{
         margin-bottom: 20px;
     }
 }
-.category-form-group{
+
+.category-form-group {
     margin: 10px;
     font-size: 30px;
 }
+/* Button Styling */
+.category-btn-primary {
+    background: rgb(183, 90, 23);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.category-btn-primary:hover {
+    background: rgb(150, 70, 15);
+    transform: scale(1.05);
+}
+
+.category-btn-secondary {
+    background: red; /* Change background to red */
+    color: white; /* Ensure the text color is white */
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.category-btn-secondary:hover {
+    background: darkred; /* Darker red for hover effect */
+}
+
+/* Rest of the CSS remains the same */
 
 </style>
