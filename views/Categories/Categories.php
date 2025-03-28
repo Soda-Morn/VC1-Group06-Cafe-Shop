@@ -208,7 +208,7 @@ h1 {
 
 /* Button Styling */
 .btn-primary {
-    background-color: rgb(183, 90, 23) !important;
+
     color: white !important;
     border: none;
     padding: 7px 10px;
