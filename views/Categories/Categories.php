@@ -1,5 +1,5 @@
 <div class="category-container mt-4">
-    <h1>Category_list</h1>
+    <h1>Category List</h1>
     <div class="row">
         <!-- Category List Card -->
         <div class="col-md-6">
@@ -57,8 +57,8 @@
                         <div class="category-form-group">
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
-                        <button type="submit" class="category-btn-primary mt-3">Create</button>
-                        <a href="/Categories" class="category-btn-secondary mt-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary mt-3">Create</button>
+                        <a href="/Categories" class="btn btn-danger mt-3">Cancel</a>
                     </form>
                 </div>
             </div>
@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
 .category-card {
     margin-top: 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: none;
     background: #fff;
     padding: 20px;
@@ -127,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: none; /* Removed box-shadow */
 }
 
 .category-table th, 
@@ -141,10 +141,12 @@ document.addEventListener('DOMContentLoaded', function () {
     font-weight: 600;
 }
 
+.category-table tr {
+    transition: background 0.3s ease;
+}
+
 .category-table tr:hover {
     background: rgba(255, 165, 0, 0.2);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transition: 0.3s ease;
 }
 
 /* Actions Column */
@@ -167,19 +169,13 @@ document.addEventListener('DOMContentLoaded', function () {
     padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Box-shadow effect */
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
-}
-
-/* Hover effect for three-dot menu */
-.dropdown button:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    transition: box-shadow 0.3s ease;
 }
 
 /* Dropdown Menu */
 .category-dropdown-menu {
     position: absolute;
-    top: 35px;
+    top: 0.1px;
     right: 0;
     background: white;
     height: 60px;
@@ -200,11 +196,6 @@ document.addEventListener('DOMContentLoaded', function () {
     padding: 10px;
     color: black;
     text-decoration: none;
-    transition: background 0.3s;
-}
-
-.category-dropdown-item:hover {
-    background: rgba(255, 165, 0, 0.2);
 }
 
 /* Form Styling */
@@ -225,51 +216,40 @@ h1 {
 }
 
 /* Button Styling */
-.category-btn-primary {
-    background: rgb(183, 90, 23);
-    color: white;
+.btn-primary {
+    background-color: rgb(183, 90, 23) !important;
+    color: white !important;
     border: none;
-    padding: 12px 20px;
+    padding: 7px 10px;
     font-weight: 600;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.category-btn-primary:hover {
-    background: rgb(150, 70, 15);
-    transform: scale(1.05);
-}
-
-.category-btn-secondary {
-    background: #ccc;
-    color: black;
+.btn-danger {
+    background-color: red !important;
+    color: white !important;
     border: none;
-    padding: 12px 20px;
+    padding: 6px 10px;
     font-weight: 600;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.category-btn-secondary:hover {
-    background: #bbb;
 }
 
 /* Scrollable Table Container */
 .table-container {
-    max-height: 300px; /* Set the desired height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 /* Icon Size for Edit and Delete */
 .category-icon {
-    font-size: 10px; /* Set the icon size to 10px */
+    font-size: 10px;
 }
 
 /* Text Size for Edit and Delete */
 .category-dropdown-item {
-    font-size: 10px; /* Set text size to 10px */
+    font-size: 10px;
 }
 
 /* Responsive Design */
@@ -288,38 +268,4 @@ h1 {
     margin: 10px;
     font-size: 30px;
 }
-/* Button Styling */
-.category-btn-primary {
-    background: rgb(183, 90, 23);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.category-btn-primary:hover {
-    background: rgb(150, 70, 15);
-    transform: scale(1.05);
-}
-
-.category-btn-secondary {
-    background: red; /* Change background to red */
-    color: white; /* Ensure the text color is white */
-    border: none;
-    padding: 12px 20px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.category-btn-secondary:hover {
-    background: darkred; /* Darker red for hover effect */
-}
-
-/* Rest of the CSS remains the same */
-
 </style>
