@@ -162,15 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
     position: relative;
 }
 
-.dropdown button {
-    border: none;
-    background: white;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Box-shadow effect */
-    transition: box-shadow 0.3s ease;
-}
 
 /* Dropdown Menu */
 .category-dropdown-menu {
