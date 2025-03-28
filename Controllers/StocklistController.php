@@ -20,10 +20,8 @@ class StocklistController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->update($stock_list_id);
         } else {
-            // Fetch the stock item
             $stock = $this->stocklist->getStockById($stock_list_id);
             
-            // Debugging: Check if stock item is retrieved
             if (!$stock) {
                 error_log("Stock item not found for ID: $stock_list_id");
                 http_response_code(404);
@@ -32,13 +30,9 @@ class StocklistController extends BaseController {
                 exit;
             }
 
-            // Debugging: Log successful retrieval
-            error_log("Stock item retrieved: " . json_encode($stock));
-
-            // Render the edit view
             $this->view('inventory/edit_stock', ['stock' => $stock]);
+            ob_end_flush();
         }
-        ob_end_flush();
     }
 
     public function update($stock_list_id) {
@@ -79,9 +73,11 @@ class StocklistController extends BaseController {
     }
 
     public function delete($stock_list_id) {
+        error_log("Attempting to delete stock item with ID: $stock_list_id"); // Debug log
         $result = $this->stocklist->deleteStock($stock_list_id);
         
         if ($result === true) {
+            error_log("Successfully deleted stock item with ID: $stock_list_id"); // Debug log
             if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
                 http_response_code(200);
                 header('Content-Type: application/json');
@@ -91,6 +87,7 @@ class StocklistController extends BaseController {
             }
             $this->redirectToStockList();
         } else {
+            error_log("Failed to delete stock item with ID: $stock_list_id. Error: $result"); // Debug log
             http_response_code(500);
             header('Content-Type: application/json');
             echo json_encode(['success' => false, 'error' => $result]);
