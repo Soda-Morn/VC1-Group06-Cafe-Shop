@@ -28,12 +28,14 @@
                                                 <i class="material-icons">more_vert</i>
                                             </button>
                                             <div class="category-dropdown-menu" aria-labelledby="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>">
-                                                <a class="category-dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
-                                                    <i class="material-icons category-icon">edit</i> Edit
-                                                </a>
-                                                <a class="category-dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
-                                                    <i class="material-icons category-icon">delete</i> Delete
-                                                </a>
+                                                <div class="category-dropdown-row">
+                                                    <a class="category-dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
+                                                        <i class="material-icons category-icon">edit</i> Edit
+                                                    </a>
+                                                    <a class="category-dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
+                                                        <i class="material-icons category-icon">delete</i> Delete
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -90,6 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 menu.classList.remove('show');
             });
         }
+    });
+
+    // Close the dropdown when an action is selected
+    const actionLinks = document.querySelectorAll('.category-dropdown-item');
+    actionLinks.forEach(function(link) {
+        link.addEventListener('click', function (event) {
+            const dropdownMenu = event.target.closest('.category-dropdown-menu');
+            dropdownMenu.classList.remove('show');  // Close the dropdown after an action is selected
+        });
     });
 });
 </script>
@@ -162,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
     position: relative;
 }
 
-
 /* Dropdown Menu */
 .category-dropdown-menu {
     position: absolute;
@@ -175,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
     display: none;
     z-index: 10;
     min-width: 90px;
+    
 }
 
 /* Show dropdown when active */
@@ -182,11 +193,26 @@ document.addEventListener('DOMContentLoaded', function () {
     display: block;
 }
 
+/* Dropdown Row for icons */
+.category-dropdown-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+/* Dropdown Item Styling */
 .category-dropdown-item {
     display: block;
     padding: 10px;
     color: black;
     text-decoration: none;
+    font-size: 12px;
+}
+
+.category-dropdown-item i {
+    font-size: 16px;
 }
 
 /* Form Styling */
@@ -208,7 +234,6 @@ h1 {
 
 /* Button Styling */
 .btn-primary {
-
     color: white !important;
     border: none;
     padding: 7px 10px;
@@ -235,11 +260,6 @@ h1 {
 
 /* Icon Size for Edit and Delete */
 .category-icon {
-    font-size: 10px;
-}
-
-/* Text Size for Edit and Delete */
-.category-dropdown-item {
     font-size: 10px;
 }
 
