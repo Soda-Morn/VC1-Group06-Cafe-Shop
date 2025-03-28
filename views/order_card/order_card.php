@@ -19,18 +19,18 @@
             width: 78%;
             margin: 20px auto;
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .cart-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .cart-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: #333;
         }
@@ -47,9 +47,14 @@
 
         .cart-item img {
             width: 60px;
-            height: 60px;
+            height: 70px;
             object-fit: cover;
             border-radius: 5px;
+        }
+        
+        .cart-item {
+            padding: 2px;
+            border-bottom: 1px solid #eee;
         }
 
         .table {
@@ -61,25 +66,31 @@
             color: #333;
             border-top: none;
             text-align: center;
+            padding: 4px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
         }
 
         .table td {
             vertical-align: middle;
             text-align: center;
             color: #666;
+            padding: 4px;
         }
 
         .quantity-controls button {
             border: none;
-            width: 30px;
-            height: 30px;
-            font-size: 1.2rem;
+            width: 28px;
+            height: 28px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             background: #007bff;
             color: white;
             border-radius: 5px;
             transition: background 0.3s;
+            padding: 0;
+            line-height: 1;
         }
 
         .quantity-controls button:hover {
@@ -87,28 +98,24 @@
         }
 
         .quantity-input {
-            width: 50px;
+            width: 30px;
             text-align: center;
             font-size: 1rem;
             border: none;
             outline: none;
             background: transparent;
+            margin: 0 3px;
         }
 
         .btn-remove {
             background: #dc3545;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 5px;
-            transition: background 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
-
-        .btn-remove:hover {
-            background: #c82333;
-        }
-
+        
         .cart-footer {
             display: flex;
             justify-content: flex-end;
@@ -158,26 +165,18 @@
         }
 
         .btn-back {
-            background-color: transparent;
-            color: #555;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: rem;
             display: flex;
             align-items: center;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 5px;
-            transition: background 0.3s, color 0.3s;
+            color: black;
         }
 
-        .btn-back:hover {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-back svg {
+        .btn-back i {
             margin-right: 5px;
-            width: 24px;
-            height: 24px;
+            font-size: 16px;
         }
 
         /* Style for the PDF button */
@@ -207,9 +206,7 @@
         <div class="cart-container">
             <!-- Back button inside the card, clears cart before redirecting -->
             <a href="/order_menu" class="btn-back">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                <i class="fas fa-arrow-left"></i>
             </a>
             <div class="cart-header">
                 <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
@@ -244,7 +241,7 @@
                                         <button type="button" class="btn-increase">+</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">🗑 Remove</button>
+                                        <button type="button" class="btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">Remove</button>
                                     </td>
                                 </tr>
                                 <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
@@ -469,3 +466,4 @@
 </body>
 
 </html>
+
