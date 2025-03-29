@@ -66,16 +66,19 @@ $route->get('/orderCard/addMultipleToCart', [CardController::class, 'addMultiple
 $route->get('/orderCard/updateQuantity', [CardController::class, 'updateQuantity']);
 $route->get('/orderCard/orderList', [CardController::class, 'orderList']);
 
-// Inventory
+
+// Inventory 
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);
-$route->get('/inventory/edit_stocklist', [StocklistController::class, 'edit']);
+$route->get('/stocklist/edit/{id}', [StocklistController::class, 'edit']);
+$route->post('/stocklist/update/{id}', [StocklistController::class, 'update']);
+$route->post('/stocklist/delete/{id}', [StocklistController::class, 'delete']);
 
 
 //supplier
-$route->get('/suppliers', [SupplierController::class,'index']);
-$route->get('/suppliers/list', [SupplierController::class,'index']);
-$route->get('/suppliers/create', [SupplierController::class,'create']);
-$route->post('/suppliers/store', [SupplierController::class,'store']);
+$route->get('/suppliers', [SupplierController::class, 'index']);
+$route->get('/suppliers/list', [SupplierController::class, 'index']);
+$route->get('/suppliers/create', [SupplierController::class, 'create']);
+$route->post('/suppliers/store', [SupplierController::class, 'store']);
 $route->get('/suppliers/edit/{id}', [SupplierController::class, 'edit']);
 $route->post('/suppliers/update/{id}', [SupplierController::class, 'update']);
 $route->get('/suppliers/delete/{id}', [SupplierController::class, 'delete']);
@@ -87,7 +90,7 @@ $route->post("/Categories/edit/{id}", [CategoriesController::class, 'edit']);
 $route->get("/Categories/delete/{id}", [CategoriesController::class, 'delete']);
 $route->post("/Categories/update/{id}", [CategoriesController::class, 'update']);
 
-    
+
 
 // Execute the routing
 $route->route();
