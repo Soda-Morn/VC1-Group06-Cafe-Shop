@@ -66,13 +66,11 @@ $route->get('/orderCard/addMultipleToCart', [CardController::class, 'addMultiple
 $route->get('/orderCard/updateQuantity', [CardController::class, 'updateQuantity']);
 $route->get('/orderCard/orderList', [CardController::class, 'orderList']);
 
-
 // Inventory 
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);
 $route->get('/stocklist/edit/{id}', [StocklistController::class, 'edit']);
 $route->post('/stocklist/update/{id}', [StocklistController::class, 'update']);
 $route->post('/stocklist/delete/{id}', [StocklistController::class, 'delete']);
-
 
 //supplier
 $route->get('/suppliers', [SupplierController::class, 'index']);
