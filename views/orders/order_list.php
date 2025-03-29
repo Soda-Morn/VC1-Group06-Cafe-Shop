@@ -19,7 +19,7 @@
         .card {
             border: none;
             border-radius: 12px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+            /* box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); */
             /* Softer, deeper shadow */
             overflow: hidden;
             background: #ffffff;
@@ -29,7 +29,7 @@
 
             color: white;
             padding: 20px 30px;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+            /* border-bottom: 3px solid rgba(255, 255, 255, 0.15); */
         }
 
         .card-title {
@@ -48,7 +48,7 @@
             border-radius: 10px;
             overflow-x: auto;
             background: #fff;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0);
+            /* box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0); */
             /* Subtle inner shadow */
         }
 
@@ -60,7 +60,7 @@
         }
 
         .table thead th {
-            background: linear-gradient(90deg, #f97316, #d97706);
+         background-color:  #f97316;
             /* Warm orange gradient */
             color: white;
             border: none;
@@ -70,8 +70,7 @@
             font-size: 0.9rem;
             letter-spacing: 1.2px;
             position: sticky;
-            top: 0;
-            z-index: 1;
+            
         }
 
         .table tbody tr {
@@ -87,8 +86,8 @@
             padding: 18px 22px;
             vertical-align: middle;
             border-top: 1px solid #e5e7eb;
-            color: #374151;
-        }
+            /* color: #374151;
+        
 
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #f9fafb;
@@ -104,7 +103,7 @@
             /* Green gradient */
             color: white;
             font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03); */
         }
 
         .rounded-circle {
@@ -121,7 +120,7 @@
         .rounded-circle:hover {
             transform: scale(1.15);
             /* Slightly larger hover effect */
-            border-color: #3b82f6;
+            /* border-color: #3b82f6; */
             /* Blue border on hover */
         }
 
