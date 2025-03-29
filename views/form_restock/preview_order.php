@@ -10,21 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            padding: 20px;
-            margin: 0;
-            overflow-x: hidden;
-            color: #333;
         }
 
         .container {
@@ -44,7 +33,6 @@
             position: relative;
         }
 
-        /* Back button with arrow */
         .btn-back {
             position: absolute;
             top: 20px;
@@ -72,7 +60,6 @@
             fill: none;
         }
 
-        /* Header styles */
         .preview-header {
             text-align: center;
             margin: 10px 0 30px;
@@ -93,7 +80,20 @@
             margin: 0;
         }
 
-        /* Table styles */
+        .pdf-logo {
+            display: none;
+            position: absolute;
+            left: 30px;
+            top: 20px;
+            width: 80px; /* Reduced from 120px to 80px to make the logo smaller */
+            height: auto;
+        }
+
+        .pdf-logo img {
+            width: 100%;
+            height: auto;
+        }
+
         .table-responsive {
             overflow-x: auto;
             width: 100%;
@@ -140,7 +140,6 @@
             background-color: rgba(245, 166, 35, 0.05);
         }
 
-        /* Cart item styles */
         .cart-item img {
             width: 70px;
             height: 70px;
@@ -165,7 +164,6 @@
             font-weight: 600;
         }
 
-        /* Total and buttons area */
         .total-and-buttons {
             display: flex;
             flex-direction: column;
@@ -196,6 +194,7 @@
             width: 100%;
             margin-top: 20px;
         }
+
         .btn-save-pdf {
             background-color: #007bff;
             color: white;
@@ -217,7 +216,31 @@
             background: linear-gradient(135deg, #218838, #1aae88);
         }
 
-        /* Responsive adjustments */
+        .pdf-only {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 2px solid #f5a623;
+            background-color: #fff8e6;
+            border-radius: 8px;
+        }
+
+        .pdf-only h3 {
+            color: #f5a623;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .pdf-only p {
+            color: #333;
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        #pdf-content {
+            margin-top: 10px;
+        }
+
         @media (max-width: 992px) {
             .preview-container {
                 padding: 25px;
@@ -320,7 +343,6 @@
         }
 
         @media (max-width: 480px) {
-
             .table th:nth-child(1),
             .table td:nth-child(1) {
                 width: 60px;
@@ -346,13 +368,16 @@
 <body>
     <div class="container d-flex justify-content-center">
         <div class="preview-container w-100">
-            <!-- Back button with SVG arrow -->
             <a href="/restock_checkout" class="btn-back">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </a>
             <div id="pdf-content">
+                <div class="pdf-logo">
+                    <img src="../../views/assets/images/logo.png" alt="Company Logo">
+                </div>
+                
                 <div class="preview-header">
                     <h2>Preview</h2>
                     <p>Review your order before finalizing.</p>
@@ -405,6 +430,11 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="pdf-only">
+                    <h3>Order Notes</h3>
+                    <p>Date: <?= date('F j, Y') ?></p>
+                </div>
             </div>
 
             <div class="button-group">
@@ -414,17 +444,32 @@
     </div>
 
     <script>
-        const {
-            jsPDF
-        } = window.jspdf;
+        const { jsPDF } = window.jspdf;
 
         document.getElementById('savePdfBtn').addEventListener('click', () => {
-            const element = document.getElementById('pdf-content');
+            const originalElement = document.getElementById('pdf-content');
+            const clonedElement = originalElement.cloneNode(true);
+            
+            const hiddenContainer = document.createElement('div');
+            hiddenContainer.style.position = 'absolute';
+            hiddenContainer.style.left = '-9999px';
+            hiddenContainer.appendChild(clonedElement);
+            document.body.appendChild(hiddenContainer);
 
-            html2canvas(element, {
-                scale: 2,
-                useCORS: true
+            const pdfLogo = clonedElement.querySelector('.pdf-logo');
+            const pdfOnlyContent = clonedElement.querySelector('.pdf-only');
+            pdfLogo.style.display = 'block';
+            pdfOnlyContent.style.display = 'block';
+
+            html2canvas(clonedElement, {
+                scale: 1.5,
+                useCORS: true,
+                logging: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
             }).then(canvas => {
+                document.body.removeChild(hiddenContainer);
+
                 const imgData = canvas.toDataURL('image/png');
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
@@ -437,7 +482,7 @@
 
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 const pageHeight = pdf.internal.pageSize.getHeight();
-                const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+                const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight) * 0.8;
                 const scaledWidth = imgWidth * ratio;
                 const scaledHeight = imgHeight * ratio;
                 const xOffset = (pageWidth - scaledWidth) / 2;
@@ -448,9 +493,9 @@
             }).catch(error => {
                 console.error('Error generating PDF:', error);
                 alert('Failed to generate PDF. Please try again.');
+                document.body.removeChild(hiddenContainer);
             });
         });
     </script>
 </body>
-
 </html>

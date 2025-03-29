@@ -192,6 +192,54 @@
                 };
             }
         });
+
+        // Reset image display
+        function resetImageDisplay() {
+            uploadPrompt.style.display = 'flex';
+            imagePreviewContainer.style.display = 'none';
+        }
+
+        // On page load, show the existing image
+        window.addEventListener('load', () => {
+            if (previewImage.src) {
+                uploadPrompt.style.display = 'none';
+                imagePreviewContainer.style.display = 'flex';
+            }
+        });
+
+        // Add event listener for the Delete button
+        document.querySelector('.delete-stock-item').addEventListener('click', function() {
+            if (confirm('Are you sure you want to delete this item?')) {
+                const stockId = this.getAttribute('data-id');
+                console.log('Attempting to delete stock item with ID:', stockId); // Debug log
+
+                fetch('/stocklist/delete/' + stockId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    console.log('Response status:', response.status); // Debug log
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data); // Debug log
+                    if (data.success) {
+                        window.location.href = '/stocklist';
+                    } else {
+                        alert('Error deleting item: ' + (data.error || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error); // Debug log
+                    alert('Error connecting to server: ' + error.message);
+                });
+            }
+        });
     </script>
-</body>
-</html>
+</div>
