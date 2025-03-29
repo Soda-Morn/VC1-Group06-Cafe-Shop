@@ -13,7 +13,7 @@
                             <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($category['name']) ?>" required>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Update</button>
-                        <a href="/Categories" class="btn btn-secondary mt-3">Cancel</a>
+                        <a href="/Categories" class="btn btn-danger mt-3">Cancel</a>
                     </form>
                 </div>
             </div>
