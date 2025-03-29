@@ -197,7 +197,6 @@
         .checkout-btn {
             pointer-events: auto;
         }
-
         /* Adjust the button group spacing */
         .button-group {
             display: flex;
@@ -251,7 +250,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Coffee Menu</h2>
+            <h2>Drink Menu</h2>
             <div class="button-group">
                 <div class="search-container">
                     <input type="text" id="searchInput" class="search-input" placeholder="Search menu......" onkeyup="filterProducts()">

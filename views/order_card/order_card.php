@@ -17,39 +17,44 @@
 
         .cart-container {
             width: 78%;
-            margin: 20px auto;
+            margin: 15px auto;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            border-radius: 8px;
         }
 
         .cart-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
 
         .cart-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #333;
+            margin-bottom: 5px;
         }
 
         .cart-header h2 i {
-            margin-right: 8px;
+            margin-right: 6px;
         }
 
         .cart-header p {
             font-size: 1rem;
             color: #666;
-            margin-top: 5px;
+            margin-top: 0;
         }
 
         .cart-item img {
-            width: 60px;
+            width: 50px;
             height: 60px;
             object-fit: cover;
-            border-radius: 5px;
+            border-radius: 4px;
+        }
+        
+        .cart-item {
+            padding: 1px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .table {
@@ -61,25 +66,32 @@
             color: #333;
             border-top: none;
             text-align: center;
+            padding: 1px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
         }
 
         .table td {
             vertical-align: middle;
             text-align: center;
             color: #666;
+            padding: 1px;
+            font-size: 0.9rem;
         }
 
         .quantity-controls button {
             border: none;
-            width: 30px;
-            height: 30px;
-            font-size: 1.2rem;
+            width: 24px;
+            height: 24px;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             background: #007bff;
             color: white;
-            border-radius: 5px;
+            border-radius: 4px;
             transition: background 0.3s;
+            padding: 0;
+            line-height: 1;
         }
 
         .quantity-controls button:hover {
@@ -87,63 +99,50 @@
         }
 
         .quantity-input {
-            width: 50px;
+            width: 26px;
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             border: none;
             outline: none;
             background: transparent;
+            margin: 0 2px;
         }
 
         .btn-remove {
             background: #dc3545;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background 0.3s;
-            font-size: 0.9rem;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
         }
-
-        .btn-remove:hover {
-            background: #c82333;
-        }
-
+        
         .cart-footer {
             display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-top: 15px;
         }
 
         .total-price {
             font-size: 1.2rem;
             font-weight: bold;
             color: #333;
+            margin-bottom: 10px;
+            margin-right: 20px;
         }
 
-        .btn-add-more {
-            background: #f0ad4e;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .btn-add-more:hover {
-            background: #ec971f;
+        .button-group {
+            display: flex;
+            gap: 12px;
         }
 
         .btn-checkout {
             background: #007bff;
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
+            padding: 7px 14px;
+            border-radius: 4px;
             font-size: 1rem;
             font-weight: bold;
             transition: background 0.3s;
@@ -154,39 +153,30 @@
         }
 
         .btn-checkout i {
-            margin-right: 5px;
+            margin-right: 4px;
+            font-size: 0.8rem;
         }
 
         .btn-back {
-            background-color: transparent;
-            color: #555;
             text-decoration: none;
-            font-size: 1rem;
             display: flex;
             align-items: center;
-            padding: 8px 16px;
-            border-radius: 5px;
-            transition: background 0.3s, color 0.3s;
+            padding: 8px 15px;
+            border-radius: 4px;
+            color: black;
         }
 
-        .btn-back:hover {
-            background-color: #f0f0f0;
-            color: #333;
+        .btn-back i {
+            margin-right: 4px;
+            font-size: 20px;
         }
 
-        .btn-back svg {
-            margin-right: 5px;
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Style for the PDF button */
         .btn-pdf {
             background: #f0ad4e;
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
+            padding: 7px 14px;
+            border-radius: 4px;
             font-size: 1rem;
             font-weight: bold;
             transition: background 0.3s;
@@ -197,19 +187,17 @@
         }
 
         .btn-pdf i {
-            margin-right: 5px;
+            margin-right: 4px;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 
 <body>
-    <div class="container mt-9">
+    <div class="container mt-7">
         <div class="cart-container">
-            <!-- Back button inside the card, clears cart before redirecting -->
             <a href="/order_menu" class="btn-back">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                <i class="fas fa-arrow-left"></i>
             </a>
             <div class="cart-header">
                 <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
@@ -244,7 +232,7 @@
                                         <button type="button" class="btn-increase">+</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">🗑 Remove</button>
+                                        <button type="button" class="btn-remove" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">Remove</button>
                                     </td>
                                 </tr>
                                 <?php $total += (isset($item['price']) ? $item['price'] : 0) * (isset($item['quantity']) ? $item['quantity'] : 1); ?>
@@ -261,8 +249,10 @@
                     <div class="total-price">
                         Total Price: $<span id="total-price"><?= number_format($total, 2) ?></span>
                     </div>
-                    <button type="button" class="btn-pdf" id="generate-pdf"><i class="fas fa-file-pdf"></i>PDF</button>
-                    <button type="submit" class="btn-checkout"><i class="fas fa-check"></i>Checkout</button>
+                    <div class="button-group">
+                        <button type="button" class="btn-pdf" id="generate-pdf"><i class="fas fa-file-pdf"></i>PDF</button>
+                        <button type="submit" class="btn-checkout"><i class="fas fa-check"></i>Checkout</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -270,7 +260,6 @@
 
     <script>
         $(document).ready(function() {
-            // Function to update the total price
             function updateTotal() {
                 let total = 0;
                 $('.cart-item').each(function() {
@@ -281,7 +270,6 @@
                 $('#total-price').text(total.toFixed(2));
             }
 
-            // Handle quantity increase
             $('.btn-increase').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = parseInt(input.val()) + 1;
@@ -289,7 +277,6 @@
                 updateTotal();
             });
 
-            // Handle quantity decrease
             $('.btn-decrease').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = Math.max(1, parseInt(input.val()) - 1);
@@ -297,7 +284,6 @@
                 updateTotal();
             });
 
-            // Handle manual quantity input
             $('.quantity-input').on('change', function() {
                 let value = parseInt($(this).val());
                 if (isNaN(value) || value < 1) {
@@ -306,12 +292,10 @@
                 updateTotal();
             });
 
-            // Handle remove button click with AJAX
             $('.btn-remove').click(function() {
                 const productId = $(this).data('product-id');
                 const row = $(this).closest('tr');
 
-                // Send AJAX request to remove the item
                 $.ajax({
                     url: '/orderCard/removeFromCart',
                     type: 'POST',
@@ -321,8 +305,8 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.success) {
-                            row.remove(); // Remove the row from the UI
-                            updateTotal(); // Update the total price
+                            row.remove();
+                            updateTotal();
                             if ($('#cartItems .cart-item').length === 0) {
                                 $('#cartItems').html('<tr><td colspan="5" class="text-center">No items in cart.</td></tr>');
                             }
@@ -337,13 +321,12 @@
                 });
             });
 
-            // Function to convert image URL to base64
             function getBase64Image(img) {
                 return new Promise((resolve, reject) => {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     const image = new Image();
-                    image.crossOrigin = 'Anonymous'; // Handle cross-origin images
+                    image.crossOrigin = 'Anonymous';
                     image.onload = function() {
                         canvas.width = image.width;
                         canvas.height = image.height;
@@ -355,43 +338,47 @@
                 });
             }
 
-            // Handle PDF generation and saving
             $('#generate-pdf').click(async function() {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
 
-                // Header
-                doc.setFillColor(255, 165, 0); // Orange background
-                doc.rect(0, 0, 210, 30, 'F'); // Header background
-                doc.setFontSize(20);
-                doc.setTextColor(255, 255, 255); // White text
-                doc.setFont('helvetica', 'bold');
-                doc.text('Velea Cafe', 10, 15);
-                doc.setFontSize(14);
-                doc.text('Cart Receipt', 10, 25);
+                // Header with single color
+                doc.setFillColor(255, 147, 0);
+                doc.rect(0, 0, 210, 30, 'F');
 
-                // Date
+                // Title
+                doc.setFontSize(24);
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Velea Cafe', 15, 15);
+                doc.setFontSize(14);
+                doc.text('Cart Receipt', 15, 22);
+
+                // Date without background
                 const today = new Date();
                 const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                 doc.setFontSize(10);
-                doc.setTextColor(0, 0, 0); // Black text
+                doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'normal');
-                doc.text(`Date: ${dateStr}`, 150, 25);
+                doc.text(`Date: ${dateStr}`, 150, 15);
 
                 // Table Header
                 let y = 40;
+                doc.setFillColor(240, 240, 240);
+                doc.rect(10, y - 5, 190, 10, 'F');
                 doc.setFontSize(12);
-                doc.setTextColor(255, 165, 0); // Orange text
+                doc.setTextColor(255, 147, 0);
                 doc.setFont('helvetica', 'bold');
-                doc.text('Image', 10, y);
-                doc.text('Item Name', 40, y);
-                doc.text('Price', 100, y);
-                doc.text('Qty', 130, y);
-                doc.text('Total', 160, y);
+                doc.text('Image', 12, y);
+                doc.text('Item Name', 42, y);
+                doc.text('Price', 102, y);
+                doc.text('Qty', 132, y);
+                doc.text('Total', 162, y);
                 y += 5;
-                doc.setDrawColor(255, 165, 0); // Orange line
-                doc.line(10, y, 200, y); // Draw a line under the header
-                y += 10; // Increased spacing to push content below the border
+                doc.setDrawColor(255, 147, 0);
+                doc.setLineWidth(0.5);
+                doc.line(10, y, 200, y);
+                y += 10;
 
                 // Table Content
                 let grandTotal = 0;
@@ -404,7 +391,6 @@
                     const total = price * quantity;
                     grandTotal += total;
 
-                    // Convert image to base64
                     let imgData = null;
                     try {
                         imgData = await getBase64Image(imgSrc);
@@ -417,49 +403,53 @@
                 }
 
                 doc.setFontSize(11);
-                doc.setTextColor(0, 0, 0); // Black text
+                doc.setTextColor(50, 50, 50);
                 doc.setFont('helvetica', 'normal');
+                let rowIndex = 0;
                 for (const item of items) {
-                    // Add image
-                    if (item.imgData) {
-                        try {
-                            doc.addImage(item.imgData, 'PNG', 10, y - 5, 20, 20); // Image size 20x20
-                        } catch (error) {
-                            console.error('Error adding image to PDF:', error);
-                            doc.text('Image N/A', 10, y);
-                        }
-                    } else {
-                        doc.text('Image N/A', 10, y);
+                    if (rowIndex % 2 === 0) {
+                        doc.setFillColor(250, 250, 250);
+                        doc.rect(10, y - 8, 190, 18, 'F');
                     }
 
-                    // Add item details
-                    doc.text(item.name, 40, y);
-                    doc.text(`$${item.price.toFixed(2)}`, 100, y);
-                    doc.text(`${item.quantity}`, 130, y);
-                    doc.text(`$${item.total.toFixed(2)}`, 160, y);
-                    y += 25; // Space for the next item
+                    // Add image without border
+                    if (item.imgData) {
+                        try {
+                            doc.addImage(item.imgData, 'PNG', 12, y - 5, 15, 15);
+                        } catch (error) {
+                            console.error('Error adding image to PDF:', error);
+                            doc.text('Image N/A', 12, y);
+                        }
+                    } else {
+                        doc.text('Image N/A', 12, y);
+                    }
+
+                    doc.text(item.name, 42, y);
+                    doc.text(`$${item.price.toFixed(2)}`, 102, y);
+                    doc.text(`${item.quantity}`, 132, y);
+                    doc.text(`$${item.total.toFixed(2)}`, 162, y);
+                    y += 18;
+                    rowIndex++;
                 }
 
-                // Total
+                // Total without extra padding
+                doc.setDrawColor(255, 147, 0);
+                doc.setLineWidth(0.5);
+                doc.line(10, y, 200, y);
                 y += 5;
-                doc.setDrawColor(255, 165, 0); // Orange line
-                doc.line(10, y, 200, y); // Draw a line before the total
-                y += 5;
+                doc.setFillColor(255, 147, 0);
+                doc.rect(150, y - 5, 50, 10, 'F');
                 doc.setFontSize(14);
-                doc.setTextColor(255, 165, 0); // Orange text
+                doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'bold');
-                doc.text(`Total: $${grandTotal.toFixed(2)}`, 160, y);
+                doc.text(`Total: $${grandTotal.toFixed(2)}`, 152, y);
 
-                // Footer (without top border)
-                y += 20;
+                // Footer
+                y += 5;
                 doc.setFontSize(10);
-                doc.setTextColor(100, 100, 100); // Gray text
+                doc.setTextColor(120, 120, 120);
                 doc.setFont('helvetica', 'italic');
                 doc.text('Thank you for choosing Velea Cafe!', 10, y);
-                doc.text('Visit us again at localhost:8080', 10, y + 5);
-                y += 10;
-                doc.setDrawColor(255, 165, 0); // Orange line
-                doc.line(10, y, 200, y); // Draw a line after the footer
 
                 // Save the PDF
                 doc.save('cart-receipt.pdf');
