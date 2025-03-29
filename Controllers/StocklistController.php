@@ -1,105 +1,74 @@
 <?php
 require_once "Models/StockListModel.php";
 
-class StocklistController extends BaseController {
+class StocklistController extends BaseController
+{
     private $stocklist;
 
     public function __construct()
     {
-        ob_start();
         $this->stocklist = new StockListModel();
     }
 
-    public function stocklist() {
+    public function stocklist()
+    {
         $stocklist = $this->stocklist->getStockList();
         $this->view('inventory/stocklist', ['stocklist' => $stocklist]);
-        ob_end_flush();
     }
 
-    public function edit($stock_list_id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->update($stock_list_id);
-        } else {
-            $stock = $this->stocklist->getStockById($stock_list_id);
-            
-            if (!$stock) {
-                error_log("Stock item not found for ID: $stock_list_id");
-                http_response_code(404);
-                echo "Stock item not found.";
-                ob_end_flush();
-                exit;
-            }
-
-            $this->view('inventory/edit_stock', ['stock' => $stock]);
-            ob_end_flush();
+    public function edit($stock_list_id)
+    {
+        $stock = $this->stocklist->getStockById($stock_list_id);
+        if (!$stock) {
+            header("Location: /stocklist?error=Stock item not found");
+            exit;
         }
+        $this->view('inventory/edit_stocklist', ['stock' => $stock]);
     }
 
-    public function update($stock_list_id) {
+    public function update($stock_list_id)
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $quantity = $_POST['quantity'] ?? 0;
-            $status = $_POST['status'] ?? 'Out of Stock';
-            $date = $_POST['date'] ?? date('Y-m-d');
+            $quantity = (int)($_POST['quantity'] ?? 0);
             $product_name = $_POST['product_name'] ?? '';
+            $date = $_POST['date'] ?? date('Y-m-d');
+            $status = $quantity == 0 ? 'Out of Stock' : ($quantity <= 3 ? 'Low Stock' : 'In Stock');
 
+            // Handle file upload
             $product_image = null;
-            if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = 'uploads/';
-                if (!file_exists($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
+            if (!empty($_FILES['product_image']['name'])) {
+                $upload_dir = 'uploads/';
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
                 }
-                
-                $fileName = time() . '_' . basename($_FILES['product_image']['name']);
-                $targetPath = $uploadDir . $fileName;
-                
-                if (move_uploaded_file($_FILES['product_image']['tmp_name'], $targetPath)) {
-                    $product_image = $targetPath;
-                }
+                $product_image = $upload_dir . basename($_FILES['product_image']['name']);
+                move_uploaded_file($_FILES['product_image']['tmp_name'], $product_image);
             }
-            
-            $result = $this->stocklist->editStock($stock_list_id, $quantity, $status, $date, $product_name, $product_image);
-            
-            if ($result === true) {
-                $this->redirectToStockList();
-            } else {
-                http_response_code(500);
-                echo "Error updating stock: " . $result;
-                ob_end_flush();
-                exit;
-            }
-        } else {
-            $this->redirectToStockList();
-        }
-    }
 
-    public function delete($stock_list_id) {
-        error_log("Attempting to delete stock item with ID: $stock_list_id"); // Debug log
-        $result = $this->stocklist->deleteStock($stock_list_id);
-        
-        if ($result === true) {
-            error_log("Successfully deleted stock item with ID: $stock_list_id"); // Debug log
-            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-                http_response_code(200);
-                header('Content-Type: application/json');
-                echo json_encode(['success' => true]);
-                ob_end_flush();
-                exit;
-            }
-            $this->redirectToStockList();
-        } else {
-            error_log("Failed to delete stock item with ID: $stock_list_id. Error: $result"); // Debug log
-            http_response_code(500);
-            header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'error' => $result]);
-            ob_end_flush();
+            $success = $this->stocklist->editStock(
+                $stock_list_id,
+                $quantity,
+                $status,
+                $date,
+                $product_name,
+                $product_image
+            );
+
+            header("Location: /stocklist" . ($success ? "?success=Stock updated successfully" : "?error=Failed to update stock"));
             exit;
         }
     }
 
-    private function redirectToStockList() {
-        http_response_code(302);
-        header("Location: /stocklist");
-        ob_end_flush();
-        exit;
+    public function delete($stock_list_id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $success = $this->stocklist->deleteStock($stock_list_id);
+            http_response_code($success ? 200 : 400);
+            echo json_encode([
+                'success' => $success,
+                'message' => $success ? 'Stock item deleted successfully' : 'Failed to delete stock item'
+            ]);
+            exit;
+        }
     }
 }
