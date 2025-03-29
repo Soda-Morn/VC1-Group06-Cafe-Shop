@@ -60,7 +60,7 @@
         }
 
         .table thead th {
-            background: linear-gradient(90deg, #f97316, #d97706);
+            background: #d97706;
             /* Warm orange gradient */
             color: white;
             border: none;
@@ -70,7 +70,7 @@
             font-size: 0.9rem;
             letter-spacing: 1.2px;
             position: sticky;
-            top: 0;
+            /* top: 0; */
             z-index: 1;
         }
 
