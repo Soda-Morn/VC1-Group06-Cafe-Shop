@@ -185,7 +185,8 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container">
+        <div class="table mt-1">
         <?php if (isset($_GET['success'])): ?>
             <div class="alert alert-success">
                 <?= htmlspecialchars($_GET['success']) ?>
@@ -198,13 +199,13 @@
         <?php endif; ?>
         <div class="card">
             <div class="card-body">
-                <h2 class="text-start">Order List</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
+                    <h2 class="mt-0 text-left">Order List</h2>
                         <thead class="table-dark">
                             <tr>
                                 <th>NO</th>
-                                <th>Item</th>
+                                <th >Item</th>
                                 <th>Original Price</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
@@ -224,7 +225,7 @@
                                 ?>
                                     <tr>
                                         <td><?= $index++ ?></td>
-                                        <td>
+                                        <td class="text-start">
                                             <?php
                                             // Define the base path for images
                                             $imagePath = !empty($order['image']) && file_exists(__DIR__ . '/../../' . $order['image'])
@@ -232,7 +233,7 @@
                                                 : 'views/assets/img/product_detail/coffee.png';
                                             ?>
                                             <img src="<?= $imagePath ?>" class="rounded-circle" alt="Product Image">
-                                            <?= htmlspecialchars($order['item']) ?>
+                                            <span class="ms-2 "><?= htmlspecialchars($order['item']) ?></span>
                                         </td>
                                         <td>$<?= htmlspecialchars($order['original_price']) ?></td>
                                         <td><?= htmlspecialchars($order['quantity']) ?></td>
@@ -250,6 +251,7 @@
                     </table>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </body>
