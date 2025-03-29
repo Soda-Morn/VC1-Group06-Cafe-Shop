@@ -60,7 +60,7 @@
         }
 
         .table thead th {
-            background: linear-gradient(90deg, #f97316, #d97706);
+            background: #d97706;
             /* Warm orange gradient */
             color: white;
             border: none;
@@ -70,7 +70,6 @@
             font-size: 0.9rem;
             letter-spacing: 1.2px;
             position: sticky;
-            top: 0;
             z-index: 1;
         }
 
@@ -185,7 +184,8 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container">
+        <div class="table mt-1">
         <?php if (isset($_GET['success'])): ?>
             <div class="alert alert-success">
                 <?= htmlspecialchars($_GET['success']) ?>
@@ -198,13 +198,13 @@
         <?php endif; ?>
         <div class="card">
             <div class="card-body">
-                <h2 class="text-start">Order List</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
+                    <h2 class="mt-0 text-left">Order List</h2>
                         <thead class="table-dark">
                             <tr>
                                 <th>NO</th>
-                                <th>Item</th>
+                                <th >Item</th>
                                 <th>Original Price</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
@@ -214,14 +214,17 @@
                         <tbody>
                             <?php if (!empty($orders)): ?>
                                 <?php
-                                // Reverse the orders array to show newest first
-                                $orders = array_reverse($orders);
+                                // Sort orders by ID in descending order (if they have an 'id' field)
+                                usort($orders, function ($a, $b) {
+                                    return $b['id'] - $a['id']; // Sorting by newest order first
+                                });
+
                                 $index = 1; // Start index from 1
                                 foreach ($orders as $order):
                                 ?>
                                     <tr>
                                         <td><?= $index++ ?></td>
-                                        <td>
+                                        <td class="text-start">
                                             <?php
                                             // Define the base path for images
                                             $imagePath = !empty($order['image']) && file_exists(__DIR__ . '/../../' . $order['image'])
@@ -229,7 +232,7 @@
                                                 : 'views/assets/img/product_detail/coffee.png';
                                             ?>
                                             <img src="<?= $imagePath ?>" class="rounded-circle" alt="Product Image">
-                                            <?= htmlspecialchars($order['item']) ?>
+                                            <span class="ms-2 "><?= htmlspecialchars($order['item']) ?></span>
                                         </td>
                                         <td>$<?= htmlspecialchars($order['original_price']) ?></td>
                                         <td><?= htmlspecialchars($order['quantity']) ?></td>
@@ -243,9 +246,11 @@
                                 </tr>
                             <?php endif; ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </body>

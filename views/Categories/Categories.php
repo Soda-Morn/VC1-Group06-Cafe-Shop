@@ -17,10 +17,10 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="category-table-body">
                                 <?php $i = 1; foreach ($categories as $category): ?>
-                                <tr>
-                                    <td><?= $i++ ?></td> <!-- Start the counter from 1 -->
+                                <tr class="category-row">
+                                    <td><?= $i++ ?></td>
                                     <td><?= htmlspecialchars($category['name']) ?></td>
                                     <td class="category-actions">
                                         <div class="dropdown">
@@ -28,17 +28,31 @@
                                                 <i class="material-icons">more_vert</i>
                                             </button>
                                             <div class="category-dropdown-menu" aria-labelledby="dropdownMenuButton<?= htmlspecialchars($category['Category_id']) ?>">
-                                                <a class="category-dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
-                                                    <i class="material-icons category-icon">edit</i> Edit
-                                                </a>
-                                                <a class="category-dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
-                                                    <i class="material-icons category-icon">delete</i> Delete
-                                                </a>
+                                                <div class="category-dropdown-row">
+                                                    <a class="category-dropdown-item" href="/Categories/edit/<?= htmlspecialchars($category['Category_id']) ?>">
+                                                        <i class="material-icons category-icon">edit</i> Edit
+                                                    </a>
+                                                    <a class="category-dropdown-item text-danger" href="/Categories/delete/<?= htmlspecialchars($category['Category_id']) ?>" onclick="return confirm('Are you sure you want to delete this category?');">
+                                                        <i class="material-icons category-icon">delete</i> Delete
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
+                                <!-- Pagination inside Actions Column -->
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="category-actions">
+                                        <button class="btn btn-primary" id="prev-button" onclick="changePage('prev')">
+                                            Previous
+                                        </button>
+                                        <button class="btn btn-primary" id="next-button" onclick="changePage('next')">
+                                            Next
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -65,36 +79,9 @@
         </div>
     </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Get all the dropdown buttons
-    const dropdownButtons = document.querySelectorAll('.dropdown button');
-
-    // Add a click event listener for each dropdown button
-    dropdownButtons.forEach(function(button) {
-        button.addEventListener('click', function (event) {
-            const dropdownMenu = event.target.closest('.dropdown').querySelector('.category-dropdown-menu');
-            
-            // Toggle the visibility of the dropdown menu
-            dropdownMenu.classList.toggle('show');
-        });
-    });
-
-    // Close the dropdown if the user clicks outside of it
-    document.addEventListener('click', function (event) {
-        if (!event.target.closest('.dropdown')) {
-            // Hide any open dropdowns
-            const openDropdowns = document.querySelectorAll('.category-dropdown-menu.show');
-            openDropdowns.forEach(function(menu) {
-                menu.classList.remove('show');
-            });
-        }
-    });
-});
-</script>
-
 <style>
+    
+
 /* General Container Styling */
 .category-container {
     max-width: 97%;
@@ -109,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     border: none;
     background: #fff;
     padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .category-card-header {
@@ -127,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: none; /* Removed box-shadow */
+    table-layout: fixed; /* Prevents the table from expanding and ensures proper scrolling */
 }
 
 .category-table th, 
@@ -162,14 +151,13 @@ document.addEventListener('DOMContentLoaded', function () {
     position: relative;
 }
 
-
 /* Dropdown Menu */
 .category-dropdown-menu {
     position: absolute;
     top: 0.1px;
     right: 0;
     background: white;
-    height: 60px;
+    height: 50px;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     display: none;
@@ -180,13 +168,28 @@ document.addEventListener('DOMContentLoaded', function () {
 /* Show dropdown when active */
 .category-dropdown-menu.show {
     display: block;
+    margin: 16px;
 }
 
+/* Dropdown Row for icons */
+.category-dropdown-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Dropdown Item Styling */
 .category-dropdown-item {
     display: block;
     padding: 10px;
     color: black;
     text-decoration: none;
+    font-size: 12px;
+}
+
+.category-dropdown-item i {
+    font-size: 16px;
 }
 
 /* Form Styling */
@@ -200,16 +203,21 @@ input[type="text"] {
     border: 1px solid #ccc;
     padding: 10px;
     width: 100%;
+    font-size: 14px;
 }
 
+/* Header Styling */
 h1 {
-    margin-top: 30px;
+    margin-top: 70px;
+    font-size: 30px;
+    color: #333;
+
 }
 
 /* Button Styling */
 .btn-primary {
-
     color: white !important;
+    background-color: rgb(204, 121, 61);
     border: none;
     padding: 7px 10px;
     font-weight: 600;
@@ -238,9 +246,27 @@ h1 {
     font-size: 10px;
 }
 
-/* Text Size for Edit and Delete */
-.category-dropdown-item {
-    font-size: 10px;
+/* Pagination Controls Styling */
+.pagination-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    margin: 0 10px;
+    padding: 8px 15px;
+    background-color: rgb(204, 121, 61);
+    color: white;
+    border: none;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
 }
 
 /* Responsive Design */
@@ -253,10 +279,61 @@ h1 {
         width: 100%;
         margin-bottom: 20px;
     }
+
+    .pagination-controls button {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
 
 .category-form-group {
     margin: 10px;
     font-size: 30px;
 }
+
+/* Hover effects for table */
+.category-table tr:hover {
+    background-color: rgba(255, 165, 0, 0.2);
+}
+
+/* Card Shadow Effect */
+.category-card {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Previous Button Styling */
+.pagination-actions .btn-prev {
+    background-color: #FF8C00; /* Dark Orange */
+    color: white;
+    border: none;
+}
+
+.pagination-actions .btn-prev:hover {
+    background-color: #e67e00; /* Lighter shade of orange */
+    transform: translateY(-3px); /* Subtle hover effect */
+}
+
+.pagination-actions .btn-prev:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Next Button Styling */
+.pagination-actions .btn-next {
+    background-color: #FF8C00; /* Dark Orange */
+    color: white;
+    border: none;
+}
+
+.pagination-actions .btn-next:hover {
+    background-color: #e67e00; /* Lighter shade of orange */
+    transform: translateY(-3px); /* Subtle hover effect */
+}
+
+.pagination-actions .btn-next:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
 </style>
