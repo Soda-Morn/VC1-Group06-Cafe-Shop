@@ -1,4 +1,3 @@
-
 <div class="category-container mt-4">
     <h1>Category List</h1>
     <div class="row">
@@ -21,7 +20,7 @@
                             <tbody id="category-table-body">
                                 <?php $i = 1; foreach ($categories as $category): ?>
                                 <tr class="category-row">
-                                    <td><?= $i++ ?></td> <!-- Start the counter from 1 -->
+                                    <td><?= $i++ ?></td>
                                     <td><?= htmlspecialchars($category['name']) ?></td>
                                     <td class="category-actions">
                                         <div class="dropdown">
@@ -42,13 +41,20 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
+                                <!-- Pagination inside Actions Column -->
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="category-actions">
+                                        <button class="btn btn-primary" id="prev-button" onclick="changePage('prev')">
+                                            Previous
+                                        </button>
+                                        <button class="btn btn-primary" id="next-button" onclick="changePage('next')">
+                                            Next
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Pagination Controls -->
-                    <div class="pagination-controls">
-                        <button class="btn btn-primary" id="prev-button" onclick="changePage('prev')">Previous</button>
-                        <button class="btn btn-primary" id="next-button" onclick="changePage('next')">Next</button>
                     </div>
                 </div>
             </div>
@@ -73,4 +79,3 @@
         </div>
     </div>
 </div>
-

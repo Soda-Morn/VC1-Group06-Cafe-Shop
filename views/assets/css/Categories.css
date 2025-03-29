@@ -129,8 +129,7 @@ h1 {
     margin-top: 70px;
     font-size: 30px;
     color: #333;
-   
-    font-weight: 600;
+
 }
 
 /* Button Styling */
@@ -218,4 +217,39 @@ h1 {
 /* Card Shadow Effect */
 .category-card {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Previous Button Styling */
+.pagination-actions .btn-prev {
+    background-color: #FF8C00; /* Dark Orange */
+    color: white;
+    border: none;
+}
+
+.pagination-actions .btn-prev:hover {
+    background-color: #e67e00; /* Lighter shade of orange */
+    transform: translateY(-3px); /* Subtle hover effect */
+}
+
+.pagination-actions .btn-prev:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Next Button Styling */
+.pagination-actions .btn-next {
+    background-color: #FF8C00; /* Dark Orange */
+    color: white;
+    border: none;
+}
+
+.pagination-actions .btn-next:hover {
+    background-color: #e67e00; /* Lighter shade of orange */
+    transform: translateY(-3px); /* Subtle hover effect */
+}
+
+.pagination-actions .btn-next:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
 }
