@@ -121,11 +121,6 @@
                 imagePreviewContainer.style.display = 'flex';
             }
         });
-<<<<<<< HEAD
-    </script>
-</body>
-</html>
-=======
 
         // Add event listener for the Delete button
         document.querySelector('.delete-stock-item').addEventListener('click', function() {
@@ -163,4 +158,3 @@
         });
     </script>
 </div>
->>>>>>> 1099725539e322eb7d9aa856c967d99242a02e23
