@@ -186,11 +186,6 @@
 <body>
     <div class="container">
         <div class="table mt-1">
-        <?php if (isset($_GET['success'])): ?>
-            <div class="alert alert-success">
-                <?= htmlspecialchars($_GET['success']) ?>
-            </div>
-        <?php endif; ?>
         <?php if (isset($_GET['error'])): ?>
             <div class="alert alert-danger">
                 <?= htmlspecialchars($_GET['error']) ?>
