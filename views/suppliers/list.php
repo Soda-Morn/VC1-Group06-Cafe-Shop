@@ -84,19 +84,23 @@
     }
 
     /* Table Styles */
-    .table {
-      background-color: #f8f9fa;
-      color: #333;
-      border: 1px solid #ddd;
-      width: 98%;
-      /* Adjusted width */
-      border-collapse: collapse;
-      margin-right: 10px;
-      /* Reduced margin */
-    }
+     .table-responsive {
+           
+            overflow-x: auto;
+            background: #fff;
+            /* box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0); */
+            /* Subtle inner shadow */
+        }
 
+        .table {
+            margin-bottom: 0;
+            border-collapse: collapse;
+            font-size: 1rem;
+            color: #333;
+        }
     .table thead {
       background-color: orange;
+      border-radius: 10px;
       color: white;
       text-align: center;
     }
@@ -107,7 +111,7 @@
     }
 
     .table thead th {
-      background-color: #007bff;
+      background-color:  #f97316;
       color: white;
       font-size: 0.9rem;
       /* Smaller font size */

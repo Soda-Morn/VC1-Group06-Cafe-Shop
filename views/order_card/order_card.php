@@ -8,7 +8,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Add jsPDF library for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body {
@@ -346,13 +345,24 @@
                 doc.setFillColor(255, 147, 0);
                 doc.rect(0, 0, 210, 30, 'F');
 
-                // Title
+                // Load and add logo
+                const logoSrc = "../../views/assets/images/logo.png";
+                let logoData;
+                try {
+                    logoData = await getBase64Image(logoSrc);
+                    // Add logo (20mm width, maintaining aspect ratio, balanced with text)
+                    doc.addImage(logoData, 'PNG', 10, 5, 20, 0); // Width 20mm, height auto-adjusted
+                } catch (error) {
+                    console.error('Error loading logo:', error);
+                }
+
+                // Title next to logo
                 doc.setFontSize(24);
                 doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'bold');
-                doc.text('Velea Cafe', 15, 15);
+                doc.text('Velea Cafe', 35, 15); // Adjusted position to right of logo
                 doc.setFontSize(14);
-                doc.text('Cart Receipt', 15, 22);
+                doc.text('Cart Receipt', 35, 22); // Adjusted position
 
                 // Date without background
                 const today = new Date();
@@ -412,7 +422,6 @@
                         doc.rect(10, y - 8, 190, 18, 'F');
                     }
 
-                    // Add image without border
                     if (item.imgData) {
                         try {
                             doc.addImage(item.imgData, 'PNG', 12, y - 5, 15, 15);
@@ -432,7 +441,7 @@
                     rowIndex++;
                 }
 
-                // Total without extra padding
+                // Total
                 doc.setDrawColor(255, 147, 0);
                 doc.setLineWidth(0.5);
                 doc.line(10, y, 200, y);

@@ -8,22 +8,22 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
+
 // Check if user is logged in
 $isLoggedIn = isset($_SESSION['admin_ID']);
 $userName = $isLoggedIn ? ($_SESSION['name'] ?? 'Admin') : 'User';
 $userEmail = $isLoggedIn ? ($_SESSION['email'] ?? 'admin@example.com') : 'user@example.com';
 $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
 ?>
-<div class="sidebar" data-background-color="dark">
+<div class="sidebar" data-background-color="#FFF8E7" data-active-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
-    <div class="logo-header" data-background-color="dark">
+    <div class="logo-header" data-background-color="pink">
       <a href="/" class="logo">
         <img
-          src="../../views/assets/img/kaiadmin/logo_light.svg"
-          alt="navbar brand"
+          src="../../views/assets/images/logo.png" alt="navbar brand"
           class="navbar-brand"
-          height="20" />
+          height="90" />
       </a>
       <a href="form_order"></a>
       <div class="nav-toggle">
@@ -503,6 +503,16 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     }
   });
 });
+document.addEventListener("DOMContentLoaded", function () {
+  let navItems = document.querySelectorAll(".nav-item a");
+
+  navItems.forEach((item) => {
+    if (item.href === window.location.href) {
+      item.classList.add("active");
+    }
+  });
+});
+
 
   </script>
   <style>
@@ -530,6 +540,24 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     .nav-item.active a {
   font-weight: bold;
   color: #ffffff; /* Adjust color as needed */
+}
+
+    .logo{
+      width: 170px;
+      display: flex;
+      justify-content: center;
+
+    }
+    .logo-header{
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    .nav-item a.active {
+  font-weight: bold;
+  color: #000000; /* Black text */
+  background-color: #ff5722; /* Highlight */
+  border-radius: 5px;
+  padding: 8px 12px;
 }
 
   </style>

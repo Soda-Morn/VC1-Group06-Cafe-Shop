@@ -16,7 +16,6 @@ class BaseController
         $content = ob_get_clean();
         require "views/layout.php";
     }
-
     /**
      * Helper function to handle redirections.
      *
