@@ -493,6 +493,17 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
         }
       });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+  const currentLocation = window.location.pathname;
+  const navLinks = document.querySelectorAll(".nav-item a");
+
+  navLinks.forEach(link => {
+    if (link.getAttribute("href") === currentLocation) {
+      link.parentElement.classList.add("active");
+    }
+  });
+});
+
   </script>
   <style>
     .collapse {
@@ -516,4 +527,9 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     .caret.down {
       transform: rotate(180deg);
     }
+    .nav-item.active a {
+  font-weight: bold;
+  color: #ffffff; /* Adjust color as needed */
+}
+
   </style>
