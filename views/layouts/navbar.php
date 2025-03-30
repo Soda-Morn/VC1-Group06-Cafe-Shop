@@ -1,14 +1,13 @@
 <script src="views/assets/js/research.js"></script>
 <script src="views/assets/js/purchaseitem.js" defer></script>
-
-
-
+<script src="views/assets/js/stock_list.js" defer></script>
 
 <?php
 // Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
+
 
 // Check if user is logged in
 $isLoggedIn = isset($_SESSION['admin_ID']);
@@ -16,16 +15,15 @@ $userName = $isLoggedIn ? ($_SESSION['name'] ?? 'Admin') : 'User';
 $userEmail = $isLoggedIn ? ($_SESSION['email'] ?? 'admin@example.com') : 'user@example.com';
 $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
 ?>
-<div class="sidebar" data-background-color="dark">
+<div class="sidebar" data-background-color="#FFF8E7" data-active-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
-    <div class="logo-header" data-background-color="dark">
+    <div class="logo-header" data-background-color="pink">
       <a href="/" class="logo">
         <img
-          src="../../views/assets/img/kaiadmin/logo_light.svg"
-          alt="navbar brand"
+          src="../../views/assets/images/logo.png" alt="navbar brand"
           class="navbar-brand"
-          height="20" />
+          height="90" />
       </a>
       <a href="form_order"></a>
       <div class="nav-toggle">
@@ -45,7 +43,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   <div class="sidebar-wrapper scrollbar scrollbar-inner">
     <div class="sidebar-content">
       <ul class="nav nav-secondary">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a
             href="/"
             class="collapsed"
@@ -55,134 +53,55 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           </a>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#base">
-            <i class="fas fa-layer-group"></i>
-            <p>Products</p>
-            <span class="caret"></span>
+          <a
+            href="/order_menu"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-store  "></i>
+            <p>Order Menu</p>
           </a>
-          <div class="collapse" id="base">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/product_list">
-                  <span class="sub-item">Product List</span>
-                </a>
-              </li>
-              <li>
-                <a href="components/buttons.html">
-                  <span class="sub-item">Product Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="/product_detail">
-                  <span class="sub-item">Product Detail</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#sidebarLayouts">
-            <i class="fas fa-th-list"></i>
-            <p>Categories</p>
-            <span class="caret"></span>
+          <a
+            href="/order_list"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Order Report</p>
           </a>
-          <div class="collapse" id="sidebarLayouts">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="sidebar-style-2.html">
-                  <span class="sub-item">Category List</span>
-                </a>
-              </li>
-              <li>
-                <a href="icon-menu.html">
-                  <span class="sub-item">Category Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="icon-menu.html">
-                  <span class="sub-item">Category Edite</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#forms">
-            <i class="fas fa-pen-square"></i>
-            <p>Orders</p>
-            <span class="caret"></span>
+          <a
+            href="/stocklist"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-inbox"></i>
+            <p>Stock List</p>
           </a>
-          <div class="collapse" id="forms">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/order_list">
-                  <span class="sub-item">Order List</span>
-                </a>
-              </li>
-              <li>
-                <a href="forms/forms.html">
-                  <span class="sub-item">Order Detail</span>
-                </a>
-              </li>
-              <li>
-                <a href="/order_menu">
-                  <span class="sub-item">Order Menu</span>
-                </a>
-              </li>
-              <li>
-                <a href="forms/forms.html">
-                  <span class="sub-item">Order History</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#tables">
-            <i class="fas fa-table"></i>
-            <p>Inventory</p>
-            <span class="caret"></span>
+          <a
+            href="/purchase_item_add"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-cart-arrow-down"></i>
+            <p>Restock</p>
           </a>
-          <div class="collapse" id="tables">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="/stocklist">
-                  <span class="sub-item">Stock List</span>
-                </a>
-              </li>
-              <li>
-                <a href="/purchase_item_add">
-                  <span class="sub-item">Purchase Item Add</span>
-                </a>
-              </li>
-              <li>
-                <a href="/purchase">
-                  <span class="sub-item">Purchase History</span>
-                </a>
-              </li>
-              <li>
-                <a href="/suppliers">
-                  <span class="sub-item">Suplier info</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </li>
         <li class="nav-item">
-          <a data-bs-toggle="collapse" href="#maps">
-            <i class="fas fa-user-friends"></i>
-            <p>Customer</p>
-            <span class="caret"></span>
+          <a
+            href="/suppliers"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-user-tag"></i>
+            <p>Supplier Info</p>
           </a>
-          <div class="collapse" id="maps">
-            <ul class="nav nav-collapse">
-              <li>
-                <a href="maps/googlemaps.html">
-                  <span class="sub-item">Customer List</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+        </li>
+        <li class="nav-item">
+          <a href="/Categories">
+               <i class="fas fa-th-list"></i>
+               <p>Categories</p>
+          </a>
         </li>
       </ul>
     </div>
@@ -218,20 +137,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-        <!-- <nav
-          class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="submit" class="btn btn-search pe-1">
-                <i class="fa fa-search search-icon"></i>
-              </button>
-            </div>
-            <input
-              type="text"
-              placeholder="Search ..."
-              class="form-control" />
-          </div>
-        </nav> -->
+
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
@@ -418,9 +324,10 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               class="nav-link"
               href="/orderCard"
               aria-expanded="false">
-              <i class="fas fa-layer-group"></i>
+              <i class="fas fa-shopping-cart"></i>
             </a>
           </li>
+
 
           <li class="nav-item topbar-user dropdown hidden-caret">
             <a
@@ -495,23 +402,162 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   </div>
 
   <!-- Add this script at the bottom of navbar.php -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Bootstrap dropdowns
-    var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-    dropdownElementList.forEach(function (dropdownToggleEl) {
-        new bootstrap.Dropdown(dropdownToggleEl);
-    });
+  <!-- Add this script at the bottom of navbar.php -->
+  <script>
+    const collapseLinks = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
 
-    // Ensure profile dropdown toggles correctly
-    var profileDropdown = document.querySelector('.topbar-user .dropdown-toggle');
-    if (profileDropdown) {
-        profileDropdown.addEventListener('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            var dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
-            dropdown.toggle();
+    collapseLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        const caret = this.querySelector('.caret');
+        const targetCollapse = this.nextElementSibling; // Assuming the collapse element is right after the link
+
+        // Toggle caret icon direction
+        caret.classList.toggle('down');
+
+        // Toggle collapse visibility
+        if (caret.classList.contains('down')) {
+          targetCollapse.style.display = 'block'; // Show the collapsible element
+        } else {
+          targetCollapse.style.display = 'none'; // Hide the collapsible element
+        }
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle sidebar menu toggles
+      const sidebarMenuItems = document.querySelectorAll('.nav-item > a[data-bs-toggle="collapse"]');
+
+      sidebarMenuItems.forEach(function(menuItem) {
+        menuItem.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          // Toggle the target element's visibility
+          targetElement.classList.toggle('show');
+          this.setAttribute('aria-expanded', targetElement.classList.contains('show'));
+
+          // Close all other submenus
+          sidebarMenuItems.forEach(function(item) {
+            if (item !== menuItem) {
+              const otherTargetId = item.getAttribute('href');
+              const otherTargetElement = document.querySelector(otherTargetId);
+              otherTargetElement.classList.remove('show');
+              item.setAttribute('aria-expanded', 'false');
+            }
+          });
         });
+      });
+
+      // Handle header dropdowns
+      const headerDropdowns = document.querySelectorAll('.topbar-nav .dropdown-toggle');
+
+      headerDropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const parent = this.closest('.dropdown');
+          const isOpen = parent.classList.contains('show');
+
+          // Close all other dropdowns first
+          document.querySelectorAll('.topbar-nav .dropdown.show').forEach(function(openDropdown) {
+            if (openDropdown !== parent) {
+              openDropdown.classList.remove('show');
+              openDropdown.querySelector('.dropdown-menu').classList.remove('show');
+              openDropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          // Toggle this dropdown
+          if (isOpen) {
+            parent.classList.remove('show');
+            parent.querySelector('.dropdown-menu').classList.remove('show');
+            this.setAttribute('aria-expanded', 'false');
+          } else {
+            parent.classList.add('show');
+            parent.querySelector('.dropdown-menu').classList.add('show');
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown.show').forEach(function(dropdown) {
+            dropdown.classList.remove('show');
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
+            dropdown.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+  const currentLocation = window.location.pathname;
+  const navLinks = document.querySelectorAll(".nav-item a");
+
+  navLinks.forEach(link => {
+    if (link.getAttribute("href") === currentLocation) {
+      link.parentElement.classList.add("active");
     }
+  });
 });
-</script>
+document.addEventListener("DOMContentLoaded", function () {
+  let navItems = document.querySelectorAll(".nav-item a");
+
+  navItems.forEach((item) => {
+    if (item.href === window.location.href) {
+      item.classList.add("active");
+    }
+  });
+});
+
+
+  </script>
+  <style>
+    .collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      opacity: 0;
+    }
+
+    .collapse.show {
+      max-height: 500px;
+      /* Adjust as needed */
+      opacity: 1;
+    }
+
+    /* Caret animation */
+    .caret {
+      transition: transform 0.3s ease;
+    }
+
+    .caret.down {
+      transform: rotate(180deg);
+    }
+    .nav-item.active a {
+  font-weight: bold;
+  color: #ffffff; /* Adjust color as needed */
+}
+
+    .logo{
+      width: 170px;
+      display: flex;
+      justify-content: center;
+
+    }
+    .logo-header{
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    .nav-item a.active {
+  font-weight: bold;
+  color: #000000; /* Black text */
+  background-color: #ff5722; /* Highlight */
+  border-radius: 5px;
+  padding: 8px 12px;
+}
+
+  </style>
