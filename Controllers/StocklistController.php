@@ -16,6 +16,8 @@ class StocklistController extends BaseController
         $this->view('inventory/stocklist', ['stocklist' => $stocklist]);
     }
 
+
+
     public function edit($stock_list_id)
     {
         $stock = $this->stocklist->getStockById($stock_list_id);
@@ -71,4 +73,16 @@ class StocklistController extends BaseController
             exit;
         }
     }
+
+    
+    public function viewDetails($stock_list_id)
+{
+    $stock = $this->stocklist->getStockById($stock_list_id);
+    if (!$stock) {
+        header("Location: /stocklist?error=Stock item not found");
+        exit;
+    }
+    $this->view('inventory/view_stocklist', ['stock' => $stock]);
+}
+
 }

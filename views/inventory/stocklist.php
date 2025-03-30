@@ -55,6 +55,10 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </button>
                                                 <div class="custom-dropdown-menu">
+                                                    <a class="custom-dropdown-item" href="/stocklist/viewDetails/<?= htmlspecialchars($row['stock_list_id']) ?>">
+                                                        <i class="fa-solid fa-eye-slash"></i> View Details
+                                                    </a>
+                                                    
                                                     <a class="custom-dropdown-item" href="/stocklist/edit/<?= htmlspecialchars($row['stock_list_id']) ?>">
                                                         <i class="fas fa-edit me-2"></i> Edit
                                                     </a>

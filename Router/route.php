@@ -71,6 +71,7 @@ $route->get('/stocklist', [StocklistController::class, 'stocklist']);
 $route->get('/stocklist/edit/{id}', [StocklistController::class, 'edit']);
 $route->post('/stocklist/update/{id}', [StocklistController::class, 'update']);
 $route->post('/stocklist/delete/{id}', [StocklistController::class, 'delete']);
+$route->get('/stocklist/viewDetails/{id}', [StocklistController::class, 'viewDetails']);
 
 //supplier
 $route->get('/suppliers', [SupplierController::class, 'index']);
