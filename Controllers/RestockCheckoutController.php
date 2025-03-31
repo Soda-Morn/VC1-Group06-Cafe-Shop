@@ -179,24 +179,50 @@ class RestockCheckoutController extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $quantities = $_POST['quantities'] ?? [];
-
+    
             if (empty($quantities)) {
                 error_log("No quantities found in POST data");
             }
-
+    
+            // Calculate total price before updating stock
+            $totalPrice = 0;
+            $cartItems = $_SESSION['cart'] ?? [];
+    
+            // Loop through cart items to calculate total price
+            foreach ($cartItems as $item) {
+                $purchaseItemId = $item['purchase_item_id'];
+                $quantity = isset($quantities[$purchaseItemId]) ? (int)$quantities[$purchaseItemId] : 0;
+    
+                if ($quantity <= 0) {
+                    continue; // Skip items with invalid quantities
+                }
+    
+                // Get the price from the cart item (price is already fetched in the cart from purchase_items)
+                $price = $item['price'] ?? 0;
+                $totalPrice += $price * $quantity;
+            }
+    
+            // Insert total price into purchases table if there are valid items
+            if ($totalPrice > 0) {
+                $this->restockModel->insertPurchase($totalPrice);
+            } else {
+                error_log("Total price is 0, skipping insert into purchases table");
+            }
+    
+            // Proceed with the existing stock update logic
             foreach ($quantities as $purchaseItemId => $quantity) {
                 $quantity = (int)$quantity;
                 if ($quantity <= 0) {
                     error_log("Skipping purchase_item_id $purchaseItemId due to quantity $quantity");
                     continue;
                 }
-
+    
                 $result = $this->restockModel->updateStock($purchaseItemId, $quantity);
                 if (!$result) {
                     error_log("Failed to update stock for purchase_item_id: $purchaseItemId");
                 }
             }
-
+    
             $_SESSION['cart'] = [];
             $this->redirect('/stocklist');
         }

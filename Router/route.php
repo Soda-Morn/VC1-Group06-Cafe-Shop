@@ -14,6 +14,7 @@ require_once "Controllers/CardController.php";
 require_once "Controllers/RestockCheckoutController.php";
 require_once "Controllers/SupplierController.php";
 require_once "Controllers/CategoriesController.php";
+require_once "Controllers/SalesController.php";
 
 $route = new Router();
 
@@ -82,6 +83,7 @@ $route->get('/suppliers/edit/{id}', [SupplierController::class, 'edit']);
 $route->post('/suppliers/update/{id}', [SupplierController::class, 'update']);
 $route->get('/suppliers/delete/{id}', [SupplierController::class, 'delete']);
 
+//Category
 $route->get("/Categories", [CategoriesController::class, 'index']);
 $route->get("/Categories/create", [CategoriesController::class, 'create']);
 $route->post("/Categories/store", [CategoriesController::class, 'store']);
@@ -89,6 +91,8 @@ $route->post("/Categories/edit/{id}", [CategoriesController::class, 'edit']);
 $route->get("/Categories/delete/{id}", [CategoriesController::class, 'delete']);
 $route->post("/Categories/update/{id}", [CategoriesController::class, 'update']);
 
+//Sales
+$route->get("/dashboard", [SalesController::class, 'index']);
 
 
 // Execute the routing
