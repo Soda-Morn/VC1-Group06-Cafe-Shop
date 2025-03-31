@@ -14,6 +14,7 @@ require_once "Controllers/CardController.php";
 require_once "Controllers/RestockCheckoutController.php";
 require_once "Controllers/SupplierController.php";
 require_once "Controllers/CategoriesController.php";
+require_once "Controllers/SalesController.php";
 
 $route = new Router();
 
@@ -71,6 +72,7 @@ $route->get('/stocklist', [StocklistController::class, 'stocklist']);
 $route->get('/stocklist/edit/{id}', [StocklistController::class, 'edit']);
 $route->post('/stocklist/update/{id}', [StocklistController::class, 'update']);
 $route->post('/stocklist/delete/{id}', [StocklistController::class, 'delete']);
+$route->get('/stocklist/viewDetails/{id}', [StocklistController::class, 'viewDetails']);
 
 //supplier
 $route->get('/suppliers', [SupplierController::class, 'index']);
@@ -81,6 +83,7 @@ $route->get('/suppliers/edit/{id}', [SupplierController::class, 'edit']);
 $route->post('/suppliers/update/{id}', [SupplierController::class, 'update']);
 $route->get('/suppliers/delete/{id}', [SupplierController::class, 'delete']);
 
+//Category
 $route->get("/Categories", [CategoriesController::class, 'index']);
 $route->get("/Categories/create", [CategoriesController::class, 'create']);
 $route->post("/Categories/store", [CategoriesController::class, 'store']);
@@ -88,6 +91,8 @@ $route->post("/Categories/edit/{id}", [CategoriesController::class, 'edit']);
 $route->get("/Categories/delete/{id}", [CategoriesController::class, 'delete']);
 $route->post("/Categories/update/{id}", [CategoriesController::class, 'update']);
 
+//Sales
+$route->get("/dashboard", [SalesController::class, 'index']);
 
 
 // Execute the routing
