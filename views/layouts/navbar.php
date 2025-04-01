@@ -18,7 +18,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
 <div class="sidebar" data-background-color="#FFF8E7" data-active-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
-    <div class="logo-header" data-background-color="pink">
+    <div class="logo-header mt-5  d-flex justify-content-center align-items-center" data-background-color="pink">
       <a href="/" class="logo">
         <img
           src="../../views/assets/images/logo.png" alt="navbar brand"
@@ -111,13 +111,13 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   <div class="main-header">
     <div class="main-header-logo">
       <!-- Logo Header -->
-      <div class="logo-header" data-background-color="dark">
-        <a href="index.html" class="logo">
+      <div class="logo-header d-flex justify-content-center align-items-center" data-background-color="dark">
+        <a href="index.html" class="logo  ">
           <img
-            src="views/assets/img/kaiadmin/logo_light.svg"
+            src="../../views/assets/images/logo.png"
             alt="navbar brand"
             class="navbar-brand"
-            height="20" />
+            height="50" />
         </a>
         <div class="nav-toggle">
           <button class="btn btn-toggle toggle-sidebar">
@@ -542,16 +542,7 @@ document.addEventListener("DOMContentLoaded", function () {
   color: #ffffff; /* Adjust color as needed */
 }
 
-    .logo{
-      width: 170px;
-      display: flex;
-      justify-content: center;
-
-    }
-    .logo-header{
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
+    
     .nav-item a.active {
   font-weight: bold;
   color: #000000; /* Black text */
