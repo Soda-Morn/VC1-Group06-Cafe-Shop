@@ -149,7 +149,7 @@
         <div class="card card-round">
           <div class="card-body">
             <div class="card-head-row card-tools-still-right">
-              <div class="card-title">New Customers</div>
+              <div class="card-title">Top product</div>
               <div class="card-tools">
                 <div class="dropdown">
                   <button
@@ -183,12 +183,7 @@
                   <div class="username">Jimmy Denis</div>
                   <div class="status">Graphic Designer</div>
                 </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
+               
               </div>
               <div class="item-list">
                 <div class="avatar">
@@ -199,12 +194,7 @@
                   <div class="username">Chandra Felix</div>
                   <div class="status">Sales Promotion</div>
                 </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
+                
               </div>
               <div class="item-list">
                 <div class="avatar">
@@ -217,12 +207,7 @@
                   <div class="username">Talha</div>
                   <div class="status">Front End Designer</div>
                 </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
+              
               </div>
               <div class="item-list">
                 <div class="avatar">
@@ -235,12 +220,7 @@
                   <div class="username">Chad</div>
                   <div class="status">CEO Zeleaf</div>
                 </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
+               
               </div>
               <div class="item-list">
                 <div class="avatar">
@@ -251,12 +231,7 @@
                   <div class="username">Hizrian</div>
                   <div class="status">Web Designer</div>
                 </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
+               
               </div>
               <div class="item-list">
                 <div class="avatar">
@@ -267,12 +242,7 @@
                   <div class="username">Farrah</div>
                   <div class="status">Marketing</div>
                 </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
+
               </div>
             </div>
           </div>

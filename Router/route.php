@@ -20,6 +20,7 @@ $route = new Router();
 
 // Dashboard
 $route->get("/dashboard", [DashboardController::class, 'index']);
+$route->get("/dashboard", [DashboardController::class, 'index']);
 // login and register
 $route->get("/", [UserController::class, 'login']);
 $route->get("/register", [UserController::class, 'register']);
