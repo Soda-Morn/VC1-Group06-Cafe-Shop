@@ -86,12 +86,13 @@
         </div>
       </div>
     </div>
+    <!-- User_chart -->
     <div class="row ">
       <div class="col-md-8 ">
         <div class="card card-round">
           <div class="card-header">
             <div class="card-head-row gap-3">
-              <div class="card-title">User Statistics</div>
+              <div class="card-title">Sale Report</div>
               <div class="d-flex">
                 <div class="btn-group gap-1" role="group" aria-label="Time Period Selection">
                   <button class="btn btn-sm btn-outline-primary fw-bold active rounded-pill border-success"
@@ -145,11 +146,12 @@
           </div>
         </div>
       </div>
+      <!-- Top product -->
       <div class="col-md-4">
         <div class="card card-round">
           <div class="card-body">
             <div class="card-head-row card-tools-still-right">
-              <div class="card-title">New Customers</div>
+              <div class="card-title">Top product</div>
               <div class="card-tools">
                 <div class="dropdown">
                   <button
@@ -427,44 +429,81 @@
     </div>
   </div>
 </div>
+
 <script src="../views/assets/js/plugin/chart.js/chart.min.js"></script>
 <script>
-  var myBarChart = new Chart(barChart, {
+  var weeklyLabels = <?php echo json_encode($weekly_labels); ?>;
+  var weeklyData = <?php echo json_encode($weekly_data); ?>;
 
+  var myBarChart = new Chart(barChart, {
     type: "bar",
     data: {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      labels: weeklyLabels, // Dynamic labels from controller
       datasets: [{
-        label: "Sales",
-        backgroundColor: "rgb(23, 125, 255)",
-        borderColor: "rgb(23, 125, 255)",
-        data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
-      }, ],
+        label: "Revenue",
+        backgroundColor: "#177dff", // Updated to match the image color
+        borderColor: "#177dff",
+        borderWidth: 1,
+        data: weeklyData, // Dynamic data from controller
+        barPercentage: 0.9, // Reduce gaps between bars
+        categoryPercentage: 0.9
+      }],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        duration: 1500, // Smooth transition duration (1.5 seconds)
+        easing: 'easeInOutQuad', // Smooth easing effect
+        onComplete: function () {
+          // Optional: Add a subtle bounce effect after animation
+          this.options.animation.duration = 500;
+        }
+      },
       scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true,
+            fontSize: 12,
+            fontColor: '#666',
+            callback: function(value) {
+              return '$' + value; // Add dollar sign to y-axis labels
+            }
           },
-        }, ],
+          gridLines: {
+            color: 'rgba(200, 200, 200, 0.2)', // Light grid lines
+            zeroLineColor: 'rgba(200, 200, 200, 0.5)'
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            fontSize: 12,
+            fontColor: '#666'
+          },
+          gridLines: {
+            display: false // Hide x-axis grid lines for cleaner look
+          }
+        }]
       },
-    },
+      plugins: {
+        legend: {
+          labels: {
+            fontSize: 14,
+            fontColor: '#333'
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFontSize: 14,
+          bodyFontSize: 12,
+          callbacks: {
+            label: function(tooltipItem) {
+              return 'Revenue: $' + tooltipItem.raw; // Customize tooltip
+            }
+          }
+        }
+      }
+    }
   });
 </script>
 
@@ -490,82 +529,166 @@
 
 <script src="../views/assets/js/dist/jquery.js"></script>
 <script>
+  var monthlyLabels = <?php echo json_encode($monthly_labels); ?>;
+  var monthlyData = <?php echo json_encode($monthly_data); ?>;
+
   var ctx = document.getElementById("singelBarChart");
   ctx.height = 160;
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ["Sun", "Mon", "Tu", "Wed", "Th", "Fri", "Sat"],
+      labels: monthlyLabels, // Dynamic labels from controller
       datasets: [{
-        label: "My First dataset",
-        data: [40, 55, 75, 81, 56, 55, 40],
-        borderColor: "rgba(0, 123, 255, 0.9)",
-        borderWidth: "0",
-        backgroundColor: "rgba(0, 123, 255, 0.5)"
+        label: "Revenue",
+        data: monthlyData, // Dynamic data from controller
+        borderColor: "#177dff", // Updated to match the image color
+        borderWidth: 1,
+        backgroundColor: "#177dff", // Updated to match the image color
+        barPercentage: 0.9, // Reduce gaps between bars
+        categoryPercentage: 0.9
       }]
     },
     options: {
+      animation: {
+        duration: 1500, // Smooth transition duration (1.5 seconds)
+        easing: 'easeInOutQuad', // Smooth easing effect
+        onComplete: function () {
+          this.options.animation.duration = 500;
+        }
+      },
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            fontSize: 12,
+            fontColor: '#666',
+            callback: function(value) {
+              return '$' + value; // Add dollar sign to y-axis labels
+            }
+          },
+          gridLines: {
+            color: 'rgba(200, 200, 200, 0.2)',
+            zeroLineColor: 'rgba(200, 200, 200, 0.5)'
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            fontSize: 12,
+            fontColor: '#666'
+          },
+          gridLines: {
+            display: false
           }
         }]
+      },
+      plugins: {
+        legend: {
+          labels: {
+            fontSize: 14,
+            fontColor: '#333'
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFontSize: 14,
+          bodyFontSize: 12,
+          callbacks: {
+            label: function(tooltipItem) {
+              return 'Revenue: $' + tooltipItem.raw;
+            }
+          }
+        }
       }
     }
   });
 </script>
-<!-- years of dashbouth -->
+
+<!-- years of dashboard -->
 <script src="../views/assets/js/dashboard-1.js"></script>
 <script src="../views/assets/js/dashboard-js/rephael.min.js"></script>
 <script src="../views/assets/js/dashboard-js/morris.min.js"></script>
-
 
 <script src="../views/assets/js/dist/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
   $(document).ready(function() {
+    var yearlyLabels = <?php echo json_encode($yearly_labels); ?>;
+    var yearlyData = <?php echo json_encode($yearly_data); ?>;
+
     var ctx = document.getElementById("morris-bar-chart").getContext("2d");
 
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ["2020", "2021", "2022", "2023", "2024", "2025", "2026"],
+        labels: yearlyLabels, // Dynamic labels from controller
         datasets: [{
-          label: "Sales Data",
-          data: [40, 55, 75, 81, 56, 55, 40],
-          borderColor: "rgba(14, 66, 122, 0.9)",
+          label: "Revenue",
+          data: yearlyData, // Dynamic data from controller
+          borderColor: "#177dff", // Updated to match the image color
           borderWidth: 1,
-          backgroundColor: "rgba(13, 87, 167, 0.82)",
-          hoverBackgroundColor: "rgba(25, 96, 172, 0.7)",
-          hoverBorderColor: "rgb(23, 76, 132)",
+          backgroundColor: "#177dff", // Updated to match the image color
+          hoverBackgroundColor: "#177dff",
+          hoverBorderColor: "#177dff",
+          barPercentage: 0.9, // Reduce gaps between bars
+          categoryPercentage: 0.9
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: {
+          duration: 1500, // Smooth transition duration (1.5 seconds)
+          easing: 'easeInOutQuad', // Smooth easing effect
+          onComplete: function () {
+            this.options.animation.duration = 500;
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
+              fontSize: 12,
+              fontColor: '#666',
               callback: function(value) {
-                return value + ' units';
+                return '$' + value; // Add dollar sign instead of 'units'
               }
+            },
+            gridLines: {
+              color: 'rgba(200, 200, 200, 0.2)',
+              zeroLineColor: 'rgba(200, 200, 200, 0.5)'
             }
           },
           x: {
             title: {
               display: true,
-              text: 'Years'
+              text: 'Years',
+              fontSize: 14,
+              fontColor: '#333'
+            },
+            ticks: {
+              fontSize: 12,
+              fontColor: '#666'
+            },
+            gridLines: {
+              display: false
             }
-          },
+          }
         },
         plugins: {
+          legend: {
+            labels: {
+              fontSize: 14,
+              fontColor: '#333'
+            }
+          },
           tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            titleFontSize: 14,
+            bodyFontSize: 12,
             callbacks: {
               label: function(tooltipItem) {
-                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' units';
+                return 'Revenue: $' + tooltipItem.raw; // Customize tooltip
               }
             }
           }
