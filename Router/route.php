@@ -3,7 +3,6 @@ require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
 require_once "Controllers/LoginController.php";
-require_once "Controllers/DashboardController.php";
 require_once "Controllers/StocklistController.php";
 require_once "Controllers/LoginRegisterController.php";
 require_once "Controllers/UserController.php";
@@ -19,8 +18,8 @@ require_once "Controllers/SalesController.php";
 $route = new Router();
 
 // Dashboard
-$route->get("/dashboard", [DashboardController::class, 'index']);
-$route->get("/dashboard", [DashboardController::class, 'index']);
+$route->get("/dashboard", [SalesController::class, 'index']);
+
 // login and register
 $route->get("/", [UserController::class, 'login']);
 $route->get("/register", [UserController::class, 'register']);
@@ -92,8 +91,7 @@ $route->post("/Categories/edit/{id}", [CategoriesController::class, 'edit']);
 $route->get("/Categories/delete/{id}", [CategoriesController::class, 'delete']);
 $route->post("/Categories/update/{id}", [CategoriesController::class, 'update']);
 
-//Sales
-$route->get("/dashboard", [SalesController::class, 'index']);
+
 
 
 // Execute the routing
