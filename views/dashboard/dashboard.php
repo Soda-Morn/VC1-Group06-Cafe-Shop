@@ -7,8 +7,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-primary bubble-shadow-small">
+                <div class="icon-big text-center icon-primary bubble-shadow-small">
                   <i class="fa-solid fa-money-bill"></i>
                 </div>
               </div>
@@ -28,8 +27,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-info bubble-shadow-small">
+                <div class="icon-big text-center icon-info bubble-shadow-small">
                   <i class="fa-solid fa-money-bill-trend-up"></i>
                 </div>
               </div>
@@ -49,8 +47,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-success bubble-shadow-small">
+                <div class="icon-big text-center icon-success bubble-shadow-small">
                   <i class="fa-solid fa-file-invoice-dollar"></i>
                 </div>
               </div>
@@ -70,8 +67,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-secondary bubble-shadow-small">
+                <div class="icon-big text-center icon-secondary bubble-shadow-small">
                   <i class="fa-solid fa-sack-dollar"></i>
                 </div>
               </div>
@@ -104,9 +100,7 @@
                 </div>
               </div>
               <div class="card-tools">
-                <a
-                  href="#"
-                  class="btn btn-label-success btn-round btn-sm me-2">
+                <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
                   <span class="btn-label">
                     <i class="fa fa-pencil"></i>
                   </span>
@@ -151,131 +145,39 @@
         <div class="card card-round">
           <div class="card-body">
             <div class="card-head-row card-tools-still-right">
-              <div class="card-title">Top product</div>
+              <div class="card-title">Top Selling Products</div>
               <div class="card-tools">
                 <div class="dropdown">
-                  <button
-                    class="btn btn-icon btn-clean me-0"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
+                  <button class="btn btn-icon btn-clean me-0" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-h"></i>
                   </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Refresh</a>
+                    <a class="dropdown-item" href="#">View All Products</a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-list py-4">
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="assets/img/jm_denis.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Jimmy Denis</div>
-                  <div class="status">Graphic Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white">CF</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Chandra Felix</div>
-                  <div class="status">Sales Promotion</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="assets/img/talha.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Talha</div>
-                  <div class="status">Front End Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="assets/img/chadengle.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Chad</div>
-                  <div class="status">CEO Zeleaf</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white bg-primary">H</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Hizrian</div>
-                  <div class="status">Web Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white bg-secondary">F</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Farrah</div>
-                  <div class="status">Marketing</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
+              <?php if (empty($orders)): ?>
+                <div class="alert alert-warning">No sales data available.</div>
+              <?php else: ?>
+                <?php foreach ($orders as $order): ?>
+                  <div class="item-list d-flex align-items-center mb-3">
+                    <div class="avatar">
+                      <img src="<?= htmlspecialchars($order['image'] ?: '/default-image.jpg'); ?>"
+                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle"
+                        style="width: 50px; height: 50px; object-fit: cover;" />
+                    </div>
+                    <div class="info-user ms-3">
+                      <div class="username fw-bold"><?= htmlspecialchars($order['item']); ?></div>
+                      <div class="status">Sold: <?= htmlspecialchars($order['quantity']); ?> units</div>
+                      <div class="status">Revenue: $<?= number_format($order['total_price'], 2); ?></div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </div>
           </div>
         </div>
@@ -451,7 +353,6 @@
     event.currentTarget.classList.add("active", "border-bottom", "border-3", "border-success");
   }
 </script>
-
 <script src="../views/assets/js/dist/jquery.js"></script>
 <script>
   var monthlyLabels = <?php echo json_encode($monthly_labels); ?>;
