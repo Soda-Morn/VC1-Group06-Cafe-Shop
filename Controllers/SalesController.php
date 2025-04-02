@@ -24,10 +24,21 @@ class SalesController extends BaseController
         $total_profit = $total_revenue - $total_expenses;
         $total_profit_formatted = number_format($total_profit, 0, '.', ',');
 
+        // Fetch weekly, monthly, and yearly revenue data
+        $weeklyRevenue = $this->sale->getWeeklyRevenue();
+        $monthlyRevenue = $this->sale->getMonthlyRevenue();
+        $yearlyRevenue = $this->sale->getYearlyRevenue();
+
         $data = [
             'total_revenue_formatted' => $total_revenue_formatted,
             'total_expenses_formatted' => $total_expenses_formatted,
-            'total_profit_formatted' => $total_profit_formatted
+            'total_profit_formatted' => $total_profit_formatted,
+            'weekly_labels' => $weeklyRevenue['labels'],
+            'weekly_data' => $weeklyRevenue['data'],
+            'monthly_labels' => $monthlyRevenue['labels'],
+            'monthly_data' => $monthlyRevenue['data'],
+            'yearly_labels' => $yearlyRevenue['labels'],
+            'yearly_data' => $yearlyRevenue['data']
         ];
         $this->view('dashboard/dashboard', $data);
     }
