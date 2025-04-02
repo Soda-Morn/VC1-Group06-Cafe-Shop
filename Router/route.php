@@ -100,7 +100,11 @@ $route->post("/Categories/update/{id}", [CategoriesController::class, 'update'])
 
 
 
-$route->post("/Profile_info", [Profile_infoController::class, 'index']);
+$route->get("/Profile_info", [Profile_infoController::class, 'index']);
+$route->get("/Profile_info/profile_edit", [Profile_infoController::class, 'edit']);
+$route->post("/Profile_info/profile_edit", [Profile_infoController::class, 'edit']);
+
+
 
 
 
