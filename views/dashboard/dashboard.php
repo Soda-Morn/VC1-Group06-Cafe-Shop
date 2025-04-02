@@ -281,145 +281,70 @@
         </div>
       </div>
     </div>
+    <!-- Recent Transactions -->
     <div class="row">
       <div class="col-md-12">
         <div class="card card-round">
           <div class="card-header">
             <div class="card-head-row card-tools-still-right">
-              <div class="card-title">Recent Transactions</div>
+              <div class="card-title">Product Low stock</div>
               <div class="card-tools">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-icon btn-clean me-0"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
           <div class="card-body p-0">
             <div class="table-responsive">
-              <!-- Projects table -->
+              <!-- Low Stock Products Table -->
               <table class="table align-items-center mb-0">
-                <thead class="thead-light">
+                <thead class="thead-light" style="background-color: #f5a623; color: white;">
                   <tr>
-                    <th scope="col">Payment Number</th>
-                    <th scope="col" class="text-end">Date & Time</th>
-                    <th scope="col" class="text-end">Amount</th>
-                    <th scope="col" class="text-end">Status</th>
+                    <th scope="col">NO</th>
+                    <th scope="col">IMAGE</th>
+                    <th scope="col">PRODUCTS</th>
+                    <th scope="col">DATE ADDED</th>
+                    <th scope="col">STOCK</th>
+                    <th scope="col">STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
+                  <?php
+                  // Fetch stock list using StockListModel (already instantiated in SalesController)
+                  $stockModel = new StockListModel();
+                  $stockList = $stockModel->getStockList();
+
+                  // Filter for low stock (quantity <= 5)
+                  $lowStockItems = array_filter($stockList, function ($item) {
+                    return $item['quantity'] <= 3; 
+                  });
+
+                  // Reindex array to ensure continuous numbering
+                  $lowStockItems = array_values($lowStockItems);
+
+                  // Check if there are low stock items
+                  if (empty($lowStockItems)) {
+                    echo '<tr><td colspan="6" class="text-center">No low stock products found.</td></tr>';
+                  } else {
+                    foreach ($lowStockItems as $index => $stock) {
+                      // Determine status and color
+                      $status = $stock['quantity'] == 0 ? 'Out of Stock' : 'Low Stock';
+                      $statusColor = $stock['quantity'] == 0 ? 'red' : 'orange';
+                  ?>
+                      <tr>
+                        <th scope="row"><?php echo $index + 1; ?></th>
+                        <td>
+                          <img src="<?php echo $stock['product_image'] ?? 'assets/img/default.jpg'; ?>" alt="Product Image" style="width: 40px; height: 40px; object-fit: cover;" />
+                        </td>
+                        <td><?php echo htmlspecialchars($stock['product_name']); ?></td>
+                        <td><?php echo date('F j, Y', strtotime($stock['date'])); ?></td>
+                        <td><?php echo $stock['quantity']; ?></td>
+                        <td style="color: <?php echo $statusColor; ?>;">
+                          <?php echo $status; ?>
+                        </td>
+                      </tr>
+                  <?php
+                    }
+                  }
+                  ?>
                 </tbody>
               </table>
             </div>
@@ -455,7 +380,7 @@
       animation: {
         duration: 1500, // Smooth transition duration (1.5 seconds)
         easing: 'easeInOutQuad', // Smooth easing effect
-        onComplete: function () {
+        onComplete: function() {
           // Optional: Add a subtle bounce effect after animation
           this.options.animation.duration = 500;
         }
@@ -552,7 +477,7 @@
       animation: {
         duration: 1500, // Smooth transition duration (1.5 seconds)
         easing: 'easeInOutQuad', // Smooth easing effect
-        onComplete: function () {
+        onComplete: function() {
           this.options.animation.duration = 500;
         }
       },
@@ -640,7 +565,7 @@
         animation: {
           duration: 1500, // Smooth transition duration (1.5 seconds)
           easing: 'easeInOutQuad', // Smooth easing effect
-          onComplete: function () {
+          onComplete: function() {
             this.options.animation.duration = 500;
           }
         },
