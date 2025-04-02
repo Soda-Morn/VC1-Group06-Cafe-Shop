@@ -14,6 +14,7 @@ require_once "Controllers/CardController.php";
 require_once "Controllers/RestockCheckoutController.php";
 require_once "Controllers/SupplierController.php";
 require_once "Controllers/CategoriesController.php";
+require_once "Controllers/Profile_infoController.php";
 
 $route = new Router();
 
@@ -87,6 +88,19 @@ $route->post("/Categories/store", [CategoriesController::class, 'store']);
 $route->post("/Categories/edit/{id}", [CategoriesController::class, 'edit']);
 $route->get("/Categories/delete/{id}", [CategoriesController::class, 'delete']);
 $route->post("/Categories/update/{id}", [CategoriesController::class, 'update']);
+
+
+
+
+
+
+
+
+
+
+
+
+$route->post("/Profile_info", [Profile_infoController::class, 'index']);
 
 
 
