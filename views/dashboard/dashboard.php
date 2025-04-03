@@ -159,7 +159,7 @@
                   <div class="item-list d-flex align-items-center mb-0">
                     <div class="avatar">
                       <img src="<?= htmlspecialchars($order['image'] ?: '/default-image.jpg'); ?>"
-                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle"
+                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle shadow "
                         style="width: 50px; height: 50px; object-fit: cover;" />
                     </div>
                     <div class="info-user ms-3">
