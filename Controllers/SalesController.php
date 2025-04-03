@@ -14,7 +14,7 @@ class SalesController extends BaseController
     public function index()
     {
         // Get top 6 products
-        $top_products = $this->sale->getTopProducts(6);
+        $top_products = $this->sale->getTopProducts(5);
 
         // Get financial data
         $total_revenue = $this->sale->getTotalRevenue();

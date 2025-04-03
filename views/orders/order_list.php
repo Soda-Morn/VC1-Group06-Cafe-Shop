@@ -203,7 +203,7 @@
                                     <th>Original Price</th>
                                     <th>Quantity</th>
                                     <th>Total Price</th>
-                                    <th>Date of Birth</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
