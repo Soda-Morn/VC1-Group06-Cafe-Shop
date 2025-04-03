@@ -140,6 +140,7 @@
           </div>
         </div>
       </div>
+      <!-- Top product -->
       <div class="col-md-4">
         <div class="card card-round">
           <div class="card-body">
@@ -266,11 +267,6 @@
     data: {
       labels: weeklyLabels, // Dynamic labels from controller
       datasets: [{
-        label: "Sales",
-        backgroundColor: "rgb(23, 125, 255)",
-        borderColor: "rgb(23, 125, 255)",
-        data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
-      },],
         label: "Revenue",
         backgroundColor: "#177dff", // Updated to match the image color
         borderColor: "#177dff",
@@ -301,7 +297,6 @@
               return '$' + value; // Add dollar sign to y-axis labels
             }
           },
-        },],
           gridLines: {
             color: 'rgba(200, 200, 200, 0.2)', // Light grid lines
             zeroLineColor: 'rgba(200, 200, 200, 0.5)'
