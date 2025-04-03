@@ -148,14 +148,6 @@
               <div class="card-title">Top Selling Products</div>
               <div class="card-tools">
                 <div class="dropdown">
-                  <button class="btn btn-icon btn-clean me-0" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Refresh</a>
-                    <a class="dropdown-item" href="#">View All Products</a>
-                  </div>
                 </div>
               </div>
             </div>
