@@ -159,12 +159,12 @@
                 </div>
               </div>
             </div>
-            <div class="card-list py-4">
+            <div class="card-list py-3">
               <?php if (empty($orders)): ?>
                 <div class="alert alert-warning">No sales data available.</div>
               <?php else: ?>
                 <?php foreach ($orders as $order): ?>
-                  <div class="item-list d-flex align-items-center mb-3">
+                  <div class="item-list d-flex align-items-center mb-0">
                     <div class="avatar">
                       <img src="<?= htmlspecialchars($order['image'] ?: '/default-image.jpg'); ?>"
                         alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle"
