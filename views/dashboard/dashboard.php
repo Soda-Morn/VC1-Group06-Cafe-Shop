@@ -7,8 +7,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-primary bubble-shadow-small">
+                <div class="icon-big text-center icon-primary bubble-shadow-small">
                   <i class="fa-solid fa-money-bill"></i>
                 </div>
               </div>
@@ -28,8 +27,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-info bubble-shadow-small">
+                <div class="icon-big text-center icon-info bubble-shadow-small">
                   <i class="fa-solid fa-money-bill-trend-up"></i>
                 </div>
               </div>
@@ -49,15 +47,14 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-success bubble-shadow-small">
-                  <i class="fa-solid fa-file-invoice-dollar"></i>
+                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                  <i class="fa-solid fa-boxes-stacked"></i>
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Sales</p>
-                  <h4 class="card-title">345</h4>
+                  <p class="card-category">Total Items Sold</p>
+                  <h4 class="card-title"><?php echo $data['total_quantity_sold']; ?></h4>
                 </div>
               </div>
             </div>
@@ -70,8 +67,7 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-secondary bubble-shadow-small">
+                <div class="icon-big text-center icon-secondary bubble-shadow-small">
                   <i class="fa-solid fa-sack-dollar"></i>
                 </div>
               </div>
@@ -86,12 +82,13 @@
         </div>
       </div>
     </div>
+    <!-- User_chart -->
     <div class="row ">
       <div class="col-md-8 ">
         <div class="card card-round">
           <div class="card-header">
             <div class="card-head-row gap-3">
-              <div class="card-title">User Statistics</div>
+              <div class="card-title">Sale Report</div>
               <div class="d-flex">
                 <div class="btn-group gap-1" role="group" aria-label="Time Period Selection">
                   <button class="btn btn-sm btn-outline-primary fw-bold active rounded-pill border-success"
@@ -103,9 +100,7 @@
                 </div>
               </div>
               <div class="card-tools">
-                <a
-                  href="#"
-                  class="btn btn-label-success btn-round btn-sm me-2">
+                <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
                   <span class="btn-label">
                     <i class="fa fa-pencil"></i>
                   </span>
@@ -145,279 +140,105 @@
           </div>
         </div>
       </div>
+      <!-- Top product -->
       <div class="col-md-4">
         <div class="card card-round">
           <div class="card-body">
             <div class="card-head-row card-tools-still-right">
-              <div class="card-title">New Customers</div>
+              <div class="card-title">Top Selling Products</div>
               <div class="card-tools">
                 <div class="dropdown">
-                  <button
-                    class="btn btn-icon btn-clean me-0"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
                 </div>
               </div>
             </div>
-            <div class="card-list py-4">
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="assets/img/jm_denis.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Jimmy Denis</div>
-                  <div class="status">Graphic Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white">CF</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Chandra Felix</div>
-                  <div class="status">Sales Promotion</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="assets/img/talha.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Talha</div>
-                  <div class="status">Front End Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="assets/img/chadengle.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Chad</div>
-                  <div class="status">CEO Zeleaf</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white bg-primary">H</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Hizrian</div>
-                  <div class="status">Web Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white bg-secondary">F</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Farrah</div>
-                  <div class="status">Marketing</div>
-                </div>
-                <button class="btn btn-icon btn-link op-8 me-1">
-                  <i class="far fa-envelope"></i>
-                </button>
-                <button class="btn btn-icon btn-link btn-danger op-8">
-                  <i class="fas fa-ban"></i>
-                </button>
-              </div>
+            <div class="card-list py-3">
+              <?php if (empty($orders)): ?>
+                <div class="alert alert-warning">No sales data available.</div>
+              <?php else: ?>
+                <?php foreach ($orders as $order): ?>
+                  <div class="item-list d-flex align-items-center mb-0">
+                    <div class="avatar">
+                      <img src="<?= htmlspecialchars($order['image'] ?: '/default-image.jpg'); ?>"
+                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle"
+                        style="width: 50px; height: 50px; object-fit: cover;" />
+                    </div>
+                    <div class="info-user ms-3">
+                      <div class="username fw-bold"><?= htmlspecialchars($order['item']); ?></div>
+                      <div class="status">Sold: <?= htmlspecialchars($order['quantity']); ?> units</div>
+                      <div class="status">Revenue: $<?= number_format($order['total_price'], 2); ?></div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Recent Transactions -->
     <div class="row">
       <div class="col-md-12">
         <div class="card card-round">
           <div class="card-header">
             <div class="card-head-row card-tools-still-right">
-              <div class="card-title">Recent Transactions</div>
+              <div class="card-title">Product Low stock</div>
               <div class="card-tools">
-                <div class="dropdown">
-                  <button
-                    class="btn btn-icon btn-clean me-0"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
           <div class="card-body p-0">
             <div class="table-responsive">
-              <!-- Projects table -->
+              <!-- Low Stock Products Table -->
               <table class="table align-items-center mb-0">
-                <thead class="thead-light">
+                <thead class="thead-light" style="background-color: #f5a623; color: white;">
                   <tr>
-                    <th scope="col">Payment Number</th>
-                    <th scope="col" class="text-end">Date & Time</th>
-                    <th scope="col" class="text-end">Amount</th>
-                    <th scope="col" class="text-end">Status</th>
+                    <th scope="col">NO</th>
+                    <th scope="col">IMAGE</th>
+                    <th scope="col">PRODUCTS</th>
+                    <th scope="col">DATE ADDED</th>
+                    <th scope="col">STOCK</th>
+                    <th scope="col">STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
+                  <?php
+                  // Fetch stock list using StockListModel (already instantiated in SalesController)
+                  $stockModel = new StockListModel();
+                  $stockList = $stockModel->getStockList();
+
+                  // Filter for low stock (quantity <= 5)
+                  $lowStockItems = array_filter($stockList, function ($item) {
+                    return $item['quantity'] <= 3;
+                  });
+
+                  // Reindex array to ensure continuous numbering
+                  $lowStockItems = array_values($lowStockItems);
+
+                  // Check if there are low stock items
+                  if (empty($lowStockItems)) {
+                    echo '<tr><td colspan="6" class="text-center">No low stock products found.</td></tr>';
+                  } else {
+                    foreach ($lowStockItems as $index => $stock) {
+                      // Determine status and color
+                      $status = $stock['quantity'] == 0 ? 'Out of Stock' : 'Low Stock';
+                      $statusColor = $stock['quantity'] == 0 ? 'red' : 'orange';
+                  ?>
+                      <tr>
+                        <th scope="row"><?php echo $index + 1; ?></th>
+                        <td>
+                          <img src="<?php echo $stock['product_image'] ?? 'assets/img/default.jpg'; ?>" alt="Product Image" style="width: 40px; height: 40px; object-fit: cover;" />
+                        </td>
+                        <td><?php echo htmlspecialchars($stock['product_name']); ?></td>
+                        <td><?php echo date('F j, Y', strtotime($stock['date'])); ?></td>
+                        <td><?php echo $stock['quantity']; ?></td>
+                        <td style="color: <?php echo $statusColor; ?>;">
+                          <?php echo $status; ?>
+                        </td>
+                      </tr>
+                  <?php
+                    }
+                  }
+                  ?>
                 </tbody>
               </table>
             </div>
@@ -427,44 +248,81 @@
     </div>
   </div>
 </div>
+
 <script src="../views/assets/js/plugin/chart.js/chart.min.js"></script>
 <script>
-  var myBarChart = new Chart(barChart, {
+  var weeklyLabels = <?php echo json_encode($weekly_labels); ?>;
+  var weeklyData = <?php echo json_encode($weekly_data); ?>;
 
+  var myBarChart = new Chart(barChart, {
     type: "bar",
     data: {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      labels: weeklyLabels, // Dynamic labels from controller
       datasets: [{
-        label: "Sales",
-        backgroundColor: "rgb(23, 125, 255)",
-        borderColor: "rgb(23, 125, 255)",
-        data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
-      }, ],
+        label: "Revenue",
+        backgroundColor: "#177dff", // Updated to match the image color
+        borderColor: "#177dff",
+        borderWidth: 1,
+        data: weeklyData, // Dynamic data from controller
+        barPercentage: 0.9, // Reduce gaps between bars
+        categoryPercentage: 0.9
+      }],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        duration: 1500, // Smooth transition duration (1.5 seconds)
+        easing: 'easeInOutQuad', // Smooth easing effect
+        onComplete: function() {
+          // Optional: Add a subtle bounce effect after animation
+          this.options.animation.duration = 500;
+        }
+      },
       scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true,
+            fontSize: 12,
+            fontColor: '#666',
+            callback: function(value) {
+              return '$' + value; // Add dollar sign to y-axis labels
+            }
           },
-        }, ],
+          gridLines: {
+            color: 'rgba(200, 200, 200, 0.2)', // Light grid lines
+            zeroLineColor: 'rgba(200, 200, 200, 0.5)'
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            fontSize: 12,
+            fontColor: '#666'
+          },
+          gridLines: {
+            display: false // Hide x-axis grid lines for cleaner look
+          }
+        }]
       },
-    },
+      plugins: {
+        legend: {
+          labels: {
+            fontSize: 14,
+            fontColor: '#333'
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFontSize: 14,
+          bodyFontSize: 12,
+          callbacks: {
+            label: function(tooltipItem) {
+              return 'Revenue: $' + tooltipItem.raw; // Customize tooltip
+            }
+          }
+        }
+      }
+    }
   });
 </script>
 
@@ -487,85 +345,168 @@
     event.currentTarget.classList.add("active", "border-bottom", "border-3", "border-success");
   }
 </script>
-
 <script src="../views/assets/js/dist/jquery.js"></script>
 <script>
+  var monthlyLabels = <?php echo json_encode($monthly_labels); ?>;
+  var monthlyData = <?php echo json_encode($monthly_data); ?>;
+
   var ctx = document.getElementById("singelBarChart");
   ctx.height = 160;
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ["Sun", "Mon", "Tu", "Wed", "Th", "Fri", "Sat"],
+      labels: monthlyLabels, // Dynamic labels from controller
       datasets: [{
-        label: "My First dataset",
-        data: [40, 55, 75, 81, 56, 55, 40],
-        borderColor: "rgba(0, 123, 255, 0.9)",
-        borderWidth: "0",
-        backgroundColor: "rgba(0, 123, 255, 0.5)"
+        label: "Revenue",
+        data: monthlyData, // Dynamic data from controller
+        borderColor: "#177dff", // Updated to match the image color
+        borderWidth: 1,
+        backgroundColor: "#177dff", // Updated to match the image color
+        barPercentage: 0.9, // Reduce gaps between bars
+        categoryPercentage: 0.9
       }]
     },
     options: {
+      animation: {
+        duration: 1500, // Smooth transition duration (1.5 seconds)
+        easing: 'easeInOutQuad', // Smooth easing effect
+        onComplete: function() {
+          this.options.animation.duration = 500;
+        }
+      },
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            fontSize: 12,
+            fontColor: '#666',
+            callback: function(value) {
+              return '$' + value; // Add dollar sign to y-axis labels
+            }
+          },
+          gridLines: {
+            color: 'rgba(200, 200, 200, 0.2)',
+            zeroLineColor: 'rgba(200, 200, 200, 0.5)'
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            fontSize: 12,
+            fontColor: '#666'
+          },
+          gridLines: {
+            display: false
           }
         }]
+      },
+      plugins: {
+        legend: {
+          labels: {
+            fontSize: 14,
+            fontColor: '#333'
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFontSize: 14,
+          bodyFontSize: 12,
+          callbacks: {
+            label: function(tooltipItem) {
+              return 'Revenue: $' + tooltipItem.raw;
+            }
+          }
+        }
       }
     }
   });
 </script>
-<!-- years of dashbouth -->
+
+<!-- years of dashboard -->
 <script src="../views/assets/js/dashboard-1.js"></script>
 <script src="../views/assets/js/dashboard-js/rephael.min.js"></script>
 <script src="../views/assets/js/dashboard-js/morris.min.js"></script>
-
 
 <script src="../views/assets/js/dist/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
   $(document).ready(function() {
+    var yearlyLabels = <?php echo json_encode($yearly_labels); ?>;
+    var yearlyData = <?php echo json_encode($yearly_data); ?>;
+
     var ctx = document.getElementById("morris-bar-chart").getContext("2d");
 
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ["2020", "2021", "2022", "2023", "2024", "2025", "2026"],
+        labels: yearlyLabels, // Dynamic labels from controller
         datasets: [{
-          label: "Sales Data",
-          data: [40, 55, 75, 81, 56, 55, 40],
-          borderColor: "rgba(14, 66, 122, 0.9)",
+          label: "Revenue",
+          data: yearlyData, // Dynamic data from controller
+          borderColor: "#177dff", // Updated to match the image color
           borderWidth: 1,
-          backgroundColor: "rgba(13, 87, 167, 0.82)",
-          hoverBackgroundColor: "rgba(25, 96, 172, 0.7)",
-          hoverBorderColor: "rgb(23, 76, 132)",
+          backgroundColor: "#177dff", // Updated to match the image color
+          hoverBackgroundColor: "#177dff",
+          hoverBorderColor: "#177dff",
+          barPercentage: 0.9, // Reduce gaps between bars
+          categoryPercentage: 0.9
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: {
+          duration: 1500, // Smooth transition duration (1.5 seconds)
+          easing: 'easeInOutQuad', // Smooth easing effect
+          onComplete: function() {
+            this.options.animation.duration = 500;
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
+              fontSize: 12,
+              fontColor: '#666',
               callback: function(value) {
-                return value + ' units';
+                return '$' + value; // Add dollar sign instead of 'units'
               }
+            },
+            gridLines: {
+              color: 'rgba(200, 200, 200, 0.2)',
+              zeroLineColor: 'rgba(200, 200, 200, 0.5)'
             }
           },
           x: {
             title: {
               display: true,
-              text: 'Years'
+              text: 'Years',
+              fontSize: 14,
+              fontColor: '#333'
+            },
+            ticks: {
+              fontSize: 12,
+              fontColor: '#666'
+            },
+            gridLines: {
+              display: false
             }
-          },
+          }
         },
         plugins: {
+          legend: {
+            labels: {
+              fontSize: 14,
+              fontColor: '#333'
+            }
+          },
           tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            titleFontSize: 14,
+            bodyFontSize: 12,
             callbacks: {
               label: function(tooltipItem) {
-                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' units';
+                return 'Revenue: $' + tooltipItem.raw; // Customize tooltip
               }
             }
           }
