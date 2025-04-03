@@ -132,18 +132,20 @@ class CardController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cartData = $_POST['cart'] ?? [];
             $cartItems = $_SESSION['cart'] ?? [];
-
+            error_log("Cart Items in checkout(): " . json_encode($cartItems)); // Log cart items
+            error_log("Cart Data from POST: " . json_encode($cartData)); // Log POST data
+    
             if (!empty($cartItems)) {
                 try {
                     $saleId = $this->model->createNewSale();
                     $consolidatedItems = [];
                     $totalPrice = 0;
-
+    
                     foreach ($cartItems as $index => $item) {
                         $productId = $item['product_ID'];
                         $quantity = isset($cartData[$index]['quantity']) ? (int)$cartData[$index]['quantity'] : (int)$item['quantity'];
                         $price = $item['price'];
-
+    
                         if (isset($consolidatedItems[$productId])) {
                             $consolidatedItems[$productId]['quantity'] += $quantity;
                         } else {
@@ -155,28 +157,34 @@ class CardController extends BaseController {
                         }
                         $totalPrice += $price * $quantity;
                     }
-
+    
                     foreach ($consolidatedItems as $item) {
                         $productId = $item['product_id'];
                         $quantity = $item['quantity'];
-
+    
                         if ($productId && $quantity > 0) {
                             $this->model->addSaleItem($saleId, $productId, $quantity);
                         }
                     }
-
+    
                     $this->model->updateSaleTotalPrice($saleId, $totalPrice);
                     $_SESSION['cart'] = [];
+    
+                    // Notify admin via Telegram
+                    $this->notifyAdminViaTelegram($saleId);
+    
                     $this->redirect('/order_list?success=Checkout completed successfully'); // Updated route
                 } catch (Exception $e) {
                     error_log("Checkout failed: " . $e->getMessage());
                     $this->redirect('/order_list?error=Checkout failed: ' . urlencode($e->getMessage())); // Updated route
                 }
             } else {
+                error_log("Cart is empty during checkout.");
                 $this->redirect('/order_list?error=Cart is empty'); // Updated route
             }
         }
     }
+
     public function orderList() { // New method for /order_list route
         $orders = $this->model->getAllOrders(); // Fetch orders
         $this->view('/order/order_list', [
@@ -184,6 +192,16 @@ class CardController extends BaseController {
             'error' => $_GET['error'] ?? '',
             'success' => $_GET['success'] ?? ''
         ]);
+    }
+
+    // New helper method to notify admin via Telegram
+    private function notifyAdminViaTelegram($saleId) {
+        // URL of the Telegram bot script
+        $telegramBotUrl = 'http://localhost:127.0.0.1/cafe/telegram_bot.php'; // Adjust this to your server URL
+        // Call the Telegram bot script with the sale_id
+        $response = file_get_contents("{$telegramBotUrl}?sale_id={$saleId}");
+        // Log the response for debugging
+        error_log("Telegram Bot Response for sale_id {$saleId}: " . $response);
     }
 }
 ?>
