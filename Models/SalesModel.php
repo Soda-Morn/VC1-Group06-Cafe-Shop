@@ -33,7 +33,6 @@ class SalesModel
                 ORDER BY 
                     SUM(si.quantity) DESC
                 LIMIT " . (int)$limit;
-            
             $stmt = $this->db->query($query);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -135,5 +134,17 @@ class SalesModel
             $data[] = $row['total_revenue'];
         }
         return ['labels' => $labels, 'data' => $data];
+    }
+    public function getTotalQuantitySold()
+    {
+        try {
+            $sql = "SELECT SUM(quantity) AS total_quantity FROM sale_items";
+            $stmt = $this->db->query($sql);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['total_quantity'] ?? 0;
+        } catch (PDOException $e) {
+            error_log("Error fetching total quantity sold: " . $e->getMessage());
+            return 0;
+        }
     }
 }
