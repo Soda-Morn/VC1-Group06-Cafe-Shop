@@ -146,6 +146,7 @@ class CardModel {
             throw $e;
         }
     }
+
     public function getAllOrders() {
         $query = "
             SELECT 
@@ -159,7 +160,7 @@ class CardModel {
             FROM sale_items si
             JOIN products p ON si.product_id = p.product_ID
             JOIN sales s ON si.sale_id = s.sale_id
-            ORDER BY s.sale_date DESC"; // Order by date descending to get newest first
+            ORDER BY s.sale_date DESC";
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
