@@ -33,7 +33,6 @@ class SalesModel
                 ORDER BY 
                     SUM(si.quantity) DESC
                 LIMIT " . (int)$limit;
-
             $stmt = $this->db->query($query);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

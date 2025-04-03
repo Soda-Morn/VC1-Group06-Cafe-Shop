@@ -37,6 +37,30 @@ class OrderListModel {
         }
     }
 
+    // Updated method to fetch sale_date as a placeholder for DOB
+    public function getCustomerDOBs() {
+        try {
+            $query = "
+                SELECT 
+                    s.sale_id,
+                    s.sale_date AS date_of_birth  -- Using sale_date as a placeholder for DOB
+                FROM 
+                    sales s
+            ";
+            $stmt = $this->db->query($query);
+            $dobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // Return an associative array with sale_id as the key and sale_date as the value
+            $dobArray = [];
+            foreach ($dobs as $dob) {
+                $dobArray[$dob['sale_id']] = $dob['date_of_birth'];
+            }
+            return $dobArray;
+        } catch (PDOException $e) {
+            error_log("Error fetching sale dates: " . $e->getMessage());
+            return [];
+        }
+    }
+
     public function __destruct() {
         $this->db = null;
     }

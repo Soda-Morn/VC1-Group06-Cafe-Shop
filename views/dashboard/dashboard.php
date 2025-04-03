@@ -159,7 +159,7 @@
                   <div class="item-list d-flex align-items-center mb-0">
                     <div class="avatar">
                       <img src="<?= htmlspecialchars($order['image'] ?: '/default-image.jpg'); ?>"
-                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle"
+                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle shadow "
                         style="width: 50px; height: 50px; object-fit: cover;" />
                     </div>
                     <div class="info-user ms-3">
@@ -208,7 +208,7 @@
 
                   // Filter for low stock (quantity <= 5)
                   $lowStockItems = array_filter($stockList, function ($item) {
-                    return $item['quantity'] <= 3;
+                    return $item['quantity'] <= 3; 
                   });
 
                   // Reindex array to ensure continuous numbering

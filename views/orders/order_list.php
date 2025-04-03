@@ -60,7 +60,7 @@
         }
 
         .table thead th {
-         background-color:  #f97316;
+            background-color: #f97316;
             /* Warm orange gradient */
             color: white;
             border: none;
@@ -70,7 +70,7 @@
             font-size: 0.9rem;
             letter-spacing: 1.2px;
             position: sticky;
-            
+
         }
 
         .table tbody tr {
@@ -186,66 +186,75 @@
 <body>
     <div class="container">
         <div class="table mt-1">
-        <?php if (isset($_GET['error'])): ?>
-            <div class="alert alert-danger">
-                <?= htmlspecialchars($_GET['error']) ?>
-            </div>
-        <?php endif; ?>
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                    <h2 class="mt-0 text-left">Order List</h2>
-                        <thead class="table-dark">
-                            <tr>
-                                <th>NO</th>
-                                <th >Item</th>
-                                <th>Original Price</th>
-                                <th>Quantity</th>
-                                <th>Total Price</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($orders)): ?>
-                                <?php
-                                // Sort orders by ID in descending order (if they have an 'id' field)
-                                usort($orders, function ($a, $b) {
-                                    return $b['id'] - $a['id']; // Sorting by newest order first
-                                });
-
-                                $index = 1; // Start index from 1
-                                foreach ($orders as $order):
-                                ?>
-                                    <tr>
-                                        <td><?= $index++ ?></td>
-                                        <td class="text-start">
-                                            <?php
-                                            // Define the base path for images
-                                            $imagePath = !empty($order['image']) && file_exists(__DIR__ . '/../../' . $order['image'])
-                                                ? htmlspecialchars($order['image'])
-                                                : 'views/assets/img/product_detail/coffee.png';
-                                            ?>
-                                            <img src="<?= $imagePath ?>" class="rounded-circle" alt="Product Image">
-                                            <span class="ms-2 "><?= htmlspecialchars($order['item']) ?></span>
-                                        </td>
-                                        <td>$<?= htmlspecialchars($order['original_price']) ?></td>
-                                        <td><?= htmlspecialchars($order['quantity']) ?></td>
-                                        <td>$<?= htmlspecialchars($order['total_price']) ?></td>
-                                        <td><span class="badge bg-success"><?= htmlspecialchars($order['status']) ?></span></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
+            <?php if (isset($_GET['error'])): ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($_GET['error']) ?>
+                </div>
+            <?php endif; ?>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <h2 class="mt-0 text-left">Order List</h2>
+                            <thead class="table-dark">
                                 <tr>
-                                    <td colspan="6" class="text-center">No orders found.</td>
+                                    <th>NO</th>
+                                    <th>Item</th>
+                                    <th>Original Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    <th>Date of Birth</th>
+                                    <th>Status</th>
                                 </tr>
-                            <?php endif; ?>
-                        </tbody>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($orders)): ?>
+                                    <?php
+                                    // Sort orders by ID in descending order (if they have an 'id' field)
+                                    usort($orders, function ($a, $b) {
+                                        return $b['id'] - $a['id']; // Sorting by newest order first
+                                    });
 
-                    </table>
+                                    $index = 1; // Start index from 1
+                                    foreach ($orders as $order):
+                                        ?>
+                                        <tr>
+                                            <td><?= $index++ ?></td>
+                                            <td class="text-start">
+                                                <?php
+                                                // Define the base path for images
+                                                $imagePath = !empty($order['image']) && file_exists(__DIR__ . '/../../' . $order['image'])
+                                                    ? htmlspecialchars($order['image'])
+                                                    : 'views/assets/img/product_detail/coffee.png';
+                                                ?>
+                                                <img src="<?= $imagePath ?>" class="rounded-circle" alt="Product Image">
+                                                <span class="ms-2 "><?= htmlspecialchars($order['item']) ?></span>
+                                            </td>
+                                            <td>$<?= htmlspecialchars($order['original_price']) ?></td>
+                                            <td><?= htmlspecialchars($order['quantity']) ?></td>
+                                            <td>$<?= htmlspecialchars($order['total_price']) ?></td>
+                                            <td>
+                                                <?php
+                                                // Format the sale_date (used as DOB) to a readable format
+                                                echo $order['date_of_birth'] !== 'N/A'
+                                                    ? (new DateTime($order['date_of_birth']))->format('F d, Y')
+                                                    : 'N/A';
+                                                ?>
+                                            </td>
+                                            <td><span class="badge bg-success"><?= htmlspecialchars($order['status']) ?></span>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="7" class="text-center">No orders found.</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </body>
