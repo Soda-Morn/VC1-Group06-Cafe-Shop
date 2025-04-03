@@ -14,7 +14,7 @@ class SalesController extends BaseController
     public function index()
     {
         // Get top 6 products
-        $top_products = $this->sale->getTopProducts(6);
+        $top_products = $this->sale->getTopProducts(5);
 
         // Get financial data
         $total_revenue = $this->sale->getTotalRevenue();
@@ -31,6 +31,9 @@ class SalesController extends BaseController
         $monthlyRevenue = $this->sale->getMonthlyRevenue();
         $yearlyRevenue = $this->sale->getYearlyRevenue();
 
+        // Get total quantity sold
+        $total_quantity_sold = $this->sale->getTotalQuantitySold();
+
         // Combine all data into a single array
         $data = [
             'orders' => $top_products,
@@ -43,6 +46,7 @@ class SalesController extends BaseController
             'monthly_data' => $monthlyRevenue['data'],
             'yearly_labels' => $yearlyRevenue['labels'],
             'yearly_data' => $yearlyRevenue['data'],
+            'total_quantity_sold' => $total_quantity_sold, // Add this
             'error' => $_GET['error'] ?? '',
             'success' => $_GET['success'] ?? ''
         ];
