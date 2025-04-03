@@ -47,14 +47,14 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div class="icon-big text-center icon-success bubble-shadow-small">
-                  <i class="fa-solid fa-file-invoice-dollar"></i>
+                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                  <i class="fa-solid fa-boxes-stacked"></i>
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Sales</p>
-                  <h4 class="card-title">345</h4>
+                  <p class="card-category">Total Items Sold</p>
+                  <h4 class="card-title"><?php echo $data['total_quantity_sold']; ?></h4>
                 </div>
               </div>
             </div>
@@ -148,26 +148,18 @@
               <div class="card-title">Top Selling Products</div>
               <div class="card-tools">
                 <div class="dropdown">
-                  <button class="btn btn-icon btn-clean me-0" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Refresh</a>
-                    <a class="dropdown-item" href="#">View All Products</a>
-                  </div>
                 </div>
               </div>
             </div>
-            <div class="card-list py-4">
+            <div class="card-list py-3">
               <?php if (empty($orders)): ?>
                 <div class="alert alert-warning">No sales data available.</div>
               <?php else: ?>
                 <?php foreach ($orders as $order): ?>
-                  <div class="item-list d-flex align-items-center mb-3">
+                  <div class="item-list d-flex align-items-center mb-0">
                     <div class="avatar">
                       <img src="<?= htmlspecialchars($order['image'] ?: '/default-image.jpg'); ?>"
-                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle"
+                        alt="<?= htmlspecialchars($order['item']); ?>" class="avatar-img rounded-circle shadow "
                         style="width: 50px; height: 50px; object-fit: cover;" />
                     </div>
                     <div class="info-user ms-3">
