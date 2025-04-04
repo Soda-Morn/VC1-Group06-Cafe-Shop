@@ -174,7 +174,7 @@
             <td>
               <!-- Three Dots Dropdown -->
               <div class="dropdown">
-                <button class="three-dots" aria-expanded="false" data-bs-toggle="dropdown">
+                <button class="three-dots" type="button" aria-expanded="false" data-bs-toggle="dropdown">
                   <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -193,9 +193,48 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
-  <!-- JavaScript for Search Functionality -->
+  <!-- JavaScript for Search Functionality and Dropdown Fix -->
   <script>
+    // Fallback to manually toggle dropdown if Bootstrap's automatic toggle fails
     document.addEventListener('DOMContentLoaded', function() {
+      const dropdownButtons = document.querySelectorAll('.three-dots');
+      dropdownButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const dropdownMenu = this.nextElementSibling; // The <ul class="dropdown-menu">
+          const isVisible = dropdownMenu.classList.contains('show');
+          
+          // Close all other open dropdowns
+          document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            if (menu !== dropdownMenu) {
+              menu.classList.remove('show');
+            }
+          });
+
+          // Toggle the current dropdown
+          if (!isVisible) {
+            dropdownMenu.classList.add('show');
+            this.setAttribute('aria-expanded', 'true');
+          } else {
+            dropdownMenu.classList.remove('show');
+            this.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideDropdown = event.target.closest('.dropdown');
+        if (!isClickInsideDropdown) {
+          document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+          });
+          document.querySelectorAll('.three-dots[aria-expanded="true"]').forEach(button => {
+            button.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      // Existing search functionality
       const searchInput = document.getElementById('supplier-search');
       const supplierItems = document.querySelectorAll('.supplier-item');
 
@@ -211,6 +250,7 @@
       searchInput.addEventListener('input', filterSuppliers);
     });
   </script>
+
   <script>
   // Define translations for Suppliers List page
   const suppliersListTranslations = {
