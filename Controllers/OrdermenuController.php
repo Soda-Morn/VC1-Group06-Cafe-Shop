@@ -57,4 +57,50 @@ class OrdermenuController extends BaseController
             $this->redirect('/order_menu');
         }
     }
+
+    function destroy($product_ID)
+    {
+        // Set headers for JSON response
+        header('Content-Type: application/json');
+
+        try {
+            // Validate the product ID
+            if (!$product_ID || !is_numeric($product_ID)) {
+                throw new Exception('Invalid product ID');
+            }
+
+            // Check if the product exists
+            $product = $this->model->getProduct($product_ID);
+            if (!$product) {
+                throw new Exception('Product not found');
+            }
+
+            // Delete the product image if it exists
+            if ($product['image'] && file_exists($product['image'])) {
+                unlink($product['image']);
+            }
+
+            // Delete the product from the database
+            $result = $this->model->deleteProduct($product_ID);
+            if (!$result) {
+                throw new Exception('Failed to delete product from database');
+            }
+
+            // Return success response
+            echo json_encode([
+                'success' => true,
+                'message' => 'Product deleted successfully'
+            ]);
+        } catch (Exception $e) {
+            // Log the error for debugging
+            error_log("Error deleting product: " . $e->getMessage());
+
+            // Return error response
+            http_response_code(500); // Set HTTP status code to 500 (Internal Server Error)
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
 }

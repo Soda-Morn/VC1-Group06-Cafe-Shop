@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,10 +11,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* Header Styles */
-    .container h1 { 
-        margin-top: 5px; 
-        margin-left: 10px;
-        font-size: 1.8rem; /* Smaller font size */
+    .container h1 {
+      margin-top: 5px;
+      margin-left: 10px;
+      font-size: 1.8rem;
+      /* Smaller font size */
     }
 
     /* Header and Search Container */
@@ -21,75 +23,98 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px; /* Reduced margin */
+      margin-bottom: 20px;
+      /* Reduced margin */
       margin-top: 25px;
-      margin-right: 10px; /* Reduced margin */
+      margin-right: 10px;
+      /* Reduced margin */
     }
 
     /* Button Styles */
     .btn {
-        font-size: 0.9rem; /* Smaller font size */
-        padding: 7px 15px; /* Smaller padding */
-        border-radius: 5px;
-        color: #fff;
-        text-decoration: none;
-        background-color: rgb(183, 90, 23);
+      font-size: 0.9rem;
+      /* Smaller font size */
+      padding: 7px 15px;
+      /* Smaller padding */
+      border-radius: 5px;
+      color: #fff;
+      text-decoration: none;
+      background-color: rgb(183, 90, 23);
     }
+
     .btn:hover {
-        background-color: rgb(160, 80, 20); 
+      background-color: rgb(160, 80, 20);
     }
 
     /* Search Bar Styles */
     .search-input-container {
       position: relative;
     }
+
     .search-input {
-        border-radius: 5px;
-        border: 1px solid rgb(203, 198, 198);
-        padding: 6px 10px 6px 30px; /* Smaller padding */
-        width: 180px; /* Smaller width */
-        font-size: 1rem; /* Smaller font size */
-        height: 35px; /* Smaller height */
-        background-color: white;
+      border-radius: 5px;
+      border: 1px solid rgb(203, 198, 198);
+      padding: 6px 10px 6px 30px;
+      /* Smaller padding */
+      width: 180px;
+      /* Smaller width */
+      font-size: 1rem;
+      /* Smaller font size */
+      height: 35px;
+      /* Smaller height */
+      background-color: white;
     }
 
     .search-input:focus {
-        outline: none;
+      outline: none;
     }
-    .search-input-container{
-      margin-right: 10px; /* Reduced margin */
+
+    .search-input-container {
+      margin-right: 10px;
+      /* Reduced margin */
     }
 
     /* Search Icon */
     .search-icon {
-        position: absolute;
-        left: 8px; /* Adjusted position */
-        top: 50%;
-        transform: translateY(-50%);
+      position: absolute;
+      left: 8px;
+      /* Adjusted position */
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     /* Table Styles */
-    .table {
-      background-color: #f8f9fa;
-      color: #333;
-      border: 1px solid #ddd;
-      width: 98%; /* Adjusted width */
-      border-collapse: collapse;
-      margin-right: 10px; /* Reduced margin */
-    }
+     .table-responsive {
+           
+            overflow-x: auto;
+            background: #fff;
+            /* box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0); */
+            /* Subtle inner shadow */
+        }
+
+        .table {
+            margin-bottom: 0;
+            border-collapse: collapse;
+            font-size: 1rem;
+            color: #333;
+        }
     .table thead {
       background-color: orange;
+      border-radius: 10px;
       color: white;
       text-align: center;
     }
+
     .table tbody tr {
       background-color: #f4f4f4;
       text-align: center;
     }
+
     .table thead th {
-        background-color: #007bff;
-        color: white;
-        font-size: 0.9rem; /* Smaller font size */
+      background-color:  #f97316;
+      color: white;
+      font-size: 0.9rem;
+      /* Smaller font size */
     }
 
     /* Dropdown Styles */
@@ -100,15 +125,18 @@
     .three-dots {
       border: none;
       background-color: transparent;
-      font-size: 1.2rem; /* Smaller font size */
+      font-size: 1.2rem;
+      /* Smaller font size */
       cursor: pointer;
       color: #333;
     }
+
     .three-dots:focus {
       color: rgb(183, 90, 23);
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- Header with Search and Create Button -->
@@ -128,7 +156,7 @@
     <table class="table table-striped table-sm m-3">
       <thead>
         <tr>
-          <th>Id</th>
+          <th>NO</th>
           <th>Name</th>
           <th>Phone Number</th>
           <th>Address</th>
@@ -173,7 +201,7 @@
 
       function filterSuppliers() {
         const searchTerm = searchInput.value.toLowerCase().trim();
-        
+
         supplierItems.forEach(item => {
           const supplierName = item.querySelector('td:nth-child(2)').textContent.toLowerCase();
           item.style.display = supplierName.includes(searchTerm) ? '' : 'none';
@@ -184,4 +212,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -9,7 +9,7 @@
     name="viewport" />
   <link
     rel="icon"
-    href="views/assets/img/kaiadmin/favicon.ico"
+    href="../../views/assets/images/logo.png"
     type="image/x-icon" />
 
   <!-- Fonts and icons -->
@@ -45,12 +45,12 @@
   <link rel="stylesheet" href="../views/assets/css/plugins.min.css" />
   <link rel="stylesheet" href="../views/assets/css/kaiadmin.min.css" />
   <link rel="stylesheet" href="../views/assets/css/productlist.css">
-  
+  <link rel="stylesheet" href="../views/assets/css/Categories.css">
+
 
   <!-- <link rel="stylesheet" href="../../views/assets/css/order_menu.css"> -->
   <!-- Adding Font Awesome for icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-
 <body>
