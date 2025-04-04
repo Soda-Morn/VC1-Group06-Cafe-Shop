@@ -17,7 +17,6 @@
             background-color: #ffffff;
             color: #333;
             line-height: 1.5;
-            padding: 20px;
         }
         
         .form-container {
@@ -27,6 +26,7 @@
             margin: 50px auto;
             padding: 20px;
             border-radius: 12px;
+            margin-top: 100px;
         }
         
         .form-header {
@@ -167,6 +167,9 @@
         </form>
     </div>
 
+</body>
+</html>
+
     <script>
         const fileInput = document.getElementById('file-input');
         const previewImage = document.getElementById('preview-image');
@@ -242,4 +245,3 @@
             }
         });
     </script>
-</div>

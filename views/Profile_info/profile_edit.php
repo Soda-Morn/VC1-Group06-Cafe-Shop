@@ -4,10 +4,16 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['admin_ID'])) {
-  // Redirect to the login page if not logged in
-  header('Location: /login.php');
-  exit();
+    // Redirect to the login page if not logged in
+    header('Location: /login.php');
+    exit();
 }
+
+// Include the UserModel
+require_once "Models/UserModel.php";
+
+// Create UserModel instance
+$userModel = new UserModel();
 
 // User data from session
 $userName = $_SESSION['name'] ?? 'User';
@@ -16,30 +22,61 @@ $profilePicture = $_SESSION['profile_picture'] ?? 'default-avatar.png';
 
 // Handle form submission to update profile
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $newName = $_POST['name'] ?? '';
-    $newEmail = $_POST['email'] ?? '';
+    $newName = trim(htmlspecialchars($_POST['name'] ?? ''));
+    $newEmail = trim(htmlspecialchars($_POST['email'] ?? ''));
     $newProfilePicture = $_FILES['profile_picture'] ?? null;
 
     // Validate the inputs
-    if (!empty($newName)) {
-        $_SESSION['name'] = $newName;
-    }
-    if (!empty($newEmail)) {
-        $_SESSION['email'] = $newEmail;
-    }
+    if (empty($newName) || empty($newEmail)) {
+        $error = "Name and email are required!";
+    } else {
+        // Check if email is already taken by another user
+        $existingUser = $userModel->getUserByEmail($newEmail);
+        if ($existingUser && $existingUser['admin_ID'] != $_SESSION['admin_ID']) {
+            $error = "Email is already in use by another account!";
+        } else {
+            $profilePicturePath = $profilePicture;
+            
+            // Handle profile picture upload
+            if ($newProfilePicture && $newProfilePicture['error'] === 0) {
+                $uploadDir = 'uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+                $fileName = time() . '_' . basename($newProfilePicture['name']);
+                $uploadFile = $uploadDir . $fileName;
+                
+                if (move_uploaded_file($newProfilePicture['tmp_name'], $uploadFile)) {
+                    $profilePicturePath = $uploadFile;
+                    // Delete old profile picture if it exists and isn't the default
+                    if ($profilePicture !== 'default-avatar.png' && file_exists($profilePicture)) {
+                        unlink($profilePicture);
+                    }
+                }
+            }
 
-    // Handle profile picture upload
-    if ($newProfilePicture && $newProfilePicture['error'] === 0) {
-        $uploadDir = 'uploads/';
-        $uploadFile = $uploadDir . basename($newProfilePicture['name']);
-        if (move_uploaded_file($newProfilePicture['tmp_name'], $uploadFile)) {
-            $_SESSION['profile_picture'] = $uploadFile;
+            // Update the user in the database
+            $result = $userModel->updateUser(
+                $_SESSION['admin_ID'],
+                $newName,
+                $newEmail,
+                null, // Password not included in this form, so null
+                $profilePicturePath
+            );
+
+            if ($result) {
+                // Update session variables
+                $_SESSION['name'] = $newName;
+                $_SESSION['email'] = $newEmail;
+                $_SESSION['profile_picture'] = $profilePicturePath;
+                
+                header('Location: /Profile_info');
+                exit();
+            } else {
+                $error = "Failed to update profile. Please try again.";
+            }
         }
     }
-
-    // Redirect to profile page after updating
-    header('Location: /Profile_info');
-    exit();
 }
 ?>
 
@@ -113,6 +150,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transform: translateY(1px);
         }
 
+        .error-message {
+            color: #d84315;
+            margin-bottom: 15px;
+        }
+
         /* Responsiveness */
         @media (max-width: 768px) {
             .profile-edit-container {
@@ -135,10 +177,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="profile-edit-container">
     <h2>Edit Profile</h2>
 
+    <?php if (isset($error)): ?>
+        <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+    <?php endif; ?>
+
     <form method="POST" enctype="multipart/form-data">
         <!-- Profile Picture -->
         <div class="form-group">
-        <div class="profile-preview">
+            <div class="profile-preview">
                 <img id="preview" src="<?php echo htmlspecialchars($profilePicture); ?>" >
             </div>
             <label for="profile_picture">Profile Picture</label>

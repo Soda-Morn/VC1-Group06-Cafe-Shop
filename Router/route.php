@@ -3,7 +3,6 @@ require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
 require_once "Controllers/LoginController.php";
-require_once "Controllers/DashboardController.php";
 require_once "Controllers/StocklistController.php";
 require_once "Controllers/LoginRegisterController.php";
 require_once "Controllers/UserController.php";
@@ -15,11 +14,13 @@ require_once "Controllers/RestockCheckoutController.php";
 require_once "Controllers/SupplierController.php";
 require_once "Controllers/CategoriesController.php";
 require_once "Controllers/Profile_infoController.php";
+require_once "Controllers/SalesController.php";
 
 $route = new Router();
 
 // Dashboard
-$route->get("/dashboard", [DashboardController::class, 'index']);
+$route->get("/dashboard", [SalesController::class, 'index']);
+
 // login and register
 $route->get("/", [UserController::class, 'login']);
 $route->get("/register", [UserController::class, 'register']);
@@ -72,6 +73,7 @@ $route->get('/stocklist', [StocklistController::class, 'stocklist']);
 $route->get('/stocklist/edit/{id}', [StocklistController::class, 'edit']);
 $route->post('/stocklist/update/{id}', [StocklistController::class, 'update']);
 $route->post('/stocklist/delete/{id}', [StocklistController::class, 'delete']);
+$route->get('/stocklist/viewDetails/{id}', [StocklistController::class, 'viewDetails']);
 
 //supplier
 $route->get('/suppliers', [SupplierController::class, 'index']);
@@ -82,6 +84,7 @@ $route->get('/suppliers/edit/{id}', [SupplierController::class, 'edit']);
 $route->post('/suppliers/update/{id}', [SupplierController::class, 'update']);
 $route->get('/suppliers/delete/{id}', [SupplierController::class, 'delete']);
 
+//Category
 $route->get("/Categories", [CategoriesController::class, 'index']);
 $route->get("/Categories/create", [CategoriesController::class, 'create']);
 $route->post("/Categories/store", [CategoriesController::class, 'store']);

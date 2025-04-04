@@ -1,5 +1,6 @@
 <?php
 require_once "Models/CategoriesModel.php";
+require_once 'BaseController.php';
 
 class CategoriesController extends BaseController {
     private $categories;

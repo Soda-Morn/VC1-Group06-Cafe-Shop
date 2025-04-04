@@ -82,4 +82,22 @@ class RestockCheckoutModel
 
         return true;
     }
+
+    /**
+     * Insert a new purchase record with the total price
+     */
+    public function insertPurchase($totalPrice)
+    {
+        $query = "INSERT INTO purchases (total_price, date) 
+                  VALUES (:total_price, NOW())";
+        try {
+            $this->db->query($query, [
+                'total_price' => $totalPrice
+            ]);
+        } catch (Exception $e) {
+            error_log("Failed to insert into purchases table: " . $e->getMessage());
+            return false;
+        }
+        return true;
+    }
 }
