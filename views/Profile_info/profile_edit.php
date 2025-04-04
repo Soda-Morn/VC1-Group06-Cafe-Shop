@@ -24,6 +24,9 @@ $profilePicture = $_SESSION['profile_picture'] ?? 'default-avatar.png';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newName = trim(htmlspecialchars($_POST['name'] ?? ''));
     $newEmail = trim(htmlspecialchars($_POST['email'] ?? ''));
+    $currentPassword = $_POST['current_password'] ?? '';
+    $newPassword = $_POST['new_password'] ?? '';
+    $confirmPassword = $_POST['confirm_password'] ?? '';
     $newProfilePicture = $_FILES['profile_picture'] ?? null;
 
     // Validate the inputs
@@ -35,45 +38,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($existingUser && $existingUser['admin_ID'] != $_SESSION['admin_ID']) {
             $error = "Email is already in use by another account!";
         } else {
-            $profilePicturePath = $profilePicture;
-            
-            // Handle profile picture upload
-            if ($newProfilePicture && $newProfilePicture['error'] === 0) {
-                $uploadDir = 'uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
-                $fileName = time() . '_' . basename($newProfilePicture['name']);
-                $uploadFile = $uploadDir . $fileName;
-                
-                if (move_uploaded_file($newProfilePicture['tmp_name'], $uploadFile)) {
-                    $profilePicturePath = $uploadFile;
-                    // Delete old profile picture if it exists and isn't the default
-                    if ($profilePicture !== 'default-avatar.png' && file_exists($profilePicture)) {
-                        unlink($profilePicture);
+            // Handle password update if provided
+            $passwordToUpdate = null;
+            if (!empty($newPassword) || !empty($confirmPassword) || !empty($currentPassword)) {
+                // All password fields must be filled if any are provided
+                if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+                    $error = "All password fields are required when changing password!";
+                } else {
+                    // Verify current password
+                    $user = $userModel->getUserById($_SESSION['admin_ID']);
+                    if (!password_verify($currentPassword, $user['password'])) {
+                        $error = "Current password is incorrect!";
+                    } elseif ($newPassword !== $confirmPassword) {
+                        $error = "New passwords do not match!";
+                    } elseif (strlen($newPassword) < 6) {
+                        $error = "New password must be at least 6 characters long!";
+                    } else {
+                        $passwordToUpdate = $newPassword;
                     }
                 }
             }
 
-            // Update the user in the database
-            $result = $userModel->updateUser(
-                $_SESSION['admin_ID'],
-                $newName,
-                $newEmail,
-                null, // Password not included in this form, so null
-                $profilePicturePath
-            );
-
-            if ($result) {
-                // Update session variables
-                $_SESSION['name'] = $newName;
-                $_SESSION['email'] = $newEmail;
-                $_SESSION['profile_picture'] = $profilePicturePath;
+            if (!isset($error)) {
+                $profilePicturePath = $profilePicture;
                 
-                header('Location: /Profile_info');
-                exit();
-            } else {
-                $error = "Failed to update profile. Please try again.";
+                // Handle profile picture upload
+                if ($newProfilePicture && $newProfilePicture['error'] === 0) {
+                    $uploadDir = 'uploads/';
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
+                    }
+                    $fileName = time() . '_' . basename($newProfilePicture['name']);
+                    $uploadFile = $uploadDir . $fileName;
+                    
+                    if (move_uploaded_file($newProfilePicture['tmp_name'], $uploadFile)) {
+                        $profilePicturePath = $uploadFile;
+                        // Delete old profile picture if it exists and isn't the default
+                        if ($profilePicture !== 'default-avatar.png' && file_exists($profilePicture)) {
+                            unlink($profilePicture);
+                        }
+                    }
+                }
+
+                // Update the user in the database
+                $result = $userModel->updateUser(
+                    $_SESSION['admin_ID'],
+                    $newName,
+                    $newEmail,
+                    $passwordToUpdate, // Pass new password if validated, null otherwise
+                    $profilePicturePath
+                );
+
+                if ($result) {
+                    // Update session variables
+                    $_SESSION['name'] = $newName;
+                    $_SESSION['email'] = $newEmail;
+                    $_SESSION['profile_picture'] = $profilePicturePath;
+                    
+                    header('Location: /Profile_info');
+                    exit();
+                } else {
+                    $error = "Failed to update profile. Please try again.";
+                }
             }
         }
     }
@@ -201,6 +227,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userEmail); ?>" required>
+        </div>
+
+        <!-- Current Password -->
+        <div class="form-group">
+            <label for="current_password">Current Password (required if changing password)</label>
+            <input type="password" id="current_password" name="current_password" placeholder="Enter current password">
+        </div>
+
+        <!-- New Password -->
+        <div class="form-group">
+            <label for="new_password">New Password (optional)</label>
+            <input type="password" id="new_password" name="new_password" placeholder="Enter new password">
+        </div>
+
+        <!-- Confirm New Password -->
+        <div class="form-group">
+            <label for="confirm_password">Confirm New Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
         </div>
 
         <!-- Submit Button -->
