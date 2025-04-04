@@ -389,5 +389,94 @@
             });
         });
     </script>
+
+    <script>
+  // Define translations for Coffee Menu page
+  const coffeeMenuTranslations = {
+    en: {
+      title: "Drink Menu",
+      search_placeholder: "Search menu......",
+      buttons: {
+        order_now: "Order Now",
+        create_menu: "Create Menu",
+        add_to_cart: "Add to cart"
+      },
+      no_products: "No products available."
+    },
+    km: {
+      title: "ម៉ឺនុយភេសជ្ជៈ",
+      search_placeholder: "ស្វែងរកម៉ឺនុយ......",
+      buttons: {
+        order_now: "បញ្ជាទិញឥឡូវ",
+        create_menu: "បង្កើតម៉ឺនុយ",
+        add_to_cart: "បន្ថែមទៅកន្ត្រក"
+      },
+      no_products: "គ្មានផលិតផលទេ។"
+    }
+  };
+
+  // Function to update Coffee Menu page language
+  function updateCoffeeMenuLanguage(language) {
+    // Update title
+    const title = document.querySelector('.header h2');
+    console.log('Title element found:', title); // Debug
+    if (title) {
+      title.textContent = coffeeMenuTranslations[language].title;
+    } else {
+      console.error('Title element not found with selector .header h2');
+    }
+
+    // Update search placeholder
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.placeholder = coffeeMenuTranslations[language].search_placeholder;
+    }
+
+    // Update buttons
+    const orderNowBtn = document.getElementById('checkoutBtn');
+    if (orderNowBtn) {
+      orderNowBtn.textContent = coffeeMenuTranslations[language].buttons.order_now;
+    }
+
+    const createMenuBtn = document.querySelector('.btn-create');
+    if (createMenuBtn) {
+      createMenuBtn.textContent = coffeeMenuTranslations[language].buttons.create_menu;
+    }
+
+    const addToCartButtons = document.querySelectorAll('.btn-add-to-cart');
+    addToCartButtons.forEach(button => {
+      button.textContent = coffeeMenuTranslations[language].buttons.add_to_cart;
+    });
+
+    // Store no_products message for use in AJAX response
+    window.noProductsMessage = coffeeMenuTranslations[language].no_products;
+  }
+
+  // Integrate with existing setLanguage function
+  const originalSetLanguage = window.setLanguage || function() {};
+  window.setLanguage = function(language) {
+    console.log('setLanguage called with language:', language); // Debug
+    originalSetLanguage(language);
+    updateCoffeeMenuLanguage(language);
+  };
+
+  // Load saved language on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    console.log('Initial language on page load:', savedLanguage); // Debug
+    setLanguage(savedLanguage);
+  });
+
+  // For testing: Add a manual trigger to switch languages
+  window.addEventListener('load', () => {
+    const testButtons = `
+      <div style="position: fixed; top: 10px; right: 10px;">
+        <button onclick="setLanguage('en')">English</button>
+        <button onclick="setLanguage('km')">Khmer</button>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', testButtons);
+  });
+</script>
 </body>
 </html>

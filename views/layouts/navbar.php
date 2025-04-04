@@ -137,7 +137,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-
+      
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
@@ -162,6 +162,136 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </form>
             </ul>
           </li>
+          <!-- Language Selector -->
+    <div class="language-selector d-flex align-items-center justify-content-center gap-1 mb-2">
+    <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;">
+            <span>English</span> 
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li>
+                <a class="dropdown-item d-flex align-items-center" href="#" onclick="setLanguage('en')">
+                    <img src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;">
+                    <span>English</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-flex align-items-center" href="#" onclick="setLanguage('km')">
+                    <img src="https://flagcdn.com/w40/kh.png" alt="Khmer Flag" class="me-1" style="width: 20px; height: 20px;">
+                    <span>ភាសាខ្មែរ</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS (required for dropdown functionality) -->
+
+<!-- Language Logic -->
+<script>
+    function setLanguage(language) {
+        console.log(`Language set to: ${language}`); // Placeholder for your logic
+        // Optional: Update button text and flag dynamically
+        const button = document.getElementById('languageDropdown');
+        if (language === 'en') {
+            button.innerHTML = `<img src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;"><span>English</span>`;
+        } else if (language === 'km') {
+            button.innerHTML = `<img src="https://flagcdn.com/w40/kh.png" alt="Khmer Flag" class="me-1" style="width: 20px; height: 20px;"><span>ភាសាខ្មែរ</span>`;
+        }
+    }
+</script>
+<!-- Add this script at the bottom of your existing scripts -->
+<script>
+  // Define translations for English and Khmer
+  const translations = {
+    en: {
+      sidebar: [
+        "Dashboard",
+        "Order Menu",
+        "Order Report",
+        "Stock List",
+        "Restock",
+        "Supplier Info",
+        "Categories"
+      ],
+      topbar: {
+        hi: "Hi",
+        view_profile: "View Profile",
+        logout: "Logout",
+        my_profile: "My Profile",
+        account_settings: "Account Settings",
+        language_label: "English"
+      }
+    },
+    km: {
+      sidebar: [
+        "ផ្ទាំងគ្រប់គ្រង",
+        "ម៉ឺនុយបញ្ជាទិញ", 
+        "របាយការណ៍បញ្ជាទិញ", 
+        "បញ្ជីស្តុក", 
+        "បំពេញស្តុក", 
+        "ព័ត៌មានអ្នកផ្គត់ផ្គង់",
+        "ប្រភេទ" 
+      ],
+      topbar: {
+        hi: "សួស្តី",
+        view_profile: "មើលប្រវត្តិរូប",
+        logout: "ចាកចេញ",
+        my_profile: "ប្រវត្តិរូបរបស់ខ្ញុំ",
+        account_settings: "ការកំណត់គណនី",
+        language_label: "ភាសាខ្មែរ"
+      }
+    }
+  };
+
+  // Replace the existing setLanguage function with this enhanced version
+  function setLanguage(language) {
+    // Update dropdown button
+    const button = document.getElementById('languageDropdown');
+    if (language === 'en') {
+      button.innerHTML = `<img src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;"><span>${translations.en.topbar.language_label}</span>`;
+    } else if (language === 'km') {
+      button.innerHTML = `<img src="https://flagcdn.com/w40/kh.png" alt="Khmer Flag" class="me-1" style="width: 20px; height: 20px;"><span>${translations.km.topbar.language_label}</span>`;
+    }
+
+    // Update sidebar items
+    const sidebarItems = document.querySelectorAll('.sidebar .nav-item p');
+    sidebarItems.forEach((item, index) => {
+      if (translations[language].sidebar[index]) {
+        item.textContent = translations[language].sidebar[index];
+      }
+    });
+
+    // Update topbar items
+    const hiText = document.querySelector('.profile-username .op-7');
+    if (hiText) hiText.textContent = translations[language].topbar.hi;
+
+    const viewProfileBtn = document.querySelector('.user-box .btn-secondary');
+    if (viewProfileBtn) viewProfileBtn.textContent = translations[language].topbar.view_profile;
+
+    const logoutBtn = document.querySelector('.user-box .btn-danger');
+    if (logoutBtn) logoutBtn.textContent = translations[language].topbar.logout;
+
+    const myProfileLink = document.querySelector('.dropdown-user .dropdown-item:nth-child(1) span');
+    if (myProfileLink) myProfileLink.textContent = translations[language].topbar.my_profile;
+
+    const accountSettingsLink = document.querySelector('.dropdown-user .dropdown-item:nth-child(2) span');
+    if (accountSettingsLink) accountSettingsLink.textContent = translations[language].topbar.account_settings;
+
+    const logoutLink = document.querySelector('.dropdown-user .dropdown-item.text-danger span');
+    if (logoutLink) logoutLink.textContent = translations[language].topbar.logout;
+
+    // Optional: Save the selected language
+    localStorage.setItem('selectedLanguage', language);
+  }
+
+  // Load saved language on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    setLanguage(savedLanguage);
+  });
+</script>
           <li class="nav-item topbar-icon dropdown hidden-caret">
             <a
               class="nav-link dropdown-toggle"
