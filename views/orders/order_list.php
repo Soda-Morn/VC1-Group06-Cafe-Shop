@@ -388,6 +388,7 @@
         @media (max-width: 768px) {
             .filter-dropdown {
                 flex-direction: column;
+                
                 align-items: flex-start;
             }
             
