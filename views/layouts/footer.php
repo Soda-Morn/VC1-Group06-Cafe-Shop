@@ -55,6 +55,13 @@
     
     <!-- Sweet Alert -->
     <script src="views/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+     <!-- javascrip Languag Language options Files -->
+    
+    <script src="views/assets/js/Language_options/order-menu-o.js"></script>
+    <script src="../views/assets/js/Language_options/create-order-o.js"></script>
+
+    
     
     <!-- Kaiadmin JS -->
     <script src="views/assets/js/kaiadmin.min.js"></script>

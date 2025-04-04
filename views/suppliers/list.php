@@ -148,7 +148,7 @@
           <i class="fas fa-search search-icon"></i>
         </div>
         <!-- Create Supplier Button -->
-        <a href="/suppliers/create" class="btn">+ Add Supplier</a>
+        <a href="/suppliers/create" class="add-btn">+ Add Supplier</a>
       </div>
     </div>
 
