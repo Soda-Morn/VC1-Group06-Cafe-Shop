@@ -752,6 +752,7 @@
             filterOrders('all');
         });
     </script>
+<script src="views/assets/js/Language_options/order-list-o.js"></script>
 </body>
 
 </html>
