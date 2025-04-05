@@ -44,7 +44,7 @@
   function updateEditSupplierLanguage(language) {
     // Update title
     const title = document.querySelector('.card h1');
-    console.log('Title element found:', title); // Debug
+    console.log('Title element found:', title);
     if (title) {
       title.textContent = editSupplierTranslations[language].title;
     } else {
@@ -59,21 +59,27 @@
       }
     });
 
-    // Update buttons with a more specific selector
-    const buttons = document.querySelectorAll('.d-flex.justify-content-between .btn');
-    console.log('Buttons found:', buttons); // Debug
-    console.log('Number of buttons found:', buttons.length); // Debug
-    buttons.forEach((button, index) => {
-      if (index < editSupplierTranslations[language].buttons.length) {
-        button.textContent = editSupplierTranslations[language].buttons[index];
-      }
-    });
+    // Fix button updates with specific selectors
+    const cancelButton = document.querySelector('.btn-danger'); // Targets Cancel button
+    const updateButton = document.querySelector('.btn-primary'); // Targets Update Supplier button
+
+    if (cancelButton) {
+      cancelButton.textContent = editSupplierTranslations[language].buttons[0];
+    } else {
+      console.error('Cancel button not found');
+    }
+
+    if (updateButton) {
+      updateButton.textContent = editSupplierTranslations[language].buttons[1];
+    } else {
+      console.error('Update Supplier button not found');
+    }
   }
 
   // Integrate with existing setLanguage function
   const originalSetLanguage = window.setLanguage || function() {};
   window.setLanguage = function(language) {
-    console.log('setLanguage called with language:', language); // Debug
+    console.log('setLanguage called with language:', language);
     originalSetLanguage(language);
     updateEditSupplierLanguage(language);
   };
@@ -81,7 +87,7 @@
   // Load saved language on page load
   document.addEventListener('DOMContentLoaded', () => {
     const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    console.log('Initial language on page load:', savedLanguage); // Debug
+    console.log('Initial language on page load:', savedLanguage);
     setLanguage(savedLanguage);
   });
 
