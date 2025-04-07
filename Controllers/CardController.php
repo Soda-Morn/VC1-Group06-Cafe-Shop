@@ -7,7 +7,7 @@ class CardController extends BaseController {
 
     // Telegram Bot Configuration
     private $telegramBotToken = '7542835761:AAEJsRLsIlzS9QDMkKs6tyZHKCAwM3eklZY'; // Your bot token
-    private $telegramChatId = '1198264749'; // Replace with your actual chat ID
+    private $telegramChatId = '6988257245'; // Replace with your actual chat ID
 
     public function __construct() {
         $this->model = new CardModel();
