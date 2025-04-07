@@ -4,173 +4,168 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-// Check if the user is logged in
+// Check if the admin is logged in
 if (!isset($_SESSION['admin_ID'])) {
-  // Redirect to the login page if not logged in
   header('Location: /login.php');
   exit();
 }
 
-// User data from session
-$userName = $_SESSION['name'] ?? 'User';
-$userEmail = $_SESSION['email'] ?? 'user@example.com';
+// Admin data from session
+$userName = $_SESSION['name'] ?? 'Admin';
+$userEmail = $_SESSION['email'] ?? 'admin@example.com';
 $profilePicture = $_SESSION['profile_picture'] ?? '';
 ?>
 
-<div class="profile-container">
-    <!-- Profile Picture -->
-    <div class="avatar-container">
-        <?php if (!empty($profilePicture)): ?>
-            <img src="/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="avatar">
-        <?php else: ?>
-            <div class="avatar-placeholder">
-                <?php echo strtoupper(substr($userName, 0, 1)); ?>
-            </div>
-        <?php endif; ?>
-    </div>
 
-    <!-- Profile Information -->
-    <div class="profile-info">
-        <div class="profile-item">
-            <strong>Name:</strong> <?php echo htmlspecialchars($userName); ?>
-        </div>
-        <div class="profile-item">
-            <strong>Email:</strong> <?php echo htmlspecialchars($userEmail); ?>
-        </div>
-    </div>
 
-    <!-- Edit Profile Button -->
-    <a href="/Profile_info/profile_edit" class="edit-button">Edit Profile</a>
-</div>
-
-<style>
-/* General profile page container */
-.profile-container {
-    margin: 120px auto;
-    padding: 50px 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 900px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-/* Avatar styles */
-.avatar-container {
-    margin-bottom: 40px;
-}
-
-.avatar {
-    border-radius: 50%;
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    border: 4px solid #ffffff;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* Placeholder for no profile picture */
-.avatar-placeholder {
-    background-color: #ff5722;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 60px;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    font-weight: bold;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* Profile info styles */
-.profile-info {
-    margin-top: 20px;
-    text-align: left;
-    width: 100%;
-}
-
-.profile-item {
-    font-size: 18px;
-    color: black; /* Changed text color to black */
-    margin-bottom: 10px;
-}
-
-.profile-item strong {
-    color: #ff5722;
-    margin-right: 10px;
-}
-
-/* Edit button styles */
-.edit-button {
-    margin-top: 30px;
-    padding: 14px 32px;
-    background-color: #ff5722;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    display: inline-block;
-}
-
-.edit-button:active {
-    background-color: #d84315;
-    transform: translateY(1px);
-}
-
-/* Adding responsiveness */
-@media (max-width: 768px) {
-    .profile-container {
-        padding: 40px 20px;
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    .container-1 {
+      max-width: 800px;
+      width: 98%;
+      margin: 120px auto;
+      padding: 30px;
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+  
     .avatar {
-        width: 140px;
-        height: 140px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
     }
 
-    .profile-item {
-        font-size: 16px;
+    .avatar-placeholder {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: #ff5722;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 60px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+  
+    h2 {
+      margin-top: 15px;
+      font-size: 26px;
+      color: #333;
     }
 
     .profile-info {
-        text-align: left;
+      margin-top: 25px;
+      font-size: 16px;
+      text-align: left;
+      padding: 0 30px;
     }
 
-    .edit-button {
-        font-size: 16px;
-        padding: 12px 25px;
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-container {
-        padding: 30px 15px;
+    .profile-info div {
+      margin-bottom: 15px;
     }
 
-    .avatar {
+    .profile-info strong {
+      color: #ff5722;
+      margin-right: 10px;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      text-decoration: none;
+      background-color: #ff5722;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+   .back-button{
+    color: black;
+    background-color: white;
+   }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 60px 15px;
+        padding: 25px 15px;
+      }
+
+      .avatar,
+      .avatar-placeholder {
         width: 120px;
         height: 120px;
-    }
+      }
 
-    .profile-item {
-        font-size: 14px;
-    }
+      h2 {
+        font-size: 22px;
+      }
 
-    .edit-button {
+      .profile-info {
         font-size: 14px;
-        padding: 10px 20px;
+        padding: 0 15px;
+      }
+
+      .btn {
+        font-size: 13px;
+        padding: 8px 16px;
+      }
     }
-}
-</style>
+  </style>
+
+
+  <div class="container-1">
+    <a href="/dashboard" class="back-button" title="Back to Dashboard"><i class="fas fa-arrow-left"></i></a>
+
+    <div class="profile-header">
+      <?php if (!empty($profilePicture)): ?>
+        <img src="/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="avatar">
+      <?php else: ?>
+        <div class="avatar-placeholder">
+          <?php echo strtoupper(substr($userName, 0, 1)); ?>
+        </div>
+      <?php endif; ?>
+      <h2><?php echo htmlspecialchars($userName); ?></h2>
+    </div>
+
+    <div class="profile-info">
+      <div><strong>Email:</strong> <?php echo htmlspecialchars($userEmail); ?></div>
+      <!-- Additional fields like phone or role can go here -->
+    </div>
+
+    <div class="btn-group">
+      <a href="/Profile_info/profile_edit" class="btn"><i class="fas fa-user-edit"></i> Edit Profile</a>
+    </div>
+  </div>
+
+</body>
+</html>

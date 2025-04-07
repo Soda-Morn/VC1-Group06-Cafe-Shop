@@ -328,5 +328,9 @@
             }
         });
     </script>
+
+    <!-- Add this script after your existing <script> tag -->
+    <script src="/views/assets/js/Language_options/restock-edit-o.js"></script>
+
 </body>
 </html>

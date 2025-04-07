@@ -56,3 +56,6 @@
         });
     });
 </script>
+
+<script src="/views/assets/js/Language_options/view-stocklist-o.js"></script>
+

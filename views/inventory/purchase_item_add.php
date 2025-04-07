@@ -525,5 +525,7 @@
             console.log('Dropdown script already initialized, skipping...');
         }
     </script>
+    <script src="/views/assets/js/Language_options/purchase-item-add-o.js"></script>
+
 </body>
 </html>
