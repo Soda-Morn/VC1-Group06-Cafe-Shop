@@ -99,8 +99,8 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
         </li>
         <li class="nav-item">
           <a href="/Categories">
-               <i class="fas fa-th-list"></i>
-               <p>Categories</p>
+            <i class="fas fa-th-list"></i>
+            <p>Categories</p>
           </a>
         </li>
       </ul>
@@ -319,16 +319,19 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </li>
             </ul>
           </li>
+          <!-- //card --> 
           <li class="nav-item topbar-icon dropdown hidden-caret">
-            <a
-              class="nav-link"
-              href="/orderCard"
-              aria-expanded="false">
+            <a class="nav-link" href="/orderCard" aria-expanded="false">
               <i class="fas fa-shopping-cart"></i>
+              <span class="badge badge-pill badge-danger count_cart" style="position: absolute; top: -5px; right: -10px;">
+                <?php
+                echo (!empty($_SESSION['cart']) && count($_SESSION['cart']) > 0)
+                  ? array_sum(array_column($_SESSION['cart'], 'quantity'))
+                  : '0';
+                ?>
+              </span>
             </a>
           </li>
-
-
           <li class="nav-item topbar-user dropdown hidden-caret">
             <a
               class="dropdown-toggle profile-pic"
@@ -493,27 +496,25 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
         }
       });
     });
-    document.addEventListener("DOMContentLoaded", function () {
-  const currentLocation = window.location.pathname;
-  const navLinks = document.querySelectorAll(".nav-item a");
+    document.addEventListener("DOMContentLoaded", function() {
+      const currentLocation = window.location.pathname;
+      const navLinks = document.querySelectorAll(".nav-item a");
 
-  navLinks.forEach(link => {
-    if (link.getAttribute("href") === currentLocation) {
-      link.parentElement.classList.add("active");
-    }
-  });
-});
-document.addEventListener("DOMContentLoaded", function () {
-  let navItems = document.querySelectorAll(".nav-item a");
+      navLinks.forEach(link => {
+        if (link.getAttribute("href") === currentLocation) {
+          link.parentElement.classList.add("active");
+        }
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+      let navItems = document.querySelectorAll(".nav-item a");
 
-  navItems.forEach((item) => {
-    if (item.href === window.location.href) {
-      item.classList.add("active");
-    }
-  });
-});
-
-
+      navItems.forEach((item) => {
+        if (item.href === window.location.href) {
+          item.classList.add("active");
+        }
+      });
+    });
   </script>
   <style>
     .collapse {
@@ -537,27 +538,32 @@ document.addEventListener("DOMContentLoaded", function () {
     .caret.down {
       transform: rotate(180deg);
     }
-    .nav-item.active a {
-  font-weight: bold;
-  color: #ffffff; /* Adjust color as needed */
-}
 
-    .logo{
+    .nav-item.active a {
+      font-weight: bold;
+      color: #ffffff;
+      /* Adjust color as needed */
+    }
+
+    .logo {
       width: 170px;
       display: flex;
       justify-content: center;
 
     }
-    .logo-header{
+
+    .logo-header {
       margin-top: 30px;
       margin-bottom: 15px;
     }
-    .nav-item a.active {
-  font-weight: bold;
-  color: #000000; /* Black text */
-  background-color: #ff5722; /* Highlight */
-  border-radius: 5px;
-  padding: 8px 12px;
-}
 
+    .nav-item a.active {
+      font-weight: bold;
+      color: #000000;
+      /* Black text */
+      background-color: #ff5722;
+      /* Highlight */
+      border-radius: 5px;
+      padding: 8px 12px;
+    }
   </style>
