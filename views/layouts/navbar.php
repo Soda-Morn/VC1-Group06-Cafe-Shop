@@ -380,7 +380,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                 </li>
                 <li>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/profile">
+                  <a class="dropdown-item" href="/Profile_info">
                     <i class="fas fa-user me-2"></i> My Profile
                   </a>
                   <a class="dropdown-item" href="/payment_upload">
