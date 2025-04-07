@@ -137,7 +137,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-
+      
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
@@ -162,6 +162,31 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </form>
             </ul>
           </li>
+<!-- Topbar -->
+         <div class="topbar">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="user-box">
+                <!-- Language Selector -->
+                <div class="language-selector d-inline-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="btn  dropdown-toggle " type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="flagIcon" src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;">
+                            <span id="languageText">English</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-user" id="dropdownMenu" aria-labelledby="languageDropdown" style="width: 20px;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="#" data-lang="km">
+                                    <img src="https://flagcdn.com/w40/kh.png" alt="Khmer Flag" class="me-1" style="width: 20px; height: 20px;">
+                                    <span>ភាសាខ្មែរ</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
           <li class="nav-item topbar-icon dropdown hidden-caret">
             <a
               class="nav-link dropdown-toggle"
@@ -560,3 +585,4 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
   </style>
+  <script src="views/assets/js/Language_options/navbar-o.js"></script>

@@ -245,3 +245,37 @@
             }
         });
     </script>
+    <!-- Move your existing script inside </body> and add this after it -->
+<script>
+    const fileInput = document.getElementById('file-input');
+    const previewImage = document.getElementById('preview-image');
+    const changeImageBtn = document.getElementById('change-image-btn');
+    const imageUploadArea = document.getElementById('image-upload-area');
+
+    imageUploadArea.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    changeImageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            previewImage.src = imageUrl;
+            previewImage.onload = () => {
+                URL.revokeObjectURL(imageUrl);
+            };
+        }
+    });
+
+    // Note: resetImageDisplay and delete functionality are omitted since they reference missing elements
+</script>
+
+<script src="/views/assets/js/Language_options/edit-stocklist-o.js"></script>
+
+</body>
+</html>

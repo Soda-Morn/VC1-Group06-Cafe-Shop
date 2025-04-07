@@ -79,6 +79,9 @@ class SalesModel
             ORDER BY DAYOFWEEK(sale_date)
         ";
         $stmt = $this->db->query($sql);
+        if (!$stmt) {
+            return ['labels' => [], 'data' => []]; 
+        }
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $labels = [];
