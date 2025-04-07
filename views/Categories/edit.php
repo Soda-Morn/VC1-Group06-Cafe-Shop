@@ -24,4 +24,5 @@
     .card{
         margin-top: 160px;
     }
-</style>
+    </style>
+    
