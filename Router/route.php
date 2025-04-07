@@ -13,6 +13,7 @@ require_once "Controllers/CardController.php";
 require_once "Controllers/RestockCheckoutController.php";
 require_once "Controllers/SupplierController.php";
 require_once "Controllers/CategoriesController.php";
+require_once "Controllers/Profile_infoController.php";
 require_once "Controllers/SalesController.php";
 require_once "Controllers/PaymentController.php";
 require_once "Controllers/PaymentUploadController.php";
@@ -96,6 +97,22 @@ $route->post("/Categories/update/{id}", [CategoriesController::class, 'update'])
 $route->get('/payment', [PaymentController::class, 'payment']); 
 $route->get('/payment_upload', [PaymentUploadController::class, 'index']);
 $route->get('/payment/upload', [PaymentUploadController::class, 'index']);
+
+
+
+
+
+
+
+
+
+
+$route->get("/Profile_info", [Profile_infoController::class, 'index']);
+$route->get("/Profile_info/profile_edit", [Profile_infoController::class, 'edit']);
+$route->post("/Profile_info/profile_edit", [Profile_infoController::class, 'edit']);
+
+
+
 
 
 // Execute the routing

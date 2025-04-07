@@ -372,7 +372,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                       <h4><?php echo htmlspecialchars($_SESSION['name']); ?></h4>
                       <p class="text-muted"><?php echo htmlspecialchars($_SESSION['email']); ?></p>
                       <div class="d-flex mt-2">
-                        <a href="/profile" class="btn btn-xs btn-secondary btn-sm me-2">View Profile</a>
+                        <a href="/Profile_info" class="btn btn-xs btn-secondary btn-sm me-2">View Profile</a>
                         <a href="/logout" class="btn btn-xs btn-danger btn-sm">Logout</a>
                       </div>
                     </div>
