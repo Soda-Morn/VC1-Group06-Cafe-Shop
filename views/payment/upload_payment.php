@@ -153,7 +153,7 @@
         }
         
         .text-muted {
-            font-size: 0.85rem;
+            font-size: 0.86rem;
         }
         
         .progress {
