@@ -440,11 +440,7 @@
                                     <th>Original Price</th>
                                     <th>Quantity</th>
                                     <th>Total Price</th>
-<<<<<<< HEAD
-                                    <th>Date</th>
-=======
                                     <th>Date of Order</th>
->>>>>>> 818cc29edc9eb9ad7c774fb68e1e6df16e1d88e2
                                     <th>Status</th>
                                 </tr>
                             </thead>
