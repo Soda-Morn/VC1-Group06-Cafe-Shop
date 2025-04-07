@@ -132,12 +132,26 @@ class CardController extends BaseController {
         echo json_encode(['success' => false, 'message' => 'Invalid request method']);
     }
 
+    public function payment() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Store the cart data from the form in the session for use after payment
+            $_SESSION['pending_cart'] = $_POST['cart'] ?? [];
+            // Redirect to the payment page
+            $this->redirect('/payment');
+        } else {
+            // If accessed directly without POST, redirect back to the cart
+            $this->redirect('/orderCard?error=Invalid request');
+        }
+    }
+
     public function checkout() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $cartData = $_POST['cart'] ?? [];
+            $cartData = $_SESSION['pending_cart'] ?? []; // Use the pending cart from session
             $cartItems = $_SESSION['cart'] ?? [];
+            $paymentMethod = $_POST['payment_method'] ?? 'unknown'; // Get the payment method
             error_log("Cart Items in checkout(): " . json_encode($cartItems)); // Log cart items
-            error_log("Cart Data from POST: " . json_encode($cartData)); // Log POST data
+            error_log("Cart Data from SESSION: " . json_encode($cartData)); // Log session data
+            error_log("Payment Method: " . $paymentMethod); // Log payment method
     
             if (!empty($cartItems)) {
                 try {
@@ -175,10 +189,12 @@ class CardController extends BaseController {
     
                     $this->model->updateSaleTotalPrice($saleId, $totalPrice);
 
-                    // Send Telegram notification
-                    $this->sendTelegramNotification($consolidatedItems, $totalPrice, $saleId);
+                    // Send Telegram notification with payment method
+                    $this->sendTelegramNotification($consolidatedItems, $totalPrice, $saleId, $paymentMethod);
 
+                    // Clear both the cart and the pending cart
                     $_SESSION['cart'] = [];
+                    unset($_SESSION['pending_cart']);
                     $this->redirect('/order_list?success=Checkout completed successfully');
                 } catch (Exception $e) {
                     error_log("Checkout failed: " . $e->getMessage());
@@ -190,13 +206,14 @@ class CardController extends BaseController {
         }
     }
 
-    private function sendTelegramNotification($items, $totalPrice, $saleId) {
+    private function sendTelegramNotification($items, $totalPrice, $saleId, $paymentMethod = 'unknown') {
         // Redesigned message with better formatting and emojis
         $message = "✨ *Velea Cafe - New Order Received* ✨\n";
         $message .= "━━━━━━━━━━━━━━━━━━━━━━━\n";
         $message .= "📋 *Order Details*\n";
         $message .= "🆔 Sale ID: #$saleId\n";
-        $message .= "📅 Date: " . date('Y-m-d H:i:s') . "\n\n";
+        $message .= "📅 Date: " . date('Y-m-d H:i:s') . "\n";
+        $message .= "💳 *Payment Method:* " . ucfirst($paymentMethod) . "\n\n";
         $message .= "🛒 *Items Purchased:*\n";
 
         foreach ($items as $item) {
