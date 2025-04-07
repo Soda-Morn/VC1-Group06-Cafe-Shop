@@ -7,12 +7,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
+    <style> 
         body {
-            background-color: white;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background: rgb(245, 247, 250);
         }
-        
+
+        .container {
+            background: rgb(245, 247, 250);
+            padding-left: 20px;
+            padding-right: 20px;
+            max-width: 1400px;
+        }
+
         .header {
+            background: rgb(245, 247, 250);
             margin-top: 10px;
             display: flex;
             justify-content: space-between;
@@ -20,6 +31,7 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
+            box-shadow: none;
         }
 
         .search-container {
@@ -43,35 +55,35 @@
         .search-input:focus {
             outline: none;
             border-color: #86b7fe;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            box-shadow: none;
         }
 
         .add-new-btn {
-            background: #28a745;
+            background: rgb(196, 95, 22);
             color: white;
             font-weight: bold;
             border-radius: 8px;
             font-size: 0.9rem;
             padding: 0.375rem 0.75rem;
+            box-shadow: none;
         }
 
         .btn-create {
-            background: #28a745;
+            background: rgb(196, 95, 22);
             color: white;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 5px;
             font-size: 1rem;
             padding: 0.375rem 0.75rem;
+            box-shadow: none;
         }
 
-        /* Custom column width for 5 cards per row with adjusted spacing */
         .col-5-cards {
             width: 20%;
             padding-right: 5px;
             padding-left: 5px;
         }
 
-        /* Row adjustment to match image spacing */
         .card-row {
             margin-left: -5px;
             margin-right: -5px;
@@ -100,7 +112,6 @@
             background-color: white;
         }
 
-        /* Delete button styling */
         .btn-delete {
             position: absolute;
             top: 5px;
@@ -145,14 +156,6 @@
             line-height: 1.3;
         }
 
-        /* Container padding adjustment */
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-            max-width: 1400px;
-        }
-
-        /* Checkbox styles */
         .select-checkbox {
             position: absolute;
             top: 10px;
@@ -176,7 +179,7 @@
             font-size: 1rem;
             font-weight: bold;
             padding: 0.375rem 0.75rem;
-            border-radius: 8px;
+            border-radius: 5px;
             border: none;
             transition: background 0.3s ease;
             display: none;
@@ -190,21 +193,35 @@
             display: inline-block;
         }
 
-        /* Prevent click events on buttons from triggering card selection */
-        .btn-danger,
-        .btn,
-        .add-new-btn,
-        .checkout-btn {
-            pointer-events: auto;
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-right: 15px;
         }
-        /* Adjust the button group spacing */
+
+        .pagination-btn {
+            background: rgb(196, 95, 22);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pagination-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
         .button-group {
             display: flex;
             gap: 10px;
             align-items: center;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 1199.98px) {
             .col-5-cards {
                 width: 25%;
@@ -260,8 +277,14 @@
             </div>
         </div>
         <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
-            <div class="row card-row">
-                <?php foreach ($products as $item): ?>
+            <div class="row card-row" id="cardContainer">
+                <?php 
+                $cardsPerPage = 15;
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $start = ($page - 1) * $cardsPerPage;
+                $currentProducts = array_slice($products, $start, $cardsPerPage);
+                
+                foreach ($currentProducts as $item): ?>
                     <div class="col-5-cards product-card" data-name="<?= htmlspecialchars(strtolower($item['name'])) ?>">
                         <div class="card" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
                             <input type="checkbox" class="select-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_ID']) ?>">
@@ -282,6 +305,15 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+            </div>
+            <div class="pagination">
+                <?php
+                $totalPages = ceil(count($products) / $cardsPerPage);
+                $prevPage = $page > 1 ? $page - 1 : 1;
+                $nextPage = $page < $totalPages ? $page + 1 : $totalPages;
+                ?>
+                <button type="button" class="pagination-btn" onclick="window.location.href='?page=<?= $prevPage ?>'" <?= $page === 1 ? 'disabled' : '' ?>>Previous</button>
+                <button type="button" class="pagination-btn" onclick="window.location.href='?page=<?= $nextPage ?>'" <?= $page === $totalPages ? 'disabled' : '' ?>>Next</button>
             </div>
         </form>
     </div>
@@ -304,16 +336,14 @@
         }
 
         $(document).ready(function() {
-            // Handle remove button click with AJAX
             $('.btn-remove').click(function(e) {
                 e.stopPropagation();
                 const productId = $(this).data('product-id');
                 const card = $(this).closest('.card');
                 
-                // Show confirmation dialog
                 const isConfirmed = confirm('Are you sure you want to delete this product?');
                 if (!isConfirmed) {
-                    return; // Exit if user cancels
+                    return;
                 }
 
                 $.ajax({
@@ -339,7 +369,6 @@
                 });
             });
 
-            // Handle Add to Cart button with AJAX
             $('.btn-add-to-cart').click(function(e) {
                 e.stopPropagation();
                 const productId = $(this).data('product-id');
@@ -351,7 +380,6 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.success) {
-                            // Redirect to /orderCard after successful addition to cart
                             window.location.href = '/orderCard';
                         } else {
                             alert('Failed to add product to cart: ' + (data.message || 'Unknown error'));
@@ -364,7 +392,6 @@
                 });
             });
 
-            // Card selection for multi-select
             const cards = document.querySelectorAll('.card');
             const checkoutBtn = document.getElementById('checkoutBtn');
 
