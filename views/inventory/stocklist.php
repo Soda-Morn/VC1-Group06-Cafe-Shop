@@ -13,7 +13,7 @@
                                 <option value="">All Status</option>
                                 <option value="In Stock">In Stock</option>
                                 <option value="Low Stock">Low Stock</option>
-                                <option value="Out of Stock">Out of Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>  
                             </select>
                         </div>
                     </div>
@@ -150,3 +150,5 @@
         display: none !important;
     }
 </style>
+<!-- Updated script -->
+<script src="views/assets/js/Language_options/stocklist-o.js"></script>

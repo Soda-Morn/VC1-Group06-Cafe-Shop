@@ -29,3 +29,4 @@
         </form>
     </div>
 </div>
+<script src="/views/assets/js/Language_options/supplier-create-o.js"></script>

@@ -25,3 +25,4 @@
         </form>
     </div>
 </div>
+<script src="/views/assets/js/Language_options/supplier-edit-o.js"></script>

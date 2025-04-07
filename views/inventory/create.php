@@ -417,5 +417,8 @@
             }
         });
     </script>
+    <!-- Add this script after your existing <script> tag -->
+    <script src="/views/assets/js/Language_options/restock-create-o.js"></script>
+
 </body>
 </html>
