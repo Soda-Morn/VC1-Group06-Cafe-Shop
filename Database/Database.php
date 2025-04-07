@@ -9,7 +9,7 @@ class Database
      * @param string $host The hostname of the database server.
      * @param string $dbname The name of the database.
      * @param string $username The username for the database connection.
-     * @param string $password The password for the database connection.
+     * @param string $password The passw    ord for the database connection.
      */
     public function __construct($host, $dbname, $username, $password)
     {

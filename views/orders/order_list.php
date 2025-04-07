@@ -19,7 +19,7 @@
             border: none;
             border-radius: 12px;
             overflow: hidden;
-            background: #ffffff;
+            background:rgb(228, 220, 220);
         }
 
         .card-body {

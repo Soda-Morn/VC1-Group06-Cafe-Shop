@@ -131,7 +131,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           <i class="gg-more-vertical-alt"></i>
         </button>
       </div>
-      <!-- End Logo Header -->
+      <!-- End Logo Header -->  
     </div>
     <!-- Navbar Header -->
     <nav
@@ -327,8 +327,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               <i class="fas fa-shopping-cart"></i>
             </a>
           </li>
-
-
+          <!-- profile -->
           <li class="nav-item topbar-user dropdown hidden-caret">
             <a
               class="dropdown-toggle profile-pic"
@@ -384,8 +383,8 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                   <a class="dropdown-item" href="/profile">
                     <i class="fas fa-user me-2"></i> My Profile
                   </a>
-                  <a class="dropdown-item" href="/profile#settings">
-                    <i class="fas fa-cog me-2"></i> Account Settings
+                  <a class="dropdown-item" href="/payment_upload">
+                    <i class="fas fa-cog me-2"></i> Upload QR
                   </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item text-danger" href="/logout">
