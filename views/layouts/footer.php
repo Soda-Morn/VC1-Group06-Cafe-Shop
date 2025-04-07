@@ -60,6 +60,7 @@
     
     <script src="views/assets/js/Language_options/order-menu-o.js"></script>
     <script src="../views/assets/js/Language_options/create-order-o.js"></script>
+    <script src="/views/assets/js/Language_options/category-edit-o.js"></script>
 
     
     

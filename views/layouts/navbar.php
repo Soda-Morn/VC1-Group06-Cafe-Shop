@@ -169,7 +169,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
                 <!-- Language Selector -->
                 <div class="language-selector d-inline-flex align-items-center">
                     <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle " type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn  dropdown-toggle " type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <img id="flagIcon" src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;">
                             <span id="languageText">English</span>
                         </button>

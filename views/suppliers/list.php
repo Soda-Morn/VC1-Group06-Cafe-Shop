@@ -15,7 +15,6 @@
       margin-top: 5px;
       margin-left: 10px;
       font-size: 1.8rem;
-      /* Smaller font size */
     }
 
     /* Header and Search Container */
@@ -24,25 +23,21 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
-      /* Reduced margin */
       margin-top: 25px;
       margin-right: 10px;
-      /* Reduced margin */
     }
 
     /* Button Styles */
-    .btn {
+    #add {
       font-size: 0.9rem;
-      /* Smaller font size */
       padding: 7px 15px;
-      /* Smaller padding */
       border-radius: 5px;
       color: #fff;
       text-decoration: none;
       background-color: rgb(183, 90, 23);
     }
 
-    .btn:hover {
+    #add:hover {
       background-color: rgb(160, 80, 20);
     }
 
@@ -51,53 +46,45 @@
       position: relative;
     }
 
-    .search-input {
+    .supplier-search-input {
       border-radius: 5px;
       border: 1px solid rgb(203, 198, 198);
       padding: 6px 10px 6px 30px;
-      /* Smaller padding */
       width: 180px;
-      /* Smaller width */
       font-size: 1rem;
-      /* Smaller font size */
       height: 35px;
-      /* Smaller height */
       background-color: white;
     }
 
-    .search-input:focus {
+    .supplier-search-input:focus {
       outline: none;
     }
 
     .search-input-container {
       margin-right: 10px;
-      /* Reduced margin */
     }
 
     /* Search Icon */
     .search-icon {
       position: absolute;
       left: 8px;
-      /* Adjusted position */
       top: 50%;
       transform: translateY(-50%);
     }
 
     /* Table Styles */
-     .table-responsive {
-           
-            overflow-x: auto;
-            background: #fff;
-            /* box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0); */
-            /* Subtle inner shadow */
-        }
+    .table-responsive {
+      overflow-x: auto;
+      background: #fff;
+    }
 
-        .table {
-            margin-bottom: 0;
-            border-collapse: collapse;
-            font-size: 1rem;
-            color: #333;
-        }
+    .table {
+      margin-bottom: 0;
+      border-collapse: collapse;
+      font-size: 1rem;
+      color: #333;
+    }
+
     .table thead {
       background-color: orange;
       border-radius: 10px;
@@ -111,28 +98,36 @@
     }
 
     .table thead th {
-      background-color:  #f97316;
+      background-color: #f97316;
       color: white;
       font-size: 0.9rem;
-      /* Smaller font size */
-    }
-
-    /* Dropdown Styles */
-    .dropdown-toggle::after {
-      display: none;
     }
 
     .three-dots {
       border: none;
       background-color: transparent;
       font-size: 1.2rem;
-      /* Smaller font size */
       cursor: pointer;
       color: #333;
     }
 
     .three-dots:focus {
       color: rgb(183, 90, 23);
+    }
+
+    /* Added styles for the new 'form' class to mimic 'dropdown-item' */
+    .form {
+      display: block;
+      padding: 0.25rem 1.5rem;
+      color: #212529;
+      text-decoration: none;
+      background-color: transparent;
+      border: 0;
+    }
+
+    .form:hover {
+      color: #fff;
+      background-color: #f97316; /* Matches the orange theme */
     }
   </style>
 </head>
@@ -144,11 +139,11 @@
       <h1>Suppliers List</h1>
       <div class="search-container" style="display: flex; align-items: center;">
         <div class="search-input-container">
-          <input type="text" id="supplier-search" class="search-input" placeholder="Search suppliers..." aria-label="Search suppliers" />
+          <input type="text" id="supplier-search" class="supplier-search-input" placeholder="Search suppliers..." aria-label="Search suppliers" />
           <i class="fas fa-search search-icon"></i>
         </div>
         <!-- Create Supplier Button -->
-        <a href="/suppliers/create" class="btn">+ Add Supplier</a>
+        <a href="/suppliers/create" id="add" class="btn">+ Add Supplier</a>
       </div>
     </div>
 
@@ -178,8 +173,8 @@
                   <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/suppliers/edit/<?= htmlspecialchars($supplier['id']) ?>"><i class="fas fa-edit" style="color: blue;"></i>Edit</a></li>
-                  <li><a class="dropdown-item" href="/suppliers/delete/<?= htmlspecialchars($supplier['id']) ?>" onclick="return confirm('Are you sure you want to delete this supplier?');"><i class="fas fa-trash" style="color: red;"></i>Delete</a></li>
+                  <li><a class="form" href="/suppliers/edit/<?= htmlspecialchars($supplier['id']) ?>"><i class="fas fa-edit" style="color: blue;"></i> Edit</a></li>
+                  <li><a class="form" href="/suppliers/delete/<?= htmlspecialchars($supplier['id']) ?>" onclick="return confirm('Are you sure you want to delete this supplier?');"><i class="fas fa-trash" style="color: red;"></i> Delete</a></li>
                 </ul>
               </div>
             </td>
