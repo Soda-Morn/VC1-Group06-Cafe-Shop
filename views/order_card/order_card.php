@@ -203,7 +203,7 @@
                 <p><strong>Review your selection:</strong></p>
             </div>
 
-            <form id="checkout-form" action="/orderCard/checkout" method="POST">
+            <form id="checkout-form" action="/orderCard/payment" method="POST">
                 <table class="table">
                     <thead>
                         <tr>

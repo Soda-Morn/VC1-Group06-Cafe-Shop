@@ -5,6 +5,10 @@ require_once 'BaseController.php';
 class CardController extends BaseController {
     private $model;
 
+    // Telegram Bot Configuration
+    private $telegramBotToken = '7542835761:AAEJsRLsIlzS9QDMkKs6tyZHKCAwM3eklZY'; // Your bot token
+    private $telegramChatId = '1673091419'; // Replace with your actual chat ID
+
     public function __construct() {
         $this->model = new CardModel();
         session_start(); // Start the session to store cart items
@@ -128,62 +132,140 @@ class CardController extends BaseController {
         echo json_encode(['success' => false, 'message' => 'Invalid request method']);
     }
 
+    public function payment() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Store the cart data from the form in the session for use after payment
+            $_SESSION['pending_cart'] = $_POST['cart'] ?? [];
+            // Redirect to the payment page
+            $this->redirect('/payment');
+        } else {
+            // If accessed directly without POST, redirect back to the cart
+            $this->redirect('/orderCard?error=Invalid request');
+        }
+    }
+
     public function checkout() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $cartData = $_POST['cart'] ?? [];
+            $cartData = $_SESSION['pending_cart'] ?? []; // Use the pending cart from session
             $cartItems = $_SESSION['cart'] ?? [];
-
+            $paymentMethod = $_POST['payment_method'] ?? 'unknown'; // Get the payment method
+            error_log("Cart Items in checkout(): " . json_encode($cartItems)); // Log cart items
+            error_log("Cart Data from SESSION: " . json_encode($cartData)); // Log session data
+            error_log("Payment Method: " . $paymentMethod); // Log payment method
+    
             if (!empty($cartItems)) {
                 try {
                     $saleId = $this->model->createNewSale();
                     $consolidatedItems = [];
                     $totalPrice = 0;
-
+    
                     foreach ($cartItems as $index => $item) {
                         $productId = $item['product_ID'];
                         $quantity = isset($cartData[$index]['quantity']) ? (int)$cartData[$index]['quantity'] : (int)$item['quantity'];
                         $price = $item['price'];
-
+    
                         if (isset($consolidatedItems[$productId])) {
                             $consolidatedItems[$productId]['quantity'] += $quantity;
                         } else {
                             $consolidatedItems[$productId] = [
                                 'product_id' => $productId,
                                 'quantity' => $quantity,
-                                'price' => $price
+                                'price' => $price,
+                                'name' => $item['name'], // Include name for Telegram message
+                                'image' => $item['image'] // Include image for Telegram message
                             ];
                         }
                         $totalPrice += $price * $quantity;
                     }
-
+    
                     foreach ($consolidatedItems as $item) {
                         $productId = $item['product_id'];
                         $quantity = $item['quantity'];
-
+    
                         if ($productId && $quantity > 0) {
                             $this->model->addSaleItem($saleId, $productId, $quantity);
                         }
                     }
-
+    
                     $this->model->updateSaleTotalPrice($saleId, $totalPrice);
+
+                    // Send Telegram notification with payment method
+                    $this->sendTelegramNotification($consolidatedItems, $totalPrice, $saleId, $paymentMethod);
+
+                    // Clear both the cart and the pending cart
                     $_SESSION['cart'] = [];
-                    $this->redirect('/order_list?success=Checkout completed successfully'); // Updated route
+                    unset($_SESSION['pending_cart']);
+                    $this->redirect('/order_list?success=Checkout completed successfully');
                 } catch (Exception $e) {
                     error_log("Checkout failed: " . $e->getMessage());
-                    $this->redirect('/order_list?error=Checkout failed: ' . urlencode($e->getMessage())); // Updated route
+                    $this->redirect('/order_list?error=Checkout failed: ' . urlencode($e->getMessage()));
                 }
             } else {
-                $this->redirect('/order_list?error=Cart is empty'); // Updated route
+                $this->redirect('/order_list?error=Cart is empty');
             }
         }
     }
-    public function orderList() { // New method for /order_list route
-        $orders = $this->model->getAllOrders(); // Fetch orders
+
+    private function sendTelegramNotification($items, $totalPrice, $saleId, $paymentMethod = 'unknown') {
+        // Redesigned message with better formatting and emojis
+        $message = "✨ *Velea Cafe - New Order Received* ✨\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━\n";
+        $message .= "📋 *Order Details*\n";
+        $message .= "🆔 Sale ID: #$saleId\n";
+        $message .= "📅 Date: " . date('Y-m-d H:i:s') . "\n";
+        $message .= "💳 *Payment Method:* " . ucfirst($paymentMethod) . "\n\n";
+        $message .= "🛒 *Items Purchased:*\n";
+
+        foreach ($items as $item) {
+            $message .= "• {$item['name']} (x{$item['quantity']}) - $" . number_format($item['price'] * $item['quantity'], 2) . "\n";
+        }
+
+        $message .= "\n💰 *Total Price:* $" . number_format($totalPrice, 2) . "\n";
+        $message .= "━━━━━━━━━━━━━━━━━━━━━━━\n";
+        $message .= "🙏 *Thank you for choosing Velea Cafe!*\n";
+
+        $url = "https://api.telegram.org/bot{$this->telegramBotToken}/sendMessage";
+        $data = [
+            'chat_id' => $this->telegramChatId,
+            'text' => $message,
+            'parse_mode' => 'Markdown'
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // Log the response for debugging
+        $responseData = json_decode($response, true);
+        if ($httpCode !== 200 || !$responseData['ok']) {
+            error_log("Telegram API error: HTTP $httpCode - " . ($responseData['description'] ?? 'Unknown error'));
+        } else {
+            error_log("Telegram message sent successfully: " . $response);
+        }
+    }
+
+    public function orderList() {
+        $orders = $this->model->getAllOrders();
         $this->view('/order/order_list', [
             'orders' => $orders,
             'error' => $_GET['error'] ?? '',
             'success' => $_GET['success'] ?? ''
         ]);
+    }
+
+    // New helper method to notify admin via Telegram
+    private function notifyAdminViaTelegram($saleId) {
+        // URL of the Telegram bot script
+        $telegramBotUrl = 'http://localhost:127.0.0.1/cafe/telegram_bot.php'; // Adjust this to your server URL
+        // Call the Telegram bot script with the sale_id
+        $response = file_get_contents("{$telegramBotUrl}?sale_id={$saleId}");
+        // Log the response for debugging
+        error_log("Telegram Bot Response for sale_id {$saleId}: " . $response);
     }
 }
 ?>

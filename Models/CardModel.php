@@ -146,6 +146,7 @@ class CardModel {
             throw $e;
         }
     }
+
     public function getAllOrders() {
         $query = "
             SELECT 
@@ -159,9 +160,40 @@ class CardModel {
             FROM sale_items si
             JOIN products p ON si.product_id = p.product_ID
             JOIN sales s ON si.sale_id = s.sale_id
-            ORDER BY s.sale_date DESC"; // Order by date descending to get newest first
+            ORDER BY s.sale_date DESC";
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Updated method to fetch checkout details using query() instead of prepare()
+    public function getCheckoutDetails($saleId) {
+        try {
+            $query = "
+                SELECT 
+                    s.sale_id,
+                    s.sale_date AS date_of_birth,
+                    s.total_price,
+                    p.name AS item,
+                    p.image AS image,
+                    p.price AS original_price,
+                    si.quantity,
+                    (p.price * si.quantity) AS item_total,
+                    'Completed' AS status
+                FROM 
+                    sales s
+                JOIN 
+                    sale_items si ON s.sale_id = si.sale_id
+                JOIN 
+                    products p ON si.product_id = p.product_ID
+                WHERE 
+                    s.sale_id = :sale_id
+            ";
+            $stmt = $this->db->query($query, ['sale_id' => $saleId]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log("Error fetching checkout details: " . $e->getMessage());
+            return [];
+        }
     }
 }
 ?>
