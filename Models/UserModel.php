@@ -45,5 +45,60 @@ class UserModel
             return false;
         }
     }
-}
 
+    // New updateUser function
+    public function updateUser($admin_ID, $name, $email, $password = null, $profilePicture = null)
+    {
+        try {
+            $params = [
+                ':admin_ID' => $admin_ID,
+                ':name' => $name,
+                ':email' => $email,
+                ':profile_picture' => $profilePicture
+            ];
+            
+            if ($password) {
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $params[':password'] = $hashedPassword;
+                $query = "UPDATE admins SET name = :name, email = :email, password = :password, profile_picture = :profile_picture WHERE admin_ID = :admin_ID";
+            } else {
+                $query = "UPDATE admins SET name = :name, email = :email, profile_picture = :profile_picture WHERE admin_ID = :admin_ID";
+            }
+
+            $this->db->query($query, $params);
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    // New storeUser function (alternative to addUser with more flexibility)
+    public function storeUser($data)
+    {
+        $defaults = [
+            'name' => '',
+            'email' => '',
+            'password' => '',
+            'profile_picture' => null
+        ];
+        
+        $data = array_merge($defaults, $data);
+        
+        $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+        
+        try {
+            $this->db->query(
+                "INSERT INTO admins (name, email, password, profile_picture) VALUES (:name, :email, :password, :profile_picture)",
+                [
+                    ':name' => $data['name'],
+                    ':email' => $data['email'],
+                    ':password' => $hashedPassword,
+                    ':profile_picture' => $data['profile_picture']
+                ]
+            );
+            return $this->db->lastInsertId();
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+}

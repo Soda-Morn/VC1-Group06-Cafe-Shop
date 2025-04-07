@@ -47,6 +47,7 @@
   <link rel="stylesheet" href="../views/assets/css/productlist.css">
   <link rel="stylesheet" href="../views/assets/css/Categories.css">
   
+  <link rel="stylesheet" href="../views/assets/css/viewprofile.css">
 
  
 

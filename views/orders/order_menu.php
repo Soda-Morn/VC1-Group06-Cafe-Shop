@@ -1,11 +1,22 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
+    <style> 
         body {
-            background-color: white;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background: rgb(245, 247, 250);
         }
-        
+
+        .container {
+            background: rgb(245, 247, 250);
+            padding-left: 20px;
+            padding-right: 20px;
+            max-width: 1400px;
+        }
+
         .header {
+            background: rgb(245, 247, 250);
             margin-top: 10px;
             display: flex;
             justify-content: space-between;
@@ -13,6 +24,7 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
+            box-shadow: none;
         }
 
         .search-container {
@@ -36,35 +48,35 @@
         .search-input:focus {
             outline: none;
             border-color: #86b7fe;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            box-shadow: none;
         }
 
         .add-new-btn {
-            background: #28a745;
+            background: rgb(196, 95, 22);
             color: white;
             font-weight: bold;
             border-radius: 8px;
             font-size: 0.9rem;
             padding: 0.375rem 0.75rem;
+            box-shadow: none;
         }
 
         .btn-create {
-            background: #28a745;
+            background: rgb(196, 95, 22);
             color: white;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 5px;
             font-size: 1rem;
             padding: 0.375rem 0.75rem;
+            box-shadow: none;
         }
 
-        /* Custom column width for 5 cards per row with adjusted spacing */
         .col-5-cards {
             width: 20%;
             padding-right: 5px;
             padding-left: 5px;
         }
 
-        /* Row adjustment to match image spacing */
         .card-row {
             margin-left: -5px;
             margin-right: -5px;
@@ -93,7 +105,6 @@
             background-color: white;
         }
 
-        /* Delete button styling */
         .btn-delete {
             position: absolute;
             top: 5px;
@@ -138,14 +149,6 @@
             line-height: 1.3;
         }
 
-        /* Container padding adjustment */
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-            max-width: 1400px;
-        }
-
-        /* Checkbox styles */
         .select-checkbox {
             position: absolute;
             top: 10px;
@@ -169,7 +172,7 @@
             font-size: 1rem;
             font-weight: bold;
             padding: 0.375rem 0.75rem;
-            border-radius: 8px;
+            border-radius: 5px;
             border: none;
             transition: background 0.3s ease;
             display: none;
@@ -183,21 +186,35 @@
             display: inline-block;
         }
 
-        /* Prevent click events on buttons from triggering card selection */
-        .btn-danger,
-        .btn,
-        .add-new-btn,
-        .checkout-btn {
-            pointer-events: auto;
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-right: 15px;
         }
-        /* Adjust the button group spacing */
+
+        .pagination-btn {
+            background: rgb(196, 95, 22);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pagination-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
         .button-group {
             display: flex;
             gap: 10px;
             align-items: center;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 1199.98px) {
             .col-5-cards {
                 width: 25%;
@@ -251,8 +268,14 @@
             </div>
         </div>
         <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
-            <div class="row card-row">
-                <?php foreach ($products as $item): ?>
+            <div class="row card-row" id="cardContainer">
+                <?php 
+                $cardsPerPage = 15;
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $start = ($page - 1) * $cardsPerPage;
+                $currentProducts = array_slice($products, $start, $cardsPerPage);
+                
+                foreach ($currentProducts as $item): ?>
                     <div class="col-5-cards product-card" data-name="<?= htmlspecialchars(strtolower($item['name'])) ?>">
                         <div class="card" data-product-id="<?= htmlspecialchars($item['product_ID']) ?>">
                             <input type="checkbox" class="select-checkbox" name="selected_products[]" value="<?= htmlspecialchars($item['product_ID']) ?>">
@@ -274,7 +297,115 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+            <div class="pagination">
+                <?php
+                $totalPages = ceil(count($products) / $cardsPerPage);
+                $prevPage = $page > 1 ? $page - 1 : 1;
+                $nextPage = $page < $totalPages ? $page + 1 : $totalPages;
+                ?>
+                <button type="button" class="pagination-btn" onclick="window.location.href='?page=<?= $prevPage ?>'" <?= $page === 1 ? 'disabled' : '' ?>>Previous</button>
+                <button type="button" class="pagination-btn" onclick="window.location.href='?page=<?= $nextPage ?>'" <?= $page === $totalPages ? 'disabled' : '' ?>>Next</button>
+            </div>
         </form>
     </div>
- 
-    
+
+    <script>
+        function filterProducts() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                
+                if (name.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('.btn-remove').click(function(e) {
+                e.stopPropagation();
+                const productId = $(this).data('product-id');
+                const card = $(this).closest('.card');
+                
+                const isConfirmed = confirm('Are you sure you want to delete this product?');
+                if (!isConfirmed) {
+                    return;
+                }
+
+                $.ajax({
+                    url: `/order_menu/destroy/${productId}`,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            card.closest('.col-5-cards').remove();
+                            if ($('.card').length === 0) {
+                                $('.card-row').html('<div class="col-12 text-center">No products available.</div>');
+                            }
+                            const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
+                            document.getElementById('checkoutBtn').classList.toggle('visible', anyChecked);
+                        } else {
+                            alert('Failed to delete product: ' + (data.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error deleting product:', {status: status, error: error, responseText: xhr.responseText});
+                        alert('An error occurred while deleting the product: ' + (xhr.responseText || error));
+                    }
+                });
+            });
+
+            $('.btn-add-to-cart').click(function(e) {
+                e.stopPropagation();
+                const productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/orderCard/addToCart',
+                    type: 'POST',
+                    data: { product_id: productId },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            window.location.href = '/orderCard';
+                        } else {
+                            alert('Failed to add product to cart: ' + (data.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error adding to cart:', {status: status, error: error, responseText: xhr.responseText});
+                        alert('An error occurred while adding to cart: ' + (xhr.responseText || error));
+                    }
+                });
+            });
+
+            const cards = document.querySelectorAll('.card');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.btn-danger') || e.target.closest('.btn-add-to-cart') || e.target.closest('.add-new-btn') || e.target.closest('.checkout-btn')) {
+                        return;
+                    }
+
+                    const checkbox = this.querySelector('.select-checkbox');
+                    checkbox.checked = !checkbox.checked;
+
+                    if (checkbox.checked) {
+                        this.classList.add('selected');
+                    } else {
+                        this.classList.remove('selected');
+                    }
+
+                    const anyChecked = Array.from(document.querySelectorAll('.select-checkbox')).some(cb => cb.checked);
+                    checkoutBtn.classList.toggle('visible', anyChecked);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
