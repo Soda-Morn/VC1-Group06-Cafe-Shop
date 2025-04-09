@@ -1,12 +1,4 @@
-
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        .profile-container {
+.profile-container {
             margin: 120px auto;
             padding: 50px 25px;
             display: flex;
