@@ -246,5 +246,6 @@ $profilePicture = $_SESSION['profile_picture'] ?? '';
       <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </div>
+  <script src="/views/assets/js/Language_options/profile-info-o.js"></script>
 </body>
 </html>
