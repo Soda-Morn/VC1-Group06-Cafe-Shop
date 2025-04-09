@@ -100,14 +100,7 @@ $route->get('/payment_upload', [PaymentUploadController::class, 'index']);
 $route->get('/payment/upload', [PaymentUploadController::class, 'index']);
 
 
-
-
-
-
-
-
-
-
+//profile_management
 $route->get("/Profile_info", [Profile_infoController::class, 'index']);
 $route->get("/Profile_info/profile_edit", [Profile_infoController::class, 'edit']);
 $route->post("/Profile_info/profile_edit", [Profile_infoController::class, 'edit']);
