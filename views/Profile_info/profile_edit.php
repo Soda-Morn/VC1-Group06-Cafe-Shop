@@ -186,5 +186,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         });
     </script>
+  <script src="/views/assets/js/Language_options/profile-edit-o.js"></script>
 </body>
 </html>

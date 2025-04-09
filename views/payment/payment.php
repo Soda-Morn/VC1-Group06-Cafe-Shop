@@ -279,5 +279,6 @@
             document.querySelector('.payment-container').style.opacity = '1';
         });
     </script>
+    <script src="views/assets/js/Language_options/payment-o.js"></script>
 </body>
 </html>

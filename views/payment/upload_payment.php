@@ -351,5 +351,6 @@
             });
         });
     </script>
+    <script src="/views/assets/js/Language_options/upload-payment-o.js"></script>
 </body>
 </html>

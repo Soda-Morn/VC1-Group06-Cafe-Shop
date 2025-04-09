@@ -17,7 +17,7 @@ class CardController extends BaseController {
     public function index() {
         $cartItems = $_SESSION['cart'] ?? [];
         $error = $_GET['error'] ?? '';
-        $success = $_GET['success'] ?? '';
+        $success = $_GET['success'] ?? ''; 
         $this->view('/order_card/order_card', [
             'cartItems' => $cartItems,
             'error' => $error,
