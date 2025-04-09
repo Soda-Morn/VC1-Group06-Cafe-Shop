@@ -259,37 +259,101 @@
 
     <script>
         $(document).ready(function() {
-            function updateTotal() {
+            // Function to update the total price and total quantity
+            function updateTotalAndQuantity() {
                 let total = 0;
+                let totalQuantity = 0;
+
                 $('.cart-item').each(function() {
                     let price = parseFloat($(this).find('.item-price').text().replace('$', ''));
                     let quantity = parseInt($(this).find('.quantity-input').val());
                     total += price * quantity;
+                    totalQuantity += quantity; // Sum up the quantities
                 });
+
                 $('#total-price').text(total.toFixed(2));
+                // Update the checkout icon quantity badge in the navbar
+                $('.count_cart').text(totalQuantity);
+                // If total quantity is 0, hide the badge
+                if (totalQuantity === 0) {
+                    $('.count_cart').hide();
+                } else {
+                    $('.count_cart').show();
+                }
             }
+
+            // Initial update to set the correct quantity on page load
+            updateTotalAndQuantity();
 
             $('.btn-increase').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = parseInt(input.val()) + 1;
                 input.val(newValue);
-                updateTotal();
+                updateTotalAndQuantity();
+
+                // Update the server-side session via AJAX
+                const productId = $(this).closest('.cart-item').data('product-id');
+                updateCartQuantity(productId, newValue);
             });
 
             $('.btn-decrease').click(function() {
                 let input = $(this).siblings('.quantity-input');
                 let newValue = Math.max(1, parseInt(input.val()) - 1);
                 input.val(newValue);
-                updateTotal();
+                updateTotalAndQuantity();
+
+                // Update the server-side session via AJAX
+                const productId = $(this).closest('.cart-item').data('product-id');
+                updateCartQuantity(productId, newValue);
             });
 
             $('.quantity-input').on('change', function() {
                 let value = parseInt($(this).val());
                 if (isNaN(value) || value < 1) {
                     $(this).val(1);
+                    value = 1;
                 }
-                updateTotal();
+                updateTotalAndQuantity();
+
+                // Update the server-side session via AJAX
+                const productId = $(this).closest('.cart-item').data('product-id');
+                updateCartQuantity(productId, value);
             });
+
+            // Function to update the server-side session cart quantity
+            function updateCartQuantity(productId, quantity) {
+                console.log('Sending AJAX request to update quantity:', {
+                    product_id: productId,
+                    quantity: quantity,
+                    url: '/orderCard/updateCartQuantity'
+                });
+
+                $.ajax({
+                    url: '/orderCard/updateCartQuantity',
+                    type: 'POST',
+                    data: {
+                        product_id: productId,
+                        quantity: quantity
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('AJAX success response:', data);
+                        if (!data.success) {
+                            console.error('Failed to update quantity:', data.message);
+                            alert('Failed to update quantity: ' + (data.message || 'Unknown error'));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', {
+                            status: status,
+                            error: error,
+                            responseText: xhr.responseText,
+                            statusCode: xhr.status
+                        });
+                        alert('An error occurred while updating the quantity: ' + (xhr.responseText || error));
+                    }
+                });
+            }
 
             $('.btn-remove').click(function() {
                 const productId = $(this).data('product-id');
@@ -305,7 +369,7 @@
                     success: function(data) {
                         if (data.success) {
                             row.remove();
-                            updateTotal();
+                            updateTotalAndQuantity();
                             if ($('#cartItems .cart-item').length === 0) {
                                 $('#cartItems').html('<tr><td colspan="5" class="text-center">No items in cart.</td></tr>');
                             }
@@ -350,8 +414,7 @@
                 let logoData;
                 try {
                     logoData = await getBase64Image(logoSrc);
-                    // Add logo (20mm width, maintaining aspect ratio, balanced with text)
-                    doc.addImage(logoData, 'PNG', 10, 5, 20, 0); // Width 20mm, height auto-adjusted
+                    doc.addImage(logoData, 'PNG', 10, 5, 20, 0);
                 } catch (error) {
                     console.error('Error loading logo:', error);
                 }
@@ -360,9 +423,9 @@
                 doc.setFontSize(24);
                 doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'bold');
-                doc.text('Velea Cafe', 35, 15); // Adjusted position to right of logo
+                doc.text('Velea Cafe', 35, 15);
                 doc.setFontSize(14);
-                doc.text('Cart Receipt', 35, 22); // Adjusted position
+                doc.text('Cart Receipt', 35, 22);
 
                 // Date without background
                 const today = new Date();
