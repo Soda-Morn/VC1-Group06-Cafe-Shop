@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order List</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         .container {
             max-width: 1400px;
@@ -15,23 +7,13 @@
             text-align: center;
         }
 
-        .card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            background:rgb(228, 220, 220);
-        }
 
         .card-body {
             padding: 10px;
             background-color: #fff;
         }
 
-        .table-responsive {
-            border-radius: 10px;
-            overflow-x: auto;
-            background: #fff;
-        }
+      
 
         .table {
             margin-bottom: 0;
@@ -65,19 +47,9 @@
             transition: all 0.3s ease;
         }
 
-        .table tbody tr:hover {
-            background-color: #f1f5f9;
-        }
 
-        .table td {
-            padding: 8px 12px;
-            vertical-align: middle;
-            border-top: 1px solid #e5e7eb;
-        }
 
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f9fafb;
-        }
+      
 
         .badge {
             padding: 7px 14px;
@@ -92,7 +64,7 @@
             width: 50px;
             height: 50px;
             object-fit: cover;
-            border: 3px solid #e5e7eb;
+         
             border-radius: 50%;
             margin-right: 15px;
             transition: all 0.3s ease;
@@ -111,16 +83,40 @@
         }
 
         @media (max-width: 768px) {
-            .container { padding: 0 10px; }
-            .card-body { padding: 5px; }
-            .table td, .table th { padding: 6px 8px; font-size: 0.9rem; }
-            .rounded-circle { width: 40px; height: 40px; }
-            h2.text-start { font-size: 1.75rem; }
+            .container {
+                padding: 0 10px;
+            }
+
+            .card-body {
+                padding: 5px;
+            }
+
+            .table td,
+            .table th {
+                padding: 6px 8px;
+                font-size: 0.9rem;
+            }
+
+            .rounded-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+            h2.text-start {
+                font-size: 1.75rem;
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .table tbody tr {
@@ -152,7 +148,7 @@
         .filter-button {
             border-radius: 10px;
             padding: 8px 16px;
-            background-color: #f1f5f9;
+           
             color: #374151;
             font-weight: 500;
             border: none;
@@ -162,9 +158,7 @@
             cursor: pointer;
         }
 
-        .filter-button:hover {
-            background-color: #e2e8f0;
-        }
+       
 
         .filter-button:focus {
             outline: none;
@@ -179,7 +173,7 @@
         .date-picker-button {
             border-radius: 10px;
             padding: 8px 16px;
-            background-color: #f1f5f9;
+          
             color: #374151;
             font-weight: 500;
             border: none;
@@ -192,9 +186,6 @@
             justify-content: space-between;
         }
 
-        .date-picker-button:hover {
-            background-color: #e2e8f0;
-        }
 
         .date-picker-button:focus {
             outline: none;
@@ -218,7 +209,7 @@
             top: 100%;
             right: 0;
             background-color: #fff;
-            border: 1px solid #e5e7eb;
+           
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             min-width: 150px;
@@ -239,13 +230,24 @@
             transition: all 0.2s ease;
         }
 
-        .dropdown-item:hover {
-            background-color: #f1f5f9;
+    
+
+        /* Custom scrollbar for Firefox */
+        .table-responsive {
+            scrollbar-width: thin;
+            scrollbar-color: #f97316 #f1f5f9;
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .pagination {
@@ -265,10 +267,7 @@
             transition: all 0.3s ease;
         }
 
-        .pagination button:disabled {
-            background-color: #d1d5db;
-            cursor: not-allowed;
-        }
+        
 
         .pagination button:hover:not(:disabled) {
             background-color: #ea580c;
@@ -278,15 +277,22 @@
             width: 320px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(145deg, #ffffff, #f0f4f8);
+           
             border: none;
             padding: 15px;
             animation: slideIn 0.3s ease-in-out;
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .flatpickr-month {
@@ -314,7 +320,8 @@
             margin-left: 10px;
         }
 
-        .flatpickr-current-month select, .flatpickr-current-month input {
+        .flatpickr-current-month select,
+        .flatpickr-current-month input {
             color: white;
             background: transparent;
             border: none;
@@ -322,7 +329,8 @@
             font-weight: 600;
         }
 
-        .flatpickr-current-month select:focus, .flatpickr-current-month input:focus {
+        .flatpickr-current-month select:focus,
+        .flatpickr-current-month input:focus {
             outline: none;
         }
 
@@ -347,9 +355,17 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .flatpickr-day.today {
@@ -358,18 +374,15 @@
             font-weight: 700;
         }
 
-        .flatpickr-day.disabled {
-            color: #d1d5db;
-            cursor: not-allowed;
-        }
-
-        .flatpickr-prev-month, .flatpickr-next-month {
+        .flatpickr-prev-month,
+        .flatpickr-next-month {
             color: white;
             font-size: 1.2rem;
             transition: all 0.3s ease;
         }
 
-        .flatpickr-prev-month:hover, .flatpickr-next-month:hover {
+        .flatpickr-prev-month:hover,
+        .flatpickr-next-month:hover {
             color: #ff9f43;
             transform: scale(1.2);
         }
@@ -390,15 +403,14 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
-            .filter-button, .date-picker-button {
+
+            .filter-button,
+            .date-picker-button {
                 width: 100%;
             }
         }
     </style>
-</head>
 
-<body>
     <div class="container">
         <div class="table mt-1">
             <?php if (isset($_GET['error'])): ?>
@@ -453,7 +465,7 @@
                                     $index = 1;
                                     foreach ($orders as $order):
                                         $date = new DateTime($order['date_of_birth']);
-                                        ?>
+                                    ?>
                                         <tr data-date="<?= $date->format('Y-m-d') ?>">
                                             <td class="index"><?= $index++ ?></td>
                                             <td class="text-start">
@@ -524,7 +536,7 @@
             function formatDateForButton(dateStr) {
                 if (!dateStr) return isSingleDateMode ? 'Select Date' : 'Select Date Range';
                 const date = new Date(dateStr);
-                return date.toLocaleDateString('en-US', { 
+                return date.toLocaleDateString('en-US', {
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric'
@@ -661,13 +673,13 @@
                     currentPicker.clear();
                     datePickerButton.childNodes[0].textContent = isSingleDateMode ? 'Select Date' : 'Select Date Range';
                 }
-                
+
                 filteredRows = rows.filter(row => {
                     const rowDateStr = row.getAttribute('data-date');
                     if (!rowDateStr || rowDateStr === 'N/A') return false;
 
                     const rowDate = new Date(rowDateStr);
-                    switch(filter) {
+                    switch (filter) {
                         case 'today':
                             return isSameDay(rowDate, today);
                         case 'yesterday':
@@ -726,8 +738,8 @@
 
             function isSameDay(date1, date2) {
                 return date1.getDate() === date2.getDate() &&
-                       date1.getMonth() === date2.getMonth() &&
-                       date1.getFullYear() === date2.getFullYear();
+                    date1.getMonth() === date2.getMonth() &&
+                    date1.getFullYear() === date2.getFullYear();
             }
 
             filterSelect.addEventListener('change', function() {
@@ -752,7 +764,4 @@
             filterOrders('all');
         });
     </script>
-<script src="views/assets/js/Language_options/order-list-o.js"></script>
-</body>
-
-</html>
+    <script src="views/assets/js/Language_options/order-list-o.js"></script>

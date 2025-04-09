@@ -15,15 +15,15 @@ $userName = $isLoggedIn ? ($_SESSION['name'] ?? 'Admin') : 'User';
 $userEmail = $isLoggedIn ? ($_SESSION['email'] ?? 'admin@example.com') : 'user@example.com';
 $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
 ?>
-<div class="sidebar" data-background-color="#FFF8E7" data-active-color="dark">
-  <div class="sidebar-logo">
+<div class="sidebar " data-background-color="#FFF8E7" data-active-color="dark">
+  <div class="sidebar-logo ">
     <!-- Logo Header -->
-    <div class="logo-header" data-background-color="pink">
+    <div class="logo-header " data-background-color="pink">
       <a href="/" class="logo">
         <img
           src="../../views/assets/images/logo.png" alt="navbar brand"
           class="navbar-brand"
-          height="90" />
+          height="60" />
       </a>
       <a href="form_order"></a>
       <div class="nav-toggle">
@@ -108,10 +108,10 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
   </div>
 </div>
 <div class="main-panel">
-  <div class="main-header">
-    <div class="main-header-logo">
+  <div class="main-header ">
+    <div class="main-header-logo ">
       <!-- Logo Header -->
-      <div class="logo-header" data-background-color="dark">
+      <div class="logo-header " data-background-color="dark">
         <a href="index.html" class="logo">
           <img
             src="views/assets/img/kaiadmin/logo_light.svg"
@@ -417,7 +417,7 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     .caret {
       transition: transform 0.3s ease;
     }
-    .logo {
+    /* .logo {
       width: 170px;
       display: flex;
       justify-content: center;
@@ -426,6 +426,6 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     .logo-header {
       margin-top: 30px;
       margin-bottom: 15px;
-    }
+    } */
   </style>
   <script src="views/assets/js/Language_options/navbar-o.js"></script>

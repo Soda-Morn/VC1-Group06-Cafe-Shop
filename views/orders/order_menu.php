@@ -218,6 +218,12 @@
         .col-5-cards {
             width: 25%;
         }
+        .btn-create add-new-btn {
+            font-size: -0 rem;
+            padding: 0.1rem 0.1rem;
+        }
+       
+
     }
 
     @media (max-width: 767.98px) {
@@ -229,7 +235,7 @@
             flex-direction: column;
             align-items: flex-start;
         }
-
+  
         .search-container {
             width: 100%;
         }
@@ -242,21 +248,26 @@
             width: 100%;
             justify-content: space-between;
         }
+        .btn-create{
+            font-size: 0.1rem;
+            padding: 0.3rem 0.6rem;
+        }
     }
 
     @media (max-width: 575.98px) {
         .col-5-cards {
             width: 50%;
         }
-
+     
         .button-group {
             gap: 5px;
         }
 
         .checkout-btn,
         .btn-create {
-            font-size: 0.9rem;
-            padding: 0.3rem 0.6rem;
+            font-size: 0.70rem;
+            padding: 0.1rem 0.1rem;
+            text-align: center;
         }
     }
 </style>
@@ -269,7 +280,7 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Search menu......" onkeyup="filterProducts()">
             </div>
             <button type="submit" form="checkoutForm" class="checkout-btn" id="checkoutBtn">Order Now</button>
-            <a href="/order_menu/create" class="btn-create add-new-btn">Create Menu</a>
+            <a href="/order_menu/create" class="btn-create add-new-btn ">Create Menu</a>
         </div>
     </div>
     <form id="checkoutForm" action="/orderCard/addMultipleToCart" method="POST">
