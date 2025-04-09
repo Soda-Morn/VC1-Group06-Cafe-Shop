@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suppliers List</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: rgb(245, 247, 250);
+    }
     /* Header Styles */
     .container h1 {
       margin-top: 5px;
       margin-left: 10px;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
+      
     }
 
     /* Header and Search Container */
@@ -47,12 +41,12 @@
     }
 
     .supplier-search-input {
-      border-radius: 5px;
-      border: 1px solid rgb(203, 198, 198);
+      border-radius: 8px;
+      border: 1px solid rgb(237, 222, 222);
       padding: 6px 10px 6px 30px;
-      width: 180px;
+      width: 220px;
       font-size: 1rem;
-      height: 35px;
+      height: 40px;
       background-color: white;
     }
 
@@ -93,7 +87,7 @@
     }
 
     .table tbody tr {
-      background-color: #f4f4f4;
+      background-color:rgb(255, 255, 255);
       text-align: center;
     }
 
@@ -130,9 +124,6 @@
       background-color: #f97316; /* Matches the orange theme */
     }
   </style>
-</head>
-
-<body>
   <div class="container">
     <!-- Header with Search and Create Button -->
     <div class="header-container">
@@ -206,9 +197,6 @@
       searchInput.addEventListener('input', filterSuppliers);
     });
   </script>
-</body>
-
-</html>
   <!-- JavaScript for Search Functionality and Dropdown Fix -->
   <script src="views/assets/js/Language_options/suppliers-list-o.js"></script>
 

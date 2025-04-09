@@ -120,6 +120,7 @@
             align-items: center;
             cursor: pointer;
             height: 140px;
+            width: 540px;
             margin-top: 10px;
             transition: background-color 0.2s, border-color 0.2s;
         }
