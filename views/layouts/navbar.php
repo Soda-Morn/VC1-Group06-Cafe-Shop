@@ -131,13 +131,13 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
           <i class="gg-more-vertical-alt"></i>
         </button>
       </div>
-      <!-- End Logo Header -->  
+      <!-- End Logo Header -->
     </div>
     <!-- Navbar Header -->
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
       <div class="container-fluid">
-      
+
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
           <li
@@ -162,30 +162,30 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </form>
             </ul>
           </li>
-<!-- Topbar -->
-         <div class="topbar">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="user-box">
+          <!-- Topbar -->
+          <div class="topbar">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="user-box">
                 <!-- Language Selector -->
                 <div class="language-selector d-inline-flex align-items-center">
-                    <div class="dropdown">
-                        <button class="btn  dropdown-toggle " type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img id="flagIcon" src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;">
-                            <span id="languageText">English</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-user" id="dropdownMenu" aria-labelledby="languageDropdown" style="width: 20px;">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="#" data-lang="km">
-                                    <img src="https://flagcdn.com/w40/kh.png" alt="Khmer Flag" class="me-1" style="width: 20px; height: 20px;">
-                                    <span>ភាសាខ្មែរ</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                  <div class="dropdown">
+                    <button class="btn  dropdown-toggle " type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img id="flagIcon" src="https://flagcdn.com/w40/gb.png" alt="English Flag" class="me-1" style="width: 20px; height: 20px;">
+                      <span id="languageText">English</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-user" id="dropdownMenu" aria-labelledby="languageDropdown" style="width: 20px;">
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center" href="#" data-lang="km">
+                          <img src="https://flagcdn.com/w40/kh.png" alt="Khmer Flag" class="me-1" style="width: 20px; height: 20px;">
+                          <span>ភាសាខ្មែរ</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
-        </div>
 
           <li class="nav-item topbar-icon dropdown hidden-caret">
             <a
@@ -344,19 +344,25 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
               </li>
             </ul>
           </li>
-          <!-- //card --> 
+          <!-- //card -->
           <li class="nav-item topbar-icon dropdown hidden-caret">
             <a class="nav-link" href="/orderCard" aria-expanded="false">
-              <i class="fas fa-shopping-cart"></i>
-              <span class="badge badge-pill badge-danger count_cart" style="position: absolute; top: -5px; right: -10px;">
-                <?php
-                echo (!empty($_SESSION['cart']) && count($_SESSION['cart']) > 0)
-                  ? array_sum(array_column($_SESSION['cart'], 'quantity'))
-                  : '0';
-                ?>
-              </span>
+
+              <div class="cart-container">
+                <span class="cart-icon"><i class="fas fa-shopping-cart"></i></span>
+
+                <span class="badge-pill badge-danger count_cart" style="font-size: 10px; padding: 2px 5px;">
+
+                  <?php
+                  echo (!empty($_SESSION['cart']) && count($_SESSION['cart']) > 0)
+                    ? array_sum(array_column($_SESSION['cart'], 'quantity'))
+                    : '0';
+                  ?>
+                </span>
+              </div>
             </a>
           </li>
+
           <!-- profile -->
           <li class="nav-item topbar-user dropdown hidden-caret">
             <a
@@ -543,55 +549,41 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     });
   </script>
   <style>
+    .count_cart {
+      position: absolute;
+      top: 5px;
+      right: 2px;
+      background-color: #dc3545;
+      color: white;
+      padding: 7px 7px;
+      border-radius: 50rem;
+      /* pill shape */
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1;
+    }
     .collapse {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
       opacity: 0;
     }
-
     .collapse.show {
       max-height: 500px;
-      /* Adjust as needed */
       opacity: 1;
     }
-
-    /* Caret animation */
     .caret {
       transition: transform 0.3s ease;
     }
-
-    .caret.down {
-      transform: rotate(180deg);
-    }
-
-    .nav-item.active a {
-      font-weight: bold;
-      color: #ffffff;
-      /* Adjust color as needed */
-    }
-
     .logo {
       width: 170px;
       display: flex;
       justify-content: center;
 
     }
-
     .logo-header {
       margin-top: 30px;
       margin-bottom: 15px;
     }
-
-    .nav-item a.active {
-      font-weight: bold;
-      color: #000000;
-      /* Black text */
-      background-color: #ff5722;
-      /* Highlight */
-      border-radius: 5px;
-      padding: 8px 12px;
-    }
-  </style>
   </style>
   <script src="views/assets/js/Language_options/navbar-o.js"></script>
