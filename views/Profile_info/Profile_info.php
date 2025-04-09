@@ -174,3 +174,4 @@ $profilePicture = $_SESSION['profile_picture'] ?? '';
     }
 }
 </style>
+<script src="views/assets/js/Language_options/profile-info-o.js"></script>
