@@ -153,10 +153,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <a href="/dashboard" class="save-button">
-                    <i class="fas fa-save"></i> <span>Save Changes</span>
-                   </a>
-
+                    <button type="submit" class="save-button">
+                        <i class="fas fa-save"></i>
+                        <span>Save Changes</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -186,7 +186,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         });
     </script>
-
-    
 </body>
 </html>
