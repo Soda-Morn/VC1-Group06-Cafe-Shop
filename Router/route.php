@@ -68,6 +68,7 @@ $route->post('/orderCard/checkout', [CardController::class, 'checkout']); //
 $route->post('/orderCard/addMultipleToCart', [CardController::class, 'addMultipleToCart']); 
 $route->get('/orderCard/updateQuantity', [CardController::class, 'updateQuantity']);
 $route->get('/orderCard/orderList', [CardController::class, 'orderList']);
+$route->get('/orderCard/updateCartQuantity', [CardController::class, 'updateCartQuantity']);
 
 // Inventory 
 $route->get('/stocklist', [StocklistController::class, 'stocklist']);

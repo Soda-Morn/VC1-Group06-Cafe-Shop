@@ -7,7 +7,7 @@ class CardController extends BaseController {
 
     // Telegram Bot Configuration
     private $telegramBotToken = '7542835761:AAEJsRLsIlzS9QDMkKs6tyZHKCAwM3eklZY'; // Your bot token
-    private $telegramChatId = '1673091419'; // Replace with your actual chat ID
+    private $telegramChatId = '1198264749'; // Replace with your actual chat ID
 
     public function __construct() {
         $this->model = new CardModel();
@@ -266,6 +266,53 @@ class CardController extends BaseController {
         $response = file_get_contents("{$telegramBotUrl}?sale_id={$saleId}");
         // Log the response for debugging
         error_log("Telegram Bot Response for sale_id {$saleId}: " . $response);
+    }
+
+    // New method to update the quantity of a product in the cart
+    public function updateCartQuantity() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Invalid request method. Expected POST.']);
+            return;
+        }
+
+        $productId = $_POST['product_id'] ?? null;
+        $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : null;
+
+        if (!$productId) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Product ID is missing']);
+            return;
+        }
+
+        if ($quantity === null || $quantity < 1) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Invalid quantity. Quantity must be at least 1']);
+            return;
+        }
+
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Cart is empty']);
+            return;
+        }
+
+        // Find the product in the cart
+        $index = array_search($productId, array_column($_SESSION['cart'], 'product_ID'));
+        if ($index === false) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Product not found in cart']);
+            return;
+        }
+
+        // Update the quantity
+        $_SESSION['cart'][$index]['quantity'] = $quantity;
+
+        // Log the update for debugging
+        error_log("Updated quantity for product ID $productId to $quantity");
+
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true, 'message' => 'Quantity updated successfully']);
     }
 }
 ?>
