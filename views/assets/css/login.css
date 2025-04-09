@@ -207,3 +207,21 @@
             animation-delay: 0.5s;
         }
     }
+    .password-toggle {
+        position: absolute;
+        right: 10px; /* Keeps it at the right end */
+        top: 55%; /* Vertically centers the icon relative to the input */
+        transform: translateY(-50%); /* Adjusts for perfect centering */
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #A0522D;
+        font-size: 18px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        transition: all 0.3s ease;
+    }

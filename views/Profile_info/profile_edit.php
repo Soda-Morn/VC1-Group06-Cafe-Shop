@@ -1,29 +1,28 @@
 <?php
-// Start the session if not already started
+// Start session if not active
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the user is logged in
+// Redirect if not logged in
 if (!isset($_SESSION['admin_ID'])) {
     header('Location: /login.php');
-    exit();
+    exit;
 }
 
 require_once "Models/UserModel.php";
 $userModel = new UserModel();
 
-// User data from session
+// Load user data from session with defaults
 $userName = $_SESSION['name'] ?? 'User';
 $userEmail = $_SESSION['email'] ?? 'user@example.com';
 $profilePicture = $_SESSION['profile_picture'] ?? 'uploads/default-avatar.png';
 
-// Ensure the profile picture exists, fallback to default if not
-if (!file_exists($profilePicture)) {
-    $profilePicture = 'uploads/default-avatar.png';
-}
+// Validate profile picture existence
+$profilePicture = file_exists($profilePicture) ? $profilePicture : 'uploads/default-avatar.png';
 
 // Handle form submission
+$error = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newName = trim(htmlspecialchars($_POST['name'] ?? ''));
     $newEmail = trim(htmlspecialchars($_POST['email'] ?? ''));
@@ -35,117 +34,129 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Name and email are required!";
     } else {
         $existingUser = $userModel->getUserByEmail($newEmail);
-        if ($existingUser && $existingUser['admin_ID'] != $_SESSION['admin_ID']) {
-            $error = "Email is already in use by another account!";
-        } else {
-            $passwordToUpdate = null;
-            if (!empty($newPassword)) {
-                if (empty($currentPassword) || empty($newPassword)) {
-                    $error = "All password fields are required when changing password!";
-                } else {
-                    $user = $userModel->getUserById($_SESSION['admin_ID']);
-                    if (!password_verify($currentPassword, $user['password'])) {
-                        $error = "Current password is incorrect!";
-                    } elseif (strlen($newPassword) < 6) {
-                        $error = "New password must be at least 6 characters long!";
-                    } else {
-                        $passwordToUpdate = $newPassword;
+        if ($existingUser && $existingUser['admin_ID'] !== $_SESSION['admin_ID']) {
+            $error = "Email is already in use!";
+        } elseif (!empty($newPassword)) {
+            if (empty($currentPassword)) {
+                $error = "Current password required to change password!";
+            } else {
+                $user = $userModel->getUserById($_SESSION['admin_ID']);
+                if (!password_verify($currentPassword, $user['password'])) {
+                    $error = "Incorrect current password!";
+                } elseif (strlen($newPassword) < 6) {
+                    $error = "New password must be 6+ characters!";
+                }
+            }
+        }
+
+        if (!$error) {
+            $profilePicturePath = $profilePicture;
+            if ($newProfilePicture && $newProfilePicture['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = 'uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+                $fileName = time() . '_' . basename($newProfilePicture['name']);
+                $uploadFile = $uploadDir . $fileName;
+
+                if (move_uploaded_file($newProfilePicture['tmp_name'], $uploadFile)) {
+                    $profilePicturePath = $uploadFile;
+                    if ($profilePicture !== 'uploads/default-avatar.png' && file_exists($profilePicture)) {
+                        unlink($profilePicture);
                     }
                 }
             }
 
-            if (!isset($error)) {
-                $profilePicturePath = $profilePicture;
-                if ($newProfilePicture && $newProfilePicture['error'] === 0) {
-                    $uploadDir = 'uploads/';
-                    if (!is_dir($uploadDir)) {
-                        mkdir($uploadDir, 0777, true);
-                    }
-                    $fileName = time() . '_' . basename($newProfilePicture['name']);
-                    $uploadFile = $uploadDir . $fileName;
+            $passwordToUpdate = $newPassword ?: null;
+            $result = $userModel->updateUser(
+                $_SESSION['admin_ID'],
+                $newName,
+                $newEmail,
+                $passwordToUpdate,
+                $profilePicturePath
+            );
 
-                    if (move_uploaded_file($newProfilePicture['tmp_name'], $uploadFile)) {
-                        $profilePicturePath = $uploadFile;
-                        if ($profilePicture !== 'uploads/default-avatar.png' && file_exists($profilePicture)) {
-                            unlink($profilePicture);
-                        }
-                    }
-                }
-
-                $result = $userModel->updateUser(
-                    $_SESSION['admin_ID'],
-                    $newName,
-                    $newEmail,
-                    $passwordToUpdate,
-                    $profilePicturePath
-                );
-
-                if ($result) {
-                    $_SESSION['name'] = $newName;
-                    $_SESSION['email'] = $newEmail;
-                    $_SESSION['profile_picture'] = $profilePicturePath;
-                    header('Location: /Profile_info');
-                    exit();
-                } else {
-                    $error = "Failed to update profile. Please try again.";
-                }
+            if ($result) {
+                $_SESSION['name'] = $newName;
+                $_SESSION['email'] = $newEmail;
+                $_SESSION['profile_picture'] = $profilePicturePath;
+                header('Location: /Profile_info');
+                exit;
+            } else {
+                $error = "Update failed. Try again.";
             }
         }
     }
 }
 ?>
 
-
-    
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
     <div class="profile-container">
-        <!-- Back Button at Top-Left -->
         <a href="/Profile_info" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
         <div class="profile-edit-container">
-            <?php if (isset($error)): ?>
-                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+            <?php if ($error): ?>
+                <div class="error-message"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
-            <form method="POST" enctype="multipart/form-data">
-                <div class="form-grid">
-                    <div class="form-group full-width">
-                        <div class="profile-preview">
-                            <?php if (!empty($profilePicture) && file_exists($profilePicture)): ?>
-                                <img id="preview" src="/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture">
-                            <?php else: ?>
-                                <img id="preview" src="/uploads/default-avatar.png" alt="Profile Picture">
-                            <?php endif; ?>
+            <form method="POST" enctype="multipart/form-data" class="profile-form">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img id="preview" src="/<?= htmlspecialchars($profilePicture) ?>" alt="Profile">
+                        <div class="avatar-overlay">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)">
                         </div>
-                        <h2>Edit Profile</h2>
-                        <label for="profile_picture"></label>
-                        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)">
                     </div>
+                    <h1>Edit Your Profile</h1>
+                </div>
 
+                <div class="form-grid">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($userName); ?>" required>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" name="name" value="<?= htmlspecialchars($userName) ?>" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userEmail); ?>" required>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" value="<?= htmlspecialchars($userEmail) ?>" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="current_password">Current Password</label>
-                        <input type="password" id="current_password" name="current_password" placeholder="Current password">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="current_password" name="current_password" placeholder="Current password">
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="new_password">New Password</label>
-                        <input type="password" id="new_password" name="new_password" placeholder="New password">
+                        <div class="input-wrapper">
+                            <i class="fas fa-key"></i>
+                            <input type="password" id="new_password" name="new_password" placeholder="New password">
+                        </div>
                     </div>
 
-                    <div class="form-group full-width">
-                        <button type="submit" class="save-button">Save Changes</button>
-                    </div>
+                    <button type="submit" class="save-button">
+                        <i class="fas fa-save"></i>
+                        <span>Save Changes</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -157,12 +168,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = (e) => {
                     preview.src = e.target.result;
+                    preview.classList.add('loaded');
                 };
                 reader.readAsDataURL(file);
             }
         }
+
+        // Add animation on form focus
+        document.querySelectorAll('.input-wrapper input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('focused');
+            });
+        });
     </script>
   <script src="/views/assets/js/Language_options/profile-edit-o.js"></script>
 </body>

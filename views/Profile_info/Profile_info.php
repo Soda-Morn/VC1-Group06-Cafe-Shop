@@ -4,174 +4,247 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-// Check if the user is logged in
+// Check if the admin is logged in
 if (!isset($_SESSION['admin_ID'])) {
-  // Redirect to the login page if not logged in
   header('Location: /login.php');
   exit();
 }
 
-// User data from session
-$userName = $_SESSION['name'] ?? 'User';
-$userEmail = $_SESSION['email'] ?? 'user@example.com';
+// Admin data from session
+$userName = $_SESSION['name'] ?? 'Admin';
+$userEmail = $_SESSION['email'] ?? 'admin@example.com';
 $profilePicture = $_SESSION['profile_picture'] ?? '';
 ?>
 
-<div class="profile-container">
-    <!-- Profile Picture -->
-    <div class="avatar-container">
-        <?php if (!empty($profilePicture)): ?>
-            <img src="/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="avatar">
-        <?php else: ?>
-            <div class="avatar-placeholder">
-                <?php echo strtoupper(substr($userName, 0, 1)); ?>
-            </div>
-        <?php endif; ?>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo htmlspecialchars($userName); ?>'s Profile</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-    <!-- Profile Information -->
-    <div class="profile-info">
-        <div class="profile-item">
-            <strong>Name:</strong> <?php echo htmlspecialchars($userName); ?>
-        </div>
-        <div class="profile-item">
-            <strong>Email:</strong> <?php echo htmlspecialchars($userEmail); ?>
-        </div>
-    </div>
+    .container-1 {
+      max-width: 900px;
+      width: 95%;
+      margin: 80px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
 
-    <!-- Edit Profile Button -->
-    <a href="/Profile_info/profile_edit" class="edit-button">Edit Profile</a>
-</div>
+    @keyframes slideIn {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
 
-<style>
-/* General profile page container */
-.profile-container {
-    margin: 120px auto;
-    padding: 50px 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 900px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-/* Avatar styles */
-.avatar-container {
-    margin-bottom: 40px;
-}
-
-.avatar {
-    border-radius: 50%;
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    border: 4px solid #ffffff;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* Placeholder for no profile picture */
-.avatar-placeholder {
-    background-color: #ff5722;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 60px;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    font-weight: bold;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* Profile info styles */
-.profile-info {
-    margin-top: 20px;
-    text-align: left;
-    width: 100%;
-}
-
-.profile-item {
-    font-size: 18px;
-    color: black; /* Changed text color to black */
-    margin-bottom: 10px;
-}
-
-.profile-item strong {
-    color: #ff5722;
-    margin-right: 10px;
-}
-
-/* Edit button styles */
-.edit-button {
-    margin-top: 30px;
-    padding: 14px 32px;
-    background-color: #ff5722;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    display: inline-block;
-}
-
-.edit-button:active {
-    background-color: #d84315;
-    transform: translateY(1px);
-}
-
-/* Adding responsiveness */
-@media (max-width: 768px) {
-    .profile-container {
-        padding: 40px 20px;
+    .back-button {
+      /* position: absolute; */
+      top: 20px;
+      left: 20px;
+      color: #a04d13;
+      padding: 10px 15px;
+      border-radius: 50%;
+    }
+    .back-button:hover {
+      background: #a04d13;
+      color: #ffff;
+    }
+    .profile-header {
+      text-align: center;
+      position: relative;
     }
 
     .avatar {
-        width: 140px;
-        height: 140px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      
+      transition: all 0.4s ease;
+    }
+    .avatar-placeholder {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6b6b, #ffa07a);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 80px;
+      font-weight: bold;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      animation: pulse 2s infinite;
     }
 
-    .profile-item {
-        font-size: 16px;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    h2 {
+      margin-top: 20px;
+      font-size: 32px;
+      color: #2a5298;
+      letter-spacing: 2px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .profile-info {
-        text-align: left;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      font-size: 18px;
+      transition: all 0.3s ease;
     }
 
-    .edit-button {
+    .profile-info div {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-info i {
+      color: #ff6b6b;
+      font-size: 20px;
+    }
+
+    .profile-info strong {
+      color: #2a5298;
+      font-weight: 600;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      margin-top: 40px;
+      padding: 0 20px; 
+    }
+
+    .btn-edit {
+      background: linear-gradient(45deg, #a04d13, #a04d13);
+      padding: 12px 25px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      border-radius: 50px;
+      font-size: 16px;
+      transition: all 0.4s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Green tones for Edit */
+    }
+
+    .btn-logout {
+      background: linear-gradient(45deg,rgb(240, 51, 38),rgb(223, 33, 30));
+      padding: 12px 25px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      border-radius: 50px;
+      font-size: 16px;
+      transition: all 0.4s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Red tones for Logout */
+    }
+    .decorative-bg {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 107, 107, 0.3), transparent);
+      z-index: -1;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, 20px); }
+    }
+
+    /* Remove any potential blue background from profile header */
+    .profile-header::before {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .container-1 {
+        margin: 40px 10px;
+        padding: 25px;
+      }
+
+      .avatar, .avatar-placeholder {
+        width: 140px;
+        height: 140px;
+      }
+
+      h2 {
+        font-size: 26px;
+      }
+
+      .profile-info {
         font-size: 16px;
-        padding: 12px 25px;
-    }
-}
+        padding: 15px;
+      }
 
-@media (max-width: 480px) {
-    .profile-container {
-        padding: 30px 15px;
+      .btn-group {
+        padding: 0 10px;
+      }
     }
+  </style>
+</head>
+<body>
+  <div class="container-1">
+    <a href="/dashboard" class="back-button" title="Back to Dashboard"><i class="fas fa-arrow-left"></i></a>
+    <div class="decorative-bg"></div>
 
-    .avatar {
-        width: 120px;
-        height: 120px;
-    }
+    <div class="profile-header">
+      <?php if (!empty($profilePicture)): ?>
+        <img src="/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="avatar">
+      <?php else: ?>
+        <div class="avatar-placeholder">
+          <?php echo strtoupper(substr($userName, 0, 1)); ?>
+        </div>
+      <?php endif; ?>
+      <h2><?php echo htmlspecialchars($userName); ?></h2>
+    </div>
 
-    .profile-item {
-        font-size: 14px;
-    }
+    <div class="profile-info">
+      <div><i class="fas fa-envelope"></i><strong>Email:</strong> <?php echo htmlspecialchars($userEmail); ?></div>
+      <div><i class="fas fa-user-shield"></i><strong>Role:</strong> Administrator</div>
+      <div><i class="fas fa-clock"></i><strong>Last Login:</strong> <?php echo date('F j, Y'); ?></div>
+    </div>
 
-    .edit-button {
-        font-size: 14px;
-        padding: 10px 20px;
-    }
-}
-</style>
-<script src="views/assets/js/Language_options/profile-info-o.js"></script>
+    <div class="btn-group">
+      <a href="/Profile_info/profile_edit" class="btn-edit"><i class="fas fa-user-edit"></i> Edit Profile</a>
+      <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </div>
+</body>
+</html>
