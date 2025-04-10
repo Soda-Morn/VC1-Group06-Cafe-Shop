@@ -120,6 +120,7 @@
             align-items: center;
             cursor: pointer;
             height: 140px;
+            width: 540px;
             margin-top: 10px;
             transition: background-color 0.2s, border-color 0.2s;
         }
@@ -306,7 +307,7 @@
 
             <!-- Store Unit Section -->
             <div class="form-group">
-                <label class="form-label" for="store_unit">Store Unit</label>
+                <label class="form-label" for="store_unit">Unit store</label>
                 <select name="store_unit" id="store_unit" class="form-select" required>
                     <option value="" disabled selected>Select a unit</option>
                     <?php foreach ($units as $unit): ?>

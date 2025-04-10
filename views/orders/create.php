@@ -119,6 +119,7 @@
             align-items: center;
             cursor: pointer;
             height: 152px;
+            width: 600px;
             transition: background-color 0.2s, border-color 0.2s;
         }
 
