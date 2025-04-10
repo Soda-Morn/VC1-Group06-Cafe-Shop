@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order List</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <style>
+    <style>  
+    
         .container {
             max-width: 1400px;
             margin: 50px auto;
@@ -88,7 +81,7 @@
             font-weight: 600;
         }
 
-        .rounded-circle {
+        .circle {
             width: 50px;
             height: 50px;
             object-fit: cover;
@@ -96,10 +89,6 @@
             border-radius: 50%;
             margin-right: 15px;
             transition: all 0.3s ease;
-        }
-
-        .rounded-circle:hover {
-            transform: scale(1.15);
         }
 
         h2.text-start {
@@ -396,9 +385,6 @@
             }
         }
     </style>
-</head>
-
-<body>
     <div class="container">
         <div class="table mt-1">
             <?php if (isset($_GET['error'])): ?>
@@ -462,7 +448,7 @@
                                                     ? htmlspecialchars($order['image'])
                                                     : 'views/assets/img/product_detail/coffee.png';
                                                 ?>
-                                                <img src="<?= $imagePath ?>" class="rounded-circle" alt="Product Image">
+                                                <img src="<?= $imagePath ?>" class="circle" alt="Product Image">
                                                 <span class="ms-2"><?= htmlspecialchars($order['item']) ?></span>
                                             </td>
                                             <td>$<?= htmlspecialchars($order['original_price']) ?></td>
@@ -753,6 +739,3 @@
         });
     </script>
 <script src="views/assets/js/Language_options/order-list-o.js"></script>
-</body>
-
-</html>
