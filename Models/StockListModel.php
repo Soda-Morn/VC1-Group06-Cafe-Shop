@@ -15,11 +15,14 @@ class StockListModel {
             sl.status,
             sl.date,
             p.product_name,
-            p.product_image
+            p.product_image,
+            u.unit_name
         FROM 
             stock_lists sl
         LEFT JOIN 
-            purchase_items p ON sl.purchase_item_id = p.purchase_item_id";
+            purchase_items p ON sl.purchase_item_id = p.purchase_item_id
+        LEFT JOIN 
+            unit u ON p.store_unit = u.unit_id";
         
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -32,11 +35,14 @@ class StockListModel {
             sl.status,
             sl.date,
             p.product_name,
-            p.product_image
+            p.product_image,
+            u.unit_name
         FROM 
             stock_lists sl
         LEFT JOIN 
             purchase_items p ON sl.purchase_item_id = p.purchase_item_id
+        LEFT JOIN 
+            unit u ON p.store_unit = u.unit_id
         WHERE sl.stock_list_id = :stock_list_id";
         
         $stmt = $this->pdo->query($sql, [':stock_list_id' => $stock_list_id]);

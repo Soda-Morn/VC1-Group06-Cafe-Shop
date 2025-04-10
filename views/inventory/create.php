@@ -304,6 +304,19 @@
                 </div>
             </div>
 
+            <!-- Store Unit Section -->
+            <div class="form-group">
+                <label class="form-label" for="store_unit">Store Unit</label>
+                <select name="store_unit" id="store_unit" class="form-select" required>
+                    <option value="" disabled selected>Select a unit</option>
+                    <?php foreach ($units as $unit): ?>
+                        <option value="<?= htmlspecialchars($unit['unit_id']) ?>">
+                            <?= htmlspecialchars($unit['unit_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <!-- Category Section -->
             <div class="form-group">
                 <label class="form-label" for="category">Category</label>
@@ -384,6 +397,7 @@
             const nameInput = document.getElementById('name');
             const priceInput = document.getElementById('price');
             const categorySelect = document.getElementById('category');
+            const storeUnitSelect = document.getElementById('store_unit');
 
             let isValid = true;
 
@@ -407,6 +421,11 @@
                 isValid = false;
             }
 
+            if (storeUnitSelect.value === '') {
+                alert('Please select a store unit');
+                isValid = false;
+            }
+
             if (isValid) {
                 // Show loading state
                 submitButton.classList.add('loading');
@@ -419,6 +438,5 @@
     </script>
     <!-- Add this script after your existing <script> tag -->
     <script src="/views/assets/js/Language_options/restock-create-o.js"></script>
-
 </body>
 </html>

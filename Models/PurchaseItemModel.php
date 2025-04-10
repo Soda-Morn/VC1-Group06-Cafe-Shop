@@ -10,14 +10,16 @@ class PurchaseItemModel
         $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
     }
 
-    // Fetch all purchase items with their stock quantity
+    // Fetch all purchase items with their stock quantity and unit name
     function getPurchases()
     {
         $sql = "SELECT pi.purchase_item_id, pi.product_name, pi.price, pi.product_image, 
-                       COALESCE(SUM(sl.quantity), 0) as stock_quantity
+                       COALESCE(SUM(sl.quantity), 0) as stock_quantity,
+                       u.unit_name
                 FROM purchase_items pi
                 LEFT JOIN stock_lists sl ON pi.purchase_item_id = sl.purchase_item_id
-                GROUP BY pi.purchase_item_id, pi.product_name, pi.price, pi.product_image";
+                LEFT JOIN unit u ON pi.store_unit = u.unit_id
+                GROUP BY pi.purchase_item_id, pi.product_name, pi.price, pi.product_image, u.unit_name";
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -30,20 +32,29 @@ class PurchaseItemModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Fetch all units
+    function getUnits()
+    {
+        $sql = "SELECT unit_id, unit_name FROM unit";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Create a new purchase item
     function createPurchase($data)
     {
-        $sql = "INSERT INTO purchase_items (product_name, product_image, price) 
-                VALUES (:product_name, :product_image, :price)";
+        $sql = "INSERT INTO purchase_items (product_name, product_image, price, store_unit) 
+                VALUES (:product_name, :product_image, :price, :store_unit)";
         try {
             $this->pdo->query($sql, [
                 'product_name' => $data['product_name'],
                 'product_image' => $data['product_image'] ?? null,
-                'price' => $data['price']
+                'price' => $data['price'],
+                'store_unit' => $data['store_unit']
             ]);
         } catch (PDOException $e) {
             error_log("Failed to insert purchase item: " . $e->getMessage());
-            throw $e; // Re-throw the exception for debugging
+            throw $e;
         }
     }
 
@@ -98,4 +109,3 @@ class PurchaseItemModel
         $this->pdo->query($sql, ['purchase_item_id' => $purchase_item_id]);
     }
 }
-?>

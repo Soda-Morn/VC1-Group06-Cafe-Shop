@@ -39,7 +39,10 @@
                                         </td>
                                         <td class="text-center"><?= htmlspecialchars($row['product_name']); ?></td>
                                         <td class="text-center"><?= date('F j, Y', strtotime($row['date'])); ?></td>
-                                        <td class="text-center"><?= htmlspecialchars($row['quantity']); ?></td>
+                                        <td class="text-center">
+                                            <?= htmlspecialchars($row['quantity']); ?> 
+                                            <?= htmlspecialchars($row['unit_name'] ?? ''); ?>
+                                        </td>
                                         <td class="text-center">
                                             <span class="px-4 py-1 fw-semibold rounded-5 d-inline-block 
                                             <?php
@@ -58,7 +61,6 @@
                                                     <a class="custom-dropdown-item" href="/stocklist/viewDetails/<?= htmlspecialchars($row['stock_list_id']) ?>">
                                                         <i class="fa-solid fa-eye-slash"></i> View Details
                                                     </a>
-                                                    
                                                     <a class="custom-dropdown-item" href="/stocklist/edit/<?= htmlspecialchars($row['stock_list_id']) ?>">
                                                         <i class="fas fa-edit me-2"></i> Edit
                                                     </a>
@@ -150,5 +152,6 @@
         display: none !important;
     }
 </style>
+
 <!-- Updated script -->
 <script src="views/assets/js/Language_options/stocklist-o.js"></script>
