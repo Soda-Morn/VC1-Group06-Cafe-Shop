@@ -182,5 +182,6 @@
             });
         <?php endif; ?>
     </script>
+    <script src="/views/assets/js/Language_options/edit-stocklist-o.js"></script>
 </body>
 </html>
