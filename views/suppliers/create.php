@@ -1,4 +1,4 @@
-</head>
+
 <body class="bg-light">
 
 <div class="container d-flex justify-content-center align-items-center ">
