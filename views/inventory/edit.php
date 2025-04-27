@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <style>
         /* Reset and Base Styles */
         * {
@@ -210,8 +203,6 @@
             }
         }
     </style>
-</head>
-<body>
     <div class="form-container">
         <!-- Form Header -->
         <div class="form-header">
@@ -331,6 +322,3 @@
 
     <!-- Add this script after your existing <script> tag -->
     <script src="/views/assets/js/Language_options/restock-edit-o.js"></script>
-
-</body>
-</html>

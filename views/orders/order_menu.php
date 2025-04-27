@@ -314,6 +314,3 @@
     </form>
 </div>
 <script src="views/assets/js/Language_options/order-menu-o.js"></script>
-</body>
-
-</html>

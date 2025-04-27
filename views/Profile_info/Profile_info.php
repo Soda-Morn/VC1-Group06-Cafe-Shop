@@ -16,13 +16,7 @@ $userEmail = $_SESSION['email'] ?? 'admin@example.com';
 $profilePicture = $_SESSION['profile_picture'] ?? '';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo htmlspecialchars($userName); ?>'s Profile</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
   <style>
     body {
       background-color: #f5f5f5;
@@ -218,8 +212,7 @@ $profilePicture = $_SESSION['profile_picture'] ?? '';
       }
     }
   </style>
-</head>
-<body>
+
   <div class="container-1">
     <a href="/dashboard" class="back-button" title="Back to Dashboard"><i class="fas fa-arrow-left"></i></a>
     <div class="decorative-bg"></div>
@@ -247,5 +240,4 @@ $profilePicture = $_SESSION['profile_picture'] ?? '';
     </div>
   </div>
   <script src="/views/assets/js/Language_options/profile-info-o.js"></script>
-</body>
-</html>
+

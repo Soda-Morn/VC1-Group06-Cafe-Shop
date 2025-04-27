@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview Order</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -363,9 +353,6 @@
             }
         }
     </style>
-</head>
-
-<body>
     <div class="container d-flex justify-content-center">
         <div class="preview-container w-100">
             <a href="/restock_checkout" class="btn-back">
@@ -498,6 +485,3 @@
         });
     </script>
     <script src="/views/assets/js/Language_options/preview-order-o.js"></script>
- 
-</body>
-</html>

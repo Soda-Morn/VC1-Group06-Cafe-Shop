@@ -1,5 +1,4 @@
-</head>
-<body class="bg-light">
+
 
 <div class="container d-flex justify-content-center align-items-center ">
     <div class="card shadow-lg p-4 rounded-4" style="width: 80%; max-width: 800px; background: #f8f9fa;">
