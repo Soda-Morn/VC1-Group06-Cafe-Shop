@@ -72,6 +72,13 @@
             font-size: 0.9rem;
         }
 
+        /* Added style for unit display */
+        .unit {
+            color: #6c757d;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
         .btn-add-to-cart {
             padding: 6px 8px;
             font-size: 0.9rem;
@@ -321,9 +328,12 @@
                                     <h6 class="price">
                                         $<span><?= htmlspecialchars($item['price']) ?></span>
                                     </h6>
-                                    <span class="stock">
-                                        Qty: <?= htmlspecialchars($item['stock_quantity']) ?>
-                                    </span>
+                                    <div class="text-end">
+                                        <span class="stock">
+                                            Qty: <?= htmlspecialchars($item['stock_quantity']) ?> <?= htmlspecialchars($item['unit_name'] ?? '') ?>
+                                        </span>
+                                        <!-- Removed the separate unit display -->
+                                    </div>
                                 </div>
                                 <form action="/purchase_item_add/addToCart" method="POST" class="d-inline">
                                     <input type="hidden" name="purchase_item_id" value="<?= htmlspecialchars($item['purchase_item_id']) ?>">

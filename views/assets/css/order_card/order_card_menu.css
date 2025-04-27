@@ -1,0 +1,179 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.cart-container {
+    width: 78%;
+    margin: 15px auto;
+    background: white;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.cart-header {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.cart-header h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.cart-header h2 i {
+    margin-right: 6px;
+}
+
+.cart-header p {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cart-item {
+    padding: 1px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: bold;
+    color: #333;
+    border-top: none;
+    text-align: center;
+    padding: 1px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+    color: #666;
+    padding: 1px;
+    font-size: 0.9rem;
+}
+
+.quantity-controls button {
+    border: none;
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+    transition: background 0.3s;
+    padding: 0;
+    line-height: 1;
+}
+
+.quantity-controls button:hover {
+    background: #0056b3;
+}
+
+.quantity-input {
+    width: 26px;
+    text-align: center;
+    font-size: 0.9rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    margin: 0 2px;
+}
+
+.btn-remove {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.cart-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 15px;
+}
+
+.total-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-checkout {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-checkout:hover {
+    background: #0056b3;
+}
+
+.btn-checkout i {
+    margin-right: 4px;
+    font-size: 0.8rem;
+}
+
+.btn-back {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 4px;
+    color: black;
+}
+
+.btn-back i {
+    margin-right: 4px;
+    font-size: 20px;
+}
+
+.btn-pdf {
+    background: #f0ad4e;
+    color: white;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-pdf:hover {
+    background: #ec971f;
+}
+
+.btn-pdf i {
+    margin-right: 4px;
+    font-size: 0.8rem;
+}

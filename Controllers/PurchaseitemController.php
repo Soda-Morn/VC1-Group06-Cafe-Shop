@@ -75,7 +75,8 @@ class PurchaseItemController extends BaseController
     function create()
     {
         $categories = $this->model->getCategories();
-        $this->view('/inventory/create', ['categories' => $categories]);
+        $units = $this->model->getUnits(); // Fetch units from the model
+        $this->view('/inventory/create', ['categories' => $categories, 'units' => $units]); // Pass units to the view
     }
 
     /**
@@ -86,6 +87,7 @@ class PurchaseItemController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $product_name = $_POST['name'] ?? '';
             $price = $_POST['price'] ?? '';
+            $store_unit = $_POST['store_unit'] ?? 1; // Default to unit_id 1 (e.g., "packet")
 
             // Handling Image Upload
             $image_url = null;
@@ -110,6 +112,7 @@ class PurchaseItemController extends BaseController
                 'product_name' => $product_name,
                 'price' => $price,
                 'product_image' => $image_url,
+                'store_unit' => $store_unit,
             ];
 
             $this->model->createPurchase($data);

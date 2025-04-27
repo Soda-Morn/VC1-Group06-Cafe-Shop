@@ -8,7 +8,7 @@
             <div class="row align-items-center">
               <div class="col-icon">
                 <div class="icon-big text-center icon-primary bubble-shadow-small">
-                  <i class="fa-solid fa-money-bill"></i>
+                <i class="fa-solid fa-hand-holding-dollar"></i>
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
@@ -27,8 +27,9 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div class="icon-big text-center icon-info bubble-shadow-small">
-                  <i class="fa-solid fa-money-bill-trend-up"></i>
+              <div class="icon-big text-center icon-primary bubble-shadow-small">
+                <i class="fa-solid fa-sack-dollar"></i>
+
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
@@ -47,8 +48,9 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div class="icon-big text-center icon-primary bubble-shadow-small">
-                  <i class="fa-solid fa-boxes-stacked"></i>
+              <div class="icon-big text-center icon-primary bubble-shadow-small">
+                <i class="fa-solid fa-cart-shopping"></i>
+
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
@@ -67,8 +69,10 @@
           <div class="card-body">
             <div class="row align-items-center">
               <div class="col-icon">
-                <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                  <i class="fa-solid fa-sack-dollar"></i>
+              <div class="icon-big text-center icon-primary bubble-shadow-small">
+               <i class="fa-solid fa-coins"></i>
+
+
                 </div>
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
@@ -100,18 +104,7 @@
                 </div>
               </div>
               <div class="card-tools">
-                <a href="#" class="btn btn-label-success btn-round btn-sm me-2">
-                  <span class="btn-label">
-                    <i class="fa fa-pencil"></i>
-                  </span>
-                  Export
-                </a>
-                <a href="#" class="btn btn-label-info btn-round btn-sm">
-                  <span class="btn-label">
-                    <i class="fa fa-print"></i>
-                  </span>
-                  Print
-                </a>
+            
               </div>
             </div>
           </div>
