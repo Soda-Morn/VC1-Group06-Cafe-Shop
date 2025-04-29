@@ -151,7 +151,50 @@
     table.dataTable thead .sorting_desc::after {
         display: none !important;
     }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: hidden; 
+        display: block;
+        margin-left: -0.6rem; 
+    }
+    
+    .table-responsive #stockTable {
+        width: 100%; 
+        table-layout: auto; 
+    }
+    
+    .table-responsive #stockTable th,
+    .table-responsive #stockTable td {
+        padding: 0.2rem !important; 
+        font-size: 0.75rem !important; 
+    }
+    
+    .table-responsive #stockTable img {
+        width: 2rem !important; 
+        height: 2rem !important; 
+    }
+    
+    .table-responsive #stockTable .rounded-5 {
+        padding: 0.5rem !important; 
+        font-size: 0.75rem !important; 
+    }
+    
+    .table-responsive #stockTable .product-ellipsis-btn {
+        padding: 0.4rem 0.2rem !important; 
+        font-size: 0.75rem !important; 
+    }
+    
+    .table-responsive #stockTable .custom-dropdown-menu {
+        font-size: 0.75rem !important; 
+        min-width: 8rem !important;
+    }
+    
+    .fa-ellipsis-v {
+        font-size: 0.75rem !important; 
+    }
+}
 </style>
-
 <!-- Updated script -->
 <script src="views/assets/js/Language_options/stocklist-o.js"></script>
