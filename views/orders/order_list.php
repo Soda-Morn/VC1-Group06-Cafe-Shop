@@ -1,4 +1,4 @@
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="../views/assets/css/order_menu/order_report.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -17,14 +17,6 @@
                 <div class="header-container">
                     <h2 class="mt-0 text-start">Order List</h2>
                     <div class="filter-dropdown">
-                        <select id="timeFilter" class="filter-button">
-                            <option value="all" selected>All</option>
-                            <option value="today">Today</option>
-                            <option value="yesterday">Yesterday</option>
-                            <option value="last-week">Last Week</option>
-                            <option value="last-month">Last Month</option>
-                            <option value="last-year">Last Year</option>
-                        </select>
                         <div class="date-picker-container">
                             <button id="datePickerButton" class="date-picker-button">
                                 Select Date
@@ -35,6 +27,14 @@
                                 <div id="selectDateRange" class="dropdown-item">Select Date Range</div>
                             </div>
                         </div>
+                        <select id="timeFilter" class="filter-button">
+                            <option value="all" selected>All</option>
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="last-week">Last Week</option>
+                            <option value="last-month">Last Month</option>
+                            <option value="last-year">Last Year</option>
+                        </select>
                     </div>
                 </div>
                 <div class="table-responsive">
