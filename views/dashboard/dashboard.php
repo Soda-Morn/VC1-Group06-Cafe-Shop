@@ -509,4 +509,31 @@
   });
 </script>
 
+<style>
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    
+    .table-responsive table.table th,
+    .table-responsive table.table td {
+        padding: 10px !important; 
+        font-size: 0.7rem ;
+        text-align: center;/* Tighter padding */
+    }
+    .table-responsive table.table img {
+        width: 100% !important; /* Smaller image */
+        height: 100% !important;
+    }
+}
+
+/* Prevent scrolling in card body */
+.card-body.p-0 {
+    overflow: hidden !important; /* No scrolling */
+}
+
+/* Ensure card and parent containers don't add scroll */
+.card, .col-md-12, .row {
+    overflow: hidden !important;
+}
+</style>
+
 <script src="views/assets/js/Language_options/dashboard-o.js"></script>

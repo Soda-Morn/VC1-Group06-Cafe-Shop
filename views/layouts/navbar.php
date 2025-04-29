@@ -112,9 +112,9 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     <div class="main-header-logo">
       <!-- Logo Header -->
       <div class="logo-header" data-background-color="dark">
-        <a href="index.html" class="logo">
+        <a href="index.html" class="logo logo-sidbar">
           <img
-            src="views/assets/img/kaiadmin/logo_light.svg"
+            src="../../views/assets/images/logo.png"
             alt="navbar brand"
             class="navbar-brand"
             height="20" />
@@ -426,6 +426,28 @@ $profilePicture = $isLoggedIn ? ($_SESSION['profile_picture'] ?? '') : '';
     .logo-header {
       margin-top: 30px;
       margin-bottom: 15px;
+    }
+    @media (max-width: 768px) {
+      .logo-header {
+        margin-top: 0px;
+        margin-bottom: 0;
+        
+      }
+      .navbar-brand{
+        height: 70px ;
+        width: 70px;
+      }
+    }
+    @media (max-width: 1194px) {
+      .logo-header {
+        margin-top: 0px;
+        margin-bottom: 0;
+        
+      }
+      .navbar-brand{
+        height: 70px ;
+        width: 70px;
+      }
     }
   </style>
   <script src="views/assets/js/Language_options/navbar-o.js"></script>
