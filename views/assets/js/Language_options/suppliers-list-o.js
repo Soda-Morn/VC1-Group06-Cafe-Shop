@@ -79,14 +79,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
-// For testing: Add manual trigger buttons
-window.addEventListener('load', () => {
-  const testButtons = `
-    <div style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
-      <button style="margin-right: 5px;" onclick="setLanguage('en')">English</button>
-      <button onclick="setLanguage('km')">Khmer</button>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', testButtons);
-});

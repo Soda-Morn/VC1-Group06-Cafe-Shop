@@ -128,14 +128,3 @@ function changePage(direction) {
   console.log(`Change page: ${direction}`);
   // Add your pagination logic here if needed
 }
-
-// Test buttons (for debugging)
-window.addEventListener('load', () => {
-  const testButtons = `
-    <div style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
-      <button onclick="window.setLanguage('en')" style="margin-right: 5px;">English</button>
-      <button onclick="window.setLanguage('km')">Khmer</button>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', testButtons);
-});

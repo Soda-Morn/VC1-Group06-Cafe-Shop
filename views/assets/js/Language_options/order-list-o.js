@@ -106,14 +106,7 @@ function updateOrderListLanguage(language) {
 
 // Function to create language selector
 function setupLanguageSelector() {
-  const selectorHTML = `
-    <div style="position: fixed; top: 10px; right: 160px; z-index: 1000;">
-      <select id="languageSelect" class="filter-button">
-        <option value="en">English</option>
-        <option value="km">Khmer</option>
-      </select>
-    </div>
-  `;
+  
   document.body.insertAdjacentHTML('afterbegin', selectorHTML);
 
   const languageSelect = document.getElementById('languageSelect');
@@ -144,14 +137,3 @@ window.setLanguage = function(language) {
 
 // Run setup immediately
 setupLanguageSelector();
-
-// For testing: Add manual buttons (optional)
-window.addEventListener('load', () => {
-  const testButtons = `
-    <div style="position: fixed; top: 10px; right: 10px;">
-      <button onclick="setLanguage('en')">English</button>
-      <button onclick="setLanguage('km')">Khmer</button>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', testButtons);
-});
