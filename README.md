@@ -1,7 +1,11 @@
-# Our application named " Cafe Shop Management System"
-# Language that we use to build this project such as : 
-# - PHP
-# - JavaScript (AJAX)
-# - Database ( MySQL)
-# - HTML (Bootstrap)
-# - CSS
+# Cafe Shop Management System
+
+This is a web-based application designed to manage cafe operations efficiently.
+
+## Technologies Used
+
+- **PHP** 
+- **JavaScript (with AJAX)** 
+- **MySQL** – Relational database for storing data  
+- **HTML & CSS** – For structure and styling of the web pages  
+- **Bootstrap** – For responsive and modern UI design
