@@ -9,12 +9,12 @@ class Database
      * @param string $host The hostname of the database server.
      * @param string $dbname The name of the database.
      * @param string $username The username for the database connection.
-     * @param string $password The passw    ord for the database connection.
+     * @param string $password The password for the database connection.
      */
     public function __construct($host, $dbname, $username, $password)
     {
-        // Fixed DSN to use $dbname parameter
-        $dsn = "mysql:host=$host;dbname=cafe_shop_db;charset=UTF8";
+        // Use the $dbname parameter dynamically
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
 
         try {
             $this->db = new PDO($dsn, $username, $password);
@@ -38,5 +38,29 @@ class Database
         $stmt->execute($params);
         return $stmt;
     }
+}
+
+// ------------------------
+// Connect to Railway DB
+// ------------------------
+$host = "maglev.proxy.rlwy.net";
+$dbname = "railway"; // Your Railway database name
+$username = "root";
+$password = "llwRSjTkpowntofUGcLqEzHQOgOvCLCW";
+
+// Create a new Database instance
+$database = new Database($host, $dbname, $username, $password);
+
+// Test the connection
+try {
+    $stmt = $database->query("SHOW TABLES");
+    $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    echo "✅ Connected successfully! Tables in database:<br>";
+    foreach ($tables as $table) {
+        echo $table . "<br>";
+    }
+} catch (PDOException $e) {
+    echo "Query failed: " . $e->getMessage();
 }
 ?>
