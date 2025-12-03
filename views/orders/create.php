@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <!-- Category Section -->
+        <!-- Category Section -->s
         <div class="form-category">
             <label class="form-label" for="description">Description</label>
             <textarea name="description" id="description" class="form-control" rows="4"
