@@ -5,7 +5,7 @@ class CardModel {
     private $db;
 
     public function __construct() {
-        $this->db = new Database("localhost", "cafe_shop_db", "root", "");
+        $this->db = new Database();
     }
     
     public function getProductById($productId) {

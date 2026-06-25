@@ -1,20 +1,17 @@
 <?php
+require_once __DIR__ . '/config.php';
+
 class Database
 {
     private $db;
 
-    /**
-     * Constructor to initialize the database connection.
-     *
-     * @param string $host The hostname of the database server.
-     * @param string $dbname The name of the database.
-     * @param string $username The username for the database connection.
-     * @param string $password The passw    ord for the database connection.
-     */
-    public function __construct($host, $dbname, $username, $password)
-    {
-        // Fixed DSN to use $dbname parameter
-        $dsn = "mysql:host=$host;dbname=cafe_shop_db;charset=UTF8";
+    public function __construct(
+        $host     = DB_HOST,
+        $dbname   = DB_NAME,
+        $username = DB_USER,
+        $password = DB_PASS
+    ) {
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
 
         try {
             $this->db = new PDO($dsn, $username, $password);

@@ -7,7 +7,7 @@ class OrdermenuModel
 
     public function __construct()
     {
-        $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
+        $this->pdo = new Database();
     }
 
     function getProducts()

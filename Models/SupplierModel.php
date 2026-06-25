@@ -4,7 +4,7 @@ class SupplierModel {
 
     public function __construct() {
         // Initialize the Database connection
-        $this->db = new Database("localhost", "cafe_shop_db", "root", "");
+        $this->db = new Database();
     }
 
     /**

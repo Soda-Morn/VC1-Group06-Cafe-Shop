@@ -7,7 +7,7 @@ class PaymentModel
 
     public function __construct()
     {
-        $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
+        $this->pdo = new Database();
     }
 
     // Method to get the QR code image path from the qr_codes table

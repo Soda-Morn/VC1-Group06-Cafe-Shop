@@ -7,7 +7,7 @@ class PaymentUploadModel
 
     public function __construct()
     {
-        $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
+        $this->pdo = new Database();
     }
 
     // Method to store or update the QR code image path in the qr_codes table

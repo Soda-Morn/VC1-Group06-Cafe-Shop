@@ -7,7 +7,7 @@ class PurchaseItemModel
 
     public function __construct()
     {
-        $this->pdo = new Database("localhost", "cafe_shop_db", "root", "");
+        $this->pdo = new Database();
     }
 
     // Fetch all purchase items with their stock quantity and unit name
